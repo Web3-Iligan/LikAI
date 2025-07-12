@@ -2,14 +2,12 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { Toaster } from "@/components/ui/toaster"
-import { LayoutWrapper } from "@/components/layout-wrapper"
+import { DashboardLayout } from "@/components/dashboard-layout"
 
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "AquaSecure AI",
+  title: "AquaSecure AI Dashboard",
   description: "Dynamic Biosecurity Coaching for Aquaculture Excellence",
     generator: 'v0.dev'
 }
@@ -22,10 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <LayoutWrapper>{children}</LayoutWrapper>
-          <Toaster />
-        </ThemeProvider>
+        <DashboardLayout>{children}</DashboardLayout>
       </body>
     </html>
   )

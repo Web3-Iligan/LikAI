@@ -2,8 +2,7 @@
 
 import type React from "react"
 import Link from "next/link"
-// Remove usePathname import
-// 1. Remove `import { usePathname } from "next/navigation"`
+import { usePathname } from "next/navigation"
 
 import { useState } from "react"
 import { cn } from "@/lib/utils"
@@ -31,7 +30,6 @@ import {
 } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { usePathname } from "next/navigation"
 
 interface NavigationItem {
   title: string
