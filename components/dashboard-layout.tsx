@@ -1,35 +1,32 @@
 "use client"
 
-import type React from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import React from "react"
 
-import { useState } from "react"
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Sheet, SheetContent } from "@/components/ui/sheet"
+import Link from "next/link"
 import {
-  Fish,
-  LayoutDashboard,
-  Target,
-  MessageCircle,
-  Activity,
-  DollarSign,
-  TrendingUp,
-  Settings,
-  Bell,
-  Menu,
+  ListChecks,
   Shield,
-  BookOpen,
+  Zap,
+  DollarSign,
   BarChart3,
   CalendarDays,
-  FileText,
-  HelpCircle,
+  BookOpen,
+  Settings,
+  LifeBuoy,
+  Fish,
+  Menu,
   ClipboardList,
+  FileText,
+  Bell,
+  LayoutDashboard,
+  TrendingUp,
 } from "lucide-react"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent } from "@/components/ui/sheet"
+import { cn } from "@/lib/utils" // Import cn for conditional class names
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar" // Import Avatar components
+import { Badge } from "@/components/ui/badge" // Import Badge component
+import { ScrollArea } from "@/components/ui/scroll-area" // Import ScrollArea
 
 interface NavigationItem {
   title: string
@@ -40,38 +37,39 @@ interface NavigationItem {
 }
 
 interface DashboardLayoutProps {
-  children: React.ReactNode
+  children: any
+  pathname: string // Receive pathname as a prop
 }
 
 const navigationItems: NavigationItem[] = [
   {
     title: "Dashboard",
-    href: "/",
+    href: "/dashboard",
     icon: LayoutDashboard,
   },
   {
-    title: "Farm Assessment", // New navigation item
+    title: "Farm Assessment",
     href: "/assessment",
-    icon: ClipboardList, // New icon
+    icon: ClipboardList,
   },
   {
     title: "Dynamic Plan",
     href: "/plan",
-    icon: Target,
+    icon: ListChecks,
     badge: "3",
     badgeVariant: "destructive",
   },
   {
     title: "AI Coach",
     href: "/coach",
-    icon: MessageCircle,
+    icon: Zap,
     badge: "New",
     badgeVariant: "default",
   },
   {
     title: "Risk Assessment",
     href: "/risk",
-    icon: Activity,
+    icon: Shield,
     badge: "High",
     badgeVariant: "destructive",
   },
@@ -93,7 +91,7 @@ const navigationItems: NavigationItem[] = [
   {
     title: "Calendar",
     href: "/calendar",
-    icon: CalendarDays, // Changed icon to CalendarDays
+    icon: CalendarDays,
   },
   {
     title: "Knowledge Base",
@@ -116,13 +114,12 @@ const bottomNavigationItems: NavigationItem[] = [
   {
     title: "Help & Support",
     href: "/help",
-    icon: HelpCircle,
+    icon: LifeBuoy,
   },
 ]
 
-export function DashboardLayout({ children }: DashboardLayoutProps) {
-  const pathname = usePathname()
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+export function DashboardLayout({ children, pathname }: DashboardLayoutProps) {
+  const [sidebarOpen, setSidebarOpen] = React.useState(false)
 
   const NavigationContent = () => (
     <div className="flex h-full flex-col">
@@ -219,6 +216,14 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             )
           })}
         </nav>
+        {/* Upgrade to Pro Card */}
+        <div className="mt-4 rounded-lg bg-gradient-to-r from-gray-50 to-gray-100 p-4 border border-gray-200">
+          <h3 className="text-base font-semibold text-gray-900">Upgrade to Pro</h3>
+          <p className="mt-1 text-sm text-gray-600">Unlock all features and get unlimited access to our AI coach.</p>
+          <Button size="sm" className="mt-4 w-full bg-gray-900 text-white hover:bg-gray-800">
+            Upgrade
+          </Button>
+        </div>
       </div>
     </div>
   )

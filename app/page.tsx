@@ -1,147 +1,69 @@
-"use client"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Fish } from "lucide-react"
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Progress } from "@/components/ui/progress"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
-import { Shield, AlertTriangle } from "lucide-react"
-import { DashboardOverview } from "@/components/dashboard-overview"
-
-interface FarmProfile {
-  name: string
-  type: string
-  species: string
-  size: string
-  location: string
-  currentCycle: number
-  riskLevel: "low" | "medium" | "high"
-  completedTasks: number
-  totalTasks: number
-}
-
-export default function AquaSecureAIDashboard() {
-  const [farmProfile] = useState<FarmProfile>({
-    name: "Sunrise Shrimp Farm",
-    type: "Intensive Shrimp Culture",
-    species: "Litopenaeus vannamei",
-    size: "5 hectares",
-    location: "Bataan, Philippines",
-    currentCycle: 3,
-    riskLevel: "medium",
-    completedTasks: 12,
-    totalTasks: 18,
-  })
-
-  const [recentAlerts] = useState([
-    {
-      id: 1,
-      type: "weather",
-      title: "Heavy Rain Alert",
-      message: "Typhoon approaching. Check pond dykes and drainage systems.",
-      priority: "high",
-      timestamp: "2 hours ago",
-    },
-    {
-      id: 2,
-      type: "neighbor",
-      title: "Neighbor Farm Issue",
-      message: "Disease outbreak reported 2km away. Enhance biosecurity protocols.",
-      priority: "high",
-      timestamp: "6 hours ago",
-    },
-    {
-      id: 3,
-      type: "progress",
-      title: "Task Completed",
-      message: "Footbath protocol successfully implemented.",
-      priority: "low",
-      timestamp: "1 day ago",
-    },
-  ])
-
-  const progressPercentage = (farmProfile.completedTasks / farmProfile.totalTasks) * 100
-
+export default function LandingPage() {
   return (
-    <div className="max-w-7xl mx-auto space-y-6">
-      <DashboardOverview />
-
-      {/* Farm Profile Card */}
-      <Card className="border-2 border-blue-200">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Shield className="h-5 w-5 text-blue-600" />
-            {farmProfile.name}
-          </CardTitle>
-          <CardDescription>
-            {farmProfile.type} • {farmProfile.species} • {farmProfile.size}
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="space-y-2">
-              <p className="text-sm font-medium text-gray-600">Current Cycle</p>
-              <p className="text-2xl font-bold text-blue-600">#{farmProfile.currentCycle}</p>
-            </div>
-            <div className="space-y-2">
-              <p className="text-sm font-medium text-gray-600">Risk Level</p>
-              <Badge
-                variant={
-                  farmProfile.riskLevel === "high"
-                    ? "destructive"
-                    : farmProfile.riskLevel === "medium"
-                      ? "default"
-                      : "secondary"
-                }
-              >
-                {farmProfile.riskLevel.toUpperCase()}
-              </Badge>
-            </div>
-            <div className="space-y-2">
-              <p className="text-sm font-medium text-gray-600">Plan Progress</p>
-              <div className="space-y-1">
-                <Progress value={progressPercentage} className="h-2" />
-                <p className="text-sm text-gray-500">
-                  {farmProfile.completedTasks}/{farmProfile.totalTasks} tasks
-                </p>
+    <div className="flex flex-col min-h-screen">
+      <header className="px-4 lg:px-6 h-14 flex items-center">
+        <Link href="#" className="flex items-center justify-center">
+          <Fish className="h-6 w-6" />
+          <span className="sr-only">AquaSecure AI</span>
+        </Link>
+        <nav className="ml-auto flex gap-4 sm:gap-6">
+          <Link href="#" className="text-sm font-medium hover:underline underline-offset-4">
+            Features
+          </Link>
+          <Link href="#" className="text-sm font-medium hover:underline underline-offset-4">
+            Pricing
+          </Link>
+          <Link href="#" className="text-sm font-medium hover:underline underline-offset-4">
+            About
+          </Link>
+          <Link href="#" className="text-sm font-medium hover:underline underline-offset-4">
+            Contact
+          </Link>
+        </nav>
+      </header>
+      <main className="flex-1">
+        <section className="w-full py-12 sm:py-24 md:py-32 lg:py-48 xl:py-64 flex items-center justify-center bg-gradient-to-r from-blue-50 to-cyan-50">
+          <div className="container px-4 md:px-6 text-center">
+            <div className="space-y-4">
+              <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl/none">
+                Revolutionize Your Aquaculture with AI
+              </h1>
+              <p className="mx-auto max-w-[700px] text-gray-500 md:text-xl dark:text-gray-400">
+                AquaSecure AI provides intelligent biosecurity solutions to protect your farm, optimize resources, and
+                ensure sustainable growth.
+              </p>
+              <div className="space-x-4">
+                <Link href="/auth">
+                  <Button className="inline-flex h-10 items-center justify-center rounded-md bg-blue-600 px-8 text-sm font-medium text-gray-50 shadow transition-colors hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-blue-950 disabled:pointer-events-none disabled:opacity-50 dark:bg-blue-50 dark:text-gray-900 dark:hover:bg-blue-50/90 dark:focus-visible:ring-blue-300">
+                    Get Started
+                  </Button>
+                </Link>
+                <Link
+                  href="#"
+                  className="inline-flex h-10 items-center justify-center rounded-md border border-gray-200 bg-white px-8 text-sm font-medium shadow-sm transition-colors hover:bg-gray-100 hover:text-gray-900 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus-visible:ring-gray-300"
+                >
+                  Learn More
+                </Link>
               </div>
             </div>
-            <div className="space-y-2">
-              <p className="text-sm font-medium text-gray-600">Location</p>
-              <p className="text-sm text-gray-700">{farmProfile.location}</p>
-            </div>
           </div>
-        </CardContent>
-      </Card>
-
-      {/* Recent Alerts */}
-      <div className="space-y-3">
-        <h2 className="text-xl font-semibold text-gray-900 flex items-center gap-2">
-          <AlertTriangle className="h-5 w-5 text-orange-500" />
-          Dynamic Alerts & Adaptations
-        </h2>
-        <div className="grid gap-3">
-          {recentAlerts.map((alert) => (
-            <Alert
-              key={alert.id}
-              className={`border-l-4 ${
-                alert.priority === "high"
-                  ? "border-l-red-500 bg-red-50"
-                  : alert.priority === "medium"
-                    ? "border-l-orange-500 bg-orange-50"
-                    : "border-l-green-500 bg-green-50"
-              }`}
-            >
-              <AlertTriangle className="h-4 w-4" />
-              <AlertTitle className="flex items-center justify-between">
-                {alert.title}
-                <span className="text-xs text-gray-500">{alert.timestamp}</span>
-              </AlertTitle>
-              <AlertDescription>{alert.message}</AlertDescription>
-            </Alert>
-          ))}
-        </div>
-      </div>
+        </section>
+      </main>
+      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
+        <p className="text-xs text-gray-500 dark:text-gray-400">© 2024 AquaSecure AI. All rights reserved.</p>
+        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
+          <Link href="#" className="text-xs hover:underline underline-offset-4">
+            Terms of Service
+          </Link>
+          <Link href="#" className="text-xs hover:underline underline-offset-4">
+            Privacy
+          </Link>
+        </nav>
+      </footer>
     </div>
   )
 }
