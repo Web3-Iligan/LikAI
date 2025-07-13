@@ -83,11 +83,6 @@ const navigationItems: NavigationItem[] = [
     icon: TrendingUp,
   },
   {
-    title: "Analytics",
-    href: "/analytics",
-    icon: BarChart3,
-  },
-  {
     title: "Knowledge Base",
     href: "/knowledge",
     icon: BookOpen,

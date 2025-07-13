@@ -148,7 +148,7 @@ export function DashboardOverview() {
       timestamp: "8 hours ago",
       icon: Droplets,
       iconColor: "text-cyan-500",
-      href: "/analytics",
+      href: "/reports",
     },
   ])
 
@@ -304,7 +304,7 @@ export function DashboardOverview() {
                 )
               })}
             </div>
-            <Link href="/analytics" passHref>
+            <Link href="/reports" passHref>
               <Button variant="outline" className="w-full mt-4 bg-transparent" size="sm">
                 View All Activities
               </Button>
@@ -364,7 +364,7 @@ export function DashboardOverview() {
           </CardHeader>
           <CardContent>
             <RiskTrendChart data={riskTrendData} />
-            <Link href="/analytics" passHref>
+            <Link href="/reports" passHref>
               <Button variant="outline" className="w-full mt-4 bg-transparent" size="sm">
                 View Detailed Analytics
               </Button>
