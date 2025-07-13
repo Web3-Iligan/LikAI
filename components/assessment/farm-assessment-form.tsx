@@ -1,38 +1,89 @@
 "use client"
 
-import type React from "react"
-
 import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Separator } from "@/components/ui/separator"
-import { useToast } from "@/hooks/use-toast"
-import { useRouter } from "next/navigation" // Import useRouter
-import { Loader2 } from "lucide-react" // Import Loader2 for loading state
+import { CheckCircle, Circle, Loader2 } from "lucide-react"
+
+const steps = [
+  { id: 0, title: "Basic Profile", description: "Farm details and species" },
+  { id: 1, title: "Setup & Resources", description: "Infrastructure and budget" },
+  { id: 2, title: "Concerns", description: "Top challenges and priorities" },
+  { id: 3, title: "Pond Preparation", description: "Site preparation practices" },
+  { id: 4, title: "Water Management", description: "Water source and treatment" },
+  { id: 5, title: "Stock Sourcing", description: "Post-larvae procurement" },
+  { id: 6, title: "Access & Sanitation", description: "Biosecurity measures" },
+  { id: 7, title: "Waste & Health", description: "Management protocols" },
+]
+
+interface FormData {
+  // Basic Profile
+  farmName: string
+  location: string
+  primarySpecies: string
+  farmType: string
+  farmSize: string
+  
+  // Setup & Resources
+  isNewFarmer: string
+  existingPondYears: string
+  waterSource: string[]
+  initialBudget: string
+  hasElectricity: string
+  
+  // Concerns
+  topConcerns: string[]
+  
+  // Pond Preparation
+  pondDrainSunDry: string
+  removeMuckLayer: string
+  disinfectPond: string
+  
+  // Water Management
+  filterIncomingWater: string
+  separateReservoir: string
+  waterMonitoringFrequency: string
+  
+  // Stock Sourcing
+  plSource: string
+  acclimatePLs: string
+  quarantinePLs: string
+  
+  // Access & Sanitation
+  hasFencing: string
+  useFootbaths: string
+  equipmentSharing: string
+  visitorManagement: string
+  
+  // Waste & Health
+  wasteDisposal: string
+  controlFeeding: string
+  healthMonitoring: string
+  keepRecords: string
+}
 
 export function FarmAssessmentForm() {
-  const { toast } = useToast()
-  const router = useRouter() // Initialize useRouter
-  const [isSubmitting, setIsSubmitting] = useState(false) // New state for submission loading
-
-  const [formData, setFormData] = useState({
+  const router = useRouter()
+  const [currentStep, setCurrentStep] = useState(0)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [formData, setFormData] = useState<FormData>({
     farmName: "",
     location: "",
     primarySpecies: "",
     farmType: "",
     farmSize: "",
-    isNewFarmer: "", // "New Setup" or "Existing Pond"
-    existingPondYears: "", // Conditional
-    waterSource: [] as string[],
+    isNewFarmer: "",
+    existingPondYears: "",
+    waterSource: [],
     initialBudget: "",
     hasElectricity: "",
-    topConcerns: [] as string[],
-
-    // Section 2: Current Biosecurity & Management Practices (Conditional)
+    topConcerns: [],
     pondDrainSunDry: "",
     removeMuckLayer: "",
     disinfectPond: "",
@@ -52,32 +103,97 @@ export function FarmAssessmentForm() {
     keepRecords: "",
   })
 
+  const isExistingPond = formData.isNewFarmer === "Existing Pond"
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value, type, checked } = e.target as HTMLInputElement
+    const { id, value, type } = e.target
+    
     if (type === "checkbox") {
-      setFormData((prev) => ({
-        ...prev,
-        [id]: checked
-          ? [...(prev[id as keyof typeof prev] as string[]), value]
-          : (prev[id as keyof typeof prev] as string[]).filter((item) => item !== value),
-      }))
+      const { checked } = e.target as HTMLInputElement
+      const checkboxValue = (e.target as HTMLInputElement).value
+      
+      if (id === "waterSource" || id === "topConcerns") {
+        setFormData(prev => ({
+          ...prev,
+          [id]: checked 
+            ? [...prev[id as keyof FormData] as string[], checkboxValue]
+            : (prev[id as keyof FormData] as string[]).filter(item => item !== checkboxValue)
+        }))
+      }
     } else {
-      setFormData((prev) => ({ ...prev, [id]: value }))
+      setFormData(prev => ({ ...prev, [id]: value }))
     }
   }
 
-  const handleSelectChange = (id: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [id]: value }))
+  const handleSelectChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }))
   }
 
-  const handleRadioChange = (id: string, value: string) => {
-    setFormData((prev) => ({ ...prev, [id]: value }))
+  const handleRadioChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true) // Set loading state
+  const validateCurrentStep = (): boolean => {
+    switch (currentStep) {
+      case 0: // Basic Profile
+        return !!(formData.farmName && formData.location && formData.primarySpecies && formData.farmType && formData.farmSize)
+      case 1: // Setup & Resources
+        return !!(formData.isNewFarmer && formData.waterSource.length > 0 && formData.initialBudget && formData.hasElectricity)
+      case 2: // Concerns
+        return formData.topConcerns.length > 0
+      case 3: // Pond Preparation
+        if (formData.isNewFarmer === "New Setup") return true
+        return !!(formData.pondDrainSunDry && formData.removeMuckLayer && formData.disinfectPond)
+      case 4: // Water Management
+        return !!(formData.filterIncomingWater && formData.separateReservoir && formData.waterMonitoringFrequency)
+      case 5: // Stock Sourcing
+        return !!(formData.plSource && formData.acclimatePLs && formData.quarantinePLs)
+      case 6: // Access & Sanitation
+        return !!(formData.hasFencing && formData.useFootbaths && formData.equipmentSharing && formData.visitorManagement)
+      case 7: // Waste & Health
+        return !!(formData.wasteDisposal && formData.controlFeeding && formData.healthMonitoring && formData.keepRecords)
+      default:
+        return false
+    }
+  }
 
+  const handleNext = () => {
+    if (validateCurrentStep() && currentStep < steps.length - 1) {
+      setCurrentStep(currentStep + 1)
+    }
+  }
+
+  const handlePrevious = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1)
+    }
+  }
+
+  const handleStepClick = (stepIndex: number) => {
+    // Allow navigation to completed steps or current step
+    for (let i = 0; i < stepIndex; i++) {
+      const originalStep = currentStep
+      setCurrentStep(i)
+      if (!validateCurrentStep()) {
+        setCurrentStep(originalStep)
+        return
+      }
+    }
+    setCurrentStep(stepIndex)
+  }
+
+  const isStepCompleted = (stepIndex: number): boolean => {
+    const originalStep = currentStep
+    setCurrentStep(stepIndex)
+    const isValid = validateCurrentStep()
+    setCurrentStep(originalStep)
+    return isValid
+  }
+
+  const handleSubmit = async () => {
+    if (!validateCurrentStep()) return
+
+    setIsSubmitting(true)
     try {
       const response = await fetch("/api/generate-assessment-plan", {
         method: "POST",
@@ -85,806 +201,765 @@ export function FarmAssessmentForm() {
         body: JSON.stringify(formData),
       })
 
-      if (!response.ok) {
-        throw new Error("Failed to generate action plan")
-      }
+      if (!response.ok) throw new Error("Failed to submit assessment")
 
-      const data = await response.json()
-      localStorage.setItem("aiGeneratedPlan", JSON.stringify(data.tasks)) // Store generated tasks
-
-      toast({
-        title: "Assessment Submitted!",
-        description: "Your personalized action plan is ready.",
-        variant: "default",
-      })
-
-      router.push("/plan") // Redirect to Dynamic Plan page
+      router.push("/plan")
     } catch (error) {
       console.error("Error submitting assessment:", error)
-      toast({
-        title: "Submission Failed",
-        description: "Could not generate action plan. Please try again.",
-        variant: "destructive",
-      })
     } finally {
-      setIsSubmitting(false) // Reset loading state
+      setIsSubmitting(false)
     }
   }
 
-  const isExistingPond = formData.isNewFarmer === "Existing Pond"
+  function renderStepContent() {
+    switch (currentStep) {
+      case 0: // Basic Profile
+        return (
+          <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="farmName">Farm Name</Label>
+                <Input
+                  id="farmName"
+                  value={formData.farmName}
+                  onChange={handleInputChange}
+                  placeholder="e.g., Sunrise Aqua Farm"
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="location">Location (City/Province, Region)</Label>
+                <Input
+                  id="location"
+                  value={formData.location}
+                  onChange={handleInputChange}
+                  placeholder="e.g., Tagum City, Davao del Norte"
+                  required
+                />
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="primarySpecies">Primary Shrimp Species</Label>
+                <Select
+                  value={formData.primarySpecies}
+                  onValueChange={(val) => handleSelectChange("primarySpecies", val)}
+                  required
+                >
+                  <SelectTrigger id="primarySpecies">
+                    <SelectValue placeholder="Select species" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="vannamei">Pacific White Shrimp (L. vannamei)</SelectItem>
+                    <SelectItem value="monodon">Giant Tiger Prawn (P. monodon)</SelectItem>
+                    <SelectItem value="indicus">Indian White Prawn (F. indicus)</SelectItem>
+                    <SelectItem value="other">Other species</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="farmType">Farm Type</Label>
+                <Select
+                  value={formData.farmType}
+                  onValueChange={(val) => handleSelectChange("farmType", val)}
+                  required
+                >
+                  <SelectTrigger id="farmType">
+                    <SelectValue placeholder="Select type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="extensive">Extensive (low density)</SelectItem>
+                    <SelectItem value="semi-intensive">Semi-intensive (medium density)</SelectItem>
+                    <SelectItem value="intensive">Intensive (high density)</SelectItem>
+                    <SelectItem value="super-intensive">Super-intensive (very high density)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="farmSize">Approximate Farm Size (in hectares)</Label>
+              <Input
+                id="farmSize"
+                value={formData.farmSize}
+                onChange={handleInputChange}
+                placeholder="e.g., 5"
+                required
+              />
+            </div>
+          </div>
+        )
+
+      case 1: // Setup & Resources
+        return (
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <Label>Are you setting up a new farm or working with existing ponds?</Label>
+              <RadioGroup
+                value={formData.isNewFarmer}
+                onValueChange={(val) => handleRadioChange("isNewFarmer", val)}
+                required
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="New Setup" id="new-setup" />
+                  <Label htmlFor="new-setup">New Setup</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Existing Pond" id="existing-pond" />
+                  <Label htmlFor="existing-pond">Existing Pond</Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            {isExistingPond && (
+              <div className="space-y-2">
+                <Label htmlFor="existingPondYears">How many years have you been operating?</Label>
+                <Select
+                  value={formData.existingPondYears}
+                  onValueChange={(val) => handleSelectChange("existingPondYears", val)}
+                >
+                  <SelectTrigger id="existingPondYears">
+                    <SelectValue placeholder="Select years" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="<1">Less than 1 year</SelectItem>
+                    <SelectItem value="1-2">1-2 years</SelectItem>
+                    <SelectItem value="3-5">3-5 years</SelectItem>
+                    <SelectItem value="5+">More than 5 years</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+
+            <div className="space-y-3">
+              <Label>Water Source (Select all that apply)</Label>
+              <div className="grid grid-cols-2 gap-3">
+                {["Groundwater/Artesian Well", "River", "Creek", "Sea Water", "Municipal Water Supply"].map((source) => (
+                  <div key={source} className="flex items-center space-x-2">
+                    <Checkbox
+                      id="waterSource"
+                      value={source}
+                      checked={formData.waterSource.includes(source)}
+                      onCheckedChange={(checked) => {
+                        if (checked) {
+                          setFormData(prev => ({ ...prev, waterSource: [...prev.waterSource, source] }))
+                        } else {
+                          setFormData(prev => ({ 
+                            ...prev, 
+                            waterSource: prev.waterSource.filter(item => item !== source) 
+                          }))
+                        }
+                      }}
+                    />
+                    <Label htmlFor="waterSource">{source}</Label>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="initialBudget">Initial Budget Range (PHP)</Label>
+                <Select
+                  value={formData.initialBudget}
+                  onValueChange={(val) => handleSelectChange("initialBudget", val)}
+                  required
+                >
+                  <SelectTrigger id="initialBudget">
+                    <SelectValue placeholder="Select budget range" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="<50k">Less than ₱50,000</SelectItem>
+                    <SelectItem value="50k-100k">₱50,000 - ₱100,000</SelectItem>
+                    <SelectItem value="100k-500k">₱100,000 - ₱500,000</SelectItem>
+                    <SelectItem value="500k+">More than ₱500,000</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-4">
+                <Label>Do you have reliable electricity access?</Label>
+                <RadioGroup
+                  value={formData.hasElectricity}
+                  onValueChange={(val) => handleRadioChange("hasElectricity", val)}
+                  required
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Yes" id="electricity-yes" />
+                    <Label htmlFor="electricity-yes">Yes</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="No" id="electricity-no" />
+                    <Label htmlFor="electricity-no">No</Label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="Limited" id="electricity-limited" />
+                    <Label htmlFor="electricity-limited">Limited/Intermittent</Label>
+                  </div>
+                </RadioGroup>
+              </div>
+            </div>
+          </div>
+        )
+
+      case 2: // Concerns
+        return (
+          <div className="space-y-6">
+            <div className="space-y-3">
+              <Label>What are your top concerns about shrimp farming? (Select all that apply)</Label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {[
+                  "Disease outbreaks",
+                  "High feed costs", 
+                  "Limited capital",
+                  "Lack of technical knowledge",
+                  "Market access",
+                  "Water quality issues",
+                  "Seed stock quality",
+                  "Environmental compliance",
+                  "Weather/climate risks",
+                  "Equipment failures"
+                ].map((concern) => (
+                  <div key={concern} className="flex items-center space-x-2">
+                    <Checkbox
+                      id="topConcerns"
+                      value={concern}
+                      checked={formData.topConcerns.includes(concern)}
+                      onCheckedChange={(checked) => {
+                        if (checked) {
+                          setFormData(prev => ({ ...prev, topConcerns: [...prev.topConcerns, concern] }))
+                        } else {
+                          setFormData(prev => ({ 
+                            ...prev, 
+                            topConcerns: prev.topConcerns.filter(item => item !== concern) 
+                          }))
+                        }
+                      }}
+                    />
+                    <Label htmlFor="topConcerns">{concern}</Label>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )
+
+      case 3: // Pond Preparation
+        return (
+          <div className="space-y-6">
+            {formData.isNewFarmer === "New Setup" ? (
+              <div className="text-center py-12">
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">New Setup Detected</h3>
+                <p className="text-gray-600">Since you're setting up a new farm, pond preparation steps will be included in your customized plan.</p>
+              </div>
+            ) : (
+              <>
+                <div className="space-y-4">
+                  <Label>Do you drain and sun-dry your ponds between crops?</Label>
+                  <RadioGroup
+                    value={formData.pondDrainSunDry}
+                    onValueChange={(val) => handleRadioChange("pondDrainSunDry", val)}
+                    required
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="Always" id="drain-always" />
+                      <Label htmlFor="drain-always">Always</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="Sometimes" id="drain-sometimes" />
+                      <Label htmlFor="drain-sometimes">Sometimes</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="Never" id="drain-never" />
+                      <Label htmlFor="drain-never">Never</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                <div className="space-y-4">
+                  <Label>Do you remove the organic muck layer from pond bottom?</Label>
+                  <RadioGroup
+                    value={formData.removeMuckLayer}
+                    onValueChange={(val) => handleRadioChange("removeMuckLayer", val)}
+                    required
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="Always" id="muck-always" />
+                      <Label htmlFor="muck-always">Always</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="Sometimes" id="muck-sometimes" />
+                      <Label htmlFor="muck-sometimes">Sometimes</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="Never" id="muck-never" />
+                      <Label htmlFor="muck-never">Never</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+
+                <div className="space-y-4">
+                  <Label>Do you disinfect ponds before stocking?</Label>
+                  <RadioGroup
+                    value={formData.disinfectPond}
+                    onValueChange={(val) => handleRadioChange("disinfectPond", val)}
+                    required
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="Always" id="disinfect-always" />
+                      <Label htmlFor="disinfect-always">Always</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="Sometimes" id="disinfect-sometimes" />
+                      <Label htmlFor="disinfect-sometimes">Sometimes</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="Never" id="disinfect-never" />
+                      <Label htmlFor="disinfect-never">Never</Label>
+                    </div>
+                  </RadioGroup>
+                </div>
+              </>
+            )}
+          </div>
+        )
+
+      case 4: // Water Management
+        return (
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <Label>Do you filter incoming water?</Label>
+              <RadioGroup
+                value={formData.filterIncomingWater}
+                onValueChange={(val) => handleRadioChange("filterIncomingWater", val)}
+                required
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Yes, always" id="filter-yes" />
+                  <Label htmlFor="filter-yes">Yes, always</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Sometimes" id="filter-sometimes" />
+                  <Label htmlFor="filter-sometimes">Sometimes</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="No" id="filter-no" />
+                  <Label htmlFor="filter-no">No</Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div className="space-y-4">
+              <Label>Do you have a separate water reservoir/settling pond?</Label>
+              <RadioGroup
+                value={formData.separateReservoir}
+                onValueChange={(val) => handleRadioChange("separateReservoir", val)}
+                required
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Yes" id="reservoir-yes" />
+                  <Label htmlFor="reservoir-yes">Yes</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="No" id="reservoir-no" />
+                  <Label htmlFor="reservoir-no">No</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Planning to build" id="reservoir-planning" />
+                  <Label htmlFor="reservoir-planning">Planning to build</Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div className="space-y-4">
+              <Label>How often do you monitor water quality?</Label>
+              <RadioGroup
+                value={formData.waterMonitoringFrequency}
+                onValueChange={(val) => handleRadioChange("waterMonitoringFrequency", val)}
+                required
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Daily" id="monitor-daily" />
+                  <Label htmlFor="monitor-daily">Daily</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Weekly" id="monitor-weekly" />
+                  <Label htmlFor="monitor-weekly">Weekly</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Monthly" id="monitor-monthly" />
+                  <Label htmlFor="monitor-monthly">Monthly</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Rarely" id="monitor-rarely" />
+                  <Label htmlFor="monitor-rarely">Rarely</Label>
+                </div>
+              </RadioGroup>
+            </div>
+          </div>
+        )
+
+      case 5: // Stock Sourcing
+        return (
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <Label>Where do you source your post-larvae (PLs)?</Label>
+              <RadioGroup
+                value={formData.plSource}
+                onValueChange={(val) => handleRadioChange("plSource", val)}
+                required
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Certified hatchery" id="pl-certified" />
+                  <Label htmlFor="pl-certified">Certified hatchery</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Local hatchery" id="pl-local" />
+                  <Label htmlFor="pl-local">Local hatchery</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Wild catch" id="pl-wild" />
+                  <Label htmlFor="pl-wild">Wild catch</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Mixed sources" id="pl-mixed" />
+                  <Label htmlFor="pl-mixed">Mixed sources</Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div className="space-y-4">
+              <Label>Do you properly acclimate PLs before stocking?</Label>
+              <RadioGroup
+                value={formData.acclimatePLs}
+                onValueChange={(val) => handleRadioChange("acclimatePLs", val)}
+                required
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Yes, always" id="acclimate-yes" />
+                  <Label htmlFor="acclimate-yes">Yes, always</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Sometimes" id="acclimate-sometimes" />
+                  <Label htmlFor="acclimate-sometimes">Sometimes</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="No" id="acclimate-no" />
+                  <Label htmlFor="acclimate-no">No</Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div className="space-y-4">
+              <Label>Do you quarantine new PLs?</Label>
+              <RadioGroup
+                value={formData.quarantinePLs}
+                onValueChange={(val) => handleRadioChange("quarantinePLs", val)}
+                required
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Yes, always" id="quarantine-yes" />
+                  <Label htmlFor="quarantine-yes">Yes, always</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Sometimes" id="quarantine-sometimes" />
+                  <Label htmlFor="quarantine-sometimes">Sometimes</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="No" id="quarantine-no" />
+                  <Label htmlFor="quarantine-no">No</Label>
+                </div>
+              </RadioGroup>
+            </div>
+          </div>
+        )
+
+      case 6: // Access & Sanitation
+        return (
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <Label>Do you have proper fencing around your farm?</Label>
+              <RadioGroup
+                value={formData.hasFencing}
+                onValueChange={(val) => handleRadioChange("hasFencing", val)}
+                required
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Complete fencing" id="fence-complete" />
+                  <Label htmlFor="fence-complete">Complete fencing</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Partial fencing" id="fence-partial" />
+                  <Label htmlFor="fence-partial">Partial fencing</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="No fencing" id="fence-none" />
+                  <Label htmlFor="fence-none">No fencing</Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div className="space-y-4">
+              <Label>Do you use disinfectant footbaths?</Label>
+              <RadioGroup
+                value={formData.useFootbaths}
+                onValueChange={(val) => handleRadioChange("useFootbaths", val)}
+                required
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Yes, always" id="footbath-yes" />
+                  <Label htmlFor="footbath-yes">Yes, always</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Sometimes" id="footbath-sometimes" />
+                  <Label htmlFor="footbath-sometimes">Sometimes</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="No" id="footbath-no" />
+                  <Label htmlFor="footbath-no">No</Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div className="space-y-4">
+              <Label>How do you handle equipment sharing with neighbors?</Label>
+              <RadioGroup
+                value={formData.equipmentSharing}
+                onValueChange={(val) => handleRadioChange("equipmentSharing", val)}
+                required
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Never share" id="share-never" />
+                  <Label htmlFor="share-never">Never share equipment</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Disinfect before use" id="share-disinfect" />
+                  <Label htmlFor="share-disinfect">Disinfect before use</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Share without cleaning" id="share-no-clean" />
+                  <Label htmlFor="share-no-clean">Share without special cleaning</Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div className="space-y-4">
+              <Label>How do you manage visitors to your farm?</Label>
+              <RadioGroup
+                value={formData.visitorManagement}
+                onValueChange={(val) => handleRadioChange("visitorManagement", val)}
+                required
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="No visitors allowed" id="visitor-none" />
+                  <Label htmlFor="visitor-none">No visitors allowed</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Restricted access with protocols" id="visitor-restricted" />
+                  <Label htmlFor="visitor-restricted">Restricted access with protocols</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Open access" id="visitor-open" />
+                  <Label htmlFor="visitor-open">Open access</Label>
+                </div>
+              </RadioGroup>
+            </div>
+          </div>
+        )
+
+      case 7: // Waste & Health
+        return (
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <Label>How do you dispose of dead shrimp and farm waste?</Label>
+              <RadioGroup
+                value={formData.wasteDisposal}
+                onValueChange={(val) => handleRadioChange("wasteDisposal", val)}
+                required
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Proper composting/burial" id="waste-proper" />
+                  <Label htmlFor="waste-proper">Proper composting/burial</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Burn or bury on-site" id="waste-burn" />
+                  <Label htmlFor="waste-burn">Burn or bury on-site</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Throw in water body" id="waste-water" />
+                  <Label htmlFor="waste-water">Throw in water body</Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div className="space-y-4">
+              <Label>How do you control feeding practices?</Label>
+              <RadioGroup
+                value={formData.controlFeeding}
+                onValueChange={(val) => handleRadioChange("controlFeeding", val)}
+                required
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Scheduled feeding with monitoring" id="feed-scheduled" />
+                  <Label htmlFor="feed-scheduled">Scheduled feeding with monitoring</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Regular feeding schedule" id="feed-regular" />
+                  <Label htmlFor="feed-regular">Regular feeding schedule</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Feed as available" id="feed-available" />
+                  <Label htmlFor="feed-available">Feed as available</Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div className="space-y-4">
+              <Label>How often do you monitor shrimp health?</Label>
+              <RadioGroup
+                value={formData.healthMonitoring}
+                onValueChange={(val) => handleRadioChange("healthMonitoring", val)}
+                required
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Daily visual checks" id="health-daily" />
+                  <Label htmlFor="health-daily">Daily visual checks</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Weekly checks" id="health-weekly" />
+                  <Label htmlFor="health-weekly">Weekly checks</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Only when problems occur" id="health-problems" />
+                  <Label htmlFor="health-problems">Only when problems occur</Label>
+                </div>
+              </RadioGroup>
+            </div>
+
+            <div className="space-y-4">
+              <Label>Do you keep farm records (stocking, feeding, mortality, etc.)?</Label>
+              <RadioGroup
+                value={formData.keepRecords}
+                onValueChange={(val) => handleRadioChange("keepRecords", val)}
+                required
+              >
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Detailed records" id="records-detailed" />
+                  <Label htmlFor="records-detailed">Detailed records</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="Basic records" id="records-basic" />
+                  <Label htmlFor="records-basic">Basic records</Label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem value="No records" id="records-none" />
+                  <Label htmlFor="records-none">No records</Label>
+                </div>
+              </RadioGroup>
+            </div>
+          </div>
+        )
+
+      default:
+        return <div>Step not implemented</div>
+    }
+  }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-8">
-      {/* Section 1: Farm Profile */}
-      <div className="space-y-4">
-        <h3 className="text-lg font-semibold">Section 1: Farm Profile</h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label htmlFor="farmName">Farm Name</Label>
-            <Input
-              id="farmName"
-              value={formData.farmName}
-              onChange={handleInputChange}
-              placeholder="e.g., Sunrise Aqua Farm"
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="location">Location (City/Province, Region)</Label>
-            <Input
-              id="location"
-              value={formData.location}
-              onChange={handleInputChange}
-              placeholder="e.g., Tagum City, Davao del Norte, Davao Region"
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="primarySpecies">Primary Shrimp Species</Label>
-            <Select
-              value={formData.primarySpecies}
-              onValueChange={(val) => handleSelectChange("primarySpecies", val)}
-              required
-            >
-              <SelectTrigger id="primarySpecies">
-                <SelectValue placeholder="Select species" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Penaeus vannamei">Penaeus vannamei</SelectItem>
-                <SelectItem value="Penaeus monodon">Penaeus monodon</SelectItem>
-                <SelectItem value="Macrobrachium rosenbergii">Macrobrachium rosenbergii</SelectItem>
-                <SelectItem value="Other">Other</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="farmType">Farm Type</Label>
-            <Select value={formData.farmType} onValueChange={(val) => handleSelectChange("farmType", val)} required>
-              <SelectTrigger id="farmType">
-                <SelectValue placeholder="Select type" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Intensive">Intensive</SelectItem>
-                <SelectItem value="Semi-intensive">Semi-intensive</SelectItem>
-                <SelectItem value="Extensive">Extensive</SelectItem>
-                <SelectItem value="Natural/Tidal Pond">Natural/Tidal Pond</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="farmSize">Approximate Farm Size (in hectares or square meters)</Label>
-            <Input
-              id="farmSize"
-              type="number"
-              value={formData.farmSize}
-              onChange={handleInputChange}
-              placeholder="e.g., 5 (hectares)"
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label>Are you a new farmer starting from scratch, or do you have an existing pond?</Label>
-            <RadioGroup
-              value={formData.isNewFarmer}
-              onValueChange={(val) => handleRadioChange("isNewFarmer", val)}
-              className="flex space-x-4"
-              required
-            >
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="New Setup" id="new-setup" />
-                <Label htmlFor="new-setup">New Setup</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="Existing Pond" id="existing-pond" />
-                <Label htmlFor="existing-pond">Existing Pond</Label>
-              </div>
-            </RadioGroup>
-          </div>
-          {isExistingPond && (
-            <div className="space-y-2">
-              <Label htmlFor="existingPondYears">If existing, how long has it been used for shrimp farming?</Label>
-              <Select
-                value={formData.existingPondYears}
-                onValueChange={(val) => handleSelectChange("existingPondYears", val)}
-                required={isExistingPond}
+    <div className="space-y-8">
+      {/* Step Progress Indicator */}
+      <div className="w-full">
+        <div className="flex items-center justify-between mb-4">
+          <h2 className="text-lg font-semibold text-gray-900">Assessment Progress</h2>
+          <span className="text-sm text-gray-500">{currentStep + 1} of {steps.length}</span>
+        </div>
+        
+        <div className="flex items-center space-x-2 mb-6">
+          {steps.map((step, index) => (
+            <div key={step.id} className="flex items-center">
+              <div
+                className={`flex items-center justify-center w-8 h-8 rounded-full cursor-pointer ${
+                  index === currentStep
+                    ? "bg-blue-600 text-white"
+                    : index < currentStep || isStepCompleted(index)
+                    ? "bg-green-600 text-white"
+                    : "bg-gray-200 text-gray-600"
+                }`}
+                onClick={() => handleStepClick(index)}
               >
-                <SelectTrigger id="existingPondYears">
-                  <SelectValue placeholder="Select years" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="<1 year">&lt;1 year</SelectItem>
-                  <SelectItem value="1-3 years">1-3 years</SelectItem>
-                  <SelectItem value="3-5 years">3-5 years</SelectItem>
-                  <SelectItem value=">5 years">&gt;5 years</SelectItem>
-                </SelectContent>
-              </Select>
+                {index < currentStep || isStepCompleted(index) ? (
+                  <CheckCircle className="h-5 w-5" />
+                ) : (
+                  <Circle className="h-5 w-5" />
+                )}
+              </div>
+              {index < steps.length - 1 && (
+                <div className={`w-12 h-1 mx-2 ${
+                  index < currentStep ? "bg-green-600" : "bg-gray-200"
+                }`} />
+              )}
             </div>
-          )}
-          <div className="space-y-2">
-            <Label>What is your main water source?</Label>
-            <div className="grid grid-cols-2 gap-2">
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="waterSource"
-                  value="River"
-                  checked={formData.waterSource.includes("River")}
-                  onCheckedChange={(checked) =>
-                    handleInputChange({
-                      target: { id: "waterSource", value: "River", type: "checkbox", checked: !!checked } as any,
-                    })
-                  }
-                />
-                <Label htmlFor="waterSource-river">River</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="waterSource"
-                  value="Sea/Ocean"
-                  checked={formData.waterSource.includes("Sea/Ocean")}
-                  onCheckedChange={(checked) =>
-                    handleInputChange({
-                      target: { id: "waterSource", value: "Sea/Ocean", type: "checkbox", checked: !!checked } as any,
-                    })
-                  }
-                />
-                <Label htmlFor="waterSource-sea">Sea/Ocean</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="waterSource"
-                  value="Deep Well"
-                  checked={formData.waterSource.includes("Deep Well")}
-                  onCheckedChange={(checked) =>
-                    handleInputChange({
-                      target: { id: "waterSource", value: "Deep Well", type: "checkbox", checked: !!checked } as any,
-                    })
-                  }
-                />
-                <Label htmlFor="waterSource-well">Deep Well</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="waterSource"
-                  value="Rainwater"
-                  checked={formData.waterSource.includes("Rainwater")}
-                  onCheckedChange={(checked) =>
-                    handleInputChange({
-                      target: { id: "waterSource", value: "Rainwater", type: "checkbox", checked: !!checked } as any,
-                    })
-                  }
-                />
-                <Label htmlFor="waterSource-rain">Rainwater</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="waterSource"
-                  value="Other"
-                  checked={formData.waterSource.includes("Other")}
-                  onCheckedChange={(checked) =>
-                    handleInputChange({
-                      target: { id: "waterSource", value: "Other", type: "checkbox", checked: !!checked } as any,
-                    })
-                  }
-                />
-                <Label htmlFor="waterSource-other">Other</Label>
-              </div>
-            </div>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="initialBudget">
-              What is your estimated initial budget for biosecurity setup (excluding pond construction/lining)?
-            </Label>
-            <Select
-              value={formData.initialBudget}
-              onValueChange={(val) => handleSelectChange("initialBudget", val)}
-              required
-            >
-              <SelectTrigger id="initialBudget">
-                <SelectValue placeholder="Select budget" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="Very Limited (<₱5,000)">Very Limited (&lt;₱5,000)</SelectItem>
-                <SelectItem value="Limited (₱5,000-₱20,000)">Limited (₱5,000-₱20,000)</SelectItem>
-                <SelectItem value="Moderate (₱20,000-₱50,000)">Moderate (₱20,000-₱50,000)</SelectItem>
-                <SelectItem value="Substantial (>₱50,000)">Substantial (&gt;₱50,000)</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-          <div className="space-y-2">
-            <Label>Do you have reliable access to electricity on your farm?</Label>
-            <RadioGroup
-              value={formData.hasElectricity}
-              onValueChange={(val) => handleRadioChange("hasElectricity", val)}
-              className="flex space-x-4"
-              required
-            >
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="Yes" id="electricity-yes" />
-                <Label htmlFor="electricity-yes">Yes</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="No" id="electricity-no" />
-                <Label htmlFor="electricity-no">No</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="Generator Only" id="electricity-generator" />
-                <Label htmlFor="electricity-generator">Generator Only</Label>
-              </div>
-            </RadioGroup>
-          </div>
-          <div className="space-y-2">
-            <Label>What are your top 3 biggest concerns about starting/running a shrimp farm?</Label>
-            <div className="grid grid-cols-2 gap-2">
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="topConcerns"
-                  value="Disease outbreaks"
-                  checked={formData.topConcerns.includes("Disease outbreaks")}
-                  onCheckedChange={(checked) =>
-                    handleInputChange({
-                      target: {
-                        id: "topConcerns",
-                        value: "Disease outbreaks",
-                        type: "checkbox",
-                        checked: !!checked,
-                      } as any,
-                    })
-                  }
-                />
-                <Label htmlFor="concerns-disease">Disease outbreaks</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="topConcerns"
-                  value="High feed cost"
-                  checked={formData.topConcerns.includes("High feed cost")}
-                  onCheckedChange={(checked) =>
-                    handleInputChange({
-                      target: {
-                        id: "topConcerns",
-                        value: "High feed cost",
-                        type: "checkbox",
-                        checked: !!checked,
-                      } as any,
-                    })
-                  }
-                />
-                <Label htmlFor="concerns-feed">High feed cost</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="topConcerns"
-                  value="Limited capital"
-                  checked={formData.topConcerns.includes("Limited capital")}
-                  onCheckedChange={(checked) =>
-                    handleInputChange({
-                      target: {
-                        id: "topConcerns",
-                        value: "Limited capital",
-                        type: "checkbox",
-                        checked: !!checked,
-                      } as any,
-                    })
-                  }
-                />
-                <Label htmlFor="concerns-capital">Limited capital</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="topConcerns"
-                  value="Lack of technical knowledge"
-                  checked={formData.topConcerns.includes("Lack of technical knowledge")}
-                  onCheckedChange={(checked) =>
-                    handleInputChange({
-                      target: {
-                        id: "topConcerns",
-                        value: "Lack of technical knowledge",
-                        type: "checkbox",
-                        checked: !!checked,
-                      } as any,
-                    })
-                  }
-                />
-                <Label htmlFor="concerns-knowledge">Lack of technical knowledge</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="topConcerns"
-                  value="Market access"
-                  checked={formData.topConcerns.includes("Market access")}
-                  onCheckedChange={(checked) =>
-                    handleInputChange({
-                      target: {
-                        id: "topConcerns",
-                        value: "Market access",
-                        type: "checkbox",
-                        checked: !!checked,
-                      } as any,
-                    })
-                  }
-                />
-                <Label htmlFor="concerns-market">Market access</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="topConcerns"
-                  value="Permit issues"
-                  checked={formData.topConcerns.includes("Permit issues")}
-                  onCheckedChange={(checked) =>
-                    handleInputChange({
-                      target: {
-                        id: "topConcerns",
-                        value: "Permit issues",
-                        type: "checkbox",
-                        checked: !!checked,
-                      } as any,
-                    })
-                  }
-                />
-                <Label htmlFor="concerns-permit">Permit issues</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="topConcerns"
-                  value="Natural disasters"
-                  checked={formData.topConcerns.includes("Natural disasters")}
-                  onCheckedChange={(checked) =>
-                    handleInputChange({
-                      target: {
-                        id: "topConcerns",
-                        value: "Natural disasters",
-                        type: "checkbox",
-                        checked: !!checked,
-                      } as any,
-                    })
-                  }
-                />
-                <Label htmlFor="concerns-disasters">Natural disasters</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="topConcerns"
-                  value="Other"
-                  checked={formData.topConcerns.includes("Other")}
-                  onCheckedChange={(checked) =>
-                    handleInputChange({
-                      target: { id: "topConcerns", value: "Other", type: "checkbox", checked: !!checked } as any,
-                    })
-                  }
-                />
-                <Label htmlFor="concerns-other">Other</Label>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
-      {isExistingPond && (
-        <>
-          <Separator />
-          {/* Section 2: Current Biosecurity & Management Practices */}
-          <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Section 2: Current Biosecurity & Management Practices</h3>
-
-            {/* Pond Preparation */}
-            <div className="space-y-2">
-              <Label>Pond Preparation:</Label>
-              <div className="space-y-2 ml-4">
-                <Label>Between cycles, do you completely drain and sun-dry your ponds until the bottom cracks?</Label>
-                <RadioGroup
-                  value={formData.pondDrainSunDry}
-                  onValueChange={(val) => handleRadioChange("pondDrainSunDry", val)}
-                  className="flex space-x-4"
-                  required={isExistingPond}
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Yes" id="pondDrainSunDry-yes" />
-                    <Label htmlFor="pondDrainSunDry-yes">Yes</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="No" id="pondDrainSunDry-no" />
-                    <Label htmlFor="pondDrainSunDry-no">No</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Partially" id="pondDrainSunDry-partially" />
-                    <Label htmlFor="pondDrainSunDry-partially">Partially</Label>
-                  </div>
-                </RadioGroup>
-              </div>
-              <div className="space-y-2 ml-4">
-                <Label>Do you remove the muck layer (black sludge) from the pond bottom?</Label>
-                <RadioGroup
-                  value={formData.removeMuckLayer}
-                  onValueChange={(val) => handleRadioChange("removeMuckLayer", val)}
-                  className="flex space-x-4"
-                  required={isExistingPond}
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Yes" id="removeMuckLayer-yes" />
-                    <Label htmlFor="removeMuckLayer-yes">Yes</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="No" id="removeMuckLayer-no" />
-                    <Label htmlFor="removeMuckLayer-no">No</Label>
-                  </div>
-                </RadioGroup>
-              </div>
-              <div className="space-y-2 ml-4">
-                <Label>Do you disinfect the pond bottom or water before stocking?</Label>
-                <RadioGroup
-                  value={formData.disinfectPond}
-                  onValueChange={(val) => handleRadioChange("disinfectPond", val)}
-                  className="flex space-x-4"
-                  required={isExistingPond}
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Yes" id="disinfectPond-yes" />
-                    <Label htmlFor="disinfectPond-yes">Yes</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="No" id="disinfectPond-no" />
-                    <Label htmlFor="disinfectPond-no">No</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Sometimes" id="disinfectPond-sometimes" />
-                    <Label htmlFor="disinfectPond-sometimes">Sometimes</Label>
-                  </div>
-                </RadioGroup>
-              </div>
-            </div>
-
-            {/* Water Management */}
-            <div className="space-y-2">
-              <Label>Water Management:</Label>
-              <div className="space-y-2 ml-4">
-                <Label>Do you filter incoming water (e.g., through fine mesh, sand filter, sedimentation pond)?</Label>
-                <RadioGroup
-                  value={formData.filterIncomingWater}
-                  onValueChange={(val) => handleRadioChange("filterIncomingWater", val)}
-                  className="flex space-x-4"
-                  required={isExistingPond}
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Yes" id="filterIncomingWater-yes" />
-                    <Label htmlFor="filterIncomingWater-yes">Yes</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="No" id="filterIncomingWater-no" />
-                    <Label htmlFor="filterIncomingWater-no">No</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Partially" id="filterIncomingWater-partially" />
-                    <Label htmlFor="filterIncomingWater-partially">Partially</Label>
-                  </div>
-                </RadioGroup>
-              </div>
-              <div className="space-y-2 ml-4">
-                <Label>
-                  Do you have a separate reservoir or treatment area for incoming water before it enters the grow-out
-                  pond?
-                </Label>
-                <RadioGroup
-                  value={formData.separateReservoir}
-                  onValueChange={(val) => handleRadioChange("separateReservoir", val)}
-                  className="flex space-x-4"
-                  required={isExistingPond}
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Yes" id="separateReservoir-yes" />
-                    <Label htmlFor="separateReservoir-yes">Yes</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="No" id="separateReservoir-no" />
-                    <Label htmlFor="separateReservoir-no">No</Label>
-                  </div>
-                </RadioGroup>
-              </div>
-              <div className="space-y-2 ml-4">
-                <Label htmlFor="waterMonitoringFrequency">
-                  How often do you monitor basic water quality parameters (pH, salinity, temperature, DO)?
-                </Label>
-                <Select
-                  value={formData.waterMonitoringFrequency}
-                  onValueChange={(val) => handleSelectChange("waterMonitoringFrequency", val)}
-                  required={isExistingPond}
-                >
-                  <SelectTrigger id="waterMonitoringFrequency">
-                    <SelectValue placeholder="Select frequency" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Daily">Daily</SelectItem>
-                    <SelectItem value="Weekly">Weekly</SelectItem>
-                    <SelectItem value="Monthly">Monthly</SelectItem>
-                    <SelectItem value="Rarely/Never">Rarely/Never</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            {/* Stock Sourcing & Handling */}
-            <div className="space-y-2">
-              <Label>Stock Sourcing & Handling:</Label>
-              <div className="space-y-2 ml-4">
-                <Label htmlFor="plSource">Where do you typically source your post-larvae (PLs) from?</Label>
-                <Select
-                  value={formData.plSource}
-                  onValueChange={(val) => handleSelectChange("plSource", val)}
-                  required={isExistingPond}
-                >
-                  <SelectTrigger id="plSource">
-                    <SelectValue placeholder="Select source" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="BFAR-accredited hatchery">BFAR-accredited hatchery</SelectItem>
-                    <SelectItem value="Non-accredited local hatchery">Non-accredited local hatchery</SelectItem>
-                    <SelectItem value="Wild-caught">Wild-caught</SelectItem>
-                    <SelectItem value="Other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2 ml-4">
-                <Label>
-                  Do you acclimate new PLs (gradually adjust them to pond water) before releasing them into the grow-out
-                  pond?
-                </Label>
-                <RadioGroup
-                  value={formData.acclimatePLs}
-                  onValueChange={(val) => handleRadioChange("acclimatePLs", val)}
-                  className="flex space-x-4"
-                  required={isExistingPond}
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Yes" id="acclimatePLs-yes" />
-                    <Label htmlFor="acclimatePLs-yes">Yes</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="No" id="acclimatePLs-no" />
-                    <Label htmlFor="acclimatePLs-no">No</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Partially" id="acclimatePLs-partially" />
-                    <Label htmlFor="acclimatePLs-partially">Partially</Label>
-                  </div>
-                </RadioGroup>
-              </div>
-              <div className="space-y-2 ml-4">
-                <Label>
-                  Do you quarantine new PL batches in a separate tank/area before introducing them to the main pond?
-                </Label>
-                <RadioGroup
-                  value={formData.quarantinePLs}
-                  onValueChange={(val) => handleRadioChange("quarantinePLs", val)}
-                  className="flex space-x-4"
-                  required={isExistingPond}
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Yes" id="quarantinePLs-yes" />
-                    <Label htmlFor="quarantinePLs-yes">Yes</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="No" id="quarantinePLs-no" />
-                    <Label htmlFor="quarantinePLs-no">No</Label>
-                  </div>
-                </RadioGroup>
-              </div>
-            </div>
-
-            {/* Farm Access & Sanitation */}
-            <div className="space-y-2">
-              <Label>Farm Access & Sanitation:</Label>
-              <div className="space-y-2 ml-4">
-                <Label>
-                  Do you have fencing around your ponds/farm to prevent entry of animals (e.g., birds, crabs, wild
-                  fish)?
-                </Label>
-                <RadioGroup
-                  value={formData.hasFencing}
-                  onValueChange={(val) => handleRadioChange("hasFencing", val)}
-                  className="flex space-x-4"
-                  required={isExistingPond}
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Yes" id="hasFencing-yes" />
-                    <Label htmlFor="hasFencing-yes">Yes</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="No" id="hasFencing-no" />
-                    <Label htmlFor="hasFencing-no">No</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Partial" id="hasFencing-partial" />
-                    <Label htmlFor="hasFencing-partial">Partial</Label>
-                  </div>
-                </RadioGroup>
-              </div>
-              <div className="space-y-2 ml-4">
-                <Label>Do you use footbaths or vehicle tire baths at farm entry points or between pond areas?</Label>
-                <RadioGroup
-                  value={formData.useFootbaths}
-                  onValueChange={(val) => handleRadioChange("useFootbaths", val)}
-                  className="flex space-x-4"
-                  required={isExistingPond}
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Yes" id="useFootbaths-yes" />
-                    <Label htmlFor="useFootbaths-yes">Yes</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="No" id="useFootbaths-no" />
-                    <Label htmlFor="useFootbaths-no">No</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Sometimes" id="useFootbaths-sometimes" />
-                    <Label htmlFor="useFootbaths-sometimes">Sometimes</Label>
-                  </div>
-                </RadioGroup>
-              </div>
-              <div className="space-y-2 ml-4">
-                <Label>
-                  Do you have dedicated equipment (nets, buckets, tools) for each pond, or do you share equipment
-                  between ponds without disinfection?
-                </Label>
-                <RadioGroup
-                  value={formData.equipmentSharing}
-                  onValueChange={(val) => handleRadioChange("equipmentSharing", val)}
-                  className="flex flex-col space-y-2"
-                  required={isExistingPond}
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Dedicated per pond" id="equipmentSharing-dedicated" />
-                    <Label htmlFor="equipmentSharing-dedicated">Dedicated per pond</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Shared with disinfection" id="equipmentSharing-shared-disinfect" />
-                    <Label htmlFor="equipmentSharing-shared-disinfect">Shared with disinfection</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Shared without disinfection" id="equipmentSharing-shared-no-disinfect" />
-                    <Label htmlFor="equipmentSharing-shared-no-disinfect">Shared without disinfection</Label>
-                  </div>
-                </RadioGroup>
-              </div>
-              <div className="space-y-2 ml-4">
-                <Label htmlFor="visitorManagement">How do you manage visitors to your farm?</Label>
-                <Select
-                  value={formData.visitorManagement}
-                  onValueChange={(val) => handleSelectChange("visitorManagement", val)}
-                  required={isExistingPond}
-                >
-                  <SelectTrigger id="visitorManagement">
-                    <SelectValue placeholder="Select management style" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Strictly restricted">Strictly restricted</SelectItem>
-                    <SelectItem value="Limited access">Limited access</SelectItem>
-                    <SelectItem value="Unrestricted access">Unrestricted access</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            {/* Waste & Mortality Management */}
-            <div className="space-y-2">
-              <Label>Waste & Mortality Management:</Label>
-              <div className="space-y-2 ml-4">
-                <Label htmlFor="wasteDisposal">How do you dispose of dead shrimp or waste from the ponds?</Label>
-                <Select
-                  value={formData.wasteDisposal}
-                  onValueChange={(val) => handleSelectChange("wasteDisposal", val)}
-                  required={isExistingPond}
-                >
-                  <SelectTrigger id="wasteDisposal">
-                    <SelectValue placeholder="Select disposal method" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Buried on-site">Buried on-site</SelectItem>
-                    <SelectItem value="Disposed off-site securely">Disposed off-site securely</SelectItem>
-                    <SelectItem value="Discarded in water nearby">Discarded in water nearby</SelectItem>
-                    <SelectItem value="Other">Other</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2 ml-4">
-                <Label>Do you control feeding amounts to avoid overfeeding and excess waste?</Label>
-                <RadioGroup
-                  value={formData.controlFeeding}
-                  onValueChange={(val) => handleRadioChange("controlFeeding", val)}
-                  className="flex space-x-4"
-                  required={isExistingPond}
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Yes" id="controlFeeding-yes" />
-                    <Label htmlFor="controlFeeding-yes">Yes</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="No" id="controlFeeding-no" />
-                    <Label htmlFor="controlFeeding-no">No</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Sometimes" id="controlFeeding-sometimes" />
-                    <Label htmlFor="controlFeeding-sometimes">Sometimes</Label>
-                  </div>
-                </RadioGroup>
-              </div>
-            </div>
-
-            {/* Health Monitoring */}
-            <div className="space-y-2">
-              <Label>Health Monitoring:</Label>
-              <div className="space-y-2 ml-4">
-                <Label htmlFor="healthMonitoring">How do you currently monitor shrimp health?</Label>
-                <Select
-                  value={formData.healthMonitoring}
-                  onValueChange={(val) => handleSelectChange("healthMonitoring", val)}
-                  required={isExistingPond}
-                >
-                  <SelectTrigger id="healthMonitoring">
-                    <SelectValue placeholder="Select method" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Visual observation only">Visual observation only</SelectItem>
-                    <SelectItem value="Basic test kits for symptoms">Basic test kits for symptoms</SelectItem>
-                    <SelectItem value="Lab testing if issues arise">Lab testing if issues arise</SelectItem>
-                    <SelectItem value="Never">Never</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2 ml-4">
-                <Label>Do you keep records of feeding, water quality, and shrimp mortality?</Label>
-                <RadioGroup
-                  value={formData.keepRecords}
-                  onValueChange={(val) => handleRadioChange("keepRecords", val)}
-                  className="flex space-x-4"
-                  required={isExistingPond}
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Yes" id="keepRecords-yes" />
-                    <Label htmlFor="keepRecords-yes">Yes</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="No" id="keepRecords-no" />
-                    <Label htmlFor="keepRecords-no">No</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="Partially" id="keepRecords-partially" />
-                    <Label htmlFor="keepRecords-partially">Partially</Label>
-                  </div>
-                </RadioGroup>
-              </div>
-            </div>
+      {/* Current Step Content */}
+      <Card>
+        <CardContent className="p-6">
+          <div className="mb-6">
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              {steps[currentStep].title}
+            </h3>
+            <p className="text-gray-600">{steps[currentStep].description}</p>
           </div>
-        </>
-      )}
 
-      <Button type="submit" className="w-full" disabled={isSubmitting}>
-        {isSubmitting ? (
-          <>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Generating Plan...
-          </>
-        ) : (
-          "Submit Assessment"
-        )}
-      </Button>
-    </form>
+          {/* Step Content */}
+          <div className="min-h-[300px]">
+            {renderStepContent()}
+          </div>
+
+          {/* Navigation */}
+          <div className="flex justify-between mt-8 pt-6 border-t border-gray-200">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handlePrevious}
+              disabled={currentStep === 0}
+            >
+              Previous
+            </Button>
+            
+            {currentStep === steps.length - 1 ? (
+              <Button
+                type="button"
+                onClick={handleSubmit}
+                disabled={isSubmitting || !validateCurrentStep()}
+                className="bg-black text-white hover:bg-gray-800"
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    Generating Plan...
+                  </>
+                ) : (
+                  "Submit Assessment"
+                )}
+              </Button>
+            ) : (
+              <Button
+                type="button"
+                onClick={handleNext}
+                disabled={!validateCurrentStep()}
+                className="bg-black text-white hover:bg-gray-800"
+              >
+                Next
+              </Button>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   )
 }
