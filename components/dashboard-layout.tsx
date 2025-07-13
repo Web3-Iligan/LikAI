@@ -18,7 +18,6 @@ import {
   FileText,
   Bell,
   LayoutDashboard,
-  TrendingUp,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Sheet, SheetContent } from "@/components/ui/sheet"
@@ -78,11 +77,6 @@ const navigationItems: NavigationItem[] = [
     icon: DollarSign,
   },
   {
-    title: "Progress Tracker",
-    href: "/progress",
-    icon: TrendingUp,
-  },
-  {
     title: "Knowledge Base",
     href: "/knowledge",
     icon: BookOpen,
@@ -112,38 +106,15 @@ export function DashboardLayout({ children, pathname }: DashboardLayoutProps) {
 
   const NavigationContent = () => (
     <div className="flex h-full flex-col">
-      {/* Logo and Farm Info */}
+      {/* Logo */}
       <div className="border-b border-gray-200 p-6">
-        <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
             <Fish className="h-6 w-6 text-white" />
           </div>
           <div>
             <h1 className="text-lg font-semibold text-gray-900">LikAI</h1>
             <p className="text-sm text-gray-500">Biosecurity Coach</p>
-          </div>
-        </div>
-
-        {/* Farm Profile Card */}
-        <div className="rounded-lg bg-gradient-to-r from-blue-50 to-cyan-50 p-4 border border-blue-100">
-          <div className="flex items-center gap-3">
-            <Avatar className="h-8 w-8">
-              <AvatarImage src="/placeholder.svg?height=32&width=32" />
-              <AvatarFallback className="bg-blue-100 text-blue-600">SF</AvatarFallback>
-            </Avatar>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-gray-900 truncate">Sunrise Shrimp Farm</p>
-              <p className="text-xs text-gray-500">Bataan, Philippines</p>
-            </div>
-          </div>
-          <div className="mt-3 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Shield className="h-3 w-3 text-orange-500" />
-              <span className="text-xs font-medium text-orange-600">Medium Risk</span>
-            </div>
-            <Badge variant="outline" className="text-xs">
-              Cycle #3
-            </Badge>
           </div>
         </div>
       </div>
@@ -205,14 +176,6 @@ export function DashboardLayout({ children, pathname }: DashboardLayoutProps) {
             )
           })}
         </nav>
-        {/* Upgrade to Pro Card */}
-        <div className="mt-4 rounded-lg bg-gradient-to-r from-gray-50 to-gray-100 p-4 border border-gray-200">
-          <h3 className="text-base font-semibold text-gray-900">Upgrade to Pro</h3>
-          <p className="mt-1 text-sm text-gray-600">Unlock all features and get unlimited access to our AI coach.</p>
-          <Button size="sm" className="mt-4 w-full bg-gray-900 text-white hover:bg-gray-800">
-            Upgrade
-          </Button>
-        </div>
       </div>
     </div>
   )

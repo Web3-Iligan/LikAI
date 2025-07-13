@@ -132,7 +132,7 @@ export function DashboardOverview() {
       bgColor: "bg-blue-50",
       borderColor: "border-blue-200",
       icon: Target,
-      href: "/progress", // Link to progress page
+      href: "/plan", // Link to plan page
     },
     {
       title: "Cycle Progress",
@@ -143,7 +143,7 @@ export function DashboardOverview() {
       bgColor: "bg-green-50",
       borderColor: "border-green-200",
       icon: Fish,
-      href: "/progress",
+      href: "/plan",
     },
     {
       title: "Cost Savings",
