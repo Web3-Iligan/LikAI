@@ -281,17 +281,55 @@ export function DashboardOverview() {
       </div>
 
       {/* Main Content Sections (formerly tabs) */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Farm Health Sentiment */}
+      <div className="space-y-6">
+        {/* Risk Trend Analysis Graph - Full Width */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Fish className="h-5 w-5 text-blue-600" />
-              Farm Health Sentiment
+              <BarChart3 className="h-5 w-5 text-purple-600" />
+              Risk Trend Analysis
             </CardTitle>
-            <CardDescription>Overall biosecurity and health assessment</CardDescription>
+            <CardDescription>7-day risk level progression with interactive insights</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
+          <CardContent>
+            <RiskTrendChart data={riskTrendData} />
+            <div className="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="text-center p-3 bg-blue-50 rounded-lg border border-blue-200">
+                <p className="text-xl font-bold text-blue-600">{Math.max(...riskTrendData.map(d => d.value))}</p>
+                <p className="text-sm text-blue-700">Peak Risk Level</p>
+              </div>
+              <div className="text-center p-3 bg-green-50 rounded-lg border border-green-200">
+                <p className="text-xl font-bold text-green-600">{Math.min(...riskTrendData.map(d => d.value))}</p>
+                <p className="text-sm text-green-700">Lowest Risk Level</p>
+              </div>
+              <div className="text-center p-3 bg-purple-50 rounded-lg border border-purple-200">
+                <p className="text-xl font-bold text-purple-600">
+                  {riskTrendData[riskTrendData.length - 1]?.value > riskTrendData[0]?.value ? '+' : ''}
+                  {((riskTrendData[riskTrendData.length - 1]?.value - riskTrendData[0]?.value) || 0).toFixed(1)}
+                </p>
+                <p className="text-sm text-purple-700">7-Day Change</p>
+              </div>
+            </div>
+            <Link href="/reports" passHref>
+              <Button variant="outline" className="w-full mt-4 bg-transparent" size="sm">
+                View Full Reports
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+
+        {/* Two Column Layout for other content */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Farm Health Sentiment */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Fish className="h-5 w-5 text-blue-600" />
+                Farm Health Sentiment
+              </CardTitle>
+              <CardDescription>Overall biosecurity and health assessment</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">{/* ...existing code... */}
             {/* Circular Progress */}
             <div className="flex flex-col items-center justify-center py-6">
               <div className="relative flex items-center justify-center">
@@ -442,7 +480,9 @@ export function DashboardOverview() {
           </CardContent>
         </Card>
 
-        {/* AI-Generated Insights */}
+        </div>
+
+        {/* AI-Generated Insights - Full Width at Bottom */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -452,51 +492,34 @@ export function DashboardOverview() {
             <CardDescription>Personalized recommendations based on your farm data</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-              <h4 className="font-medium text-blue-900 mb-2">Weather Impact Analysis</h4>
-              <p className="text-sm text-blue-800">
-                Based on the approaching typhoon, your farm has a 75% risk of pond overflow. Prioritizing dyke
-                inspection could prevent up to ₱200,000 in potential losses.
-              </p>
-            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <h4 className="font-medium text-blue-900 mb-2">Weather Impact Analysis</h4>
+                <p className="text-sm text-blue-800">
+                  Based on the approaching typhoon, your farm has a 75% risk of pond overflow. Prioritizing dyke
+                  inspection could prevent up to ₱200,000 in potential losses.
+                </p>
+              </div>
 
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200">
-              <h4 className="font-medium text-green-900 mb-2">Cost Optimization Opportunity</h4>
-              <p className="text-sm text-green-800">
-                Implementing solar water disinfection could reduce your water treatment costs by 40% while maintaining
-                85% effectiveness compared to your current method.
-              </p>
-            </div>
+              <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                <h4 className="font-medium text-green-900 mb-2">Cost Optimization Opportunity</h4>
+                <p className="text-sm text-green-800">
+                  Implementing solar water disinfection could reduce your water treatment costs by 40% while maintaining
+                  85% effectiveness compared to your current method.
+                </p>
+              </div>
 
-            <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
-              <h4 className="font-medium text-orange-900 mb-2">Biosecurity Gap Detected</h4>
-              <p className="text-sm text-orange-800">
-                Your visitor protocol compliance is at 60%. Enhancing this to 90% could reduce disease introduction risk
-                by an additional 25%.
-              </p>
+              <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
+                <h4 className="font-medium text-orange-900 mb-2">Biosecurity Gap Detected</h4>
+                <p className="text-sm text-orange-800">
+                  Your visitor protocol compliance is at 60%. Enhancing this to 90% could reduce disease introduction risk
+                  by an additional 25%.
+                </p>
+              </div>
             </div>
             <Link href="/coach" passHref>
               <Button variant="outline" className="w-full mt-4 bg-transparent" size="sm">
                 Ask AI Coach for more insights
-              </Button>
-            </Link>
-          </CardContent>
-        </Card>
-
-        {/* Risk Trend Analysis Graph */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <BarChart3 className="h-5 w-5 text-purple-600" />
-              Risk Trend Analysis
-            </CardTitle>
-            <CardDescription>7-day risk level progression</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <RiskTrendChart data={riskTrendData} />
-            <Link href="/reports" passHref>
-              <Button variant="outline" className="w-full mt-4 bg-transparent" size="sm">
-                View Full Reports
               </Button>
             </Link>
           </CardContent>
