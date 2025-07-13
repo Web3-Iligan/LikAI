@@ -22,6 +22,40 @@ const steps = [
   { id: 7, title: "Waste & Health", description: "Management protocols" },
 ]
 
+// Grouped steps for progress indicator display
+const progressGroups = [
+  { 
+    id: 0, 
+    title: "Farm Setup", 
+    description: "Basic information and resources",
+    stepIndexes: [0, 1] // Basic Profile, Setup & Resources
+  },
+  { 
+    id: 1, 
+    title: "Planning", 
+    description: "Concerns and preparation",
+    stepIndexes: [2, 3] // Concerns, Pond Preparation
+  },
+  { 
+    id: 2, 
+    title: "Management", 
+    description: "Water and stock sourcing",
+    stepIndexes: [4, 5] // Water Management, Stock Sourcing
+  },
+  { 
+    id: 3, 
+    title: "Biosecurity", 
+    description: "Access control and sanitation",
+    stepIndexes: [6] // Access & Sanitation
+  },
+  { 
+    id: 4, 
+    title: "Operations", 
+    description: "Waste management and health monitoring",
+    stepIndexes: [7] // Waste & Health
+  },
+]
+
 interface FormData {
   // Basic Profile
   farmName: string
@@ -105,6 +139,38 @@ export function FarmAssessmentForm() {
 
   const isExistingPond = formData.isNewFarmer === "Existing Pond"
 
+  // Helper functions for progress groups
+  const getCurrentProgressGroup = (stepIndex: number): number => {
+    return progressGroups.findIndex(group => group.stepIndexes.includes(stepIndex))
+  }
+
+  const isProgressGroupCompleted = (groupIndex: number): boolean => {
+    const group = progressGroups[groupIndex]
+    return group.stepIndexes.every(stepIndex => {
+      switch (stepIndex) {
+        case 0: // Basic Profile
+          return !!(formData.farmName && formData.location && formData.primarySpecies && formData.farmType && formData.farmSize)
+        case 1: // Setup & Resources
+          return !!(formData.isNewFarmer && formData.waterSource.length > 0 && formData.initialBudget && formData.hasElectricity)
+        case 2: // Concerns
+          return formData.topConcerns.length > 0
+        case 3: // Pond Preparation
+          if (formData.isNewFarmer === "New Setup") return true
+          return !!(formData.pondDrainSunDry && formData.removeMuckLayer && formData.disinfectPond)
+        case 4: // Water Management
+          return !!(formData.filterIncomingWater && formData.separateReservoir && formData.waterMonitoringFrequency)
+        case 5: // Stock Sourcing
+          return !!(formData.plSource && formData.acclimatePLs && formData.quarantinePLs)
+        case 6: // Access & Sanitation
+          return !!(formData.hasFencing && formData.useFootbaths && formData.equipmentSharing && formData.visitorManagement)
+        case 7: // Waste & Health
+          return !!(formData.wasteDisposal && formData.controlFeeding && formData.healthMonitoring && formData.keepRecords)
+        default:
+          return false
+      }
+    })
+  }
+
   // Memoize step completion status to prevent infinite re-renders
   const stepCompletionStatus = useMemo(() => {
     return steps.map((_, stepIndex) => {
@@ -131,6 +197,13 @@ export function FarmAssessmentForm() {
       }
     })
   }, [formData])
+
+  // Memoize progress group completion status
+  const progressGroupCompletionStatus = useMemo(() => {
+    return progressGroups.map((_, groupIndex) => isProgressGroupCompleted(groupIndex))
+  }, [formData])
+
+  const currentProgressGroup = getCurrentProgressGroup(currentStep)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value, type } = e.target
@@ -884,37 +957,71 @@ export function FarmAssessmentForm() {
     <div className="space-y-8">
       {/* Step Progress Indicator */}
       <div className="w-full">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-semibold text-gray-900">Assessment Progress</h2>
           <span className="text-sm text-gray-500">{currentStep + 1} of {steps.length}</span>
         </div>
         
-        <div className="flex items-center space-x-2 mb-6">
-          {steps.map((step, index) => (
-            <div key={step.id} className="flex items-center">
-              <div
-                className={`flex items-center justify-center w-8 h-8 rounded-full cursor-pointer ${
-                  index === currentStep
-                    ? "bg-blue-600 text-white"
-                    : index < currentStep || stepCompletionStatus[index]
-                    ? "bg-green-600 text-white"
-                    : "bg-gray-200 text-gray-600"
-                }`}
-                onClick={() => handleStepClick(index)}
-              >
-                {index < currentStep || stepCompletionStatus[index] ? (
-                  <CheckCircle className="h-5 w-5" />
-                ) : (
-                  <Circle className="h-5 w-5" />
-                )}
+        {/* Progress Groups with Labels */}
+        <div className="relative mb-8">
+          {/* Progress Line */}
+          <div className="absolute top-5 left-0 right-0 h-1 bg-gray-200 rounded-full z-0">
+            <div 
+              className="h-full bg-blue-600 rounded-full transition-all duration-500 ease-in-out"
+              style={{ width: `${(currentProgressGroup / (progressGroups.length - 1)) * 100}%` }}
+            />
+          </div>
+
+          {/* Progress Group Circles and Labels */}
+          <div className="flex justify-between items-start relative z-10">
+            {progressGroups.map((group, index) => (
+              <div key={group.id} className="flex flex-col items-center max-w-[120px]">
+                {/* Progress Circle */}
+                <div
+                  className={`flex items-center justify-center w-10 h-10 rounded-full cursor-pointer mb-3 transition-all duration-300 relative z-20 ${
+                    index === currentProgressGroup
+                      ? "bg-blue-600 text-white ring-4 ring-blue-200 shadow-lg"
+                      : index < currentProgressGroup || progressGroupCompletionStatus[index]
+                      ? "bg-green-600 text-white shadow-md"
+                      : "bg-white border-2 border-gray-300 text-gray-400 hover:border-gray-400"
+                  }`}
+                  onClick={() => {
+                    // Navigate to first step of the clicked group
+                    const firstStepOfGroup = group.stepIndexes[0]
+                    handleStepClick(firstStepOfGroup)
+                  }}
+                >
+                  {index < currentProgressGroup || progressGroupCompletionStatus[index] ? (
+                    <CheckCircle className="h-5 w-5" />
+                  ) : (
+                    <span className="text-sm font-semibold">{index + 1}</span>
+                  )}
+                </div>
+                
+                {/* Group Label */}
+                <div className="text-center">
+                  <div className={`text-xs font-medium mb-1 transition-colors duration-300 ${
+                    index === currentProgressGroup 
+                      ? "text-blue-600" 
+                      : index < currentProgressGroup || progressGroupCompletionStatus[index]
+                      ? "text-green-600"
+                      : "text-gray-400"
+                  }`}>
+                    {group.title}
+                  </div>
+                  <div className={`text-xs leading-tight transition-colors duration-300 ${
+                    index === currentProgressGroup
+                      ? "text-gray-600"
+                      : index < currentProgressGroup || progressGroupCompletionStatus[index]
+                      ? "text-gray-500"
+                      : "text-gray-300"
+                  }`}>
+                    {group.description}
+                  </div>
+                </div>
               </div>
-              {index < steps.length - 1 && (
-                <div className={`w-12 h-1 mx-2 ${
-                  index < currentStep ? "bg-green-600" : "bg-gray-200"
-                }`} />
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
