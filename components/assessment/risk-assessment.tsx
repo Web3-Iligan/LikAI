@@ -19,7 +19,7 @@ import {
   Shield,
 } from "lucide-react"
 import Link from "next/link" // Import Link for navigation
-import { DetailedActionPlan } from "@/components/detailed-action-plan" // Import the new component
+import { DetailedActionPlan } from "@/components/plan/detailed-action-plan" // Import the new component
 
 interface RiskFactor {
   id: string

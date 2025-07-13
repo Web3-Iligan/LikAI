@@ -1,4 +1,4 @@
-import { RiskAssessment } from "@/components/risk-assessment"
+import { RiskAssessment } from "@/components/assessment/risk-assessment"
 
 // Dummy farm profile for demonstration
 const farmProfile = {

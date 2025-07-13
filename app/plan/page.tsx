@@ -1,4 +1,4 @@
-import { BiosecurityPlan } from "@/components/biosecurity-plan"
+import { BiosecurityPlan } from "@/components/plan/biosecurity-plan"
 
 // Dummy farm profile for demonstration
 const farmProfile = {
