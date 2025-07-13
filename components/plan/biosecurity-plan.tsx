@@ -19,11 +19,11 @@ import {
   CheckCircle,
   Clock,
   AlertTriangle,
+  Fish,
 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { HowToGuideView } from "@/components/shared/how-to-guide-view"
-import { Fish } from "lucide-react" // Declare Fish variable
 
 // Add a helper function to parse the estimated cost. Place this outside the component function.
 function parseEstimatedCost(costString: string): number {
@@ -205,9 +205,9 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
         const parsedPlan: BiosecurityTask[] = JSON.parse(storedPlan)
         // Assign IDs and default status if not present (from AI generation)
         const tasksWithDefaults = parsedPlan.map((task, index) => ({
-          id: `ai-task-${index}`,
-          status: "pending", // Default status for AI-generated tasks
           ...task,
+          id: task.id || `ai-task-${index}`,
+          status: (task.status as "completed" | "in-progress" | "pending") || "pending",
         }))
         setAiGeneratedTasks(tasksWithDefaults)
         localStorage.removeItem("aiGeneratedPlan") // Clear after use
@@ -221,16 +221,26 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
   const currentTasks = aiGeneratedTasks || defaultTasks // Use AI tasks if available, else default
 
   const toggleTaskStatus = (taskId: string) => {
-    const updatedTasks = currentTasks.map((task) =>
-      task.id === taskId ? { ...task, status: task.status === "completed" ? "pending" : "completed" } : task,
-    )
+    const updatedTasks = currentTasks.map((task) => {
+      if (task.id === taskId) {
+        const newStatus: "completed" | "in-progress" | "pending" = 
+          task.status === "completed" ? "pending" : "completed"
+        return { ...task, status: newStatus }
+      }
+      return task
+    })
     if (aiGeneratedTasks) {
       setAiGeneratedTasks(updatedTasks)
     } else {
       // If using default tasks, update them in a local state
-      const updatedDefaultTasks = defaultTasks.map((task) =>
-        task.id === taskId ? { ...task, status: task.status === "completed" ? "pending" : "completed" } : task,
-      )
+      const updatedDefaultTasks = defaultTasks.map((task) => {
+        if (task.id === taskId) {
+          const newStatus: "completed" | "in-progress" | "pending" = 
+            task.status === "completed" ? "pending" : "completed"
+          return { ...task, status: newStatus }
+        }
+        return task
+      })
       setAiGeneratedTasks(null) // Force re-evaluation to use defaultTasks if no AI plan
     }
   }
@@ -250,7 +260,11 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
     : 0
 
   if (selectedTaskForGuide) {
-    return <HowToGuideView task={selectedTaskForGuide} onBack={() => setSelectedTaskForGuide(null)} />
+    const taskWithIcon = {
+      ...selectedTaskForGuide,
+      icon: selectedTaskForGuide.icon || categoryIcons[selectedTaskForGuide.category] || Zap
+    }
+    return <HowToGuideView task={taskWithIcon} onBack={() => setSelectedTaskForGuide(null)} />
   }
 
   return (

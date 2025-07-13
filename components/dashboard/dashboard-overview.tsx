@@ -496,7 +496,7 @@ export function DashboardOverview() {
             <RiskTrendChart data={riskTrendData} />
             <Link href="/reports" passHref>
               <Button variant="outline" className="w-full mt-4 bg-transparent" size="sm">
-                View Detailed Analytics
+                View Full Reports
               </Button>
             </Link>
           </CardContent>

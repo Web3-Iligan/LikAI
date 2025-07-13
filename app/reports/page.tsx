@@ -57,7 +57,6 @@ export default function ReportsPage() {
 
   const handleGenerateReport = () => {
     // In a real application, this would trigger an API call to generate a report
-    console.log(`Generating ${reportType} report for ${timeframe}`)
     // Simulate adding a new pending report
     const newReport: Report = {
       id: `rep-${Date.now()}`,

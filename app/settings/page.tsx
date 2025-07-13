@@ -22,7 +22,6 @@ export default function SettingsPage() {
   const handleProfileUpdate = (e: React.FormEvent) => {
     e.preventDefault()
     // In a real application, you would send this data to a server
-    console.log("Profile updated:", { name, email, bio, farmName, location })
     toast({
       title: "Profile Updated!",
       description: "Your personal details have been successfully saved.",
@@ -31,7 +30,6 @@ export default function SettingsPage() {
 
   const handleLogout = () => {
     // In a real application, you would clear session/token and redirect to login
-    console.log("User logged out")
     toast({
       title: "Logged Out",
       description: "You have been successfully logged out.",
