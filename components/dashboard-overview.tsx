@@ -233,43 +233,75 @@ export function DashboardOverview() {
 
       {/* Main Content Sections (formerly tabs) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Farm Status Card */}
+        {/* Farm Health Sentiment */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Fish className="h-5 w-5 text-blue-600" />
-              Farm Status Overview
+              Farm Health Sentiment
             </CardTitle>
-            <CardDescription>Current production cycle and key metrics</CardDescription>
+            <CardDescription>Overall biosecurity and health assessment</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <p className="text-sm font-medium text-gray-600">Current Cycle</p>
-                <p className="text-xl font-bold text-blue-600">#{farmProfile.currentCycle}</p>
+          <CardContent className="space-y-6">
+            {/* Circular Progress */}
+            <div className="flex flex-col items-center justify-center py-8">
+              <div className="relative">
+                <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
+                  {/* Background circle */}
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="45"
+                    stroke="#e5e7eb"
+                    strokeWidth="8"
+                    fill="none"
+                  />
+                  {/* Progress circle */}
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r="45"
+                    stroke="#10b981"
+                    strokeWidth="8"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeDasharray={`${91 * 2.827} ${100 * 2.827}`}
+                    className="transition-all duration-1000 ease-out"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mb-1">
+                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <span className="text-sm font-medium text-green-600">Excellent</span>
+                </div>
               </div>
-              <div className="space-y-2">
-                <p className="text-sm font-medium text-gray-600">Cycle Day</p>
-                <p className="text-xl font-bold text-green-600">{farmProfile.cycleDay}</p>
+              
+              <div className="text-center mt-4">
+                <div className="text-3xl font-bold text-gray-900 mb-1">91%</div>
+                <div className="text-sm text-gray-600">of parameters within optimal range</div>
               </div>
             </div>
 
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="font-medium text-gray-600">Expected Harvest</span>
-                <span className="text-gray-800">{farmProfile.expectedHarvest}</span>
-              </div>
-              <Progress value={(farmProfile.cycleDay / 70) * 100} className="h-2" />
-            </div>
-
-            <div className="pt-2 border-t">
+            {/* Status Details */}
+            <div className="space-y-3 pt-4 border-t">
               <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-gray-600">Farm Size</span>
-                <span className="text-sm text-gray-800">{farmProfile.size}</span>
+                <span className="text-sm font-medium text-gray-600">Water Quality</span>
+                <span className="text-sm text-green-600 font-medium">Excellent</span>
               </div>
-              <div className="flex items-center justify-between mt-1">
-                <span className="text-sm font-medium text-gray-600">Species</span>
-                <span className="text-sm text-gray-800">{farmProfile.species}</span>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-gray-600">Stock Health</span>
+                <span className="text-sm text-green-600 font-medium">Good</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-gray-600">Biosecurity Status</span>
+                <span className="text-sm text-green-600 font-medium">Excellent</span>
+              </div>
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-medium text-gray-600">Current Cycle</span>
+                <span className="text-sm text-gray-800">Day {farmProfile.cycleDay} of 70</span>
               </div>
             </div>
           </CardContent>
