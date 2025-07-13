@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { useRouter } from "next/navigation"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -105,6 +105,33 @@ export function FarmAssessmentForm() {
 
   const isExistingPond = formData.isNewFarmer === "Existing Pond"
 
+  // Memoize step completion status to prevent infinite re-renders
+  const stepCompletionStatus = useMemo(() => {
+    return steps.map((_, stepIndex) => {
+      switch (stepIndex) {
+        case 0: // Basic Profile
+          return !!(formData.farmName && formData.location && formData.primarySpecies && formData.farmType && formData.farmSize)
+        case 1: // Setup & Resources
+          return !!(formData.isNewFarmer && formData.waterSource.length > 0 && formData.initialBudget && formData.hasElectricity)
+        case 2: // Concerns
+          return formData.topConcerns.length > 0
+        case 3: // Pond Preparation
+          if (formData.isNewFarmer === "New Setup") return true
+          return !!(formData.pondDrainSunDry && formData.removeMuckLayer && formData.disinfectPond)
+        case 4: // Water Management
+          return !!(formData.filterIncomingWater && formData.separateReservoir && formData.waterMonitoringFrequency)
+        case 5: // Stock Sourcing
+          return !!(formData.plSource && formData.acclimatePLs && formData.quarantinePLs)
+        case 6: // Access & Sanitation
+          return !!(formData.hasFencing && formData.useFootbaths && formData.equipmentSharing && formData.visitorManagement)
+        case 7: // Waste & Health
+          return !!(formData.wasteDisposal && formData.controlFeeding && formData.healthMonitoring && formData.keepRecords)
+        default:
+          return false
+      }
+    })
+  }, [formData])
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value, type } = e.target
     
@@ -170,24 +197,10 @@ export function FarmAssessmentForm() {
   }
 
   const handleStepClick = (stepIndex: number) => {
-    // Allow navigation to completed steps or current step
-    for (let i = 0; i < stepIndex; i++) {
-      const originalStep = currentStep
-      setCurrentStep(i)
-      if (!validateCurrentStep()) {
-        setCurrentStep(originalStep)
-        return
-      }
+    // Allow navigation to completed steps, current step, or next step if current is completed
+    if (stepIndex <= currentStep || (stepIndex === currentStep + 1 && stepCompletionStatus[currentStep])) {
+      setCurrentStep(stepIndex)
     }
-    setCurrentStep(stepIndex)
-  }
-
-  const isStepCompleted = (stepIndex: number): boolean => {
-    const originalStep = currentStep
-    setCurrentStep(stepIndex)
-    const isValid = validateCurrentStep()
-    setCurrentStep(originalStep)
-    return isValid
   }
 
   const handleSubmit = async () => {
@@ -871,35 +884,56 @@ export function FarmAssessmentForm() {
     <div className="space-y-8">
       {/* Step Progress Indicator */}
       <div className="w-full">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-semibold text-gray-900">Assessment Progress</h2>
           <span className="text-sm text-gray-500">{currentStep + 1} of {steps.length}</span>
         </div>
         
-        <div className="flex items-center space-x-2 mb-6">
+        {/* Progress Bar */}
+        <div className="w-full bg-gray-200 rounded-full h-2 mb-8">
+          <div 
+            className="bg-blue-600 h-2 rounded-full transition-all duration-300 ease-in-out"
+            style={{ width: `${((currentStep + 1) / steps.length) * 100}%` }}
+          />
+        </div>
+
+        {/* Step Indicators with Labels */}
+        <div className="flex justify-between items-start mb-8">
           {steps.map((step, index) => (
-            <div key={step.id} className="flex items-center">
+            <div key={step.id} className="flex flex-col items-center max-w-[120px]">
+              {/* Step Circle */}
               <div
-                className={`flex items-center justify-center w-8 h-8 rounded-full cursor-pointer ${
+                className={`flex items-center justify-center w-10 h-10 rounded-full cursor-pointer mb-2 transition-all duration-200 ${
                   index === currentStep
-                    ? "bg-blue-600 text-white"
-                    : index < currentStep || isStepCompleted(index)
+                    ? "bg-blue-600 text-white ring-4 ring-blue-200"
+                    : index < currentStep || stepCompletionStatus[index]
                     ? "bg-green-600 text-white"
-                    : "bg-gray-200 text-gray-600"
+                    : "bg-gray-200 text-gray-600 hover:bg-gray-300"
                 }`}
                 onClick={() => handleStepClick(index)}
               >
-                {index < currentStep || isStepCompleted(index) ? (
+                {index < currentStep || stepCompletionStatus[index] ? (
                   <CheckCircle className="h-5 w-5" />
                 ) : (
-                  <Circle className="h-5 w-5" />
+                  <span className="text-sm font-semibold">{index + 1}</span>
                 )}
               </div>
-              {index < steps.length - 1 && (
-                <div className={`w-12 h-1 mx-2 ${
-                  index < currentStep ? "bg-green-600" : "bg-gray-200"
-                }`} />
-              )}
+              
+              {/* Step Label */}
+              <div className="text-center">
+                <div className={`text-xs font-medium mb-1 ${
+                  index === currentStep 
+                    ? "text-blue-600" 
+                    : index < currentStep || stepCompletionStatus[index]
+                    ? "text-green-600"
+                    : "text-gray-500"
+                }`}>
+                  {step.title}
+                </div>
+                <div className="text-xs text-gray-400 leading-tight">
+                  {step.description}
+                </div>
+              </div>
             </div>
           ))}
         </div>
@@ -909,9 +943,17 @@ export function FarmAssessmentForm() {
       <Card>
         <CardContent className="p-6">
           <div className="mb-6">
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              {steps[currentStep].title}
-            </h3>
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-xl font-semibold text-gray-900">
+                {steps[currentStep].title}
+              </h3>
+              {stepCompletionStatus[currentStep] && (
+                <span className="flex items-center text-green-600 text-sm font-medium">
+                  <CheckCircle className="h-4 w-4 mr-1" />
+                  Complete
+                </span>
+              )}
+            </div>
             <p className="text-gray-600">{steps[currentStep].description}</p>
           </div>
 
