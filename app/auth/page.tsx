@@ -9,7 +9,7 @@ export default function AuthPage() {
     <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1 text-center">
-          <CardTitle className="text-2xl font-bold">Login to AquaSecure AI</CardTitle>
+          <CardTitle className="text-2xl font-bold">Login to LikAI</CardTitle>
           <CardDescription>Enter your credentials to access your dashboard.</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">

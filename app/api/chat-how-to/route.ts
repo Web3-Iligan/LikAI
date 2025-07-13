@@ -23,7 +23,7 @@ export async function POST(req: Request) {
       })
     }
 
-    const systemPrompt = `You are an AquaSecure AI assistant specialized in providing detailed guidance on aquaculture how-to guides. Your goal is to help the user understand and implement their specific how-to guide.
+    const systemPrompt = `You are a LikAI assistant specialized in providing detailed guidance on aquaculture how-to guides. Your goal is to help the user understand and implement their specific how-to guide.
     
     Here is the current how-to guide context:
     ${guideContext}

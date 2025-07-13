@@ -1,8 +1,8 @@
-# Aquasecure ai features
+# LikAI features
 
 *Automatically synced with your [v0.dev](https://v0.dev) deployments*
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/nilmarpesarast-1335s-projects/v0-aquasecure-ai-features)
+[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/nilmarpesarast-1335s-projects/v0-likaai-features)
 [![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/ObFzBFTaZJs)
 
 ## Overview
@@ -14,7 +14,7 @@ Any changes you make to your deployed app will be automatically pushed to this r
 
 Your project is live at:
 
-**[https://vercel.com/nilmarpesarast-1335s-projects/v0-aquasecure-ai-features](https://vercel.com/nilmarpesarast-1335s-projects/v0-aquasecure-ai-features)**
+**[https://vercel.com/nilmarpesarast-1335s-projects/v0-likaai-features](https://vercel.com/nilmarpesarast-1335s-projects/v0-likaai-features)**
 
 ## Build your app
 

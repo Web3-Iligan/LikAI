@@ -23,7 +23,7 @@ export async function POST(req: Request) {
   }
   // ---------- END fallback ----------
 
-  const systemPrompt = `You are an AquaSecure AI assistant specialized in providing detailed guidance on aquaculture biosecurity action plans. Your goal is to help the user understand and implement their specific action plan.
+  const systemPrompt = `You are a LikAI assistant specialized in providing detailed guidance on aquaculture biosecurity action plans. Your goal is to help the user understand and implement their specific action plan.
     
     Here is the current action plan context:
     ${planContext}

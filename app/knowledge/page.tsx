@@ -60,7 +60,7 @@ export default function KnowledgeBasePage() {
   <li>Keep detailed records of your readings to identify trends and potential issues early.</li>
   <li>Adjust feeding rates and aeration based on water quality results.</li>
 </ul>
-<p class="text-sm text-gray-600 italic">For more detailed guidance, consult your AquaSecure AI Coach or refer to the "Water Management" section in your Dynamic Plan.</p>
+<p class="text-sm text-gray-600 italic">For more detailed guidance, consult your LikAI Coach or refer to the "Water Management" section in your Dynamic Plan.</p>
 `,
     },
     {

@@ -22,7 +22,7 @@ export function InteractiveChatbot() {
       id: "1",
       type: "bot",
       content:
-        "Hello! I'm your AquaSecure AI Coach. I can help you with step-by-step guidance, troubleshooting, and cost-benefit analysis for your biosecurity plan. What would you like to know?",
+        "Hello! I'm your LikAI Coach. I can help you with step-by-step guidance, troubleshooting, and cost-benefit analysis for your biosecurity plan. What would you like to know?",
       timestamp: new Date(),
       category: "general",
     },
