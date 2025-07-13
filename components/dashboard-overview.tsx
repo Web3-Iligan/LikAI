@@ -19,7 +19,6 @@ import {
   Target,
   Zap,
   ArrowRight,
-  CalendarDays,
   BarChart3,
 } from "lucide-react"
 import RiskTrendChart from "@/components/risk-trend-chart"
@@ -94,8 +93,8 @@ export function DashboardOverview() {
       color: "text-green-600",
       bgColor: "bg-green-50",
       borderColor: "border-green-200",
-      icon: CalendarDays, // Changed icon to CalendarDays
-      href: "/calendar", // Link to calendar page
+      icon: Fish,
+      href: "/progress",
     },
     {
       title: "Cost Savings",

@@ -9,7 +9,6 @@ import {
   Zap,
   DollarSign,
   BarChart3,
-  CalendarDays,
   BookOpen,
   Settings,
   LifeBuoy,
@@ -87,11 +86,6 @@ const navigationItems: NavigationItem[] = [
     title: "Analytics",
     href: "/analytics",
     icon: BarChart3,
-  },
-  {
-    title: "Calendar",
-    href: "/calendar",
-    icon: CalendarDays,
   },
   {
     title: "Knowledge Base",
