@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { useRouter } from "next/navigation"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -105,6 +105,33 @@ export function FarmAssessmentForm() {
 
   const isExistingPond = formData.isNewFarmer === "Existing Pond"
 
+  // Memoize step completion status to prevent infinite re-renders
+  const stepCompletionStatus = useMemo(() => {
+    return steps.map((_, stepIndex) => {
+      switch (stepIndex) {
+        case 0: // Basic Profile
+          return !!(formData.farmName && formData.location && formData.primarySpecies && formData.farmType && formData.farmSize)
+        case 1: // Setup & Resources
+          return !!(formData.isNewFarmer && formData.waterSource.length > 0 && formData.initialBudget && formData.hasElectricity)
+        case 2: // Concerns
+          return formData.topConcerns.length > 0
+        case 3: // Pond Preparation
+          if (formData.isNewFarmer === "New Setup") return true
+          return !!(formData.pondDrainSunDry && formData.removeMuckLayer && formData.disinfectPond)
+        case 4: // Water Management
+          return !!(formData.filterIncomingWater && formData.separateReservoir && formData.waterMonitoringFrequency)
+        case 5: // Stock Sourcing
+          return !!(formData.plSource && formData.acclimatePLs && formData.quarantinePLs)
+        case 6: // Access & Sanitation
+          return !!(formData.hasFencing && formData.useFootbaths && formData.equipmentSharing && formData.visitorManagement)
+        case 7: // Waste & Health
+          return !!(formData.wasteDisposal && formData.controlFeeding && formData.healthMonitoring && formData.keepRecords)
+        default:
+          return false
+      }
+    })
+  }, [formData])
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value, type } = e.target
     
@@ -170,24 +197,10 @@ export function FarmAssessmentForm() {
   }
 
   const handleStepClick = (stepIndex: number) => {
-    // Allow navigation to completed steps or current step
-    for (let i = 0; i < stepIndex; i++) {
-      const originalStep = currentStep
-      setCurrentStep(i)
-      if (!validateCurrentStep()) {
-        setCurrentStep(originalStep)
-        return
-      }
+    // Allow navigation to completed steps, current step, or next step if current is completed
+    if (stepIndex <= currentStep || (stepIndex === currentStep + 1 && stepCompletionStatus[currentStep])) {
+      setCurrentStep(stepIndex)
     }
-    setCurrentStep(stepIndex)
-  }
-
-  const isStepCompleted = (stepIndex: number): boolean => {
-    const originalStep = currentStep
-    setCurrentStep(stepIndex)
-    const isValid = validateCurrentStep()
-    setCurrentStep(originalStep)
-    return isValid
   }
 
   const handleSubmit = async () => {
@@ -883,13 +896,13 @@ export function FarmAssessmentForm() {
                 className={`flex items-center justify-center w-8 h-8 rounded-full cursor-pointer ${
                   index === currentStep
                     ? "bg-blue-600 text-white"
-                    : index < currentStep || isStepCompleted(index)
+                    : index < currentStep || stepCompletionStatus[index]
                     ? "bg-green-600 text-white"
                     : "bg-gray-200 text-gray-600"
                 }`}
                 onClick={() => handleStepClick(index)}
               >
-                {index < currentStep || isStepCompleted(index) ? (
+                {index < currentStep || stepCompletionStatus[index] ? (
                   <CheckCircle className="h-5 w-5" />
                 ) : (
                   <Circle className="h-5 w-5" />
@@ -909,9 +922,17 @@ export function FarmAssessmentForm() {
       <Card>
         <CardContent className="p-6">
           <div className="mb-6">
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">
-              {steps[currentStep].title}
-            </h3>
+            <div className="flex items-center justify-between mb-2">
+              <h3 className="text-xl font-semibold text-gray-900">
+                {steps[currentStep].title}
+              </h3>
+              {stepCompletionStatus[currentStep] && (
+                <span className="flex items-center text-green-600 text-sm font-medium">
+                  <CheckCircle className="h-4 w-4 mr-1" />
+                  Complete
+                </span>
+              )}
+            </div>
             <p className="text-gray-600">{steps[currentStep].description}</p>
           </div>
 
