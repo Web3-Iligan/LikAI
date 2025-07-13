@@ -20,11 +20,14 @@ import {
   Zap,
   ArrowRight,
   BarChart3,
+  ChevronRight,
+  AlertCircle,
 } from "lucide-react"
 import RiskTrendChart from "@/components/risk-trend-chart"
 import TaskCompletionChart from "@/components/task-completion-chart"
 
 export function DashboardOverview() {
+  const [showImprovements, setShowImprovements] = useState(false)
   const [farmProfile] = useState({
     name: "Sunrise Shrimp Farm",
     type: "Intensive Shrimp Culture",
@@ -61,6 +64,52 @@ export function DashboardOverview() {
       href: "/plan", // Link to the plan page
     },
   ])
+
+  // Health assessment data
+  const healthMetrics = [
+    { 
+      label: "Water Quality", 
+      status: "Excellent", 
+      score: 98, 
+      color: "text-green-600",
+      improvements: []
+    },
+    { 
+      label: "Stock Health", 
+      status: "Good", 
+      score: 85, 
+      color: "text-yellow-600",
+      improvements: [
+        "Increase feeding frequency during peak growth phase",
+        "Monitor dissolved oxygen levels more frequently",
+        "Consider probiotic supplementation"
+      ]
+    },
+    { 
+      label: "Biosecurity Status", 
+      status: "Excellent", 
+      score: 95, 
+      color: "text-green-600",
+      improvements: []
+    },
+    { 
+      label: "Equipment Status", 
+      status: "Good", 
+      score: 88, 
+      color: "text-yellow-600",
+      improvements: [
+        "Schedule maintenance for aerator #3",
+        "Calibrate pH monitoring sensors",
+        "Replace backup generator filters"
+      ]
+    }
+  ]
+
+  const overallScore = Math.round(healthMetrics.reduce((acc, metric) => acc + metric.score, 0) / healthMetrics.length)
+  const overallStatus = overallScore >= 95 ? "Excellent" : overallScore >= 85 ? "Good" : overallScore >= 70 ? "Fair" : "Poor"
+  const overallColor = overallScore >= 95 ? "text-green-600" : overallScore >= 85 ? "text-yellow-600" : "text-orange-600"
+
+  const allImprovements = healthMetrics.filter(metric => metric.improvements.length > 0)
 
   const [quickStats] = useState([
     {
@@ -244,66 +293,115 @@ export function DashboardOverview() {
           </CardHeader>
           <CardContent className="space-y-6">
             {/* Circular Progress */}
-            <div className="flex flex-col items-center justify-center py-8">
-              <div className="relative">
-                <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
+            <div className="flex flex-col items-center justify-center py-6">
+              <div className="relative flex items-center justify-center">
+                <svg className="w-36 h-36 transform -rotate-90" viewBox="0 0 100 100">
                   {/* Background circle */}
                   <circle
                     cx="50"
                     cy="50"
-                    r="45"
-                    stroke="#e5e7eb"
-                    strokeWidth="8"
+                    r="42"
+                    stroke="#f3f4f6"
+                    strokeWidth="6"
                     fill="none"
                   />
                   {/* Progress circle */}
                   <circle
                     cx="50"
                     cy="50"
-                    r="45"
-                    stroke="#10b981"
-                    strokeWidth="8"
+                    r="42"
+                    stroke={overallScore >= 95 ? "#10b981" : overallScore >= 85 ? "#f59e0b" : "#ef4444"}
+                    strokeWidth="6"
                     fill="none"
                     strokeLinecap="round"
-                    strokeDasharray={`${91 * 2.827} ${100 * 2.827}`}
+                    strokeDasharray={`${overallScore * 2.64} ${100 * 2.64}`}
                     className="transition-all duration-1000 ease-out"
                   />
                 </svg>
                 <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mb-1">
-                    <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
+                  <div className={`w-8 h-8 ${overallScore >= 95 ? 'bg-green-500' : overallScore >= 85 ? 'bg-yellow-500' : 'bg-red-500'} rounded-full flex items-center justify-center mb-2`}>
+                    {overallScore >= 95 ? (
+                      <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    ) : (
+                      <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.732 15.5c-.77.833.192 2.5 1.732 2.5z" />
+                      </svg>
+                    )}
                   </div>
-                  <span className="text-sm font-medium text-green-600">Excellent</span>
+                  <span className={`text-sm font-semibold ${overallColor}`}>{overallStatus}</span>
                 </div>
               </div>
               
               <div className="text-center mt-4">
-                <div className="text-3xl font-bold text-gray-900 mb-1">91%</div>
+                <div className="text-4xl font-bold text-gray-900 mb-2">{overallScore}%</div>
                 <div className="text-sm text-gray-600">of parameters within optimal range</div>
               </div>
             </div>
 
             {/* Status Details */}
             <div className="space-y-3 pt-4 border-t">
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-gray-600">Water Quality</span>
-                <span className="text-sm text-green-600 font-medium">Excellent</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-gray-600">Stock Health</span>
-                <span className="text-sm text-green-600 font-medium">Good</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-sm font-medium text-gray-600">Biosecurity Status</span>
-                <span className="text-sm text-green-600 font-medium">Excellent</span>
-              </div>
-              <div className="flex items-center justify-between">
+              {healthMetrics.map((metric, index) => (
+                <div key={index} className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-gray-600">{metric.label}</span>
+                  <div className="flex items-center gap-2">
+                    <span className={`text-sm font-medium ${metric.color}`}>{metric.status}</span>
+                    {metric.improvements.length > 0 && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="h-6 w-6 p-0 text-gray-400 hover:text-gray-600"
+                        onClick={() => setShowImprovements(!showImprovements)}
+                      >
+                        <ChevronRight className="h-3 w-3" />
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              ))}
+              
+              <div className="flex items-center justify-between pt-2 border-t">
                 <span className="text-sm font-medium text-gray-600">Current Cycle</span>
                 <span className="text-sm text-gray-800">Day {farmProfile.cycleDay} of 70</span>
               </div>
             </div>
+
+            {/* Improvement Areas */}
+            {showImprovements && allImprovements.length > 0 && (
+              <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <div className="flex items-center gap-2 mb-3">
+                  <AlertCircle className="h-4 w-4 text-yellow-600" />
+                  <h4 className="text-sm font-semibold text-yellow-800">Areas for Improvement</h4>
+                </div>
+                <div className="space-y-3">
+                  {allImprovements.map((metric, index) => (
+                    <div key={index}>
+                      <h5 className="text-sm font-medium text-yellow-800 mb-1">{metric.label}</h5>
+                      <ul className="space-y-1">
+                        {metric.improvements.map((improvement, impIndex) => (
+                          <li key={impIndex} className="text-xs text-yellow-700 flex items-start gap-1">
+                            <span className="w-1 h-1 bg-yellow-600 rounded-full mt-1.5 flex-shrink-0"></span>
+                            {improvement}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full mt-3 border-yellow-300 text-yellow-700 hover:bg-yellow-100"
+                  asChild
+                >
+                  <Link href="/plan">
+                    View Action Plan
+                    <ArrowRight className="ml-2 h-3 w-3" />
+                  </Link>
+                </Button>
+              </div>
+            )}
           </CardContent>
         </Card>
 
@@ -399,25 +497,6 @@ export function DashboardOverview() {
             <Link href="/reports" passHref>
               <Button variant="outline" className="w-full mt-4 bg-transparent" size="sm">
                 View Detailed Analytics
-              </Button>
-            </Link>
-          </CardContent>
-        </Card>
-
-        {/* Task Completion Rate Graph */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <TrendingUp className="h-5 w-5 text-green-600" />
-              Task Completion Rate
-            </CardTitle>
-            <CardDescription>Weekly progress tracking</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <TaskCompletionChart data={taskCompletionData} />
-            <Link href="/progress" passHref>
-              <Button variant="outline" className="w-full mt-4 bg-transparent" size="sm">
-                View Detailed Progress
               </Button>
             </Link>
           </CardContent>
