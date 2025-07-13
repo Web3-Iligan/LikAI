@@ -22,7 +22,7 @@ import {
 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { HowToGuideView } from "@/components/how-to-guide-view"
+import { HowToGuideView } from "@/components/shared/how-to-guide-view"
 import { Fish } from "lucide-react" // Declare Fish variable
 
 // Add a helper function to parse the estimated cost. Place this outside the component function.
