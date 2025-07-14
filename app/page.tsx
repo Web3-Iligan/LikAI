@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -14,10 +16,15 @@ import {
   Zap,
   Target,
   Globe,
-  Award
+  Award,
+  Menu,
+  X
 } from "lucide-react"
+import { useState } from "react"
 
 export default function LandingPage() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Header */}
@@ -32,23 +39,20 @@ export default function LandingPage() {
 
         {/* Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
+          <Link href="#about" className="text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200">
+            About
+          </Link>
           <Link href="#features" className="text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200">
             Features
           </Link>
           <Link href="#pricing" className="text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200">
             Pricing
           </Link>
-          <Link href="#about" className="text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200">
-            About
-          </Link>
-          <Link href="#contact" className="text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200">
-            Contact
-          </Link>
         </nav>
 
         {/* CTA Buttons */}
-        <div className="flex items-center space-x-4">
-          <Link href="/auth" className="hidden sm:block">
+        <div className="hidden md:flex items-center space-x-4">
+          <Link href="/auth">
             <Button variant="ghost" className="text-gray-600 hover:text-gray-900 font-medium">
               Log in
             </Button>
@@ -60,17 +64,63 @@ export default function LandingPage() {
           </Link>
         </div>
 
-        {/* Mobile Menu Button (you can implement mobile menu later) */}
-        <button className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors">
-          <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
+        {/* Mobile Menu Button */}
+        <button 
+          className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+        >
+          {isMobileMenuOpen ? (
+            <X className="w-6 h-6 text-gray-600" />
+          ) : (
+            <Menu className="w-6 h-6 text-gray-600" />
+          )}
         </button>
       </header>
 
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-white border-b border-gray-100 shadow-lg">
+          <div className="px-6 py-4 space-y-4">
+            <Link 
+              href="#about" 
+              className="block text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              About
+            </Link>
+            <Link 
+              href="#features" 
+              className="block text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Features
+            </Link>
+            <Link 
+              href="#pricing" 
+              className="block text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200"
+              onClick={() => setIsMobileMenuOpen(false)}
+            >
+              Pricing
+            </Link>
+            <div className="flex flex-col space-y-2 pt-4 border-t border-gray-100">
+              <Link href="/auth" onClick={() => setIsMobileMenuOpen(false)}>
+                <Button variant="ghost" className="w-full justify-start text-gray-600 hover:text-gray-900 font-medium">
+                  Log in
+                </Button>
+              </Link>
+              <Link href="/auth" onClick={() => setIsMobileMenuOpen(false)}>
+                <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200">
+                  Get Started
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-blue-50">
+        <section id="about" className="relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-blue-50">
           <div className="container mx-auto px-4 py-20 sm:py-24 lg:py-32">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               {/* Left Column - Content */}
@@ -1143,7 +1193,6 @@ export default function LandingPage() {
                 <li><Link href="#" className="hover:text-white">About</Link></li>
                 <li><Link href="#" className="hover:text-white">Blog</Link></li>
                 <li><Link href="#" className="hover:text-white">Careers</Link></li>
-                <li><Link href="#" className="hover:text-white">Contact</Link></li>
               </ul>
             </div>
             
