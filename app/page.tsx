@@ -41,8 +41,8 @@ export default function LandingPage() {
         <div className="flex-1">
           <Link href="#" className="flex w-fit items-center space-x-3">
             <span className="text-2xl font-bold tracking-tight">
-              <span className="text-[#FF7F50]">Lik</span>
-              <span className="text-[#3498DB]">AI</span>
+              <span className="text-[#FF7F50]">Lik </span>
+              <span className="text-[#3498DB]">AI </span>
             </span>
           </Link>
         </div>
