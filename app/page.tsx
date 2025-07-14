@@ -347,182 +347,136 @@ export default function LandingPage() {
         <section id="features" className="py-16 sm:py-20 bg-gradient-to-br from-white to-gray-50/50">
           <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-8 max-w-7xl">
             {/* Feature 1 - Shared Inbox */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 items-center mb-24 sm:mb-32">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center mb-16 sm:mb-20">
               <div className="order-2 lg:order-1">
-                <div className="flex items-center mb-6">
-                  <div className="w-10 h-10 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-lg mr-4">
+                <div className="flex items-center mb-4">
+                  <div className="w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
                     1
                   </div>
-                  <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-                    A powerful monitoring system<br />
-                    that feels just like email.
+                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
+                    Smart Farm Monitoring System
                   </h2>
                 </div>
-                <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                  LikAI's intuitive monitoring interface makes it easy for farm members to organize, prioritize and solve 
-                  aquaculture challenges - all in a familiar interface.
+                <p className="text-base text-gray-600 mb-6 leading-relaxed">
+                  Organize, prioritize and solve aquaculture challenges with an intuitive interface that feels familiar.
                 </p>
                 
-                <div className="space-y-4">
+                <div className="space-y-3">
                   <div className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
-                    <div>
-                      <span className="font-semibold text-gray-900">Risk assignment</span>
-                      <span className="text-gray-600"> so it's clear who owns what.</span>
-                    </div>
+                    <CheckCircle className="h-4 w-4 text-green-500 mt-1 flex-shrink-0" />
+                    <span className="text-sm text-gray-700">Risk assignment & team collaboration</span>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
-                    <div>
-                      <span className="font-semibold text-gray-900">Collision detection</span>
-                      <span className="text-gray-600"> to stop embarrassing double responses.</span>
-                    </div>
+                    <CheckCircle className="h-4 w-4 text-green-500 mt-1 flex-shrink-0" />
+                    <span className="text-sm text-gray-700">Real-time alerts & notifications</span>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
-                    <div>
-                      <span className="font-semibold text-gray-900">Private internal notes</span>
-                      <span className="text-gray-600"> for team members to collaborate.</span>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
-                    <div>
-                      <span className="font-semibold text-gray-900">@mentions & notifications</span>
-                      <span className="text-gray-600"> to keep the team in the loop.</span>
-                    </div>
+                    <CheckCircle className="h-4 w-4 text-green-500 mt-1 flex-shrink-0" />
+                    <span className="text-sm text-gray-700">Priority-based task management</span>
                   </div>
                 </div>
               </div>
               
               <div className="order-1 lg:order-2 relative">
-                <div className="bg-gradient-to-br from-blue-50 to-[#3498DB]/10 rounded-2xl p-8 shadow-xl">
+                <div className="bg-gradient-to-br from-blue-50 to-[#3498DB]/10 rounded-xl p-6 shadow-lg">
                   {/* Main Dashboard Interface */}
-                  <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-6">
-                    <div className="bg-gray-50 px-4 py-3 border-b flex items-center justify-between">
-                      <div className="text-sm font-medium text-gray-700">Farm Monitoring Dashboard</div>
-                      <div className="flex space-x-2">
-                        <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                        <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
-                        <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div className="bg-gray-50 px-3 py-2 border-b flex items-center justify-between">
+                      <div className="text-xs font-medium text-gray-700">Farm Dashboard</div>
+                      <div className="flex space-x-1">
+                        <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                        <div className="w-2 h-2 bg-orange-500 rounded-full"></div>
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                       </div>
                     </div>
-                    <div className="p-6">
-                      <div className="space-y-4">
-                        <div className="flex items-center justify-between p-3 bg-[#3498DB]/10 rounded-lg border-l-4 border-[#3498DB]">
-                          <div className="flex items-center space-x-3">
-                            <div className="w-8 h-8 bg-[#3498DB] rounded-full flex items-center justify-center">
-                              <span className="text-white text-xs font-bold">🏠</span>
-                            </div>
-                            <div>
-                              <div className="font-medium text-gray-900">Pond 3 - Water Quality Alert</div>
-                              <div className="text-sm text-gray-600">Dissolved oxygen below optimal range</div>
-                            </div>
+                    <div className="p-4">
+                      <div className="space-y-3">
+                        <div className="flex items-center p-2 bg-[#3498DB]/10 rounded-lg border-l-2 border-[#3498DB]">
+                          <div className="w-6 h-6 bg-[#3498DB] rounded-full flex items-center justify-center mr-3">
+                            <span className="text-white text-xs">⚠</span>
                           </div>
-                          <Badge className="bg-orange-100 text-orange-800">High Priority</Badge>
+                          <div className="flex-1">
+                            <div className="text-xs font-medium text-gray-900">Water Quality Alert</div>
+                            <div className="text-xs text-gray-600">Pond 3 - DO below range</div>
+                          </div>
+                          <Badge className="bg-orange-100 text-orange-800 text-xs">High</Badge>
                         </div>
                         
-                        <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border-l-4 border-green-400">
-                          <div className="flex items-center space-x-3">
-                            <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                              <span className="text-white text-xs font-bold">✓</span>
-                            </div>
-                            <div>
-                              <div className="font-medium text-gray-900">Feeding Schedule Optimized</div>
-                              <div className="text-sm text-gray-600">AI recommendations applied successfully</div>
-                            </div>
+                        <div className="flex items-center p-2 bg-green-50 rounded-lg border-l-2 border-green-400">
+                          <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center mr-3">
+                            <span className="text-white text-xs">✓</span>
                           </div>
-                          <Badge className="bg-green-100 text-green-800">Completed</Badge>
-                        </div>
-                        
-                        <div className="flex items-center justify-between p-3 bg-orange-50 rounded-lg border-l-4 border-orange-400">
-                          <div className="flex items-center space-x-3">
-                            <div className="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
-                              <span className="text-white text-xs font-bold">⚠</span>
-                            </div>
-                            <div>
-                              <div className="font-medium text-gray-900">Weather Alert - Heavy Rain</div>
-                              <div className="text-sm text-gray-600">Prepare drainage systems in 6 hours</div>
-                            </div>
+                          <div className="flex-1">
+                            <div className="text-xs font-medium text-gray-900">Feeding Optimized</div>
+                            <div className="text-xs text-gray-600">AI recommendations applied</div>
                           </div>
-                          <Badge className="bg-orange-100 text-orange-800">Action Required</Badge>
+                          <Badge className="bg-green-100 text-green-800 text-xs">Done</Badge>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  
-                  {/* Floating Annotations */}
-                  <div className="absolute top-4 right-4 bg-white rounded-lg shadow-lg p-3 max-w-40">
-                    <div className="text-xs text-gray-600 mb-1">Team collaboration</div>
-                    <div className="text-sm font-medium text-gray-900">See who is working on what</div>
-                  </div>
-                  
-                  <div className="absolute bottom-16 left-4 bg-white rounded-lg shadow-lg p-3 max-w-40">
-                    <div className="text-xs text-gray-600 mb-1">Priority system</div>
-                    <div className="text-sm font-medium text-gray-900">Auto-prioritize critical alerts</div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Feature 2 - Live Chat */}
-            <div className="grid lg:grid-cols-2 gap-16 items-center mb-32">
+            <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center mb-16 sm:mb-20">
               <div className="relative">
-                <div className="bg-gradient-to-br from-[#3498DB]/10 to-blue-50 rounded-2xl p-8 shadow-xl">
+                <div className="bg-gradient-to-br from-[#3498DB]/10 to-blue-50 rounded-xl p-6 shadow-lg">
                   {/* Chat Interface */}
-                  <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div className="bg-[#3498DB] px-4 py-3 text-white flex items-center justify-between">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-[#2980B9] rounded-full flex items-center justify-center">
+                  <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div className="bg-[#3498DB] px-3 py-2 text-white flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-6 h-6 bg-[#2980B9] rounded-full flex items-center justify-center">
                           <span className="text-white text-xs font-bold">AI</span>
                         </div>
                         <div>
-                          <div className="font-medium">LikAI Assistant</div>
+                          <div className="text-sm font-medium">LikAI Assistant</div>
                           <div className="text-xs text-blue-200">Online</div>
                         </div>
                       </div>
-                      <div className="text-blue-200">●</div>
+                      <div className="text-blue-200 text-xs">●</div>
                     </div>
                     
-                    <div className="p-4 space-y-4 h-64 overflow-y-auto">
+                    <div className="p-3 space-y-3 h-48 overflow-y-auto">
                       <div className="flex items-start space-x-2">
-                        <div className="w-6 h-6 bg-[#3498DB] rounded-full flex items-center justify-center flex-shrink-0">
+                        <div className="w-5 h-5 bg-[#3498DB] rounded-full flex items-center justify-center flex-shrink-0">
                           <span className="text-white text-xs">AI</span>
                         </div>
-                        <div className="bg-gray-100 rounded-lg p-3 max-w-xs">
-                          <p className="text-sm text-gray-800">
-                            I noticed your pond's pH level is trending upward. Would you like me to suggest some corrective actions?
+                        <div className="bg-gray-100 rounded-lg p-2 max-w-xs">
+                          <p className="text-xs text-gray-800">
+                            Your pond's pH is trending up. Need recommendations?
                           </p>
                         </div>
                       </div>
                       
                       <div className="flex justify-end">
-                        <div className="bg-[#3498DB] text-white rounded-lg p-3 max-w-xs">
-                          <p className="text-sm">Yes, please provide recommendations.</p>
+                        <div className="bg-[#3498DB] text-white rounded-lg p-2 max-w-xs">
+                          <p className="text-xs">Yes, please help.</p>
                         </div>
                       </div>
                       
                       <div className="flex items-start space-x-2">
-                        <div className="w-6 h-6 bg-[#3498DB] rounded-full flex items-center justify-center flex-shrink-0">
+                        <div className="w-5 h-5 bg-[#3498DB] rounded-full flex items-center justify-center flex-shrink-0">
                           <span className="text-white text-xs">AI</span>
                         </div>
-                        <div className="bg-gray-100 rounded-lg p-3 max-w-xs">
-                          <p className="text-sm text-gray-800">
-                            Based on your current conditions, I recommend reducing feeding by 15% and adding beneficial bacteria. This should stabilize pH within 24 hours.
+                        <div className="bg-gray-100 rounded-lg p-2 max-w-xs">
+                          <p className="text-xs text-gray-800">
+                            Reduce feeding by 15% and add beneficial bacteria.
                           </p>
                         </div>
                       </div>
                     </div>
                     
-                    <div className="p-3 border-t bg-gray-50">
+                    <div className="p-2 border-t bg-gray-50">
                       <div className="flex items-center space-x-2">
                         <input 
                           type="text" 
                           placeholder="Ask about your farm..." 
-                          className="flex-1 px-3 py-2 border rounded-lg text-sm"
+                          className="flex-1 px-2 py-1 border rounded text-xs"
                           readOnly
                         />
-                        <Button size="sm" className="bg-[#3498DB] hover:bg-[#2980B9]">
+                        <Button size="sm" className="bg-[#3498DB] hover:bg-[#2980B9] text-xs px-2 py-1">
                           Send
                         </Button>
                       </div>
@@ -532,159 +486,109 @@ export default function LandingPage() {
               </div>
               
               <div>
-                <div className="flex items-center mb-6">
-                  <div className="w-10 h-10 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-lg mr-4">
+                <div className="flex items-center mb-4">
+                  <div className="w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
                     2
                   </div>
-                  <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-                    Live chat for personal,<br />
-                    realtime support.
+                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
+                    AI-Powered Live Support
                   </h2>
                 </div>
-                <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                  Instill confidence in your aquaculture by offering instant help on any aspect of your farm management - 
-                  with all the powerful features of our AI assistant.
+                <p className="text-base text-gray-600 mb-6 leading-relaxed">
+                  Get instant help on any aspect of your farm management with our intelligent AI assistant.
                 </p>
                 
-                <div className="space-y-4">
+                <div className="space-y-3">
                   <div className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
-                    <div>
-                      <span className="font-semibold text-gray-900">Round Robin assignment</span>
-                      <span className="text-gray-600"> to spread the workload.</span>
-                    </div>
+                    <CheckCircle className="h-4 w-4 text-green-500 mt-1 flex-shrink-0" />
+                    <span className="text-sm text-gray-700">24/7 instant responses</span>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
-                    <div>
-                      <span className="font-semibold text-gray-900">Unattended message logic</span>
-                      <span className="text-gray-600"> to never leave a chat hanging.</span>
-                    </div>
+                    <CheckCircle className="h-4 w-4 text-green-500 mt-1 flex-shrink-0" />
+                    <span className="text-sm text-gray-700">Context-aware recommendations</span>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
-                    <div>
-                      <span className="font-semibold text-gray-900">Email continuation</span>
-                      <span className="text-gray-600"> for when farmers drop offline.</span>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
-                    <div>
-                      <span className="font-semibold text-gray-900">Alerts & notifications</span>
-                      <span className="text-gray-600"> to make sure you never miss a chat.</span>
-                    </div>
+                    <CheckCircle className="h-4 w-4 text-green-500 mt-1 flex-shrink-0" />
+                    <span className="text-sm text-gray-700">Seamless email continuation</span>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Feature 3 - Knowledge Base */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
               <div className="order-2 lg:order-1">
-                <div className="flex items-center mb-6">
-                  <div className="w-10 h-10 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-lg mr-4">
+                <div className="flex items-center mb-4">
+                  <div className="w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm mr-3">
                     3
                   </div>
-                  <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
-                    Deliver 24/7 support with a<br />
-                    Knowledge Base.
+                  <h2 className="text-xl sm:text-2xl font-bold text-gray-900">
+                    24/7 Knowledge Base
                   </h2>
                 </div>
-                <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                  Watch support requests dwindle as your farmers help themselves - lowering farmer queries by up to 43%.
+                <p className="text-base text-gray-600 mb-6 leading-relaxed">
+                  Comprehensive aquaculture resources that help farmers solve problems independently.
                 </p>
                 
-                <div className="space-y-4">
+                <div className="space-y-3">
                   <div className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
-                    <div>
-                      <span className="font-semibold text-gray-900">Full team access</span>
-                      <span className="text-gray-600"> so everyone can contribute to articles.</span>
-                    </div>
+                    <CheckCircle className="h-4 w-4 text-green-500 mt-1 flex-shrink-0" />
+                    <span className="text-sm text-gray-700">Searchable expert guides & tutorials</span>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
-                    <div>
-                      <span className="font-semibold text-gray-900">Mobile optimized</span>
-                      <span className="text-gray-600"> for easy accessibility on all devices.</span>
-                    </div>
+                    <CheckCircle className="h-4 w-4 text-green-500 mt-1 flex-shrink-0" />
+                    <span className="text-sm text-gray-700">Mobile-optimized for field access</span>
                   </div>
                   <div className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
-                    <div>
-                      <span className="font-semibold text-gray-900">Complete brand control</span>
-                      <span className="text-gray-600"> ensuring your brand looks great.</span>
-                    </div>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <CheckCircle className="h-5 w-5 text-green-500 mt-1 flex-shrink-0" />
-                    <div>
-                      <span className="font-semibold text-gray-900">Embeddable widget</span>
-                      <span className="text-gray-600"> so your knowledge base is accessible on every page of your platform.</span>
-                    </div>
+                    <CheckCircle className="h-4 w-4 text-green-500 mt-1 flex-shrink-0" />
+                    <span className="text-sm text-gray-700">Reduces support queries by 43%</span>
                   </div>
                 </div>
               </div>
               
               <div className="order-1 lg:order-2 relative">
-                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 shadow-xl">
+                <div className="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl p-6 shadow-lg">
                   {/* Knowledge Base Interface */}
-                  <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div className="bg-blue-600 px-6 py-8 text-white text-center">
-                      <h3 className="text-xl font-bold mb-2">Aquaculture Help Center</h3>
-                      <p className="text-blue-100 mb-4">Find answers to common farming questions</p>
+                  <div className="bg-white rounded-lg shadow-md overflow-hidden">
+                    <div className="bg-blue-600 px-4 py-4 text-white text-center">
+                      <h3 className="text-base font-bold mb-2">Aquaculture Help Center</h3>
                       <div className="relative">
                         <input 
                           type="text" 
                           placeholder="Search for help..." 
-                          className="w-full px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500"
+                          className="w-full px-3 py-2 rounded-lg text-gray-900 placeholder-gray-500 text-sm"
                           readOnly
                         />
-                        <button className="absolute right-3 top-3 text-gray-400">
+                        <button className="absolute right-2 top-2 text-gray-400 text-sm">
                           🔍
                         </button>
                       </div>
                     </div>
                     
-                    <div className="p-6">
-                      <div className="grid grid-cols-2 gap-4 mb-6">
-                        <div className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer">
-                          <div className="text-2xl mb-2">🦐</div>
-                          <h4 className="font-medium text-gray-900 mb-1">Shrimp Health</h4>
-                          <p className="text-sm text-gray-600">Disease prevention & treatment</p>
+                    <div className="p-4">
+                      <div className="grid grid-cols-2 gap-3 mb-4">
+                        <div className="p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                          <div className="text-lg mb-1">🦐</div>
+                          <h4 className="text-xs font-medium text-gray-900 mb-1">Shrimp Health</h4>
+                          <p className="text-xs text-gray-600">Disease prevention</p>
                         </div>
-                        <div className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer">
-                          <div className="text-2xl mb-2">💧</div>
-                          <h4 className="font-medium text-gray-900 mb-1">Water Quality</h4>
-                          <p className="text-sm text-gray-600">Monitoring & optimization</p>
-                        </div>
-                        <div className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer">
-                          <div className="text-2xl mb-2">🌾</div>
-                          <h4 className="font-medium text-gray-900 mb-1">Feeding Guide</h4>
-                          <p className="text-sm text-gray-600">Best practices & schedules</p>
-                        </div>
-                        <div className="p-4 border rounded-lg hover:bg-gray-50 cursor-pointer">
-                          <div className="text-2xl mb-2">🛡️</div>
-                          <h4 className="font-medium text-gray-900 mb-1">Biosecurity</h4>
-                          <p className="text-sm text-gray-600">Protocols & procedures</p>
+                        <div className="p-3 border rounded-lg hover:bg-gray-50 cursor-pointer">
+                          <div className="text-lg mb-1">💧</div>
+                          <h4 className="text-xs font-medium text-gray-900 mb-1">Water Quality</h4>
+                          <p className="text-xs text-gray-600">Monitoring & optimization</p>
                         </div>
                       </div>
                       
-                      <div className="border-t pt-4">
-                        <h4 className="font-medium text-gray-900 mb-3">Popular Articles</h4>
-                        <div className="space-y-2">
-                          <div className="flex items-center space-x-2 text-sm text-[#3498DB] hover:text-[#2980B9] cursor-pointer">
+                      <div className="border-t pt-3">
+                        <h4 className="text-xs font-medium text-gray-900 mb-2">Popular Articles</h4>
+                        <div className="space-y-1">
+                          <div className="flex items-center space-x-2 text-xs text-[#3498DB] hover:text-[#2980B9] cursor-pointer">
                             <span>📄</span>
-                            <span>How to maintain optimal dissolved oxygen levels</span>
+                            <span>Optimal dissolved oxygen levels</span>
                           </div>
-                          <div className="flex items-center space-x-2 text-sm text-[#3498DB] hover:text-[#2980B9] cursor-pointer">
+                          <div className="flex items-center space-x-2 text-xs text-[#3498DB] hover:text-[#2980B9] cursor-pointer">
                             <span>📄</span>
-                            <span>Early signs of bacterial infections in shrimp</span>
-                          </div>
-                          <div className="flex items-center space-x-2 text-sm text-[#3498DB] hover:text-[#2980B9] cursor-pointer">
-                            <span>📄</span>
-                            <span>Setting up effective pond drainage systems</span>
+                            <span>Early infection detection</span>
                           </div>
                         </div>
                       </div>
