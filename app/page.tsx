@@ -427,11 +427,13 @@ export default function LandingPage() {
                     1
                   </div>
                   <h2 className="text-xl font-bold text-gray-900 sm:text-2xl">
-                    Visual Step-by-Step Guides & Demonstrations
+                    Visual Step-by-Step Guides
                   </h2>
                 </div>
                 <p className="mb-6 text-base leading-relaxed text-gray-600">
-                  Transform complex biosecurity into clear, actionable steps with intuitive visual guides that feel like an expert by your side
+                  Transform complex biosecurity into clear, actionable steps
+                  with intuitive visual guides that feel like an expert by your
+                  side
                 </p>
 
                 <div className="space-y-3">
@@ -462,7 +464,7 @@ export default function LandingPage() {
                   <div className="overflow-hidden rounded-lg bg-white shadow-md">
                     <div className="flex items-center justify-between border-b bg-gray-50 px-3 py-2">
                       <div className="text-xs font-medium text-gray-700">
-                        Farm Dashboard
+                        Step-by-Step Action Plan
                       </div>
                       <div className="flex space-x-1">
                         <div className="h-2 w-2 rounded-full bg-red-500"></div>
@@ -471,38 +473,60 @@ export default function LandingPage() {
                       </div>
                     </div>
                     <div className="p-4">
+                      <div className="mb-3">
+                        <h4 className="mb-2 text-xs font-semibold text-gray-900">
+                          Water Quality Recovery Plan
+                        </h4>
+                      </div>
                       <div className="space-y-3">
-                        <div className="flex items-center rounded-lg border-l-2 border-[#3498DB] bg-[#3498DB]/10 p-2">
-                          <div className="mr-3 flex h-6 w-6 items-center justify-center rounded-full bg-[#3498DB]">
-                            <span className="text-xs text-white">⚠</span>
+                        <div className="flex items-start space-x-3">
+                          <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#3498DB] text-xs font-bold text-white">
+                            1
                           </div>
                           <div className="flex-1">
                             <div className="text-xs font-medium text-gray-900">
-                              Water Quality Alert
+                              Test dissolved oxygen levels
                             </div>
                             <div className="text-xs text-gray-600">
-                              Pond 3 - DO below range
+                              Use DO meter in Pond 3 immediately
                             </div>
                           </div>
                           <Badge className="bg-orange-100 text-xs text-orange-800">
-                            High
+                            Now
                           </Badge>
                         </div>
 
-                        <div className="flex items-center rounded-lg border-l-2 border-green-400 bg-green-50 p-2">
-                          <div className="mr-3 flex h-6 w-6 items-center justify-center rounded-full bg-green-500">
-                            <span className="text-xs text-white">✓</span>
+                        <div className="flex items-start space-x-3">
+                          <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-green-500 text-xs font-bold text-white">
+                            ✓
                           </div>
                           <div className="flex-1">
                             <div className="text-xs font-medium text-gray-900">
-                              Feeding Optimized
+                              Increase aeration
                             </div>
                             <div className="text-xs text-gray-600">
-                              AI recommendations applied
+                              Turn on backup aerators - completed
                             </div>
                           </div>
                           <Badge className="bg-green-100 text-xs text-green-800">
                             Done
+                          </Badge>
+                        </div>
+
+                        <div className="flex items-start space-x-3">
+                          <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gray-300 text-xs font-bold text-gray-600">
+                            3
+                          </div>
+                          <div className="flex-1">
+                            <div className="text-xs font-medium text-gray-700">
+                              Monitor for 2 hours
+                            </div>
+                            <div className="text-xs text-gray-500">
+                              Recheck DO levels every 30 minutes
+                            </div>
+                          </div>
+                          <Badge className="bg-gray-100 text-xs text-gray-600">
+                            Next
                           </Badge>
                         </div>
                       </div>
