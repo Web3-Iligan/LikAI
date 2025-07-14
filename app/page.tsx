@@ -32,17 +32,19 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Header */}
-      <header className="px-8 sm:px-12 md:px-16 lg:px-8 h-20 flex items-center justify-between bg-white border-b border-gray-100 sticky top-0 z-50">
+      <header className="px-8 sm:px-12 md:px-16 lg:px-8 h-20 flex items-center bg-white border-b border-gray-100 sticky top-0 z-50">
         {/* Logo */}
-        <Link href="#" className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-[#3498DB] to-[#2980B9] rounded-xl flex items-center justify-center shadow-lg">
-            <Fish className="h-6 w-6 text-white" />
-          </div>
-          <span className="text-2xl font-bold text-gray-900 tracking-tight">LikAI</span>
-        </Link>
+        <div className="flex-1">
+          <Link href="#" className="flex items-center space-x-3 w-fit">
+            <div className="w-10 h-10 bg-gradient-to-br from-[#3498DB] to-[#2980B9] rounded-xl flex items-center justify-center shadow-lg">
+              <Fish className="h-6 w-6 text-white" />
+            </div>
+            <span className="text-2xl font-bold text-gray-900 tracking-tight">LikAI</span>
+          </Link>
+        </div>
 
-        {/* Navigation */}
-        <nav className="hidden md:flex items-center space-x-8">
+        {/* Navigation - Centered */}
+        <nav className="hidden md:flex items-center justify-center space-x-8 flex-1">
           <Link href="#about" className="text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200">
             About
           </Link>
@@ -55,7 +57,7 @@ export default function LandingPage() {
         </nav>
 
         {/* CTA Buttons */}
-        <div className="hidden md:flex items-center space-x-4">
+        <div className="hidden md:flex items-center justify-end space-x-4 flex-1">
           <Link href="#demo">
             <Button variant="ghost" className="text-gray-600 hover:text-gray-900 font-medium">
               Book a Demo
@@ -124,11 +126,17 @@ export default function LandingPage() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section id="about" className="relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-blue-50">
-          <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-8 py-16 sm:py-20 md:py-24 lg:py-32 max-w-7xl">
+        <section id="about" className="relative overflow-hidden bg-gradient-to-br from-[#FF7F50]/5 via-white to-[#3498DB]/10">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#FF7F50]/3 to-transparent opacity-50"></div>
+          {/* Decorative circles */}
+          <div className="absolute top-10 right-10 w-32 h-32 bg-[#FF7F50]/10 rounded-full blur-xl"></div>
+          <div className="absolute bottom-10 left-10 w-24 h-24 bg-[#3498DB]/10 rounded-full blur-lg"></div>
+          <div className="absolute top-1/2 right-1/4 w-16 h-16 bg-[#FF7F50]/5 rounded-full blur-md"></div>
+          <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-8 py-16 sm:py-20 md:py-24 lg:py-32 max-w-7xl relative z-10">
             <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
               {/* Left Column - Content */}
-              <div className="max-w-2xl mx-auto lg:mx-0">
+              <div className="max-w-2xl mx-auto lg:mx-0 relative">
+                <div className="absolute inset-0 bg-white/40 backdrop-blur-sm rounded-3xl -m-8 -z-10"></div>
                 <Badge className="mb-4 sm:mb-6 bg-[#3498DB]/10 text-[#3498DB] hover:bg-[#3498DB]/10">
                   <Zap className="w-3 h-3 mr-1" />
                   AI-Powered Biosecurity
