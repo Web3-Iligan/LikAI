@@ -975,7 +975,7 @@ export default function LandingPage() {
             {/* Additional Info */}
             <div className="text-center mt-12">
               <p className="text-gray-600 mb-4">
-                All plans include unlimited farm monitoring and AI-powered recommendations
+                All plans include unlimited AI Coach Queries and AI-powered recommendations
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center text-sm text-gray-500">
                 <div className="flex items-center space-x-2">
@@ -999,125 +999,226 @@ export default function LandingPage() {
 
             {/* FAQ Section */}
             <div className="mt-20">
-              <h3 className="text-2xl font-bold text-gray-900 text-center mb-12">
-                Frequently Asked Questions
-              </h3>
+              <div className="text-center mb-16">
+                <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+                  Frequently Asked Questions
+                </h3>
+                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                  Everything you need to know about LikAI's aquaculture management platform
+                </p>
+              </div>
               
-              <div className="max-w-6xl mx-auto space-y-6">
-                {/* General Category */}
-                <div className="bg-gradient-to-r from-[#FF7F50] to-[#FF6347] rounded-2xl p-6 shadow-lg">
-                  <h4 className="text-xl font-bold text-white mb-6">General</h4>
+              <div className="max-w-4xl mx-auto">
+                {/* FAQ Grid Layout */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  
+                  {/* General Questions Column */}
                   <div className="space-y-4">
-                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                      <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedFaq(expandedFaq === 'general-1' ? null : 'general-1')}>
-                        <h5 className="font-semibold text-white text-sm">What makes LikAI different from other farm management tools?</h5>
-                        <Plus className={`h-4 w-4 text-white transition-transform ${expandedFaq === 'general-1' ? 'rotate-45' : ''}`} />
+                    <div className="flex items-center mb-6">
+                      <div className="w-8 h-8 bg-[#FF7F50] rounded-lg flex items-center justify-center mr-3">
+                        <span className="text-white font-bold text-sm">?</span>
                       </div>
-                      {expandedFaq === 'general-1' && (
-                        <p className="text-white/90 text-sm mt-3 pt-3 border-t border-white/20">
-                          LikAI specializes in AI-driven biosecurity for shrimp aquaculture. Our system provides personalized, 
-                          adaptive action plans based on Good Aquaculture Practices (GAqP) and continuously evolves with your farm's progress.
-                        </p>
-                      )}
+                      <h4 className="text-xl font-bold text-gray-900">General</h4>
                     </div>
                     
-                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                      <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedFaq(expandedFaq === 'general-2' ? null : 'general-2')}>
-                        <h5 className="font-semibold text-white text-sm">How quickly can I see results with LikAI?</h5>
-                        <Plus className={`h-4 w-4 text-white transition-transform ${expandedFaq === 'general-2' ? 'rotate-45' : ''}`} />
+                    <div className="space-y-3">
+                      <div className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                        <button 
+                          className="w-full text-left p-4 focus:outline-none focus:ring-2 focus:ring-[#FF7F50] focus:ring-inset"
+                          onClick={() => setExpandedFaq(expandedFaq === 'general-1' ? null : 'general-1')}
+                        >
+                          <div className="flex items-center justify-between">
+                            <h5 className="font-semibold text-gray-900 text-sm pr-4">
+                              What makes LikAI different from other farm management tools?
+                            </h5>
+                            <Plus className={`h-4 w-4 text-[#FF7F50] transition-transform flex-shrink-0 ${expandedFaq === 'general-1' ? 'rotate-45' : ''}`} />
+                          </div>
+                        </button>
+                        {expandedFaq === 'general-1' && (
+                          <div className="px-4 pb-4 border-t border-gray-100">
+                            <p className="text-gray-600 text-sm leading-relaxed pt-3">
+                              LikAI specializes in AI-driven biosecurity for shrimp aquaculture. Our system provides personalized, 
+                              adaptive action plans based on Good Aquaculture Practices (GAqP) and continuously evolves with your farm's progress.
+                            </p>
+                          </div>
+                        )}
                       </div>
-                      {expandedFaq === 'general-2' && (
-                        <p className="text-white/90 text-sm mt-3 pt-3 border-t border-white/20">
-                          Most farmers see immediate improvements in their biosecurity practices within the first week. 
-                          The AI provides instant recommendations, and our dynamic action plans help optimize your operations from day one.
-                        </p>
-                      )}
+                      
+                      <div className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                        <button 
+                          className="w-full text-left p-4 focus:outline-none focus:ring-2 focus:ring-[#FF7F50] focus:ring-inset"
+                          onClick={() => setExpandedFaq(expandedFaq === 'general-2' ? null : 'general-2')}
+                        >
+                          <div className="flex items-center justify-between">
+                            <h5 className="font-semibold text-gray-900 text-sm pr-4">
+                              How quickly can I see results with LikAI?
+                            </h5>
+                            <Plus className={`h-4 w-4 text-[#FF7F50] transition-transform flex-shrink-0 ${expandedFaq === 'general-2' ? 'rotate-45' : ''}`} />
+                          </div>
+                        </button>
+                        {expandedFaq === 'general-2' && (
+                          <div className="px-4 pb-4 border-t border-gray-100">
+                            <p className="text-gray-600 text-sm leading-relaxed pt-3">
+                              Most farmers see immediate improvements in their biosecurity practices within the first week. 
+                              The AI provides instant recommendations, and our dynamic action plans help optimize your operations from day one.
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                        <button 
+                          className="w-full text-left p-4 focus:outline-none focus:ring-2 focus:ring-[#FF7F50] focus:ring-inset"
+                          onClick={() => setExpandedFaq(expandedFaq === 'general-3' ? null : 'general-3')}
+                        >
+                          <div className="flex items-center justify-between">
+                            <h5 className="font-semibold text-gray-900 text-sm pr-4">
+                              Is my farm data secure and private?
+                            </h5>
+                            <Plus className={`h-4 w-4 text-[#FF7F50] transition-transform flex-shrink-0 ${expandedFaq === 'general-3' ? 'rotate-45' : ''}`} />
+                          </div>
+                        </button>
+                        {expandedFaq === 'general-3' && (
+                          <div className="px-4 pb-4 border-t border-gray-100">
+                            <p className="text-gray-600 text-sm leading-relaxed pt-3">
+                              Absolutely. We use enterprise-grade security to protect your farm data. Your information is never shared 
+                              with competitors, and you maintain full ownership of your data at all times.
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                        <button 
+                          className="w-full text-left p-4 focus:outline-none focus:ring-2 focus:ring-[#FF7F50] focus:ring-inset"
+                          onClick={() => setExpandedFaq(expandedFaq === 'general-4' ? null : 'general-4')}
+                        >
+                          <div className="flex items-center justify-between">
+                            <h5 className="font-semibold text-gray-900 text-sm pr-4">
+                              What if I'm not tech-savvy?
+                            </h5>
+                            <Plus className={`h-4 w-4 text-[#FF7F50] transition-transform flex-shrink-0 ${expandedFaq === 'general-4' ? 'rotate-45' : ''}`} />
+                          </div>
+                        </button>
+                        {expandedFaq === 'general-4' && (
+                          <div className="px-4 pb-4 border-t border-gray-100">
+                            <p className="text-gray-600 text-sm leading-relaxed pt-3">
+                              LikAI is designed for farmers, not technicians. Our interface is intuitive, and our AI chatbot 
+                              speaks in plain language. We also provide step-by-step "How-To" guides for every recommendation.
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Account & Pricing Questions Column */}
+                  <div className="space-y-4">
+                    <div className="flex items-center mb-6">
+                      <div className="w-8 h-8 bg-[#3498DB] rounded-lg flex items-center justify-center mr-3">
+                        <span className="text-white font-bold text-sm">₱</span>
+                      </div>
+                      <h4 className="text-xl font-bold text-gray-900">Account & Pricing</h4>
                     </div>
                     
-                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                      <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedFaq(expandedFaq === 'general-3' ? null : 'general-3')}>
-                        <h5 className="font-semibold text-white text-sm">Is my farm data secure and private?</h5>
-                        <Plus className={`h-4 w-4 text-white transition-transform ${expandedFaq === 'general-3' ? 'rotate-45' : ''}`} />
+                    <div className="space-y-3">
+                      <div className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                        <button 
+                          className="w-full text-left p-4 focus:outline-none focus:ring-2 focus:ring-[#3498DB] focus:ring-inset"
+                          onClick={() => setExpandedFaq(expandedFaq === 'pricing-1' ? null : 'pricing-1')}
+                        >
+                          <div className="flex items-center justify-between">
+                            <h5 className="font-semibold text-gray-900 text-sm pr-4">
+                              Can I upgrade or downgrade my plan anytime?
+                            </h5>
+                            <Plus className={`h-4 w-4 text-[#3498DB] transition-transform flex-shrink-0 ${expandedFaq === 'pricing-1' ? 'rotate-45' : ''}`} />
+                          </div>
+                        </button>
+                        {expandedFaq === 'pricing-1' && (
+                          <div className="px-4 pb-4 border-t border-gray-100">
+                            <p className="text-gray-600 text-sm leading-relaxed pt-3">
+                              Yes! You can switch between Free Tier, Business Plan, or Enterprise at any time. 
+                              Changes take effect immediately, and billing is prorated for seamless transitions.
+                            </p>
+                          </div>
+                        )}
                       </div>
-                      {expandedFaq === 'general-3' && (
-                        <p className="text-white/90 text-sm mt-3 pt-3 border-t border-white/20">
-                          Absolutely. We use enterprise-grade security to protect your farm data. Your information is never shared 
-                          with competitors, and you maintain full ownership of your data at all times.
-                        </p>
-                      )}
-                    </div>
-                    
-                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                      <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedFaq(expandedFaq === 'general-4' ? null : 'general-4')}>
-                        <h5 className="font-semibold text-white text-sm">What if I'm not tech-savvy?</h5>
-                        <Plus className={`h-4 w-4 text-white transition-transform ${expandedFaq === 'general-4' ? 'rotate-45' : ''}`} />
+                      
+                      <div className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                        <button 
+                          className="w-full text-left p-4 focus:outline-none focus:ring-2 focus:ring-[#3498DB] focus:ring-inset"
+                          onClick={() => setExpandedFaq(expandedFaq === 'pricing-2' ? null : 'pricing-2')}
+                        >
+                          <div className="flex items-center justify-between">
+                            <h5 className="font-semibold text-gray-900 text-sm pr-4">
+                              Do you support multiple farm locations?
+                            </h5>
+                            <Plus className={`h-4 w-4 text-[#3498DB] transition-transform flex-shrink-0 ${expandedFaq === 'pricing-2' ? 'rotate-45' : ''}`} />
+                          </div>
+                        </button>
+                        {expandedFaq === 'pricing-2' && (
+                          <div className="px-4 pb-4 border-t border-gray-100">
+                            <p className="text-gray-600 text-sm leading-relaxed pt-3">
+                              The Business Plan supports single farm operations. For multiple farms or ponds, 
+                              our Enterprise Plan provides centralized management with advanced analytics across all locations.
+                            </p>
+                          </div>
+                        )}
                       </div>
-                      {expandedFaq === 'general-4' && (
-                        <p className="text-white/90 text-sm mt-3 pt-3 border-t border-white/20">
-                          LikAI is designed for farmers, not technicians. Our interface is intuitive, and our AI chatbot 
-                          speaks in plain language. We also provide step-by-step "How-To" guides for every recommendation.
-                        </p>
-                      )}
+                      
+                      <div className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                        <button 
+                          className="w-full text-left p-4 focus:outline-none focus:ring-2 focus:ring-[#3498DB] focus:ring-inset"
+                          onClick={() => setExpandedFaq(expandedFaq === 'pricing-3' ? null : 'pricing-3')}
+                        >
+                          <div className="flex items-center justify-between">
+                            <h5 className="font-semibold text-gray-900 text-sm pr-4">
+                              What kind of support do you provide?
+                            </h5>
+                            <Plus className={`h-4 w-4 text-[#3498DB] transition-transform flex-shrink-0 ${expandedFaq === 'pricing-3' ? 'rotate-45' : ''}`} />
+                          </div>
+                        </button>
+                        {expandedFaq === 'pricing-3' && (
+                          <div className="px-4 pb-4 border-t border-gray-100">
+                            <p className="text-gray-600 text-sm leading-relaxed pt-3">
+                              Free Tier includes comprehensive FAQ and self-service resources. Business Plan adds email support. 
+                              Enterprise Plan includes priority phone support and a dedicated account manager.
+                            </p>
+                          </div>
+                        )}
+                      </div>
+                      
+                      <div className="border border-gray-200 rounded-lg overflow-hidden hover:shadow-md transition-shadow">
+                        <button 
+                          className="w-full text-left p-4 focus:outline-none focus:ring-2 focus:ring-[#3498DB] focus:ring-inset"
+                          onClick={() => setExpandedFaq(expandedFaq === 'pricing-4' ? null : 'pricing-4')}
+                        >
+                          <div className="flex items-center justify-between">
+                            <h5 className="font-semibold text-gray-900 text-sm pr-4">
+                              How does LikAI help with compliance and certification?
+                            </h5>
+                            <Plus className={`h-4 w-4 text-[#3498DB] transition-transform flex-shrink-0 ${expandedFaq === 'pricing-4' ? 'rotate-45' : ''}`} />
+                          </div>
+                        </button>
+                        {expandedFaq === 'pricing-4' && (
+                          <div className="px-4 pb-4 border-t border-gray-100">
+                            <p className="text-gray-600 text-sm leading-relaxed pt-3">
+                              Our Enterprise Plan generates detailed compliance reports formatted for BFAR accreditation 
+                              and international export standards (HACCP, EU requirements), helping you meet regulatory requirements.
+                            </p>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
-
-                {/* Account & Pricing Category */}
-                <div className="bg-gradient-to-r from-[#3498DB] to-[#2980B9] rounded-2xl p-6 shadow-lg">
-                  <h4 className="text-xl font-bold text-white mb-6">Account & Pricing</h4>
-                  <div className="space-y-4">
-                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                      <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedFaq(expandedFaq === 'pricing-1' ? null : 'pricing-1')}>
-                        <h5 className="font-semibold text-white text-sm">Can I upgrade or downgrade my plan anytime?</h5>
-                        <Plus className={`h-4 w-4 text-white transition-transform ${expandedFaq === 'pricing-1' ? 'rotate-45' : ''}`} />
-                      </div>
-                      {expandedFaq === 'pricing-1' && (
-                        <p className="text-white/90 text-sm mt-3 pt-3 border-t border-white/20">
-                          Yes! You can switch between Free Tier, Business Plan, or Enterprise at any time. 
-                          Changes take effect immediately, and billing is prorated for seamless transitions.
-                        </p>
-                      )}
-                    </div>
-                    
-                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                      <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedFaq(expandedFaq === 'pricing-2' ? null : 'pricing-2')}>
-                        <h5 className="font-semibold text-white text-sm">Do you support multiple farm locations?</h5>
-                        <Plus className={`h-4 w-4 text-white transition-transform ${expandedFaq === 'pricing-2' ? 'rotate-45' : ''}`} />
-                      </div>
-                      {expandedFaq === 'pricing-2' && (
-                        <p className="text-white/90 text-sm mt-3 pt-3 border-t border-white/20">
-                          The Business Plan supports single farm operations. For multiple farms or ponds, 
-                          our Enterprise Plan provides centralized management with advanced analytics across all locations.
-                        </p>
-                      )}
-                    </div>
-                    
-                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                      <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedFaq(expandedFaq === 'pricing-3' ? null : 'pricing-3')}>
-                        <h5 className="font-semibold text-white text-sm">What kind of support do you provide?</h5>
-                        <Plus className={`h-4 w-4 text-white transition-transform ${expandedFaq === 'pricing-3' ? 'rotate-45' : ''}`} />
-                      </div>
-                      {expandedFaq === 'pricing-3' && (
-                        <p className="text-white/90 text-sm mt-3 pt-3 border-t border-white/20">
-                          Free Tier includes comprehensive FAQ and self-service resources. Business Plan adds email support. 
-                          Enterprise Plan includes priority phone support and a dedicated account manager.
-                        </p>
-                      )}
-                    </div>
-                    
-                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
-                      <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedFaq(expandedFaq === 'pricing-4' ? null : 'pricing-4')}>
-                        <h5 className="font-semibold text-white text-sm">How does LikAI help with compliance and certification?</h5>
-                        <Plus className={`h-4 w-4 text-white transition-transform ${expandedFaq === 'pricing-4' ? 'rotate-45' : ''}`} />
-                      </div>
-                      {expandedFaq === 'pricing-4' && (
-                        <p className="text-white/90 text-sm mt-3 pt-3 border-t border-white/20">
-                          Our Enterprise Plan generates detailed compliance reports formatted for BFAR accreditation 
-                          and international export standards (HACCP, EU requirements), helping you meet regulatory requirements.
-                        </p>
-                      )}
-                    </div>
-                  </div>
+                
+                {/* Contact CTA */}
+                <div className="text-center mt-12 pt-8 border-t border-gray-200">
+                  <p className="text-gray-600 mb-4">Still have questions?</p>
+                  <Button className="bg-[#FF7F50] hover:bg-[#E6644A] text-white px-6 py-2">
+                    Contact Our Team
+                  </Button>
                 </div>
               </div>
             </div>
