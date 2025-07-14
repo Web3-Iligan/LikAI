@@ -18,7 +18,8 @@ import {
   Globe,
   Award,
   Menu,
-  X
+  X,
+  Plus
 } from "lucide-react"
 import { useState } from "react"
 
@@ -26,6 +27,7 @@ export default function LandingPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('monthly')
   const [selectedPlanType, setSelectedPlanType] = useState<'recommended' | 'enterprise'>('recommended')
+  const [expandedFaq, setExpandedFaq] = useState<string | null>(null)
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -33,7 +35,7 @@ export default function LandingPage() {
       <header className="px-8 sm:px-12 md:px-16 lg:px-8 h-20 flex items-center justify-between bg-white border-b border-gray-100 sticky top-0 z-50">
         {/* Logo */}
         <Link href="#" className="flex items-center space-x-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
+          <div className="w-10 h-10 bg-gradient-to-br from-[#3498DB] to-[#2980B9] rounded-xl flex items-center justify-center shadow-lg">
             <Fish className="h-6 w-6 text-white" />
           </div>
           <span className="text-2xl font-bold text-gray-900 tracking-tight">LikAI</span>
@@ -60,7 +62,7 @@ export default function LandingPage() {
             </Button>
           </Link>
           <Link href="/auth">
-            <Button className="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium px-6 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200">
+            <Button className="bg-gradient-to-r from-[#3498DB] to-[#2980B9] hover:from-[#2980B9] hover:to-[#21618C] text-white font-medium px-6 py-2 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200">
               Get Started
             </Button>
           </Link>
@@ -111,7 +113,7 @@ export default function LandingPage() {
                 </Button>
               </Link>
               <Link href="/auth" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200">
+                <Button className="w-full bg-gradient-to-r from-[#3498DB] to-[#2980B9] hover:from-[#2980B9] hover:to-[#21618C] text-white font-medium shadow-lg hover:shadow-xl transition-all duration-200">
                   Get Started
                 </Button>
               </Link>
@@ -127,13 +129,13 @@ export default function LandingPage() {
             <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
               {/* Left Column - Content */}
               <div className="max-w-2xl mx-auto lg:mx-0">
-                <Badge className="mb-4 sm:mb-6 bg-blue-100 text-blue-700 hover:bg-blue-100">
+                <Badge className="mb-4 sm:mb-6 bg-[#3498DB]/10 text-[#3498DB] hover:bg-[#3498DB]/10">
                   <Zap className="w-3 h-3 mr-1" />
                   AI-Powered Biosecurity
                 </Badge>
                 <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-4 sm:mb-6">
                   Prevent outbreaks.
-                  <span className="text-blue-600"> Protect your profits.</span>
+                  <span className="text-[#3498DB]"> Protect your profits.</span>
                 </h1>
                 <p className="text-sm sm:text-base lg:text-lg text-gray-600 mb-6 sm:mb-8 leading-relaxed">
                   Making aquaculture risk management automated, effortless, and science-based. 
@@ -141,7 +143,7 @@ export default function LandingPage() {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 sm:gap-4 mb-6 sm:mb-8 px-2 sm:px-0">
                   <Link href="/auth" className="w-full sm:w-auto">
-                    <Button size="lg" className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-8 sm:px-8 py-4 text-base">
+                    <Button size="lg" className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 sm:px-8 py-4 text-base">
                       Start Saving
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
@@ -183,7 +185,7 @@ export default function LandingPage() {
                   <div className="bg-gray-50 px-3 sm:px-6 py-3 sm:py-4 border-b flex items-center justify-between">
                     <div className="flex items-center space-x-2 sm:space-x-3">
                       <div className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full"></div>
-                      <div className="w-2 h-2 sm:w-3 sm:h-3 bg-yellow-500 rounded-full"></div>
+                      <div className="w-2 h-2 sm:w-3 sm:h-3 bg-orange-500 rounded-full"></div>
                       <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full"></div>
                     </div>
                     <div className="text-xs sm:text-sm text-gray-600">dashboard.likai.com</div>
@@ -199,8 +201,8 @@ export default function LandingPage() {
                       {/* AI-Generated Insights */}
                       <div className="bg-white border rounded-lg p-2 sm:p-3 lg:p-6">
                         <div className="flex items-center mb-2 sm:mb-4">
-                          <div className="w-4 h-4 sm:w-6 sm:h-6 bg-yellow-100 rounded flex items-center justify-center mr-2 sm:mr-3">
-                            <span className="text-yellow-600 text-xs">⚡</span>
+                          <div className="w-4 h-4 sm:w-6 sm:h-6 bg-orange-100 rounded flex items-center justify-center mr-2 sm:mr-3">
+                            <span className="text-orange-600 text-xs">⚡</span>
                           </div>
                           <div>
                             <h3 className="font-semibold text-gray-900 text-xs sm:text-sm">AI-Generated Insights</h3>
@@ -210,9 +212,9 @@ export default function LandingPage() {
 
                         {/* Insight Cards */}
                         <div className="space-y-1 sm:space-y-2 lg:space-y-3">
-                          <div className="bg-blue-50 border border-blue-200 rounded p-1.5 sm:p-2 lg:p-3">
-                            <h4 className="font-medium text-blue-900 text-xs mb-1">Weather Impact Analysis</h4>
-                            <p className="text-blue-800 text-xs leading-tight">Typhoon risk: 75% pond overflow. Dyke inspection could prevent ₱200k losses.</p>
+                          <div className="bg-[#3498DB]/10 border border-[#3498DB]/30 rounded p-1.5 sm:p-2 lg:p-3">
+                            <h4 className="font-medium text-[#3498DB] text-xs mb-1">Weather Impact Analysis</h4>
+                            <p className="text-[#3498DB]/80 text-xs leading-tight">Typhoon risk: 75% pond overflow. Dyke inspection could prevent ₱200k losses.</p>
                           </div>
                           
                           <div className="bg-green-50 border border-green-200 rounded p-1.5 sm:p-2 lg:p-3">
@@ -223,7 +225,7 @@ export default function LandingPage() {
 
                         {/* Action Button */}
                         <div className="mt-2 sm:mt-3 lg:mt-4 pt-2 sm:pt-3 border-t text-center">
-                          <button className="text-xs text-blue-600 hover:text-blue-800 font-medium">
+                          <button className="text-xs text-[#3498DB] hover:text-[#2980B9] font-medium">
                             Ask AI Coach
                           </button>
                         </div>
@@ -274,7 +276,7 @@ export default function LandingPage() {
                           </div>
                           <div className="flex justify-between items-center">
                             <span className="text-gray-700">Stock Health</span>
-                            <span className="text-yellow-600 font-medium">Good</span>
+                            <span className="text-orange-600 font-medium">Good</span>
                           </div>
                           <div className="flex justify-between items-center lg:pt-2 lg:border-t">
                             <span className="text-gray-700">Current Cycle</span>
@@ -409,15 +411,15 @@ export default function LandingPage() {
                       <div className="text-sm font-medium text-gray-700">Farm Monitoring Dashboard</div>
                       <div className="flex space-x-2">
                         <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                        <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                        <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
                         <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                       </div>
                     </div>
                     <div className="p-6">
                       <div className="space-y-4">
-                        <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+                        <div className="flex items-center justify-between p-3 bg-[#3498DB]/10 rounded-lg border-l-4 border-[#3498DB]">
                           <div className="flex items-center space-x-3">
-                            <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                            <div className="w-8 h-8 bg-[#3498DB] rounded-full flex items-center justify-center">
                               <span className="text-white text-xs font-bold">🏠</span>
                             </div>
                             <div>
@@ -425,7 +427,7 @@ export default function LandingPage() {
                               <div className="text-sm text-gray-600">Dissolved oxygen below optimal range</div>
                             </div>
                           </div>
-                          <Badge className="bg-yellow-100 text-yellow-800">High Priority</Badge>
+                          <Badge className="bg-orange-100 text-orange-800">High Priority</Badge>
                         </div>
                         
                         <div className="flex items-center justify-between p-3 bg-green-50 rounded-lg border-l-4 border-green-400">
@@ -680,15 +682,15 @@ export default function LandingPage() {
                       <div className="border-t pt-4">
                         <h4 className="font-medium text-gray-900 mb-3">Popular Articles</h4>
                         <div className="space-y-2">
-                          <div className="flex items-center space-x-2 text-sm text-blue-600 hover:text-blue-800 cursor-pointer">
+                          <div className="flex items-center space-x-2 text-sm text-[#3498DB] hover:text-[#2980B9] cursor-pointer">
                             <span>📄</span>
                             <span>How to maintain optimal dissolved oxygen levels</span>
                           </div>
-                          <div className="flex items-center space-x-2 text-sm text-blue-600 hover:text-blue-800 cursor-pointer">
+                          <div className="flex items-center space-x-2 text-sm text-[#3498DB] hover:text-[#2980B9] cursor-pointer">
                             <span>📄</span>
                             <span>Early signs of bacterial infections in shrimp</span>
                           </div>
-                          <div className="flex items-center space-x-2 text-sm text-blue-600 hover:text-blue-800 cursor-pointer">
+                          <div className="flex items-center space-x-2 text-sm text-[#3498DB] hover:text-[#2980B9] cursor-pointer">
                             <span>📄</span>
                             <span>Setting up effective pond drainage systems</span>
                           </div>
@@ -718,7 +720,7 @@ export default function LandingPage() {
                     onClick={() => setBillingPeriod('monthly')}
                     className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                       billingPeriod === 'monthly'
-                        ? 'bg-blue-600 text-white shadow-sm'
+                        ? 'bg-[#3498DB] text-white shadow-sm'
                         : 'text-gray-600 hover:text-gray-900'
                     }`}
                   >
@@ -728,7 +730,7 @@ export default function LandingPage() {
                     onClick={() => setBillingPeriod('yearly')}
                     className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 relative ${
                       billingPeriod === 'yearly'
-                        ? 'bg-blue-600 text-white shadow-sm'
+                        ? 'bg-[#3498DB] text-white shadow-sm'
                         : 'text-gray-600 hover:text-gray-900'
                     }`}
                   >
@@ -747,7 +749,7 @@ export default function LandingPage() {
                     onClick={() => setSelectedPlanType('recommended')}
                     className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                       selectedPlanType === 'recommended'
-                        ? 'bg-gray-900 text-white shadow-sm'
+                        ? 'bg-[#FF7F50] text-white shadow-sm'
                         : 'text-gray-600 hover:text-gray-900'
                     }`}
                   >
@@ -757,7 +759,7 @@ export default function LandingPage() {
                     onClick={() => setSelectedPlanType('enterprise')}
                     className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                       selectedPlanType === 'enterprise'
-                        ? 'bg-gray-900 text-white shadow-sm'
+                        ? 'bg-[#FF7F50] text-white shadow-sm'
                         : 'text-gray-600 hover:text-gray-900'
                     }`}
                   >
@@ -767,136 +769,133 @@ export default function LandingPage() {
               </div>
             </div>
 
-            {/* Recommended Plans (Startup + Business) */}
+            {/* Recommended Plans (Free Tier + Business) */}
             {selectedPlanType === 'recommended' && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto px-4 sm:px-0">
-                {/* Startup Plan */}
+                {/* Free Tier */}
                 <Card className="relative bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-2xl overflow-hidden">
                   <CardContent className="p-8">
                     <div className="text-center mb-8">
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">Startup</h3>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">Starter</h3>
                       <div className="mb-6">
                         <div className="text-5xl font-bold text-gray-900 mb-2">Free</div>
-                        <p className="text-gray-600">100% free to use</p>
+                        <p className="text-gray-600">100% Free to Use</p>
                       </div>
                     </div>
 
-                    <div className="space-y-4 mb-8">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                    <div className="space-y-3 mb-8">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
                         </div>
-                        <span className="text-gray-600">Up to 3 Users</span>
+                        <span className="text-gray-600 text-sm">Basic Farm Profile Setup</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
                         </div>
-                        <span className="text-gray-600">Unlimited Farm Accounts</span>
+                        <span className="text-gray-600 text-sm">Initial Static Action Plan (5-7 steps)</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
                         </div>
-                        <span className="text-gray-600">Autopilot</span>
+                        <span className="text-gray-600 text-sm">Limited "How-To" Guides</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
                         </div>
-                        <span className="text-gray-600">BI Recommendations</span>
+                        <span className="text-gray-600 text-sm">Limited AI Chatbot (3 queries/day)</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
                         </div>
-                        <span className="text-gray-600">Savings Plan Recommendations</span>
-                      </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                          <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                        </div>
-                        <span className="text-gray-600">24/7 Support</span>
+                        <span className="text-gray-600 text-sm">Self-Service Support & FAQ</span>
                       </div>
                     </div>
 
                     <Button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3">
-                      Apply Now
+                      Get Started Free
                     </Button>
                   </CardContent>
                 </Card>
 
                 {/* Business Plan - Popular */}
-                <Card className="relative bg-white shadow-2xl hover:shadow-3xl transition-shadow duration-300 rounded-2xl overflow-hidden border-2 border-blue-500">
-                  <div className="absolute top-0 left-0 right-0 bg-green-500 text-white text-center py-2 text-sm font-semibold">
+                <Card className="relative bg-white shadow-2xl hover:shadow-3xl transition-shadow duration-300 rounded-2xl overflow-hidden border-2 border-[#FF7F50]">
+                  <div className="absolute top-0 left-0 right-0 bg-[#FF7F50] text-white text-center py-2 text-sm font-semibold">
                     POPULAR
                   </div>
                   <CardContent className="p-8 pt-12">
                     <div className="text-center mb-8">
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">Business</h3>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">Business Plan</h3>
                       <div className="mb-6">
-                        <div className="text-5xl font-bold text-gray-900 mb-2">
-                          {billingPeriod === 'monthly' ? '10%' : '8%'}
+                        <div className="text-4xl font-bold text-gray-900 mb-2">
+                          {billingPeriod === 'monthly' ? '₱2,000' : '₱4,800'}
                         </div>
                         <p className="text-gray-600">
-                          of savings generated {billingPeriod === 'yearly' && '(yearly discount)'}
+                          {billingPeriod === 'monthly' ? 'per month' : 'per year (₱400/month)'}
                         </p>
+                        {billingPeriod === 'yearly' && (
+                          <p className="text-green-600 text-sm font-medium">Save ₱19,200 yearly!</p>
+                        )}
                       </div>
                     </div>
 
-                    <div className="space-y-4 mb-8">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
+                    <div className="space-y-3 mb-8">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                         </div>
-                        <span className="text-gray-900">Up to 10 Users</span>
+                        <span className="text-gray-900 text-sm font-medium">Everything in Free, PLUS:</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                         </div>
-                        <span className="text-gray-900">Unlimited Farm Accounts</span>
+                        <span className="text-gray-900 text-sm">Comprehensive Farm Profile</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                         </div>
-                        <span className="text-gray-900">Autopilot</span>
+                        <span className="text-gray-900 text-sm">Dynamic, Adaptive Action Plan</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                         </div>
-                        <span className="text-gray-900">BI Recommendations</span>
+                        <span className="text-gray-900 text-sm">Full Access to "How-To" Guides</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                         </div>
-                        <span className="text-gray-900">Savings Plan Recommendations</span>
+                        <span className="text-gray-900 text-sm">Unlimited AI Chatbot Queries</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                         </div>
-                        <span className="text-gray-900">24/7 Support</span>
+                        <span className="text-gray-900 text-sm">Resource-Optimized Alternatives</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                         </div>
-                        <span className="text-gray-900">Customization Insurance</span>
+                        <span className="text-gray-900 text-sm">Proactive Risk Alerts</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                         </div>
-                        <span className="text-gray-900">Monthly Bill Review</span>
+                        <span className="text-gray-900 text-sm">Progress Tracking & Biosecurity Score</span>
                       </div>
                     </div>
 
-                    <Button className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-3">
-                      Start Saving
+                    <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3">
+                      Start 14-Day Trial
                     </Button>
                   </CardContent>
                 </Card>
@@ -905,81 +904,71 @@ export default function LandingPage() {
 
             {/* Enterprise Plan */}
             {selectedPlanType === 'enterprise' && (
-              <div className="max-w-md mx-auto px-4 sm:px-0">
+              <div className="max-w-lg mx-auto px-4 sm:px-0">
                 <Card className="relative bg-white shadow-2xl hover:shadow-3xl transition-shadow duration-300 rounded-2xl overflow-hidden border-2 border-purple-500">
                   <div className="absolute top-0 left-0 right-0 bg-purple-600 text-white text-center py-2 text-sm font-semibold">
                     ENTERPRISE
                   </div>
                   <CardContent className="p-8 pt-12">
                     <div className="text-center mb-8">
-                      <h3 className="text-2xl font-bold text-gray-900 mb-2">Enterprise</h3>
-                      <div className="mb-6">
-                        <div className="text-gray-600 text-lg mb-2">For enterprises spending over</div>
-                        <div className="text-gray-600 text-lg mb-2">₱5M per year on operations.</div>
-                        <div className="text-gray-600 text-lg">Book a call to discuss pricing.</div>
-                      </div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">Enterprise Plan</h3>
+                      <div className="text-gray-600 text-lg mb-2">Custom Quote</div>
                     </div>
 
-                    <div className="space-y-4 mb-8">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                    <div className="space-y-3 mb-8">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                         </div>
-                        <span className="text-gray-900">Unlimited Users</span>
+                        <span className="text-gray-900 text-sm font-medium">Everything in Business, PLUS:</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                         </div>
-                        <span className="text-gray-900">Unlimited Farm Accounts</span>
+                        <span className="text-gray-900 text-sm">Multi-Farm / Multi-Pond Management</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                         </div>
-                        <span className="text-gray-900">Advanced Autopilot</span>
+                        <span className="text-gray-900 text-sm">Advanced Analytics & Benchmarking</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                         </div>
-                        <span className="text-gray-900">Custom BI Dashboard</span>
+                        <span className="text-gray-900 text-sm">Enhanced Traceability & Compliance</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                         </div>
-                        <span className="text-gray-900">Priority Support</span>
+                        <span className="text-gray-900 text-sm">On-Demand Expert Consultation</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                         </div>
-                        <span className="text-gray-900">Full Insurance Coverage</span>
+                        <span className="text-gray-900 text-sm">API Access & Integrations</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                         </div>
-                        <span className="text-gray-900">Weekly Bill Review</span>
+                        <span className="text-gray-900 text-sm">Priority Email & Phone Support</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                         </div>
-                        <span className="text-gray-900">Dedicated Account Manager</span>
+                        <span className="text-gray-900 text-sm">Dedicated Account Manager</span>
                       </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center mt-0.5">
                           <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
                         </div>
-                        <span className="text-gray-900">SAML SSO & API Access</span>
-                      </div>
-                      <div className="flex items-center space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
-                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                        </div>
-                        <span className="text-gray-900">Custom Integrations</span>
+                        <span className="text-gray-900 text-sm">BFAR & Export Compliance Reports</span>
                       </div>
                     </div>
 
@@ -1021,51 +1010,121 @@ export default function LandingPage() {
               <h3 className="text-2xl font-bold text-gray-900 text-center mb-12">
                 Frequently Asked Questions
               </h3>
-              <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <div className="space-y-6">
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">How is the Business plan pricing calculated?</h4>
-                    <p className="text-gray-600 text-sm">
-                      You only pay 10% of the money we save you. If we save you ₱10,000 per month, you pay ₱1,000. 
-                      If we don't save you money, you don't pay anything.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">What's included in the free trial?</h4>
-                    <p className="text-gray-600 text-sm">
-                      All Business plan features for 14 days, including AI recommendations, autopilot optimization, 
-                      and full farm monitoring capabilities.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Can I change plans anytime?</h4>
-                    <p className="text-gray-600 text-sm">
-                      Yes, you can upgrade or downgrade your plan at any time. Changes take effect immediately, 
-                      and billing is prorated accordingly.
-                    </p>
+              
+              <div className="max-w-6xl mx-auto space-y-6">
+                {/* General Category */}
+                <div className="bg-gradient-to-r from-[#FF7F50] to-[#FF6347] rounded-2xl p-6 shadow-lg">
+                  <h4 className="text-xl font-bold text-white mb-6">General</h4>
+                  <div className="space-y-4">
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                      <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedFaq(expandedFaq === 'general-1' ? null : 'general-1')}>
+                        <h5 className="font-semibold text-white text-sm">What makes LikAI different from other farm management tools?</h5>
+                        <Plus className={`h-4 w-4 text-white transition-transform ${expandedFaq === 'general-1' ? 'rotate-45' : ''}`} />
+                      </div>
+                      {expandedFaq === 'general-1' && (
+                        <p className="text-white/90 text-sm mt-3 pt-3 border-t border-white/20">
+                          LikAI specializes in AI-driven biosecurity for shrimp aquaculture. Our system provides personalized, 
+                          adaptive action plans based on Good Aquaculture Practices (GAqP) and continuously evolves with your farm's progress.
+                        </p>
+                      )}
+                    </div>
+                    
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                      <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedFaq(expandedFaq === 'general-2' ? null : 'general-2')}>
+                        <h5 className="font-semibold text-white text-sm">How quickly can I see results with LikAI?</h5>
+                        <Plus className={`h-4 w-4 text-white transition-transform ${expandedFaq === 'general-2' ? 'rotate-45' : ''}`} />
+                      </div>
+                      {expandedFaq === 'general-2' && (
+                        <p className="text-white/90 text-sm mt-3 pt-3 border-t border-white/20">
+                          Most farmers see immediate improvements in their biosecurity practices within the first week. 
+                          The AI provides instant recommendations, and our dynamic action plans help optimize your operations from day one.
+                        </p>
+                      )}
+                    </div>
+                    
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                      <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedFaq(expandedFaq === 'general-3' ? null : 'general-3')}>
+                        <h5 className="font-semibold text-white text-sm">Is my farm data secure and private?</h5>
+                        <Plus className={`h-4 w-4 text-white transition-transform ${expandedFaq === 'general-3' ? 'rotate-45' : ''}`} />
+                      </div>
+                      {expandedFaq === 'general-3' && (
+                        <p className="text-white/90 text-sm mt-3 pt-3 border-t border-white/20">
+                          Absolutely. We use enterprise-grade security to protect your farm data. Your information is never shared 
+                          with competitors, and you maintain full ownership of your data at all times.
+                        </p>
+                      )}
+                    </div>
+                    
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                      <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedFaq(expandedFaq === 'general-4' ? null : 'general-4')}>
+                        <h5 className="font-semibold text-white text-sm">What if I'm not tech-savvy?</h5>
+                        <Plus className={`h-4 w-4 text-white transition-transform ${expandedFaq === 'general-4' ? 'rotate-45' : ''}`} />
+                      </div>
+                      {expandedFaq === 'general-4' && (
+                        <p className="text-white/90 text-sm mt-3 pt-3 border-t border-white/20">
+                          LikAI is designed for farmers, not technicians. Our interface is intuitive, and our AI chatbot 
+                          speaks in plain language. We also provide step-by-step "How-To" guides for every recommendation.
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
-                <div className="space-y-6">
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Do you offer custom Enterprise solutions?</h4>
-                    <p className="text-gray-600 text-sm">
-                      Yes, we work with large aquaculture operations to create custom solutions that fit their 
-                      specific needs, including dedicated support and specialized integrations.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">What payment methods do you accept?</h4>
-                    <p className="text-gray-600 text-sm">
-                      We accept all major credit cards, bank transfers, and can accommodate net payment terms 
-                      for Enterprise customers.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Is there a setup fee?</h4>
-                    <p className="text-gray-600 text-sm">
-                      No setup fees for any plan. We'll help you get started with onboarding and training 
-                      at no additional cost.
-                    </p>
+
+                {/* Account & Pricing Category */}
+                <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl p-6 shadow-lg">
+                  <h4 className="text-xl font-bold text-white mb-6">Account & Pricing</h4>
+                  <div className="space-y-4">
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                      <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedFaq(expandedFaq === 'pricing-1' ? null : 'pricing-1')}>
+                        <h5 className="font-semibold text-white text-sm">Can I upgrade or downgrade my plan anytime?</h5>
+                        <Plus className={`h-4 w-4 text-white transition-transform ${expandedFaq === 'pricing-1' ? 'rotate-45' : ''}`} />
+                      </div>
+                      {expandedFaq === 'pricing-1' && (
+                        <p className="text-white/90 text-sm mt-3 pt-3 border-t border-white/20">
+                          Yes! You can switch between Free Tier, Business Plan, or Enterprise at any time. 
+                          Changes take effect immediately, and billing is prorated for seamless transitions.
+                        </p>
+                      )}
+                    </div>
+                    
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                      <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedFaq(expandedFaq === 'pricing-2' ? null : 'pricing-2')}>
+                        <h5 className="font-semibold text-white text-sm">Do you support multiple farm locations?</h5>
+                        <Plus className={`h-4 w-4 text-white transition-transform ${expandedFaq === 'pricing-2' ? 'rotate-45' : ''}`} />
+                      </div>
+                      {expandedFaq === 'pricing-2' && (
+                        <p className="text-white/90 text-sm mt-3 pt-3 border-t border-white/20">
+                          The Business Plan supports single farm operations. For multiple farms or ponds, 
+                          our Enterprise Plan provides centralized management with advanced analytics across all locations.
+                        </p>
+                      )}
+                    </div>
+                    
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                      <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedFaq(expandedFaq === 'pricing-3' ? null : 'pricing-3')}>
+                        <h5 className="font-semibold text-white text-sm">What kind of support do you provide?</h5>
+                        <Plus className={`h-4 w-4 text-white transition-transform ${expandedFaq === 'pricing-3' ? 'rotate-45' : ''}`} />
+                      </div>
+                      {expandedFaq === 'pricing-3' && (
+                        <p className="text-white/90 text-sm mt-3 pt-3 border-t border-white/20">
+                          Free Tier includes comprehensive FAQ and self-service resources. Business Plan adds email support. 
+                          Enterprise Plan includes priority phone support and a dedicated account manager.
+                        </p>
+                      )}
+                    </div>
+                    
+                    <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
+                      <div className="flex items-center justify-between cursor-pointer" onClick={() => setExpandedFaq(expandedFaq === 'pricing-4' ? null : 'pricing-4')}>
+                        <h5 className="font-semibold text-white text-sm">How does LikAI help with compliance and certification?</h5>
+                        <Plus className={`h-4 w-4 text-white transition-transform ${expandedFaq === 'pricing-4' ? 'rotate-45' : ''}`} />
+                      </div>
+                      {expandedFaq === 'pricing-4' && (
+                        <p className="text-white/90 text-sm mt-3 pt-3 border-t border-white/20">
+                          Our Enterprise Plan generates detailed compliance reports formatted for BFAR accreditation 
+                          and international export standards (HACCP, EU requirements), helping you meet regulatory requirements.
+                        </p>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1097,7 +1156,7 @@ export default function LandingPage() {
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-3">
                             <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                            <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                            <div className="w-3 h-3 bg-orange-500 rounded-full"></div>
                             <div className="w-3 h-3 bg-green-500 rounded-full"></div>
                           </div>
                           <div className="text-sm text-gray-600">Farm Analysis Dashboard</div>
@@ -1142,9 +1201,9 @@ export default function LandingPage() {
                             <div className="font-medium text-green-800 mb-1">Water Quality</div>
                             <div className="text-green-600">Optimized</div>
                           </div>
-                          <div className="bg-yellow-50 p-3 rounded-lg">
-                            <div className="font-medium text-yellow-800 mb-1">Feed Efficiency</div>
-                            <div className="text-yellow-600">Needs Attention</div>
+                          <div className="bg-orange-50 p-3 rounded-lg">
+                            <div className="font-medium text-orange-800 mb-1">Feed Efficiency</div>
+                            <div className="text-orange-600">Needs Attention</div>
                           </div>
                         </div>
                       </div>
@@ -1218,7 +1277,7 @@ export default function LandingPage() {
                   <div className="pt-6 px-4 sm:px-0">
                     <div className="flex flex-col sm:flex-row gap-4 sm:gap-4">
                       <Link href="/auth" className="w-full sm:w-auto">
-                        <Button size="lg" className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-8 py-4 text-base sm:text-lg">
+                        <Button size="lg" className="w-full sm:w-auto bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-4 text-base sm:text-lg">
                           Start Free Analysis
                           <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                         </Button>
