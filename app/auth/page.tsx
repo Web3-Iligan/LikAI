@@ -56,7 +56,7 @@ export default function AuthPage() {
                   <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
                     <span className="text-[#3498DB] font-bold text-lg">∞</span>
                   </div>
-                  <span>Continue with ICP Identity</span>
+                  <span>Continue with Internet Identity</span>
                 </Button>
               </Link>
               
