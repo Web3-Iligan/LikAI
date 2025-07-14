@@ -74,7 +74,10 @@ export default function OnboardingPage() {
             <div className="w-10 h-10 bg-gradient-to-br from-[#3498DB] to-[#2980B9] rounded-xl flex items-center justify-center shadow-lg">
               <Fish className="h-6 w-6 text-white" />
             </div>
-            <span className="text-2xl font-bold text-gray-900">LikAI</span>
+            <span className="text-2xl font-bold">
+              <span className="text-[#FF7F50]">Lik</span>
+              <span className="text-[#3498DB]">AI</span>
+            </span>
           </Link>
           {currentStep > 1 && currentStep < totalSteps && (
             <Button 

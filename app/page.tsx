@@ -36,16 +36,10 @@ export default function LandingPage() {
         {/* Logo */}
         <div className="flex-1">
           <Link href="#" className="flex items-center space-x-3 w-fit">
-            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-lg border border-gray-200/50">
-              <Image 
-                src="/Likai-logo.svg" 
-                alt="LikAI Logo" 
-                width={32} 
-                height={32}
-                className="w-8 h-8"
-              />
-            </div>
-            <span className="text-2xl font-bold text-gray-900 tracking-tight">LikAI</span>
+            <span className="text-2xl font-bold tracking-tight">
+              <span className="text-[#FF7F50]">Lik</span>
+              <span className="text-[#3498DB]">AI</span>
+            </span>
           </Link>
         </div>
 

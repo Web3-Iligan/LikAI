@@ -61,16 +61,10 @@ export default function OnboardingPage() {
       <header className="px-8 py-6">
         <div className="flex items-center justify-between max-w-xl mx-auto">
           <Link href="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-lg border border-gray-200/50">
-              <Image 
-                src="/Likai-logo.svg" 
-                alt="LikAI Logo" 
-                width={32} 
-                height={32}
-                className="w-8 h-8"
-              />
-            </div>
-            <span className="text-2xl font-bold text-gray-900">LikAI</span>
+            <span className="text-2xl font-bold">
+              <span className="text-[#FF7F50]">Lik</span>
+              <span className="text-[#3498DB]">AI</span>
+            </span>
           </Link>
           {currentStep > 1 && currentStep < totalSteps && (
             <Button 

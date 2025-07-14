@@ -20,18 +20,11 @@ export default function AuthPage() {
       <header className="px-8 py-6 border-b border-blue-200/50 bg-white/90 backdrop-blur-sm relative z-50">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
           <Link href="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-lg border border-gray-200/50">
-              <Image 
-                src="/Likai-logo.svg" 
-                alt="LikAI Logo" 
-                width={32} 
-                height={32}
-                className="w-8 h-8"
-              />
-            </div>
-            <span className="text-2xl font-bold text-gray-900">LikAI</span>
+            <span className="text-2xl font-bold">
+              <span className="text-[#FF7F50]">Lik</span>
+              <span className="text-[#3498DB]">AI</span>
+            </span>
           </Link>
-          
         </div>
       </header>
 
@@ -93,7 +86,7 @@ export default function AuthPage() {
               <div className="space-y-4">
                 {/* Header */}
                 <div className="flex items-center justify-between border-b border-gray-100 pb-4">
-                  <h3 className="text-lg font-semibold text-gray-900">Aquaculture Dashboard</h3>
+                  <h3 className="text-lg font-semibold text-gray-900">Your Farm Dashboard</h3>
                   <div className="flex space-x-2">
                     <div className="w-3 h-3 bg-red-400 rounded-full"></div>
                     <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
@@ -105,7 +98,7 @@ export default function AuthPage() {
                 <div className="grid grid-cols-3 gap-4">
                   <div className="bg-gradient-to-br from-[#3498DB]/10 to-[#3498DB]/5 p-4 rounded-lg border border-[#3498DB]/20">
                     <div className="text-sm text-gray-600">Total Revenue</div>
-                    <div className="text-2xl font-bold text-[#3498DB]">$25,098.00</div>
+                    <div className="text-sm font-bold text-[#3498DB]">PHP250,098.00</div>
                   </div>
                   <div className="bg-gradient-to-br from-[#FF7F50]/10 to-[#FF7F50]/5 p-4 rounded-lg border border-[#FF7F50]/20">
                     <div className="text-sm text-gray-600">Farm Health</div>
@@ -161,15 +154,6 @@ export default function AuthPage() {
             </div>
             
             {/* Floating elements */}
-            <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-[#FF7F50] to-[#E6723C] rounded-xl shadow-lg flex items-center justify-center transform rotate-12">
-              <Image 
-                src="/Likai-logo.svg" 
-                alt="LikAI" 
-                width={32} 
-                height={32}
-                className="w-8 h-8"
-              />
-            </div>
             <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-br from-[#3498DB] to-[#2980B9] rounded-lg shadow-lg flex items-center justify-center transform -rotate-12">
               <span className="text-white font-bold">AI</span>
             </div>
