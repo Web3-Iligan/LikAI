@@ -37,8 +37,8 @@ export default function LandingPage() {
         <div className="flex-1">
           <Link href="#" className="flex w-fit items-center space-x-3">
             <span className="text-2xl font-bold tracking-tight">
-              <span className="text-[#FF7F50]">Lik </span>
-              <span className="text-[#3498DB]">AI </span>
+              <span className="text-[#FF7F50]">Lik</span>
+              <span className="text-[#3498DB]">AI</span>
             </span>
           </Link>
         </div>
@@ -164,9 +164,9 @@ export default function LandingPage() {
                   <span className="text-[#3498DB]"> Protect your profits.</span>
                 </h1>
                 <p className="mb-6 text-sm leading-relaxed text-gray-600 sm:mb-8 sm:text-base lg:text-lg">
-                  Making aquaculture risk management automated, effortless, and
-                  science-based. Protect your shrimp farm with AI-driven
-                  biosecurity solutions.
+                  Safeguard your shrimp farm with AI-driven biosecurity, aligned
+                  with BFAR GAqP standards, to eliminate outbreaks and boost
+                  yields.
                 </p>
                 <div className="mb-6 flex flex-col gap-4 px-2 sm:mb-8 sm:flex-row sm:gap-4 sm:px-0">
                   <Link href="/auth" className="w-full sm:w-auto">
@@ -184,7 +184,7 @@ export default function LandingPage() {
                       variant="outline"
                       className="w-full border-gray-300 px-8 py-4 text-base hover:bg-gray-50 sm:w-auto sm:px-8"
                     >
-                      Get a Demo
+                      Book a Demo
                     </Button>
                   </Link>
                 </div>
@@ -201,7 +201,7 @@ export default function LandingPage() {
                       <div className="h-2 w-2 rounded-full bg-green-500 sm:h-3 sm:w-3"></div>
                     </div>
                     <div className="text-xs text-gray-600 sm:text-sm">
-                      dashboard.likai.com
+                      Dashboard
                     </div>
                     <div className="rounded bg-green-100 px-2 py-1 text-xs font-medium text-green-700">
                       Live
@@ -223,19 +223,18 @@ export default function LandingPage() {
                               AI-Generated Insights
                             </h3>
                             <p className="hidden text-xs text-gray-600 sm:block">
-                              Personalized recommendations based on your farm
-                              data
+                              Personalized recommendations
                             </p>
                           </div>
                         </div>
 
                         {/* Insight Cards */}
                         <div className="space-y-1 sm:space-y-2 lg:space-y-3">
-                          <div className="rounded border border-[#3498DB]/30 bg-[#3498DB]/10 p-1.5 sm:p-2 lg:p-3">
-                            <h4 className="mb-1 text-xs font-medium text-[#3498DB]">
+                          <div className="rounded border border-red-300 bg-red-50 p-1.5 sm:p-2 lg:p-3">
+                            <h4 className="mb-1 text-xs font-medium text-red-900">
                               Weather Impact Analysis
                             </h4>
-                            <p className="text-xs leading-tight text-[#3498DB]/80">
+                            <p className="text-xs leading-tight text-red-800">
                               Typhoon risk: 75% pond overflow. Dyke inspection
                               could prevent ₱200k losses.
                             </p>
@@ -355,12 +354,12 @@ export default function LandingPage() {
         <section className="bg-gradient-to-br from-gray-50 to-blue-50/30 py-16 sm:py-20">
           <div className="container mx-auto max-w-7xl px-8 text-center sm:px-12 md:px-16 lg:px-8">
             <h2 className="mb-4 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
-              Save up to <span className="text-blue-600">75%</span> on your
-              operational costs
+              Save up to <span className="font-bold text-[#FF7F50]">75%</span>{" "}
+              on your operational costs
             </h2>
             <p className="mx-auto mb-12 max-w-2xl px-4 text-base text-gray-600 sm:px-0 sm:text-lg">
-              The precision of AI-driven biosecurity, the flexibility of
-              real-time monitoring.
+              Leverage AI precision to prevent costly losses. Gain real-time
+              control to maximize your yields and profits.
             </p>
 
             <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 px-4 sm:grid-cols-2 sm:gap-8 sm:px-0 md:grid-cols-3">
@@ -370,14 +369,11 @@ export default function LandingPage() {
                     <Shield className="h-8 w-8 text-blue-600" />
                   </div>
                   <h3 className="mb-2 text-xl font-semibold">
-                    Risk Prevention
+                    Risk Mitigation
                   </h3>
                   <p className="mb-4 text-gray-600">
-                    Prevent disease outbreaks before they happen with AI-powered
-                    early detection
+                    Proactively eliminate costly disease outbreaks before they impact your profitability with AI-powered, predictive insights.
                   </p>
-                  <div className="text-3xl font-bold text-blue-600">85%</div>
-                  <div className="text-sm text-gray-500">Risk Reduction</div>
                 </CardContent>
               </Card>
 
@@ -387,14 +383,11 @@ export default function LandingPage() {
                     <TrendingUp className="h-8 w-8 text-green-600" />
                   </div>
                   <h3 className="mb-2 text-xl font-semibold">
-                    Yield Optimization
+                    Profit Maximization
                   </h3>
                   <p className="mb-4 text-gray-600">
-                    Maximize harvest quality and quantity with data-driven
-                    insights
+                    Optimize every cycle to achieve superior harvest quality and quantity, driven by AI insights for increased market value and profitability.
                   </p>
-                  <div className="text-3xl font-bold text-green-600">45%</div>
-                  <div className="text-sm text-gray-500">Yield Increase</div>
                 </CardContent>
               </Card>
 
@@ -403,13 +396,10 @@ export default function LandingPage() {
                   <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#3498DB]/10">
                     <Target className="h-8 w-8 text-[#3498DB]" />
                   </div>
-                  <h3 className="mb-2 text-xl font-semibold">Cost Control</h3>
+                  <h3 className="mb-2 text-xl font-semibold">Resource Optimization</h3>
                   <p className="mb-4 text-gray-600">
-                    Reduce feed waste and optimize resource allocation
-                    automatically
+                    Minimize costly resource waste and optimize allocation automatically with AI-driven insights.
                   </p>
-                  <div className="text-3xl font-bold text-[#3498DB]">60%</div>
-                  <div className="text-sm text-gray-500">Cost Savings</div>
                 </CardContent>
               </Card>
             </div>
@@ -1622,7 +1612,7 @@ export default function LandingPage() {
                       </div>
                       <div className="flex items-center space-x-2">
                         <CheckCircle className="h-4 w-4 text-green-500" />
-                        <span>No commitment</span>
+                        <span>No hidden fees</span>
                       </div>
                     </div>
                   </div>
