@@ -154,11 +154,11 @@ export default function LandingPage() {
                 <div className="absolute inset-0 -z-10 -m-8 rounded-3xl bg-white/40 backdrop-blur-sm"></div>
                 <Badge className="mb-4 bg-[#3498DB]/10 text-[#3498DB] hover:bg-[#3498DB]/10 sm:mb-6">
                   <Zap className="mr-1 h-3 w-3" />
-                  AI-Powered Biosecurity
+                  AI-driven Biosecurity
                 </Badge>
                 <h1 className="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
                   Prevent outbreaks.
-                  <span className="text-[#3498DB]"> Protect your profits.</span>
+                  <span className="text-green-600"> Protect your profits.</span>
                 </h1>
                 <p className="mb-6 text-sm leading-relaxed text-gray-600 sm:mb-8 sm:text-base lg:text-lg">
                   Safeguard your shrimp farm with AI-driven biosecurity, aligned
@@ -171,7 +171,7 @@ export default function LandingPage() {
                       size="lg"
                       className="w-full bg-orange-500 px-8 py-4 text-base font-semibold text-white hover:bg-orange-600 sm:w-auto sm:px-8"
                     >
-                      Start Saving
+                      Get Free Analysis
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>
@@ -350,7 +350,7 @@ export default function LandingPage() {
         {/* Savings Section */}
         <section className="bg-gradient-to-br from-gray-50 to-blue-50/30 py-16 sm:py-20">
           <div className="container mx-auto max-w-7xl px-8 text-center sm:px-12 md:px-16 lg:px-8">
-            <h2 className="mb-4 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl">
+            <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
               Save up to <span className="font-bold text-[#FF7F50]">75%</span>{" "}
               on your operational costs
             </h2>
@@ -370,7 +370,7 @@ export default function LandingPage() {
                   </h3>
                   <p className="mb-4 text-gray-600">
                     Proactively eliminate costly disease outbreaks before they
-                    impact your profitability with AI-powered, predictive
+                    impact your profitability with AI-driven, predictive
                     insights.
                   </p>
                 </CardContent>
@@ -710,7 +710,7 @@ export default function LandingPage() {
                       <div className="mb-5 grid grid-cols-2 gap-3">
                         <div className="group cursor-pointer rounded-lg border border-gray-200 bg-gradient-to-br from-red-50 to-orange-50 p-4 transition-all hover:border-red-300 hover:shadow-md">
                           <div className="mb-2 text-2xl">🦐</div>
-                          <h4 className="mb-1 text-sm font-semibold text-gray-900">
+                          <h4 className="mb-1 text-base font-semibold text-gray-900">
                             Shrimp Health
                           </h4>
                           <p className="text-xs text-gray-600">
@@ -719,7 +719,7 @@ export default function LandingPage() {
                         </div>
                         <div className="group cursor-pointer rounded-lg border border-gray-200 bg-gradient-to-br from-blue-50 to-cyan-50 p-4 transition-all hover:border-blue-300 hover:shadow-md">
                           <div className="mb-2 text-2xl">💧</div>
-                          <h4 className="mb-1 text-sm font-semibold text-gray-900">
+                          <h4 className="mb-1 text-base font-semibold text-gray-900">
                             Water Quality
                           </h4>
                           <p className="text-xs text-gray-600">
@@ -731,7 +731,7 @@ export default function LandingPage() {
                       {/* Popular Articles with visual enhancements */}
                       <div className="border-t border-gray-100 pt-4">
                         <div className="mb-3 flex items-center justify-between">
-                          <h4 className="text-sm font-semibold text-gray-900">
+                          <h4 className="text-base font-semibold text-gray-900">
                             Popular Step-by-Step Guides
                           </h4>
                           <span className="rounded-full bg-[#3498DB]/10 px-2 py-1 text-xs font-medium text-[#3498DB]">
@@ -1387,7 +1387,7 @@ export default function LandingPage() {
         <section className="bg-gradient-to-br from-blue-50/40 to-orange-50/20 py-16 sm:py-20">
           <div className="container mx-auto max-w-7xl px-8 sm:px-12 md:px-16 lg:px-8">
             <div className="mb-12 text-center sm:mb-16">
-              <h2 className="mb-6 text-xl font-bold text-gray-900 sm:text-2xl md:text-3xl lg:text-4xl">
+              <h2 className="mb-6 text-3xl font-bold text-gray-900 sm:text-4xl">
                 Complete Your Initial Farm Assessment{" "}
                 <span className="text-[#FF7F50]">in 15 Minutes</span>
               </h2>
@@ -1487,15 +1487,6 @@ export default function LandingPage() {
                     </div>
                     <div className="text-xs font-medium text-gray-900 sm:text-sm">
                       we can find in your farm operations
-                    </div>
-                  </div>
-
-                  <div className="absolute -right-2 bottom-12 max-w-40 rounded-lg border bg-white p-2 shadow-lg sm:-right-4 sm:bottom-16 sm:max-w-48 sm:p-3">
-                    <div className="mb-1 text-xs text-gray-600">
-                      See your savings
-                    </div>
-                    <div className="text-xs font-medium text-gray-900 sm:text-sm">
-                      potential instantly
                     </div>
                   </div>
                 </div>
@@ -1625,7 +1616,7 @@ export default function LandingPage() {
                 <span className="text-xl font-bold">LikAI</span>
               </div>
               <p className="max-w-sm text-sm text-gray-400">
-                AI-powered biosecurity solutions for sustainable aquaculture.
+                AI-driven biosecurity solutions for sustainable aquaculture.
               </p>
             </div>
 
