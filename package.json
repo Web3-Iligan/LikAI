@@ -10,7 +10,9 @@
     "start": "next start",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "format:file": "prettier --write"
+    "format:file": "prettier --write",
+    "type-check": "tsc --noEmit",
+    "organize-imports": "echo 'Use Shift+Alt+O in VS Code or right-click -> Organize Imports. Auto-organization happens on save!'"
   },
   "dependencies": {
     "@ai-sdk/openai": "latest",
@@ -65,7 +67,6 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",

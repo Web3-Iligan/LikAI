@@ -1,8 +1,5 @@
 {
-  "plugins": [
-    "@trivago/prettier-plugin-sort-imports",
-    "prettier-plugin-tailwindcss"
-  ],
+  "plugins": ["prettier-plugin-tailwindcss"],
   "semi": true,
   "singleQuote": false,
   "tabWidth": 2,
@@ -10,21 +7,6 @@
   "printWidth": 80,
   "bracketSpacing": true,
   "arrowParens": "avoid",
-  "htmlWhitespaceSensitivity": "css",
   "bracketSameLine": false,
-  "jsxBracketSameLine": false,
-  "jsxSingleQuote": false,
-  "endOfLine": "lf",
-  "importOrder": [
-    "^react$",
-    "^next",
-    "^@?\\w",
-    "^@/components/ui/(.*)$",
-    "^@/components/(.*)$",
-    "^@/lib/(.*)$",
-    "^@/hooks/(.*)$",
-    "^[./]"
-  ],
-  "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true
+  "endOfLine": "lf"
 }

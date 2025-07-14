@@ -1,26 +1,19 @@
 "use client";
 
-import { useState } from "react";
-
-import Image from "next/image";
-import Link from "next/link";
-
 import {
   ArrowRight,
-  Award,
-  BarChart3,
   CheckCircle,
-  Globe,
   Menu,
   Plus,
   Shield,
-  Star,
   Target,
   TrendingUp,
-  Users,
   X,
   Zap,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
