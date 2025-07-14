@@ -130,8 +130,8 @@ export default function LandingPage() {
                   AI-Powered Biosecurity
                 </Badge>
                 <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl mb-6">
-                  Cut farm risks,
-                  <span className="text-blue-600"> not profits.</span>
+                  Prevent outbreaks.
+                  <span className="text-blue-600"> Protect your profits.</span>
                 </h1>
                 <p className="text-lg text-gray-600 mb-8 leading-relaxed">
                   Making aquaculture risk management automated, effortless, and science-based. 
