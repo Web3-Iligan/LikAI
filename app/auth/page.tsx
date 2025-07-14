@@ -54,52 +54,6 @@ export default function AuthPage() {
               </div>
               <span>Continue with ICP Identity</span>
             </Button>
-
-            {/* Divider */}
-            <div className="relative my-6">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-gray-200"></div>
-              </div>
-              <div className="relative flex justify-center text-sm">
-                <span className="px-4 bg-white text-gray-500">OR</span>
-              </div>
-            </div>
-
-            {/* Email Form */}
-            <div className="space-y-4">
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Email address
-                </label>
-                <Input 
-                  id="email" 
-                  type="email" 
-                  placeholder="Enter your email"
-                  className="w-full h-12 px-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#3498DB] focus:border-transparent"
-                />
-              </div>
-
-              <Button 
-                className="w-full h-12 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-[#3498DB] hover:to-[#2980B9] hover:text-white text-gray-700 font-medium flex items-center justify-center space-x-2 rounded-lg transition-all duration-200 hover:shadow-lg"
-                onClick={() => window.location.href = '/auth/onboarding'}
-              >
-                <span>Verify email</span>
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </div>
-
-            {/* Privacy Notice */}
-            <div className="text-center text-sm text-gray-600 leading-relaxed mt-6">
-              We're committed to your privacy. LikAI uses the information 
-              you provide to us to contact you about our relevant content, 
-              products, and services for sustainable aquaculture. You may unsubscribe from these 
-              communications at any time. For more information, check out 
-              our{" "}
-              <Link href="/privacy" className="text-[#3498DB] hover:text-[#2980B9] font-medium">
-                Privacy Policy
-              </Link>
-              .
-            </div>
           </div>
         </div>
       </div>
