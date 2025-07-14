@@ -447,25 +447,70 @@ export function DashboardOverview() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
+              <Zap className="h-5 w-5 text-yellow-500" />
+              AI-Generated Insights
+            </CardTitle>
+            <CardDescription>Personalized recommendations based on your farm data</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-3">
+              <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
+                <h4 className="font-medium text-blue-900 text-sm mb-1">Weather Impact Analysis</h4>
+                <p className="text-xs text-blue-800">
+                  Based on the approaching typhoon, your farm has a 75% risk of pond overflow. Prioritizing dyke
+                  inspection could prevent up to ₱200,000 in potential losses.
+                </p>
+              </div>
+
+              <div className="p-3 bg-green-50 rounded-lg border border-green-200">
+                <h4 className="font-medium text-green-900 text-sm mb-1">Cost Optimization Opportunity</h4>
+                <p className="text-xs text-green-800">
+                  Implementing solar water disinfection could reduce your water treatment costs by 40% while maintaining
+                  85% effectiveness compared to your current method.
+                </p>
+              </div>
+
+              <div className="p-3 bg-orange-50 rounded-lg border border-orange-200">
+                <h4 className="font-medium text-orange-900 text-sm mb-1">Biosecurity Gap Detected</h4>
+                <p className="text-xs text-orange-800">
+                  Your visitor protocol compliance is at 60%. Enhancing this to 90% could reduce disease introduction risk
+                  by an additional 25%.
+                </p>
+              </div>
+            </div>
+            <Link href="/coach" passHref>
+              <Button variant="outline" className="w-full mt-4 bg-transparent" size="sm">
+                Ask AI Coach for more insights
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+
+        </div>
+
+        {/* Recent Activity - Full Width at Bottom */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
               <Activity className="h-5 w-5 text-green-600" />
               Recent Activity
             </CardTitle>
             <CardDescription>Latest updates and system activities</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {recentActivities.map((activity) => {
                 const IconComponent = activity.icon
                 return (
                   <Link key={activity.id} href={activity.href} passHref>
-                    <div className="flex items-start gap-3 cursor-pointer hover:bg-gray-50 p-2 rounded-md -mx-2">
-                      <div className={`p-1 rounded-full bg-gray-100`}>
-                        <IconComponent className={`h-3 w-3 ${activity.iconColor}`} />
+                    <div className="flex items-start gap-3 cursor-pointer hover:bg-gray-50 p-4 rounded-lg border border-gray-200 transition-colors">
+                      <div className={`p-2 rounded-full bg-gray-100`}>
+                        <IconComponent className={`h-4 w-4 ${activity.iconColor}`} />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-gray-900">{activity.title}</p>
-                        <p className="text-xs text-gray-500">{activity.description}</p>
-                        <p className="text-xs text-gray-400 mt-1">{activity.timestamp}</p>
+                        <p className="text-xs text-gray-500 mt-1">{activity.description}</p>
+                        <p className="text-xs text-gray-400 mt-2">{activity.timestamp}</p>
                       </div>
                     </div>
                   </Link>
@@ -475,51 +520,6 @@ export function DashboardOverview() {
             <Link href="/reports" passHref>
               <Button variant="outline" className="w-full mt-4 bg-transparent" size="sm">
                 View All Activities
-              </Button>
-            </Link>
-          </CardContent>
-        </Card>
-
-        </div>
-
-        {/* AI-Generated Insights - Full Width at Bottom */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Zap className="h-5 w-5 text-yellow-500" />
-              AI-Generated Insights
-            </CardTitle>
-            <CardDescription>Personalized recommendations based on your farm data</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
-                <h4 className="font-medium text-blue-900 mb-2">Weather Impact Analysis</h4>
-                <p className="text-sm text-blue-800">
-                  Based on the approaching typhoon, your farm has a 75% risk of pond overflow. Prioritizing dyke
-                  inspection could prevent up to ₱200,000 in potential losses.
-                </p>
-              </div>
-
-              <div className="p-4 bg-green-50 rounded-lg border border-green-200">
-                <h4 className="font-medium text-green-900 mb-2">Cost Optimization Opportunity</h4>
-                <p className="text-sm text-green-800">
-                  Implementing solar water disinfection could reduce your water treatment costs by 40% while maintaining
-                  85% effectiveness compared to your current method.
-                </p>
-              </div>
-
-              <div className="p-4 bg-orange-50 rounded-lg border border-orange-200">
-                <h4 className="font-medium text-orange-900 mb-2">Biosecurity Gap Detected</h4>
-                <p className="text-sm text-orange-800">
-                  Your visitor protocol compliance is at 60%. Enhancing this to 90% could reduce disease introduction risk
-                  by an additional 25%.
-                </p>
-              </div>
-            </div>
-            <Link href="/coach" passHref>
-              <Button variant="outline" className="w-full mt-4 bg-transparent" size="sm">
-                Ask AI Coach for more insights
               </Button>
             </Link>
           </CardContent>

@@ -194,7 +194,45 @@ export default function LandingPage() {
                   <div className="p-6">
                     {/* Two Column Layout */}
                     <div className="grid grid-cols-2 gap-6">
-                      {/* Left Column - Farm Health Sentiment */}
+                      {/* Left Column - AI-Generated Insights */}
+                      <div className="bg-white border rounded-lg p-6">
+                        <div className="flex items-center mb-4">
+                          <div className="w-6 h-6 bg-yellow-100 rounded flex items-center justify-center mr-3">
+                            <span className="text-yellow-600 text-xs">⚡</span>
+                          </div>
+                          <div>
+                            <h3 className="font-semibold text-gray-900 text-sm">AI-Generated Insights</h3>
+                            <p className="text-xs text-gray-600">Personalized recommendations based on your farm data</p>
+                          </div>
+                        </div>
+
+                        {/* Insight Cards */}
+                        <div className="space-y-3">
+                          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                            <h4 className="font-medium text-blue-900 text-xs mb-1">Weather Impact Analysis</h4>
+                            <p className="text-blue-800 text-xs">Based on the approaching typhoon, your farm has a 75% risk of pond overflow. Prioritizing dyke inspection could prevent up to ₱200,000 in potential losses.</p>
+                          </div>
+                          
+                          <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+                            <h4 className="font-medium text-green-900 text-xs mb-1">Cost Optimization Opportunity</h4>
+                            <p className="text-green-800 text-xs">Implementing solar water disinfection could reduce your water treatment costs by 40% while maintaining 85% effectiveness compared to your current method.</p>
+                          </div>
+                          
+                          <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
+                            <h4 className="font-medium text-orange-900 text-xs mb-1">Biosecurity Gap Detected</h4>
+                            <p className="text-orange-800 text-xs">Your visitor protocol compliance is at 60%. Enhancing this to 90% could reduce disease introduction risk by an additional 25%.</p>
+                          </div>
+                        </div>
+
+                        {/* Action Button */}
+                        <div className="mt-4 pt-3 border-t text-center">
+                          <button className="text-xs text-blue-600 hover:text-blue-800 font-medium">
+                            Ask AI Coach for more insights
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Right Column - Farm Health Sentiment */}
                       <div className="bg-white border rounded-lg p-6">
                         <div className="flex items-center mb-4">
                           <div className="w-6 h-6 bg-blue-100 rounded flex items-center justify-center mr-3">
@@ -253,44 +291,6 @@ export default function LandingPage() {
                             <span className="text-gray-700">Current Cycle</span>
                             <span className="text-blue-600 font-medium">Day 45 of 70</span>
                           </div>
-                        </div>
-                      </div>
-
-                      {/* Right Column - AI-Generated Insights */}
-                      <div className="bg-white border rounded-lg p-6">
-                        <div className="flex items-center mb-4">
-                          <div className="w-6 h-6 bg-yellow-100 rounded flex items-center justify-center mr-3">
-                            <span className="text-yellow-600 text-xs">⚡</span>
-                          </div>
-                          <div>
-                            <h3 className="font-semibold text-gray-900 text-sm">AI-Generated Insights</h3>
-                            <p className="text-xs text-gray-600">Personalized recommendations based on your farm data</p>
-                          </div>
-                        </div>
-
-                        {/* Insight Cards */}
-                        <div className="space-y-3">
-                          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                            <h4 className="font-medium text-blue-900 text-xs mb-1">Weather Impact Analysis</h4>
-                            <p className="text-blue-800 text-xs">Based on the approaching typhoon, your farm has a 75% risk of pond overflow. Prioritizing dyke inspection could prevent up to ₱200,000 in potential losses.</p>
-                          </div>
-                          
-                          <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-                            <h4 className="font-medium text-green-900 text-xs mb-1">Cost Optimization Opportunity</h4>
-                            <p className="text-green-800 text-xs">Implementing solar water disinfection could reduce your water treatment costs by 40% while maintaining 85% effectiveness compared to your current method.</p>
-                          </div>
-                          
-                          <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
-                            <h4 className="font-medium text-orange-900 text-xs mb-1">Biosecurity Gap Detected</h4>
-                            <p className="text-orange-800 text-xs">Your visitor protocol compliance is at 60%. Enhancing this to 90% could reduce disease introduction risk by an additional 25%.</p>
-                          </div>
-                        </div>
-
-                        {/* Action Button */}
-                        <div className="mt-4 pt-3 border-t text-center">
-                          <button className="text-xs text-blue-600 hover:text-blue-800 font-medium">
-                            Ask AI Coach for more insights
-                          </button>
                         </div>
                       </div>
                     </div>
