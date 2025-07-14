@@ -28,7 +28,7 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Header */}
-      <header className="px-4 lg:px-8 h-20 flex items-center justify-between bg-white border-b border-gray-100 sticky top-0 z-50">
+      <header className="px-8 sm:px-12 md:px-16 lg:px-8 h-20 flex items-center justify-between bg-white border-b border-gray-100 sticky top-0 z-50">
         {/* Logo */}
         <Link href="#" className="flex items-center space-x-3">
           <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
@@ -80,7 +80,7 @@ export default function LandingPage() {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-gray-100 shadow-lg">
-          <div className="px-4 py-4 space-y-4">
+          <div className="px-8 sm:px-12 py-4 space-y-4">
             <Link 
               href="#about" 
               className="block text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200"
@@ -121,53 +121,53 @@ export default function LandingPage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section id="about" className="relative overflow-hidden bg-gradient-to-br from-gray-50 via-white to-blue-50">
-          <div className="container mx-auto px-4 py-20 sm:py-24 lg:py-32">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
+          <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-8 py-16 sm:py-20 md:py-24 lg:py-32 max-w-7xl">
+            <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 items-center">
               {/* Left Column - Content */}
-              <div className="max-w-2xl">
-                <Badge className="mb-6 bg-blue-100 text-blue-700 hover:bg-blue-100">
+              <div className="max-w-2xl mx-auto lg:mx-0">
+                <Badge className="mb-4 sm:mb-6 bg-blue-100 text-blue-700 hover:bg-blue-100">
                   <Zap className="w-3 h-3 mr-1" />
                   AI-Powered Biosecurity
                 </Badge>
-                <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl mb-6">
+                <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-4 sm:mb-6">
                   Prevent outbreaks.
                   <span className="text-blue-600"> Protect your profits.</span>
                 </h1>
-                <p className="text-base sm:text-lg text-gray-600 mb-8 leading-relaxed">
+                <p className="text-sm sm:text-base lg:text-lg text-gray-600 mb-6 sm:mb-8 leading-relaxed">
                   Making aquaculture risk management automated, effortless, and science-based. 
                   Protect your shrimp farm with AI-driven biosecurity solutions.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                <div className="flex flex-col sm:flex-row gap-4 sm:gap-4 mb-6 sm:mb-8 px-2 sm:px-0">
                   <Link href="/auth" className="w-full sm:w-auto">
-                    <Button size="lg" className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-8">
+                    <Button size="lg" className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-8 sm:px-8 py-4 text-base">
                       Start Saving
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>
                   <Link href="#demo" className="w-full sm:w-auto">
-                    <Button size="lg" variant="outline" className="w-full sm:w-auto border-gray-300 hover:bg-gray-50">
+                    <Button size="lg" variant="outline" className="w-full sm:w-auto border-gray-300 hover:bg-gray-50 px-8 sm:px-8 py-4 text-base">
                       Get a Demo
                     </Button>
                   </Link>
                 </div>
                 
                 {/* Trust Indicators */}
-                <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-sm text-gray-500">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                <div className="flex flex-wrap items-center gap-3 sm:gap-4 md:gap-6 text-sm text-gray-500 justify-center sm:justify-start px-2 sm:px-0">
+                  <div className="flex items-center space-x-1.5 sm:space-x-2">
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 bg-gray-100 rounded-full flex items-center justify-center">
                       <span className="text-xs font-bold">DA</span>
                     </div>
                     <span className="text-xs sm:text-sm">Department of Agriculture</span>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                  <div className="flex items-center space-x-1.5 sm:space-x-2">
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 bg-gray-100 rounded-full flex items-center justify-center">
                       <span className="text-xs font-bold">PH</span>
                     </div>
                     <span className="text-xs sm:text-sm">Philippines.gov</span>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                      <Globe className="h-4 w-4" />
+                  <div className="flex items-center space-x-1.5 sm:space-x-2">
+                    <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 bg-gray-100 rounded-full flex items-center justify-center">
+                      <Globe className="h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-4 md:w-4" />
                     </div>
                     <span className="text-xs sm:text-sm">SEAFDEC</span>
                   </div>
@@ -175,79 +175,74 @@ export default function LandingPage() {
               </div>
 
               {/* Right Column - Dashboard Preview */}
-              <div className="relative">
-                <div className="bg-white rounded-2xl shadow-2xl border overflow-hidden">
+              <div className="relative mt-8 lg:mt-0 px-2 sm:px-4 md:px-6 lg:px-0">
+                <div className="bg-white rounded-xl sm:rounded-2xl shadow-2xl border overflow-hidden max-w-sm mx-auto lg:max-w-none">
                   {/* Dashboard Header */}
-                  <div className="bg-gray-50 px-6 py-4 border-b flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-                      <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-                      <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                  <div className="bg-gray-50 px-3 sm:px-6 py-3 sm:py-4 border-b flex items-center justify-between">
+                    <div className="flex items-center space-x-2 sm:space-x-3">
+                      <div className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full"></div>
+                      <div className="w-2 h-2 sm:w-3 sm:h-3 bg-yellow-500 rounded-full"></div>
+                      <div className="w-2 h-2 sm:w-3 sm:h-3 bg-green-500 rounded-full"></div>
                     </div>
-                    <div className="text-sm text-gray-600">dashboard.likai.com</div>
+                    <div className="text-xs sm:text-sm text-gray-600">dashboard.likai.com</div>
                     <div className="bg-green-100 text-green-700 px-2 py-1 rounded text-xs font-medium">
                       Live
                     </div>
                   </div>
 
                   {/* Dashboard Content */}
-                  <div className="p-3 sm:p-6">
-                    {/* Two Column Layout */}
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-6">
-                      {/* Left Column - AI-Generated Insights */}
-                      <div className="bg-white border rounded-lg p-3 sm:p-6">
-                        <div className="flex items-center mb-4">
-                          <div className="w-6 h-6 bg-yellow-100 rounded flex items-center justify-center mr-3">
+                  <div className="p-2 sm:p-3 lg:p-6">
+                    {/* Single Column Layout on Mobile */}
+                    <div className="grid grid-cols-1 gap-2 sm:gap-3 lg:grid-cols-2 lg:gap-6">
+                      {/* AI-Generated Insights */}
+                      <div className="bg-white border rounded-lg p-2 sm:p-3 lg:p-6">
+                        <div className="flex items-center mb-2 sm:mb-4">
+                          <div className="w-4 h-4 sm:w-6 sm:h-6 bg-yellow-100 rounded flex items-center justify-center mr-2 sm:mr-3">
                             <span className="text-yellow-600 text-xs">⚡</span>
                           </div>
                           <div>
                             <h3 className="font-semibold text-gray-900 text-xs sm:text-sm">AI-Generated Insights</h3>
-                            <p className="text-xs text-gray-600">Personalized recommendations based on your farm data</p>
+                            <p className="text-xs text-gray-600 hidden sm:block">Personalized recommendations based on your farm data</p>
                           </div>
                         </div>
 
                         {/* Insight Cards */}
-                        <div className="space-y-2 sm:space-y-3">
-                          <div className="bg-blue-50 border border-blue-200 rounded-lg p-2 sm:p-3">
+                        <div className="space-y-1 sm:space-y-2 lg:space-y-3">
+                          <div className="bg-blue-50 border border-blue-200 rounded p-1.5 sm:p-2 lg:p-3">
                             <h4 className="font-medium text-blue-900 text-xs mb-1">Weather Impact Analysis</h4>
-                            <p className="text-blue-800 text-xs">Based on the approaching typhoon, your farm has a 75% risk of pond overflow. Prioritizing dyke inspection could prevent up to ₱200,000 in potential losses.</p>
+                            <p className="text-blue-800 text-xs leading-tight">Typhoon risk: 75% pond overflow. Dyke inspection could prevent ₱200k losses.</p>
                           </div>
                           
-                          <div className="bg-green-50 border border-green-200 rounded-lg p-2 sm:p-3">
-                            <h4 className="font-medium text-green-900 text-xs mb-1">Cost Optimization Opportunity</h4>
-                            <p className="text-green-800 text-xs">Implementing solar water disinfection could reduce your water treatment costs by 40% while maintaining 85% effectiveness compared to your current method.</p>
-                          </div>
-                          
-                          <div className="bg-orange-50 border border-orange-200 rounded-lg p-2 sm:p-3">
-                            <h4 className="font-medium text-orange-900 text-xs mb-1">Biosecurity Gap Detected</h4>
-                            <p className="text-orange-800 text-xs">Your visitor protocol compliance is at 60%. Enhancing this to 90% could reduce disease introduction risk by an additional 25%.</p>
+                          <div className="bg-green-50 border border-green-200 rounded p-1.5 sm:p-2 lg:p-3">
+                            <h4 className="font-medium text-green-900 text-xs mb-1">Cost Optimization</h4>
+                            <p className="text-green-800 text-xs leading-tight">Solar disinfection: 40% cost reduction, 85% effectiveness.</p>
                           </div>
                         </div>
 
                         {/* Action Button */}
-                        <div className="mt-3 sm:mt-4 pt-3 border-t text-center">
+                        <div className="mt-2 sm:mt-3 lg:mt-4 pt-2 sm:pt-3 border-t text-center">
                           <button className="text-xs text-blue-600 hover:text-blue-800 font-medium">
-                            Ask AI Coach for more insights
+                            Ask AI Coach
                           </button>
                         </div>
                       </div>
 
-                      {/* Right Column - Farm Health Sentiment */}
-                      <div className="bg-white border rounded-lg p-3 sm:p-6">
-                        <div className="flex items-center mb-4">
-                          <div className="w-6 h-6 bg-blue-100 rounded flex items-center justify-center mr-3">
+                      {/* Farm Health Sentiment */}
+                      <div className="bg-white border rounded-lg p-2 sm:p-3 lg:p-6">
+                        <div className="flex items-center mb-2 sm:mb-4">
+                          <div className="w-4 h-4 sm:w-6 sm:h-6 bg-blue-100 rounded flex items-center justify-center mr-2 sm:mr-3">
                             <span className="text-blue-600 text-xs">🛡️</span>
                           </div>
                           <div>
-                            <h3 className="font-semibold text-gray-900 text-xs sm:text-sm">Farm Health Sentiment</h3>
-                            <p className="text-xs text-gray-600">Overall biosecurity and health assessment</p>
+                            <h3 className="font-semibold text-gray-900 text-xs sm:text-sm">Farm Health</h3>
+                            <p className="text-xs text-gray-600 hidden sm:block">Overall assessment</p>
                           </div>
                         </div>
 
                         {/* Circular Progress */}
-                        <div className="flex flex-col items-center mb-4 sm:mb-6">
-                          <div className="relative w-20 h-20 sm:w-24 sm:h-24 mb-3">
-                            <svg className="w-20 h-20 sm:w-24 sm:h-24 transform -rotate-90" viewBox="0 0 36 36">
+                        <div className="flex flex-col items-center mb-3 sm:mb-4 lg:mb-6">
+                          <div className="relative w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 mb-2 sm:mb-3">
+                            <svg className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 transform -rotate-90" viewBox="0 0 36 36">
                               <path
                                 d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                                 fill="none"
@@ -263,14 +258,14 @@ export default function LandingPage() {
                               />
                             </svg>
                             <div className="absolute inset-0 flex items-center justify-center">
-                              <span className="text-base sm:text-lg font-bold text-gray-900">92%</span>
+                              <span className="text-sm sm:text-base lg:text-lg font-bold text-gray-900">92%</span>
                             </div>
                           </div>
-                          <p className="text-xs text-gray-600 text-center">of parameters within optimal range</p>
+                          <p className="text-xs text-gray-600 text-center">optimal range</p>
                         </div>
 
-                        {/* Status Items */}
-                        <div className="space-y-2 sm:space-y-3 text-xs">
+                        {/* Status Items - Simplified for mobile */}
+                        <div className="space-y-1 sm:space-y-2 lg:space-y-3 text-xs">
                           <div className="flex justify-between items-center">
                             <span className="text-gray-700">Water Quality</span>
                             <span className="text-green-600 font-medium">Excellent</span>
@@ -279,17 +274,9 @@ export default function LandingPage() {
                             <span className="text-gray-700">Stock Health</span>
                             <span className="text-yellow-600 font-medium">Good</span>
                           </div>
-                          <div className="flex justify-between items-center">
-                            <span className="text-gray-700">Biosecurity Status</span>
-                            <span className="text-green-600 font-medium">Excellent</span>
-                          </div>
-                          <div className="flex justify-between items-center">
-                            <span className="text-gray-700">Equipment Status</span>
-                            <span className="text-yellow-600 font-medium">Good</span>
-                          </div>
-                          <div className="flex justify-between items-center pt-2 border-t">
+                          <div className="flex justify-between items-center lg:pt-2 lg:border-t">
                             <span className="text-gray-700">Current Cycle</span>
-                            <span className="text-blue-600 font-medium">Day 45 of 70</span>
+                            <span className="text-blue-600 font-medium">Day 45/70</span>
                           </div>
                         </div>
                       </div>
@@ -298,9 +285,9 @@ export default function LandingPage() {
                 </div>
 
                 {/* Floating notification */}
-                <div className="absolute -right-2 sm:-right-4 top-16 sm:top-20 bg-white rounded-lg shadow-lg border p-2 sm:p-3 max-w-40 sm:max-w-48">
-                  <div className="flex items-center space-x-2 mb-1">
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <div className="absolute -right-2 sm:-right-2 md:-right-4 lg:-right-4 top-8 sm:top-12 md:top-16 lg:top-20 bg-white rounded-lg shadow-lg border p-2 sm:p-3 max-w-28 sm:max-w-32 md:max-w-40 lg:max-w-48">
+                  <div className="flex items-center space-x-1 sm:space-x-1.5 md:space-x-2 mb-1">
+                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full"></div>
                     <span className="text-xs font-medium text-gray-900">Risk Decreased</span>
                   </div>
                   <p className="text-xs text-gray-600">Water quality improved by 23%</p>
@@ -311,16 +298,16 @@ export default function LandingPage() {
         </section>
 
         {/* Savings Section */}
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
+        <section className="py-16 sm:py-20 bg-white">
+          <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-8 text-center max-w-7xl">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Save up to <span className="text-blue-600">75%</span> on your operational costs
             </h2>
-            <p className="text-lg text-gray-600 mb-12 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-gray-600 mb-12 max-w-2xl mx-auto px-4 sm:px-0">
               The precision of AI-driven biosecurity, the flexibility of real-time monitoring.
             </p>
             
-            <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto px-4 sm:px-0">
               <Card className="border-0 shadow-lg">
                 <CardContent className="p-8 text-center">
                   <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -361,10 +348,10 @@ export default function LandingPage() {
         </section>
 
         {/* Features Section */}
-        <section id="features" className="py-20 bg-white">
-          <div className="container mx-auto px-4">
+        <section id="features" className="py-16 sm:py-20 bg-white">
+          <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-8 max-w-7xl">
             {/* Feature 1 - Shared Inbox */}
-            <div className="grid lg:grid-cols-2 gap-16 items-center mb-32">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 items-center mb-24 sm:mb-32">
               <div className="order-2 lg:order-1">
                 <div className="flex items-center mb-6">
                   <div className="w-10 h-10 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-lg mr-4">
@@ -597,7 +584,7 @@ export default function LandingPage() {
             </div>
 
             {/* Feature 3 - Knowledge Base */}
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 items-center">
               <div className="order-2 lg:order-1">
                 <div className="flex items-center mb-6">
                   <div className="w-10 h-10 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-lg mr-4">
@@ -714,16 +701,16 @@ export default function LandingPage() {
         </section>
 
         {/* Pricing Section */}
-        <section id="pricing" className="py-20 bg-gray-50">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">Pricing</h2>
-              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+        <section id="pricing" className="py-16 sm:py-20 bg-gray-50">
+          <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-8 max-w-7xl">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Pricing</h2>
+              <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4 sm:px-0">
                 Pay just a portion of what we help you save.
               </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto px-4 sm:px-0">
               {/* Startup Plan */}
               <Card className="relative bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-2xl overflow-hidden">
                 <CardContent className="p-8">
@@ -1016,20 +1003,20 @@ export default function LandingPage() {
         </section>
      
         {/* CTA Section - Analyze Your Farm */}
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-4">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        <section className="py-16 sm:py-20 bg-white">
+          <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-8 max-w-7xl">
+            <div className="text-center mb-12 sm:mb-16">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Analyze your farm
                 <br className="hidden sm:block" />
                 <span className="sm:hidden"> </span>in two minutes
               </h2>
-              <p className="text-base sm:text-lg text-gray-600 mb-4">Start your savings analysis</p>
+              <p className="text-base sm:text-lg text-gray-600 mb-4 px-4 sm:px-0">Start your savings analysis</p>
               <p className="text-sm text-gray-500">100% free, no credit card required</p>
             </div>
 
-            <div className="max-w-6xl mx-auto">
-              <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div className="max-w-6xl mx-auto px-4 sm:px-0">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
                 {/* Left side - Demo Preview */}
                 <div className="relative">
                   <div className="bg-gradient-to-br from-gray-50 to-blue-50 rounded-2xl p-8 shadow-xl">
@@ -1094,14 +1081,14 @@ export default function LandingPage() {
                   </div>
 
                   {/* Floating annotations */}
-                  <div className="absolute -left-4 top-16 bg-white rounded-lg shadow-lg border p-3 max-w-48">
+                  <div className="absolute -left-2 sm:-left-4 top-12 sm:top-16 bg-white rounded-lg shadow-lg border p-2 sm:p-3 max-w-40 sm:max-w-48">
                     <div className="text-xs text-gray-600 mb-1">See how much money</div>
-                    <div className="text-sm font-medium text-gray-900">we can find in your farm operations</div>
+                    <div className="text-xs sm:text-sm font-medium text-gray-900">we can find in your farm operations</div>
                   </div>
                   
-                  <div className="absolute -right-4 bottom-16 bg-white rounded-lg shadow-lg border p-3 max-w-48">
+                  <div className="absolute -right-2 sm:-right-4 bottom-12 sm:bottom-16 bg-white rounded-lg shadow-lg border p-2 sm:p-3 max-w-40 sm:max-w-48">
                     <div className="text-xs text-gray-600 mb-1">See your savings</div>
-                    <div className="text-sm font-medium text-gray-900">potential instantly</div>
+                    <div className="text-xs sm:text-sm font-medium text-gray-900">potential instantly</div>
                   </div>
                 </div>
 
@@ -1157,18 +1144,20 @@ export default function LandingPage() {
                   </div>
 
                   {/* CTA Buttons */}
-                  <div className="pt-6">
-                    <Link href="/auth">
-                      <Button size="lg" className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-8 py-4 text-lg mb-4 sm:mb-0 sm:mr-4">
-                        Start Free Analysis
-                        <ArrowRight className="ml-2 h-5 w-5" />
-                      </Button>
-                    </Link>
-                    <Link href="#demo">
-                      <Button size="lg" variant="outline" className="w-full sm:w-auto border-gray-300 hover:bg-gray-50 px-8 py-4 text-lg">
-                        Watch Demo
-                      </Button>
-                    </Link>
+                  <div className="pt-6 px-4 sm:px-0">
+                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-4">
+                      <Link href="/auth" className="w-full sm:w-auto">
+                        <Button size="lg" className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-8 py-4 text-base sm:text-lg">
+                          Start Free Analysis
+                          <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                        </Button>
+                      </Link>
+                      <Link href="#demo" className="w-full sm:w-auto">
+                        <Button size="lg" variant="outline" className="w-full sm:w-auto border-gray-300 hover:bg-gray-50 px-8 py-4 text-base sm:text-lg">
+                          Watch Demo
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
 
                   {/* Trust indicators */}
@@ -1197,8 +1186,8 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-12">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8">
+        <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-8 max-w-7xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
             <div>
               <div className="flex items-center mb-4">
                 <div className="bg-blue-600 p-2 rounded-lg mr-2">
