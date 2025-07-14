@@ -17,12 +17,7 @@ export default function AuthPage() {
             </div>
             <span className="text-2xl font-bold text-gray-900">LikAI</span>
           </Link>
-          <div className="text-sm text-gray-600">
-            Have an account? 
-            <Link href="/login" className="text-[#3498DB] hover:text-[#2980B9] ml-1 font-medium">
-              Sign in
-            </Link>
-          </div>
+          
         </div>
       </header>
 
