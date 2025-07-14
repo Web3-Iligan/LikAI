@@ -96,17 +96,27 @@ export default function AuthPage() {
                 
                 {/* Stats Cards */}
                 <div className="grid grid-cols-3 gap-4">
-                  <div className="bg-gradient-to-br from-[#3498DB]/10 to-[#3498DB]/5 p-4 rounded-lg border border-[#3498DB]/20">
-                    <div className="text-sm text-gray-600">Total Revenue</div>
-                    <div className="text-sm font-bold text-[#3498DB]">PHP250,098.00</div>
+                  <div className="bg-gradient-to-br from-green-100/80 to-green-50/60 p-4 rounded-lg border border-green-200/50">
+                    <div className="text-sm text-gray-600 mb-2">Cost Savings</div>
+                    <div className="text-2xl font-bold text-green-600">₱45,000</div>
+                    <div className="text-xs text-gray-500 mt-1">This cycle</div>
                   </div>
                   <div className="bg-gradient-to-br from-[#FF7F50]/10 to-[#FF7F50]/5 p-4 rounded-lg border border-[#FF7F50]/20">
-                    <div className="text-sm text-gray-600">Farm Health</div>
+                    <div className="text-sm text-gray-600 mb-2">Farm Health</div>
                     <div className="text-2xl font-bold text-[#FF7F50]">94%</div>
+                    <div className="text-xs text-gray-500 mt-1">Optimal</div>
                   </div>
-                  <div className="bg-gradient-to-br from-green-500/10 to-green-500/5 p-4 rounded-lg border border-green-500/20">
-                    <div className="text-sm text-gray-600">Production</div>
-                    <div className="text-2xl font-bold text-green-600">8,240kg</div>
+                  <div className="bg-gradient-to-br from-orange-100/80 to-orange-50/60 p-4 rounded-lg border border-orange-200/50">
+                    <div className="text-sm text-gray-600 mb-2">Overall Risk Score</div>
+                    <div className="flex items-center justify-between">
+                      <div className="text-2xl font-bold text-orange-600">68/100</div>
+                      <div className="w-6 h-6 text-orange-500">
+                        <svg viewBox="0 0 24 24" fill="currentColor" className="w-full h-full">
+                          <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V14.5C14.8,16.9 13.4,18.5 12,18.5C10.6,18.5 9.2,16.9 9.2,14.5V10C9.2,8.6 10.6,7 12,7Z"/>
+                        </svg>
+                      </div>
+                    </div>
+                    <div className="text-xs text-gray-500 mt-1">+5 from yesterday</div>
                   </div>
                 </div>
                 
