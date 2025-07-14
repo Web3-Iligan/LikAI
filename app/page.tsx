@@ -192,61 +192,135 @@ export default function LandingPage() {
 
                   {/* Dashboard Content */}
                   <div className="p-6">
-                    {/* Stats Cards */}
-                    <div className="grid grid-cols-3 gap-4 mb-6">
-                      <Card className="border-green-200 bg-green-50">
-                        <CardContent className="p-4 text-center">
-                          <div className="text-2xl font-bold text-green-600">₱34,529.20</div>
-                          <div className="text-xs text-green-700">Cost Savings</div>
-                        </CardContent>
-                      </Card>
-                      <Card className="border-blue-200 bg-blue-50">
-                        <CardContent className="p-4 text-center">
-                          <div className="text-2xl font-bold text-blue-600">₱105,796.01</div>
-                          <div className="text-xs text-blue-700">Revenue Protected</div>
-                        </CardContent>
-                      </Card>
-                      <Card className="border-red-200 bg-red-50">
-                        <CardContent className="p-4 text-center">
-                          <div className="text-2xl font-bold text-red-600">₱16,112.02</div>
-                          <div className="text-xs text-red-700">Losses Prevented</div>
-                        </CardContent>
-                      </Card>
-                    </div>
+                    {/* Two Column Layout */}
+                    <div className="grid grid-cols-2 gap-6">
+                      {/* Left Column - Farm Health Sentiment */}
+                      <div className="bg-white border rounded-lg p-6">
+                        <div className="flex items-center mb-4">
+                          <div className="w-6 h-6 bg-blue-100 rounded flex items-center justify-center mr-3">
+                            <span className="text-blue-600 text-xs">🛡️</span>
+                          </div>
+                          <div>
+                            <h3 className="font-semibold text-gray-900 text-sm">Farm Health Sentiment</h3>
+                            <p className="text-xs text-gray-600">Overall biosecurity and health assessment</p>
+                          </div>
+                        </div>
 
-                    {/* Chart Area Placeholder */}
-                    <div className="bg-gray-50 rounded-lg p-6 mb-4">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="font-semibold text-gray-900">Risk Trend Analysis</h3>
-                        <Badge variant="outline" className="text-xs">7 days</Badge>
-                      </div>
-                      <div className="h-32 bg-gradient-to-r from-green-100 via-yellow-100 to-red-100 rounded relative overflow-hidden">
-                        <svg className="w-full h-full" viewBox="0 0 300 100">
-                          <polyline
-                            fill="none"
-                            stroke="#3B82F6"
-                            strokeWidth="2"
-                            points="20,80 60,60 100,45 140,50 180,35 220,40 260,30"
-                          />
-                          {/* Data points */}
-                          <circle cx="20" cy="80" r="3" fill="#EF4444" />
-                          <circle cx="60" cy="60" r="3" fill="#F59E0B" />
-                          <circle cx="100" cy="45" r="3" fill="#F59E0B" />
-                          <circle cx="140" cy="50" r="3" fill="#F59E0B" />
-                          <circle cx="180" cy="35" r="3" fill="#10B981" />
-                          <circle cx="220" cy="40" r="3" fill="#10B981" />
-                          <circle cx="260" cy="30" r="3" fill="#10B981" />
-                        </svg>
-                      </div>
-                    </div>
+                        {/* Circular Progress */}
+                        <div className="flex flex-col items-center mb-6">
+                          <div className="relative w-24 h-24 mb-3">
+                            <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 36 36">
+                              <path
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                fill="none"
+                                stroke="#E5E7EB"
+                                strokeWidth="2"
+                              />
+                              <path
+                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                                fill="none"
+                                stroke="#F59E0B"
+                                strokeWidth="2"
+                                strokeDasharray="92, 100"
+                              />
+                            </svg>
+                            <div className="absolute inset-0 flex items-center justify-center">
+                              <span className="text-lg font-bold text-gray-900">92%</span>
+                            </div>
+                          </div>
+                          <p className="text-xs text-gray-600 text-center">of parameters within optimal range</p>
+                        </div>
 
-                    {/* Recommendations */}
-                    <div className="space-y-2">
-                      <h4 className="font-medium text-gray-900 text-sm">Recommendations</h4>
-                      <div className="grid grid-cols-3 gap-2 text-xs">
-                        <div className="bg-blue-50 p-2 rounded text-blue-700">Weather Alert</div>
-                        <div className="bg-green-50 p-2 rounded text-green-700">Optimize Feed</div>
-                        <div className="bg-purple-50 p-2 rounded text-purple-700">Upgrade</div>
+                        {/* Status Items */}
+                        <div className="space-y-3 text-xs">
+                          <div className="flex justify-between items-center">
+                            <span className="text-gray-700">Water Quality</span>
+                            <span className="text-green-600 font-medium">Excellent</span>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className="text-gray-700">Stock Health</span>
+                            <span className="text-yellow-600 font-medium">Good</span>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className="text-gray-700">Biosecurity Status</span>
+                            <span className="text-green-600 font-medium">Excellent</span>
+                          </div>
+                          <div className="flex justify-between items-center">
+                            <span className="text-gray-700">Equipment Status</span>
+                            <span className="text-yellow-600 font-medium">Good</span>
+                          </div>
+                          <div className="flex justify-between items-center pt-2 border-t">
+                            <span className="text-gray-700">Current Cycle</span>
+                            <span className="text-blue-600 font-medium">Day 45 of 70</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Right Column - Recent Activity (AI Insights) */}
+                      <div className="bg-white border rounded-lg p-6">
+                        <div className="flex items-center mb-4">
+                          <div className="w-6 h-6 bg-green-100 rounded flex items-center justify-center mr-3">
+                            <span className="text-green-600 text-xs">📈</span>
+                          </div>
+                          <div>
+                            <h3 className="font-semibold text-gray-900 text-sm">Recent Activity</h3>
+                            <p className="text-xs text-gray-600">Latest updates and system activities</p>
+                          </div>
+                        </div>
+
+                        {/* Activity Items */}
+                        <div className="space-y-4">
+                          <div className="flex items-start space-x-3">
+                            <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                              <span className="text-green-600 text-xs">✅</span>
+                            </div>
+                            <div className="flex-1">
+                              <h4 className="font-medium text-gray-900 text-xs">Footbath Protocol Implemented</h4>
+                              <p className="text-gray-600 text-xs">Successfully set up visitor disinfection station</p>
+                              <p className="text-gray-400 text-xs mt-1">2 hours ago</p>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-start space-x-3">
+                            <div className="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                              <span className="text-orange-600 text-xs">⚠️</span>
+                            </div>
+                            <div className="flex-1">
+                              <h4 className="font-medium text-gray-900 text-xs">Risk Assessment Updated</h4>
+                              <p className="text-gray-600 text-xs">Weather risk increased due to approaching typhoon</p>
+                              <p className="text-gray-400 text-xs mt-1">4 hours ago</p>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-start space-x-3">
+                            <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                              <span className="text-blue-600 text-xs">🤖</span>
+                            </div>
+                            <div className="flex-1">
+                              <h4 className="font-medium text-gray-900 text-xs">New AI Recommendation</h4>
+                              <p className="text-gray-600 text-xs">Suggested pond dyke inspection based on weather forecast</p>
+                              <p className="text-gray-400 text-xs mt-1">6 hours ago</p>
+                            </div>
+                          </div>
+                          
+                          <div className="flex items-start space-x-3">
+                            <div className="w-6 h-6 bg-cyan-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                              <span className="text-cyan-600 text-xs">💧</span>
+                            </div>
+                            <div className="flex-1">
+                              <h4 className="font-medium text-gray-900 text-xs">Water Quality Check</h4>
+                              <p className="text-gray-600 text-xs">All parameters within normal range</p>
+                              <p className="text-gray-400 text-xs mt-1">8 hours ago</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* View All Link */}
+                        <div className="mt-6 pt-3 border-t text-center">
+                          <button className="text-xs text-blue-600 hover:text-blue-800 font-medium">
+                            View All Activities
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
