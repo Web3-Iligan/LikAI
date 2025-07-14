@@ -168,28 +168,6 @@ export default function LandingPage() {
                     </Button>
                   </Link>
                 </div>
-                
-                {/* Trust Indicators */}
-                <div className="flex flex-wrap items-center gap-3 sm:gap-4 md:gap-6 text-sm text-gray-500 justify-center sm:justify-start px-2 sm:px-0">
-                  <div className="flex items-center space-x-1.5 sm:space-x-2">
-                    <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                      <span className="text-xs font-bold">DA</span>
-                    </div>
-                    <span className="text-xs sm:text-sm">Department of Agriculture</span>
-                  </div>
-                  <div className="flex items-center space-x-1.5 sm:space-x-2">
-                    <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                      <span className="text-xs font-bold">PH</span>
-                    </div>
-                    <span className="text-xs sm:text-sm">Philippines.gov</span>
-                  </div>
-                  <div className="flex items-center space-x-1.5 sm:space-x-2">
-                    <div className="w-5 h-5 sm:w-6 sm:h-6 md:w-8 md:h-8 bg-gray-100 rounded-full flex items-center justify-center">
-                      <Globe className="h-2.5 w-2.5 sm:h-3 sm:w-3 md:h-4 md:w-4" />
-                    </div>
-                    <span className="text-xs sm:text-sm">SEAFDEC</span>
-                  </div>
-                </div>
               </div>
 
               {/* Right Column - Dashboard Preview */}
@@ -1153,7 +1131,7 @@ export default function LandingPage() {
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
                 Analyze your farm
                 <br className="hidden sm:block" />
-                <span className="sm:hidden"> </span>in two minutes
+                <span className="sm:hidden"> </span>in <span className="text-[#FF7F50]">15 minutes</span>
               </h2>
               <p className="text-base sm:text-lg text-gray-600 mb-4 px-4 sm:px-0">Start your savings analysis</p>
               <p className="text-sm text-gray-500">100% free, no credit card required</p>
@@ -1313,7 +1291,7 @@ export default function LandingPage() {
                       </div>
                       <div className="flex items-center space-x-2">
                         <CheckCircle className="h-4 w-4 text-green-500" />
-                        <span>2-minute setup</span>
+                        <span>15-minute setup</span>
                       </div>
                       <div className="flex items-center space-x-2">
                         <CheckCircle className="h-4 w-4 text-green-500" />
