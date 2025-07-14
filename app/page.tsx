@@ -346,12 +346,12 @@ export default function LandingPage() {
               
               <Card className="border-0 shadow-lg">
                 <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Target className="h-8 w-8 text-purple-600" />
+                  <div className="w-16 h-16 bg-[#3498DB]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Target className="h-8 w-8 text-[#3498DB]" />
                   </div>
                   <h3 className="font-semibold text-xl mb-2">Cost Control</h3>
                   <p className="text-gray-600 mb-4">Reduce feed waste and optimize resource allocation automatically</p>
-                  <div className="text-3xl font-bold text-purple-600">60%</div>
+                  <div className="text-3xl font-bold text-[#3498DB]">60%</div>
                   <div className="text-sm text-gray-500">Cost Savings</div>
                 </CardContent>
               </Card>
@@ -412,7 +412,7 @@ export default function LandingPage() {
               </div>
               
               <div className="order-1 lg:order-2 relative">
-                <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 shadow-xl">
+                <div className="bg-gradient-to-br from-blue-50 to-[#3498DB]/10 rounded-2xl p-8 shadow-xl">
                   {/* Main Dashboard Interface */}
                   <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-6">
                     <div className="bg-gray-50 px-4 py-3 border-b flex items-center justify-between">
@@ -484,25 +484,25 @@ export default function LandingPage() {
             {/* Feature 2 - Live Chat */}
             <div className="grid lg:grid-cols-2 gap-16 items-center mb-32">
               <div className="relative">
-                <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 shadow-xl">
+                <div className="bg-gradient-to-br from-[#3498DB]/10 to-blue-50 rounded-2xl p-8 shadow-xl">
                   {/* Chat Interface */}
                   <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-                    <div className="bg-purple-600 px-4 py-3 text-white flex items-center justify-between">
+                    <div className="bg-[#3498DB] px-4 py-3 text-white flex items-center justify-between">
                       <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-purple-700 rounded-full flex items-center justify-center">
+                        <div className="w-8 h-8 bg-[#2980B9] rounded-full flex items-center justify-center">
                           <span className="text-white text-xs font-bold">AI</span>
                         </div>
                         <div>
                           <div className="font-medium">LikAI Assistant</div>
-                          <div className="text-xs text-purple-200">Online</div>
+                          <div className="text-xs text-blue-200">Online</div>
                         </div>
                       </div>
-                      <div className="text-purple-200">●</div>
+                      <div className="text-blue-200">●</div>
                     </div>
                     
                     <div className="p-4 space-y-4 h-64 overflow-y-auto">
                       <div className="flex items-start space-x-2">
-                        <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                        <div className="w-6 h-6 bg-[#3498DB] rounded-full flex items-center justify-center flex-shrink-0">
                           <span className="text-white text-xs">AI</span>
                         </div>
                         <div className="bg-gray-100 rounded-lg p-3 max-w-xs">
@@ -513,13 +513,13 @@ export default function LandingPage() {
                       </div>
                       
                       <div className="flex justify-end">
-                        <div className="bg-purple-500 text-white rounded-lg p-3 max-w-xs">
+                        <div className="bg-[#3498DB] text-white rounded-lg p-3 max-w-xs">
                           <p className="text-sm">Yes, please provide recommendations.</p>
                         </div>
                       </div>
                       
                       <div className="flex items-start space-x-2">
-                        <div className="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                        <div className="w-6 h-6 bg-[#3498DB] rounded-full flex items-center justify-center flex-shrink-0">
                           <span className="text-white text-xs">AI</span>
                         </div>
                         <div className="bg-gray-100 rounded-lg p-3 max-w-xs">
@@ -538,7 +538,7 @@ export default function LandingPage() {
                           className="flex-1 px-3 py-2 border rounded-lg text-sm"
                           readOnly
                         />
-                        <Button size="sm" className="bg-purple-500 hover:bg-purple-600">
+                        <Button size="sm" className="bg-[#3498DB] hover:bg-[#2980B9]">
                           Send
                         </Button>
                       </div>
@@ -913,8 +913,8 @@ export default function LandingPage() {
             {/* Enterprise Plan */}
             {selectedPlanType === 'enterprise' && (
               <div className="max-w-lg mx-auto px-4 sm:px-0">
-                <Card className="relative bg-white shadow-2xl hover:shadow-3xl transition-shadow duration-300 rounded-2xl overflow-hidden border-2 border-purple-500">
-                  <div className="absolute top-0 left-0 right-0 bg-purple-600 text-white text-center py-2 text-sm font-semibold">
+                <Card className="relative bg-white shadow-2xl hover:shadow-3xl transition-shadow duration-300 rounded-2xl overflow-hidden border-2 border-[#3498DB]">
+                  <div className="absolute top-0 left-0 right-0 bg-[#3498DB] text-white text-center py-2 text-sm font-semibold">
                     ENTERPRISE
                   </div>
                   <CardContent className="p-8 pt-12">
@@ -925,62 +925,62 @@ export default function LandingPage() {
 
                     <div className="space-y-3 mb-8">
                       <div className="flex items-start space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center mt-0.5">
-                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <div className="w-5 h-5 rounded-full border-2 border-[#3498DB] flex items-center justify-center mt-0.5">
+                          <div className="w-2 h-2 bg-[#3498DB] rounded-full"></div>
                         </div>
                         <span className="text-gray-900 text-sm font-medium">Everything in Business, PLUS:</span>
                       </div>
                       <div className="flex items-start space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center mt-0.5">
-                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <div className="w-5 h-5 rounded-full border-2 border-[#3498DB] flex items-center justify-center mt-0.5">
+                          <div className="w-2 h-2 bg-[#3498DB] rounded-full"></div>
                         </div>
                         <span className="text-gray-900 text-sm">Multi-Farm / Multi-Pond Management</span>
                       </div>
                       <div className="flex items-start space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center mt-0.5">
-                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <div className="w-5 h-5 rounded-full border-2 border-[#3498DB] flex items-center justify-center mt-0.5">
+                          <div className="w-2 h-2 bg-[#3498DB] rounded-full"></div>
                         </div>
                         <span className="text-gray-900 text-sm">Advanced Analytics & Benchmarking</span>
                       </div>
                       <div className="flex items-start space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center mt-0.5">
-                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <div className="w-5 h-5 rounded-full border-2 border-[#3498DB] flex items-center justify-center mt-0.5">
+                          <div className="w-2 h-2 bg-[#3498DB] rounded-full"></div>
                         </div>
                         <span className="text-gray-900 text-sm">Enhanced Traceability & Compliance</span>
                       </div>
                       <div className="flex items-start space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center mt-0.5">
-                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <div className="w-5 h-5 rounded-full border-2 border-[#3498DB] flex items-center justify-center mt-0.5">
+                          <div className="w-2 h-2 bg-[#3498DB] rounded-full"></div>
                         </div>
                         <span className="text-gray-900 text-sm">On-Demand Expert Consultation</span>
                       </div>
                       <div className="flex items-start space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center mt-0.5">
-                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <div className="w-5 h-5 rounded-full border-2 border-[#3498DB] flex items-center justify-center mt-0.5">
+                          <div className="w-2 h-2 bg-[#3498DB] rounded-full"></div>
                         </div>
                         <span className="text-gray-900 text-sm">API Access & Integrations</span>
                       </div>
                       <div className="flex items-start space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center mt-0.5">
-                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <div className="w-5 h-5 rounded-full border-2 border-[#3498DB] flex items-center justify-center mt-0.5">
+                          <div className="w-2 h-2 bg-[#3498DB] rounded-full"></div>
                         </div>
                         <span className="text-gray-900 text-sm">Priority Email & Phone Support</span>
                       </div>
                       <div className="flex items-start space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center mt-0.5">
-                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <div className="w-5 h-5 rounded-full border-2 border-[#3498DB] flex items-center justify-center mt-0.5">
+                          <div className="w-2 h-2 bg-[#3498DB] rounded-full"></div>
                         </div>
                         <span className="text-gray-900 text-sm">Dedicated Account Manager</span>
                       </div>
                       <div className="flex items-start space-x-3">
-                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center mt-0.5">
-                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <div className="w-5 h-5 rounded-full border-2 border-[#3498DB] flex items-center justify-center mt-0.5">
+                          <div className="w-2 h-2 bg-[#3498DB] rounded-full"></div>
                         </div>
                         <span className="text-gray-900 text-sm">BFAR & Export Compliance Reports</span>
                       </div>
                     </div>
 
-                    <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3">
+                    <Button className="w-full bg-[#3498DB] hover:bg-[#2980B9] text-white font-semibold py-3">
                       Book a Call
                     </Button>
                   </CardContent>
@@ -1079,7 +1079,7 @@ export default function LandingPage() {
                 </div>
 
                 {/* Account & Pricing Category */}
-                <div className="bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl p-6 shadow-lg">
+                <div className="bg-gradient-to-r from-[#3498DB] to-[#2980B9] rounded-2xl p-6 shadow-lg">
                   <h4 className="text-xl font-bold text-white mb-6">Account & Pricing</h4>
                   <div className="space-y-4">
                     <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4 border border-white/20">
@@ -1323,65 +1323,49 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12">
+      <footer className="bg-gray-900 text-white py-8">
         <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-8 max-w-7xl">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-            <div>
-              <div className="flex items-center mb-4">
-                <div className="bg-blue-600 p-2 rounded-lg mr-2">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            {/* Logo and Description */}
+            <div className="text-center md:text-left">
+              <div className="flex items-center justify-center md:justify-start mb-3">
+                <div className="w-8 h-8 bg-gradient-to-br from-[#3498DB] to-[#2980B9] rounded-lg flex items-center justify-center mr-2">
                   <Fish className="h-5 w-5 text-white" />
                 </div>
                 <span className="text-xl font-bold">LikAI</span>
               </div>
-              <p className="text-gray-400 mb-4">
+              <p className="text-gray-400 text-sm max-w-sm">
                 AI-powered biosecurity solutions for sustainable aquaculture.
               </p>
-              <div className="flex space-x-4">
-                <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-700">
-                  <span className="text-xs">FB</span>
-                </div>
-                <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-700">
-                  <span className="text-xs">TW</span>
-                </div>
-                <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center cursor-pointer hover:bg-gray-700">
-                  <span className="text-xs">LI</span>
-                </div>
+            </div>
+            
+            {/* Essential Links */}
+            <div className="flex flex-wrap justify-center gap-6 text-sm">
+              <Link href="#about" className="text-gray-400 hover:text-white transition-colors">About</Link>
+              <Link href="#features" className="text-gray-400 hover:text-white transition-colors">Features</Link>
+              <Link href="#pricing" className="text-gray-400 hover:text-white transition-colors">Pricing</Link>
+              <Link href="#" className="text-gray-400 hover:text-white transition-colors">Privacy</Link>
+              <Link href="#" className="text-gray-400 hover:text-white transition-colors">Terms</Link>
+            </div>
+            
+            {/* Social Media */}
+            <div className="flex space-x-3">
+              <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#3498DB] transition-colors">
+                <span className="text-xs font-bold">FB</span>
               </div>
-            </div>
-            
-            <div>
-              <h3 className="font-semibold mb-4">Product</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="#" className="hover:text-white">Features</Link></li>
-                <li><Link href="#" className="hover:text-white">Pricing</Link></li>
-                <li><Link href="#" className="hover:text-white">API</Link></li>
-                <li><Link href="#" className="hover:text-white">Documentation</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className="font-semibold mb-4">Company</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="#" className="hover:text-white">About</Link></li>
-                <li><Link href="#" className="hover:text-white">Blog</Link></li>
-                <li><Link href="#" className="hover:text-white">Careers</Link></li>
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className="font-semibold mb-4">Support</h3>
-              <ul className="space-y-2 text-gray-400">
-                <li><Link href="#" className="hover:text-white">Help Center</Link></li>
-                <li><Link href="#" className="hover:text-white">Community</Link></li>
-                <li><Link href="#" className="hover:text-white">Privacy Policy</Link></li>
-                <li><Link href="#" className="hover:text-white">Terms of Service</Link></li>
-              </ul>
+              <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#3498DB] transition-colors">
+                <span className="text-xs font-bold">TW</span>
+              </div>
+              <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#3498DB] transition-colors">
+                <span className="text-xs font-bold">LI</span>
+              </div>
             </div>
           </div>
           
-          <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm">© 2024 LikAI. All rights reserved.</p>
-            <p className="text-gray-400 text-sm">Made with ❤️ for Philippine aquaculture</p>
+          <div className="border-t border-gray-800 mt-6 pt-6 text-center">
+            <p className="text-gray-400 text-sm">
+              © 2025 LikAI. All rights reserved. Made with ❤️ for Philippine aquaculture
+            </p>
           </div>
         </div>
       </footer>
