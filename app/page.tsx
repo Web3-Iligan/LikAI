@@ -615,7 +615,7 @@ export default function LandingPage() {
                     2
                   </div>
                   <h2 className="text-xl font-bold text-gray-900 sm:text-2xl">
-                    AI-Powered Live Support
+                    AI Biosecurity Coach & Troubleshooting
                   </h2>
                 </div>
                 <p className="mb-6 text-base leading-relaxed text-gray-600">
@@ -627,19 +627,19 @@ export default function LandingPage() {
                   <div className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
                     <span className="text-base text-gray-700">
-                      24/7 instant responses
+                      24/7 instant responses for all biosecurity queries
                     </span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
                     <span className="text-base text-gray-700">
-                      Context-aware recommendations
+                      Context-aware recommendations tailored to your farm's plan
                     </span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
                     <span className="text-base text-gray-700">
-                      Seamless email continuation
+                      Seamless escalation for complex issues
                     </span>
                   </div>
                 </div>
