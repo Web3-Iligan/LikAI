@@ -24,6 +24,8 @@ import { useState } from "react"
 
 export default function LandingPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [billingPeriod, setBillingPeriod] = useState<'monthly' | 'yearly'>('monthly')
+  const [selectedPlanType, setSelectedPlanType] = useState<'recommended' | 'enterprise'>('recommended')
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -705,220 +707,289 @@ export default function LandingPage() {
           <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-8 max-w-7xl">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Pricing</h2>
-              <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4 sm:px-0">
+              <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4 sm:px-0 mb-8">
                 Pay just a portion of what we help you save.
               </p>
-            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto px-4 sm:px-0">
-              {/* Startup Plan */}
-              <Card className="relative bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-2xl overflow-hidden">
-                <CardContent className="p-8">
-                  <div className="text-center mb-8">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Startup</h3>
-                    <div className="mb-6">
-                      <div className="text-5xl font-bold text-gray-900 mb-2">Free</div>
-                      <p className="text-gray-600">100% free to use</p>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4 mb-8">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-600">Up to 3 Users</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-600">Unlimited Farm Accounts</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-600">Autopilot</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-600">BI Recommendations</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-600">Savings Plan Recommendations</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-600">24/7 Support</span>
-                    </div>
-                  </div>
-
-                  <Button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3">
-                    Apply Now
-                  </Button>
-                </CardContent>
-              </Card>
-
-              {/* Business Plan - Popular */}
-              <Card className="relative bg-white shadow-2xl hover:shadow-3xl transition-shadow duration-300 rounded-2xl overflow-hidden border-2 border-blue-500">
-                <div className="absolute top-0 left-0 right-0 bg-green-500 text-white text-center py-2 text-sm font-semibold">
-                  POPULAR
+              {/* Billing Period Toggle */}
+              <div className="flex justify-center mb-8">
+                <div className="bg-white rounded-lg p-1 shadow-sm border border-gray-200">
+                  <button
+                    onClick={() => setBillingPeriod('monthly')}
+                    className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                      billingPeriod === 'monthly'
+                        ? 'bg-blue-600 text-white shadow-sm'
+                        : 'text-gray-600 hover:text-gray-900'
+                    }`}
+                  >
+                    Monthly
+                  </button>
+                  <button
+                    onClick={() => setBillingPeriod('yearly')}
+                    className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 relative ${
+                      billingPeriod === 'yearly'
+                        ? 'bg-blue-600 text-white shadow-sm'
+                        : 'text-gray-600 hover:text-gray-900'
+                    }`}
+                  >
+                    Yearly
+                    <span className="absolute -top-1 -right-1 bg-green-500 text-white text-xs px-1 py-0.5 rounded-full">
+                      Save 20%
+                    </span>
+                  </button>
                 </div>
-                <CardContent className="p-8 pt-12">
-                  <div className="text-center mb-8">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Business</h3>
-                    <div className="mb-6">
-                      <div className="text-5xl font-bold text-gray-900 mb-2">10%</div>
-                      <p className="text-gray-600">of savings generated</p>
-                    </div>
-                  </div>
+              </div>
 
-                  <div className="space-y-4 mb-8">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-900">Up to 10 Users</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-900">Unlimited Farm Accounts</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-900">Autopilot</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-900">BI Recommendations</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-900">Savings Plan Recommendations</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-900">24/7 Support</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-900">Customization Insurance</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-900">Monthly Bill Review</span>
-                    </div>
-                  </div>
-
-                  <Button className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-3">
-                    Start Saving
-                  </Button>
-                </CardContent>
-              </Card>
-
-              {/* Enterprise Plan */}
-              <Card className="relative bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-2xl overflow-hidden">
-                <CardContent className="p-8">
-                  <div className="text-center mb-8">
-                    <h3 className="text-2xl font-bold text-gray-900 mb-2">Enterprise</h3>
-                    <div className="mb-6">
-                      <div className="text-gray-600 text-lg mb-2">For enterprises spending over</div>
-                      <div className="text-gray-600 text-lg mb-2">₱5M per year on AWS. Get in</div>
-                      <div className="text-gray-600 text-lg">call to discuss pricing.</div>
-                    </div>
-                  </div>
-
-                  <div className="space-y-4 mb-8">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-600">Unlimited Users</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-600">Unlimited Farm Accounts</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-600">Autopilot</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-600">BI Recommendations</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-600">Savings Plan Recommendations</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-600">24/7 Support</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-600">Underutilization Insurance</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-600">Monthly Bill Review</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-600">Dedicated Account Rep</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
-                        <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
-                      </div>
-                      <span className="text-gray-600">SAML Single Sign-On (SSO)</span>
-                    </div>
-                  </div>
-
-                  <Button variant="outline" className="w-full border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold py-3">
-                    Talk to Sales
-                  </Button>
-                </CardContent>
-              </Card>
+              {/* Plan Type Filter */}
+              <div className="flex justify-center mb-8">
+                <div className="bg-white rounded-lg p-1 shadow-sm border border-gray-200">
+                  <button
+                    onClick={() => setSelectedPlanType('recommended')}
+                    className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                      selectedPlanType === 'recommended'
+                        ? 'bg-gray-900 text-white shadow-sm'
+                        : 'text-gray-600 hover:text-gray-900'
+                    }`}
+                  >
+                    Recommended
+                  </button>
+                  <button
+                    onClick={() => setSelectedPlanType('enterprise')}
+                    className={`px-6 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
+                      selectedPlanType === 'enterprise'
+                        ? 'bg-gray-900 text-white shadow-sm'
+                        : 'text-gray-600 hover:text-gray-900'
+                    }`}
+                  >
+                    Enterprise
+                  </button>
+                </div>
+              </div>
             </div>
+
+            {/* Recommended Plans (Startup + Business) */}
+            {selectedPlanType === 'recommended' && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8 max-w-4xl mx-auto px-4 sm:px-0">
+                {/* Startup Plan */}
+                <Card className="relative bg-white shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-2xl overflow-hidden">
+                  <CardContent className="p-8">
+                    <div className="text-center mb-8">
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">Startup</h3>
+                      <div className="mb-6">
+                        <div className="text-5xl font-bold text-gray-900 mb-2">Free</div>
+                        <p className="text-gray-600">100% free to use</p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4 mb-8">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-600">Up to 3 Users</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-600">Unlimited Farm Accounts</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-600">Autopilot</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-600">BI Recommendations</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-600">Savings Plan Recommendations</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-gray-300 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-600">24/7 Support</span>
+                      </div>
+                    </div>
+
+                    <Button className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3">
+                      Apply Now
+                    </Button>
+                  </CardContent>
+                </Card>
+
+                {/* Business Plan - Popular */}
+                <Card className="relative bg-white shadow-2xl hover:shadow-3xl transition-shadow duration-300 rounded-2xl overflow-hidden border-2 border-blue-500">
+                  <div className="absolute top-0 left-0 right-0 bg-green-500 text-white text-center py-2 text-sm font-semibold">
+                    POPULAR
+                  </div>
+                  <CardContent className="p-8 pt-12">
+                    <div className="text-center mb-8">
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">Business</h3>
+                      <div className="mb-6">
+                        <div className="text-5xl font-bold text-gray-900 mb-2">
+                          {billingPeriod === 'monthly' ? '10%' : '8%'}
+                        </div>
+                        <p className="text-gray-600">
+                          of savings generated {billingPeriod === 'yearly' && '(yearly discount)'}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4 mb-8">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-900">Up to 10 Users</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-900">Unlimited Farm Accounts</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-900">Autopilot</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-900">BI Recommendations</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-900">Savings Plan Recommendations</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-900">24/7 Support</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-900">Customization Insurance</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-green-500 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-900">Monthly Bill Review</span>
+                      </div>
+                    </div>
+
+                    <Button className="w-full bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-3">
+                      Start Saving
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
+
+            {/* Enterprise Plan */}
+            {selectedPlanType === 'enterprise' && (
+              <div className="max-w-md mx-auto px-4 sm:px-0">
+                <Card className="relative bg-white shadow-2xl hover:shadow-3xl transition-shadow duration-300 rounded-2xl overflow-hidden border-2 border-purple-500">
+                  <div className="absolute top-0 left-0 right-0 bg-purple-600 text-white text-center py-2 text-sm font-semibold">
+                    ENTERPRISE
+                  </div>
+                  <CardContent className="p-8 pt-12">
+                    <div className="text-center mb-8">
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">Enterprise</h3>
+                      <div className="mb-6">
+                        <div className="text-gray-600 text-lg mb-2">For enterprises spending over</div>
+                        <div className="text-gray-600 text-lg mb-2">₱5M per year on operations.</div>
+                        <div className="text-gray-600 text-lg">Book a call to discuss pricing.</div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-4 mb-8">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-900">Unlimited Users</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-900">Unlimited Farm Accounts</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-900">Advanced Autopilot</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-900">Custom BI Dashboard</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-900">Priority Support</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-900">Full Insurance Coverage</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-900">Weekly Bill Review</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-900">Dedicated Account Manager</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-900">SAML SSO & API Access</span>
+                      </div>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-5 h-5 rounded-full border-2 border-purple-500 flex items-center justify-center">
+                          <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        </div>
+                        <span className="text-gray-900">Custom Integrations</span>
+                      </div>
+                    </div>
+
+                    <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3">
+                      Book a Call
+                    </Button>
+                  </CardContent>
+                </Card>
+              </div>
+            )}
 
             {/* Additional Info */}
             <div className="text-center mt-12">
