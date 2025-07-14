@@ -256,69 +256,40 @@ export default function LandingPage() {
                         </div>
                       </div>
 
-                      {/* Right Column - Recent Activity (AI Insights) */}
+                      {/* Right Column - AI-Generated Insights */}
                       <div className="bg-white border rounded-lg p-6">
                         <div className="flex items-center mb-4">
-                          <div className="w-6 h-6 bg-green-100 rounded flex items-center justify-center mr-3">
-                            <span className="text-green-600 text-xs">📈</span>
+                          <div className="w-6 h-6 bg-yellow-100 rounded flex items-center justify-center mr-3">
+                            <span className="text-yellow-600 text-xs">⚡</span>
                           </div>
                           <div>
-                            <h3 className="font-semibold text-gray-900 text-sm">Recent Activity</h3>
-                            <p className="text-xs text-gray-600">Latest updates and system activities</p>
+                            <h3 className="font-semibold text-gray-900 text-sm">AI-Generated Insights</h3>
+                            <p className="text-xs text-gray-600">Personalized recommendations based on your farm data</p>
                           </div>
                         </div>
 
-                        {/* Activity Items */}
-                        <div className="space-y-4">
-                          <div className="flex items-start space-x-3">
-                            <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                              <span className="text-green-600 text-xs">✅</span>
-                            </div>
-                            <div className="flex-1">
-                              <h4 className="font-medium text-gray-900 text-xs">Footbath Protocol Implemented</h4>
-                              <p className="text-gray-600 text-xs">Successfully set up visitor disinfection station</p>
-                              <p className="text-gray-400 text-xs mt-1">2 hours ago</p>
-                            </div>
+                        {/* Insight Cards */}
+                        <div className="space-y-3">
+                          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                            <h4 className="font-medium text-blue-900 text-xs mb-1">Weather Impact Analysis</h4>
+                            <p className="text-blue-800 text-xs">Based on the approaching typhoon, your farm has a 75% risk of pond overflow. Prioritizing dyke inspection could prevent up to ₱200,000 in potential losses.</p>
                           </div>
                           
-                          <div className="flex items-start space-x-3">
-                            <div className="w-6 h-6 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                              <span className="text-orange-600 text-xs">⚠️</span>
-                            </div>
-                            <div className="flex-1">
-                              <h4 className="font-medium text-gray-900 text-xs">Risk Assessment Updated</h4>
-                              <p className="text-gray-600 text-xs">Weather risk increased due to approaching typhoon</p>
-                              <p className="text-gray-400 text-xs mt-1">4 hours ago</p>
-                            </div>
+                          <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+                            <h4 className="font-medium text-green-900 text-xs mb-1">Cost Optimization Opportunity</h4>
+                            <p className="text-green-800 text-xs">Implementing solar water disinfection could reduce your water treatment costs by 40% while maintaining 85% effectiveness compared to your current method.</p>
                           </div>
                           
-                          <div className="flex items-start space-x-3">
-                            <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                              <span className="text-blue-600 text-xs">🤖</span>
-                            </div>
-                            <div className="flex-1">
-                              <h4 className="font-medium text-gray-900 text-xs">New AI Recommendation</h4>
-                              <p className="text-gray-600 text-xs">Suggested pond dyke inspection based on weather forecast</p>
-                              <p className="text-gray-400 text-xs mt-1">6 hours ago</p>
-                            </div>
-                          </div>
-                          
-                          <div className="flex items-start space-x-3">
-                            <div className="w-6 h-6 bg-cyan-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                              <span className="text-cyan-600 text-xs">💧</span>
-                            </div>
-                            <div className="flex-1">
-                              <h4 className="font-medium text-gray-900 text-xs">Water Quality Check</h4>
-                              <p className="text-gray-600 text-xs">All parameters within normal range</p>
-                              <p className="text-gray-400 text-xs mt-1">8 hours ago</p>
-                            </div>
+                          <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
+                            <h4 className="font-medium text-orange-900 text-xs mb-1">Biosecurity Gap Detected</h4>
+                            <p className="text-orange-800 text-xs">Your visitor protocol compliance is at 60%. Enhancing this to 90% could reduce disease introduction risk by an additional 25%.</p>
                           </div>
                         </div>
 
-                        {/* View All Link */}
-                        <div className="mt-6 pt-3 border-t text-center">
+                        {/* Action Button */}
+                        <div className="mt-4 pt-3 border-t text-center">
                           <button className="text-xs text-blue-600 hover:text-blue-800 font-medium">
-                            View All Activities
+                            Ask AI Coach for more insights
                           </button>
                         </div>
                       </div>

@@ -23,6 +23,7 @@ import {
 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { HowToGuideView } from "@/components/shared/how-to-guide-view"
 
 // Add a helper function to parse the estimated cost. Place this outside the component function.
@@ -101,6 +102,11 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
   const [maxBudget, setMaxBudget] = useState<number | string>("")
   const [selectedTaskForGuide, setSelectedTaskForGuide] = useState<BiosecurityTask | null>(null)
   const [aiGeneratedTasks, setAiGeneratedTasks] = useState<BiosecurityTask[] | null>(null) // State for AI-generated tasks
+  
+  // New state for sorting and filtering
+  const [sortBy, setSortBy] = useState<string>("priority")
+  const [filterStatus, setFilterStatus] = useState<string>("all")
+  const [filterCategory, setFilterCategory] = useState<string>("all")
 
   // Default tasks if no AI plan is generated
   const defaultTasks: BiosecurityTask[] = [
@@ -247,7 +253,37 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
 
   // Re-evaluate currentTasks based on the updated status
   const tasksToDisplay = aiGeneratedTasks || defaultTasks
-  const tasksFilteredByBudget = tasksToDisplay.filter((task) => {
+  
+  // Apply status and category filters first
+  const filteredTasks = tasksToDisplay.filter((task) => {
+    const statusMatch = filterStatus === "all" || task.status === filterStatus
+    const categoryMatch = filterCategory === "all" || task.category === filterCategory
+    return statusMatch && categoryMatch
+  })
+
+  // Apply sorting
+  const sortedTasks = [...filteredTasks].sort((a, b) => {
+    switch (sortBy) {
+      case "priority":
+        const priorityOrder = { critical: 0, high: 1, medium: 2, low: 3 }
+        return priorityOrder[a.priority] - priorityOrder[b.priority]
+      case "category":
+        return a.category.localeCompare(b.category)
+      case "status":
+        const statusOrder = { pending: 0, "in-progress": 1, completed: 2 }
+        return statusOrder[a.status] - statusOrder[b.status]
+      case "timeframe":
+        // Simple alphabetical sort for timeframe (could be enhanced with date parsing)
+        return a.timeframe.localeCompare(b.timeframe)
+      case "cost":
+        return parseEstimatedCost(a.estimatedCost) - parseEstimatedCost(b.estimatedCost)
+      default:
+        return 0
+    }
+  })
+
+  // Apply budget filter last
+  const tasksFilteredByBudget = sortedTasks.filter((task) => {
     if (maxBudget === "" || isNaN(Number(maxBudget))) return true // Show all if no budget or invalid input
     const budget = Number(maxBudget)
     const estimatedCostValue = parseEstimatedCost(task.estimatedCost)
@@ -296,6 +332,8 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
               <p className="text-xs text-gray-500">Enter your available budget to filter suggested tasks.</p>
             </div>
 
+
+
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Overall Progress</span>
               <span className="text-sm text-gray-600">
@@ -331,6 +369,67 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
       {/* Task List */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold text-gray-900">Prioritized Action Items</h3>
+
+        {/* Sort and Filter Controls */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+          <div className="space-y-2">
+            <Label htmlFor="sort-by" className="text-sm font-medium">
+              Sort by
+            </Label>
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger id="sort-by">
+                <SelectValue placeholder="Select sorting option" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="priority">Priority</SelectItem>
+                <SelectItem value="category">Category</SelectItem>
+                <SelectItem value="status">Status</SelectItem>
+                <SelectItem value="timeframe">Timeframe</SelectItem>
+                <SelectItem value="cost">Estimated Cost</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="filter-status" className="text-sm font-medium">
+              Filter by Status
+            </Label>
+            <Select value={filterStatus} onValueChange={setFilterStatus}>
+              <SelectTrigger id="filter-status">
+                <SelectValue placeholder="All statuses" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Statuses</SelectItem>
+                <SelectItem value="pending">Pending</SelectItem>
+                <SelectItem value="in-progress">In Progress</SelectItem>
+                <SelectItem value="completed">Completed</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="filter-category" className="text-sm font-medium">
+              Filter by Category
+            </Label>
+            <Select value={filterCategory} onValueChange={setFilterCategory}>
+              <SelectTrigger id="filter-category">
+                <SelectValue placeholder="All categories" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Categories</SelectItem>
+                <SelectItem value="Infrastructure">Infrastructure</SelectItem>
+                <SelectItem value="Access Control">Access Control</SelectItem>
+                <SelectItem value="Water Management">Water Management</SelectItem>
+                <SelectItem value="Human Resources">Human Resources</SelectItem>
+                <SelectItem value="Feed Management">Feed Management</SelectItem>
+                <SelectItem value="Pond Management">Pond Management</SelectItem>
+                <SelectItem value="Equipment Management">Equipment Management</SelectItem>
+                <SelectItem value="Waste Management">Waste Management</SelectItem>
+                <SelectItem value="Animal Health">Animal Health</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
 
         {tasksFilteredByBudget.length > 0 ? (
           tasksFilteredByBudget.map((task) => {
@@ -409,7 +508,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
               : "No tasks available. Please submit a farm assessment to generate a personalized plan."}
           </div>
         )}
-        {tasksToDisplay.filter((task) => {
+        {tasksFilteredByBudget.filter((task) => {
           if (maxBudget === "" || isNaN(Number(maxBudget))) return false
           const budget = Number(maxBudget)
           const estimatedCostValue = parseEstimatedCost(task.estimatedCost)
@@ -419,6 +518,14 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
             Some tasks are hidden because they exceed your budget of {Number(maxBudget).toLocaleString()} ₱.
           </div>
         )}
+        
+        {/* Results summary */}
+        <div className="text-center text-gray-500 text-sm mt-4">
+          Showing {tasksFilteredByBudget.length} of {tasksToDisplay.length} tasks
+          {filterStatus !== "all" && ` • Status: ${filterStatus}`}
+          {filterCategory !== "all" && ` • Category: ${filterCategory}`}
+          {maxBudget !== "" && !isNaN(Number(maxBudget)) && ` • Budget: ≤₱${Number(maxBudget).toLocaleString()}`}
+        </div>
       </div>
     </div>
   )
