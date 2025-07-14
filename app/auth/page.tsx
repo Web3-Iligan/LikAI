@@ -81,6 +81,7 @@ export default function AuthPage() {
 
               <Button 
                 className="w-full h-12 bg-gradient-to-r from-gray-100 to-gray-200 hover:from-[#3498DB] hover:to-[#2980B9] hover:text-white text-gray-700 font-medium flex items-center justify-center space-x-2 rounded-lg transition-all duration-200 hover:shadow-lg"
+                onClick={() => window.location.href = '/auth/onboarding'}
               >
                 <span>Verify email</span>
                 <ArrowRight className="w-4 h-4" />
