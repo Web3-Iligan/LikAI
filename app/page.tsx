@@ -52,9 +52,9 @@ export default function LandingPage() {
 
         {/* CTA Buttons */}
         <div className="hidden md:flex items-center space-x-4">
-          <Link href="/auth">
+          <Link href="#demo">
             <Button variant="ghost" className="text-gray-600 hover:text-gray-900 font-medium">
-              Log in
+              Book a Demo
             </Button>
           </Link>
           <Link href="/auth">
@@ -103,9 +103,9 @@ export default function LandingPage() {
               Pricing
             </Link>
             <div className="flex flex-col space-y-2 pt-4 border-t border-gray-100">
-              <Link href="/auth" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link href="#demo" onClick={() => setIsMobileMenuOpen(false)}>
                 <Button variant="ghost" className="w-full justify-start text-gray-600 hover:text-gray-900 font-medium">
-                  Log in
+                  Book a Demo
                 </Button>
               </Link>
               <Link href="/auth" onClick={() => setIsMobileMenuOpen(false)}>
