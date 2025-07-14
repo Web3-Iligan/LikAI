@@ -49,14 +49,16 @@ export default function AuthPage() {
 
             {/* Auth Button */}
             <div className="space-y-6 relative z-10">
-              <Button 
-                className="w-full h-16 bg-gradient-to-r from-[#3498DB] to-[#2980B9] hover:from-[#2980B9] hover:to-[#1F618D] text-white font-medium text-lg flex items-center justify-center space-x-4 rounded-xl shadow-xl transition-all duration-200 hover:shadow-2xl hover:scale-[1.02]"
-              >
-                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                  <span className="text-[#3498DB] font-bold text-lg">∞</span>
-                </div>
-                <span>Continue with ICP Identity</span>
-              </Button>
+              <Link href="/dashboard">
+                <Button 
+                  className="w-full h-16 bg-gradient-to-r from-[#3498DB] to-[#2980B9] hover:from-[#2980B9] hover:to-[#1F618D] text-white font-medium text-lg flex items-center justify-center space-x-4 rounded-xl shadow-xl transition-all duration-200 hover:shadow-2xl hover:scale-[1.02]"
+                >
+                  <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                    <span className="text-[#3498DB] font-bold text-lg">∞</span>
+                  </div>
+                  <span>Continue with ICP Identity</span>
+                </Button>
+              </Link>
               
               <p className="text-sm text-gray-500 text-center">
                 By signing up, you agree to our{' '}
