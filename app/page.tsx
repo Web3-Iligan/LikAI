@@ -24,9 +24,6 @@ export default function LandingPage() {
   const [billingPeriod, setBillingPeriod] = useState<"monthly" | "yearly">(
     "monthly"
   );
-  const [selectedPlanType, setSelectedPlanType] = useState<
-    "recommended" | "enterprise"
-  >("recommended");
   const [expandedFaq, setExpandedFaq] = useState<string | null>(null);
 
   return (
@@ -818,14 +815,14 @@ export default function LandingPage() {
           <div className="container mx-auto max-w-7xl px-8 sm:px-12 md:px-16 lg:px-8">
             <div className="mb-12 text-center sm:mb-16">
               <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-                Pricing
+                Plans and Pricing
               </h2>
               <p className="mx-auto mb-8 max-w-2xl px-4 text-base text-gray-600 sm:px-0 sm:text-lg">
-                Pay just a portion of what we help you save.
+                Receive unlimited credits when you pay yearly, and save on your plan.
               </p>
 
               {/* Billing Period Toggle */}
-              <div className="mb-8 flex justify-center">
+              <div className="mb-12 flex justify-center">
                 <div className="rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
                   <button
                     onClick={() => setBillingPeriod("monthly")}
@@ -845,309 +842,193 @@ export default function LandingPage() {
                         : "text-gray-600 hover:text-gray-900"
                     }`}
                   >
-                    Yearly
-                    <span className="absolute -right-1 -top-1 rounded-full bg-green-500 px-1 py-0.5 text-xs text-white">
+                    Annual
+                    <span className="ml-1 rounded bg-green-500 px-1.5 py-0.5 text-xs text-white">
                       Save 20%
                     </span>
                   </button>
                 </div>
               </div>
-
-              {/* Plan Type Filter */}
-              <div className="mb-8 flex justify-center">
-                <div className="rounded-lg border border-gray-200 bg-white p-1 shadow-sm">
-                  <button
-                    onClick={() => setSelectedPlanType("recommended")}
-                    className={`rounded-md px-6 py-2 text-sm font-medium transition-all duration-200 ${
-                      selectedPlanType === "recommended"
-                        ? "bg-[#FF7F50] text-white shadow-sm"
-                        : "text-gray-600 hover:text-gray-900"
-                    }`}
-                  >
-                    Recommended
-                  </button>
-                  <button
-                    onClick={() => setSelectedPlanType("enterprise")}
-                    className={`rounded-md px-6 py-2 text-sm font-medium transition-all duration-200 ${
-                      selectedPlanType === "enterprise"
-                        ? "bg-[#FF7F50] text-white shadow-sm"
-                        : "text-gray-600 hover:text-gray-900"
-                    }`}
-                  >
-                    Enterprise
-                  </button>
-                </div>
-              </div>
             </div>
 
-            {/* Recommended Plans (Free Tier + Business) */}
-            {selectedPlanType === "recommended" && (
-              <div className="mx-auto grid max-w-4xl grid-cols-1 gap-6 px-4 sm:grid-cols-2 sm:gap-8 sm:px-0">
-                {/* Free Tier */}
-                <Card className="relative overflow-hidden rounded-2xl bg-white shadow-lg transition-shadow duration-300 hover:shadow-xl">
-                  <CardContent className="p-8">
-                    <div className="mb-8 text-center">
-                      <h3 className="mb-2 text-2xl font-bold text-gray-900">
-                        Starter
-                      </h3>
-                      <div className="mb-6">
-                        <div className="mb-2 text-5xl font-bold text-gray-900">
-                          Free
-                        </div>
-                        <p className="text-gray-600">100% Free to Use</p>
+            {/* Three Column Layout */}
+            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-4 sm:gap-8 sm:px-0 lg:grid-cols-3">
+              {/* Free Plan */}
+              <Card className="relative overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl">
+                <CardContent className="p-8">
+                  <div className="mb-8 text-center">
+                    <h3 className="mb-6 text-xl font-bold text-gray-900">
+                      Free
+                    </h3>
+                    <div className="mb-6">
+                      <div className="mb-2 text-4xl font-bold text-gray-900">
+                        ₱0
                       </div>
+                      <p className="text-sm text-gray-600">
+                        For your hobby projects
+                      </p>
                     </div>
-
-                    <div className="mb-8 space-y-3">
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-gray-300">
-                          <div className="h-2 w-2 rounded-full bg-gray-300"></div>
-                        </div>
-                        <span className="text-sm text-gray-600">
-                          Basic Farm Profile Setup
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-gray-300">
-                          <div className="h-2 w-2 rounded-full bg-gray-300"></div>
-                        </div>
-                        <span className="text-sm text-gray-600">
-                          Initial Static Action Plan (5-7 steps)
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-gray-300">
-                          <div className="h-2 w-2 rounded-full bg-gray-300"></div>
-                        </div>
-                        <span className="text-sm text-gray-600">
-                          Limited "How-To" Guides
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-gray-300">
-                          <div className="h-2 w-2 rounded-full bg-gray-300"></div>
-                        </div>
-                        <span className="text-sm text-gray-600">
-                          Limited AI Chatbot (3 queries/day)
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-gray-300">
-                          <div className="h-2 w-2 rounded-full bg-gray-300"></div>
-                        </div>
-                        <span className="text-sm text-gray-600">
-                          Self-Service Support & FAQ
-                        </span>
-                      </div>
-                    </div>
-
-                    <Button className="w-full bg-gray-100 py-3 font-semibold text-gray-700 hover:bg-gray-200">
-                      Get Started Free
-                    </Button>
-                  </CardContent>
-                </Card>
-
-                {/* Business Plan - Popular */}
-                <Card className="hover:shadow-3xl relative overflow-hidden rounded-2xl border-2 border-[#FF7F50] bg-white shadow-2xl transition-shadow duration-300">
-                  <div className="absolute left-0 right-0 top-0 bg-[#FF7F50] py-2 text-center text-sm font-semibold text-white">
-                    POPULAR
                   </div>
-                  <CardContent className="p-8 pt-12">
-                    <div className="mb-8 text-center">
-                      <h3 className="mb-2 text-2xl font-bold text-gray-900">
-                        Business Plan
-                      </h3>
-                      <div className="mb-6">
-                        <div className="mb-2 text-4xl font-bold text-gray-900">
-                          {billingPeriod === "monthly" ? "₱2,000" : "₱4,800"}
-                        </div>
-                        <p className="text-gray-600">
-                          {billingPeriod === "monthly"
-                            ? "per month"
-                            : "per year (₱400/month)"}
-                        </p>
-                        {billingPeriod === "yearly" && (
-                          <p className="text-sm font-medium text-green-600">
-                            Save ₱19,200 yearly!
-                          </p>
-                        )}
-                      </div>
+
+                  <div className="mb-8 space-y-4">
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />
+                      <span className="text-sm text-gray-700">
+                        Basic farm profile setup
+                      </span>
                     </div>
-
-                    <div className="mb-8 space-y-3">
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-green-500">
-                          <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                        </div>
-                        <span className="text-sm font-medium text-gray-900">
-                          Everything in Free, PLUS:
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-green-500">
-                          <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                        </div>
-                        <span className="text-sm text-gray-900">
-                          Comprehensive Farm Profile
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-green-500">
-                          <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                        </div>
-                        <span className="text-sm text-gray-900">
-                          Dynamic, Adaptive Action Plan
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-green-500">
-                          <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                        </div>
-                        <span className="text-sm text-gray-900">
-                          Full Access to "How-To" Guides
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-green-500">
-                          <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                        </div>
-                        <span className="text-sm text-gray-900">
-                          Unlimited AI Chatbot Queries
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-green-500">
-                          <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                        </div>
-                        <span className="text-sm text-gray-900">
-                          Resource-Optimized Alternatives
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-green-500">
-                          <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                        </div>
-                        <span className="text-sm text-gray-900">
-                          Proactive Risk Alerts
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-green-500">
-                          <div className="h-2 w-2 rounded-full bg-green-500"></div>
-                        </div>
-                        <span className="text-sm text-gray-900">
-                          Progress Tracking & Biosecurity Score
-                        </span>
-                      </div>
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />
+                      <span className="text-sm text-gray-700">
+                        Limited action plans
+                      </span>
                     </div>
-
-                    <Button className="w-full bg-orange-500 py-3 font-semibold text-white hover:bg-orange-600">
-                      Start 14-Day Trial
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
-            )}
-
-            {/* Enterprise Plan */}
-            {selectedPlanType === "enterprise" && (
-              <div className="mx-auto max-w-lg px-4 sm:px-0">
-                <Card className="hover:shadow-3xl relative overflow-hidden rounded-2xl border-2 border-[#3498DB] bg-white shadow-2xl transition-shadow duration-300">
-                  <div className="absolute left-0 right-0 top-0 bg-[#3498DB] py-2 text-center text-sm font-semibold text-white">
-                    ENTERPRISE
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />
+                      <span className="text-sm text-gray-700">
+                        Basic how-to guides
+                      </span>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />
+                      <span className="text-sm text-gray-700">
+                        3 AI queries per day
+                      </span>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />
+                      <span className="text-sm text-gray-700">
+                        Community support
+                      </span>
+                    </div>
                   </div>
-                  <CardContent className="p-8 pt-12">
-                    <div className="mb-8 text-center">
-                      <h3 className="mb-2 text-2xl font-bold text-gray-900">
-                        Enterprise Plan
-                      </h3>
-                      <div className="mb-2 text-lg text-gray-600">
-                        Custom Quote
-                      </div>
-                    </div>
 
-                    <div className="mb-8 space-y-3">
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-[#3498DB]">
-                          <div className="h-2 w-2 rounded-full bg-[#3498DB]"></div>
-                        </div>
-                        <span className="text-sm font-medium text-gray-900">
-                          Everything in Business, PLUS:
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-[#3498DB]">
-                          <div className="h-2 w-2 rounded-full bg-[#3498DB]"></div>
-                        </div>
-                        <span className="text-sm text-gray-900">
-                          Multi-Farm / Multi-Pond Management
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-[#3498DB]">
-                          <div className="h-2 w-2 rounded-full bg-[#3498DB]"></div>
-                        </div>
-                        <span className="text-sm text-gray-900">
-                          Advanced Analytics & Benchmarking
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-[#3498DB]">
-                          <div className="h-2 w-2 rounded-full bg-[#3498DB]"></div>
-                        </div>
-                        <span className="text-sm text-gray-900">
-                          Enhanced Traceability & Compliance
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-[#3498DB]">
-                          <div className="h-2 w-2 rounded-full bg-[#3498DB]"></div>
-                        </div>
-                        <span className="text-sm text-gray-900">
-                          On-Demand Expert Consultation
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-[#3498DB]">
-                          <div className="h-2 w-2 rounded-full bg-[#3498DB]"></div>
-                        </div>
-                        <span className="text-sm text-gray-900">
-                          API Access & Integrations
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-[#3498DB]">
-                          <div className="h-2 w-2 rounded-full bg-[#3498DB]"></div>
-                        </div>
-                        <span className="text-sm text-gray-900">
-                          Priority Email & Phone Support
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-[#3498DB]">
-                          <div className="h-2 w-2 rounded-full bg-[#3498DB]"></div>
-                        </div>
-                        <span className="text-sm text-gray-900">
-                          Dedicated Account Manager
-                        </span>
-                      </div>
-                      <div className="flex items-start space-x-3">
-                        <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-[#3498DB]">
-                          <div className="h-2 w-2 rounded-full bg-[#3498DB]"></div>
-                        </div>
-                        <span className="text-sm text-gray-900">
-                          BFAR & Export Compliance Reports
-                        </span>
-                      </div>
-                    </div>
+                  <Button className="w-full bg-gray-100 py-3 font-medium text-gray-700 hover:bg-gray-200">
+                    Get started for free
+                  </Button>
+                </CardContent>
+              </Card>
 
-                    <Button className="w-full bg-[#3498DB] py-3 font-semibold text-white hover:bg-[#2980B9]">
-                      Book a Call
-                    </Button>
-                  </CardContent>
-                </Card>
-              </div>
-            )}
+              {/* Business Plan - Highlighted */}
+              <Card className="relative overflow-hidden rounded-2xl border-2 border-[#FF7F50] bg-white shadow-2xl transition-all duration-300 hover:shadow-3xl">
+                <div className="absolute right-4 top-4 rounded-full bg-[#FF7F50] px-3 py-1 text-xs font-semibold text-white">
+                  Most Popular
+                </div>
+                <CardContent className="p-8">
+                  <div className="mb-8 text-center">
+                    <h3 className="mb-6 text-xl font-bold text-gray-900">
+                      Business
+                    </h3>
+                    <div className="mb-6">
+                      <div className="mb-2 text-4xl font-bold text-gray-900">
+                        {billingPeriod === "monthly" ? "₱2,000" : "₱20,000"}
+                      </div>
+                      <p className="text-sm text-gray-600">
+                        {billingPeriod === "monthly"
+                          ? "per month, billed monthly"
+                          : "per year, billed annually"}
+                      </p>
+                      <p className="mt-1 text-sm font-medium text-gray-700">
+                        Great for small businesses
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-8 space-y-4">
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#FF7F50]" />
+                      <span className="text-sm text-gray-700">
+                        Everything in Free, plus:
+                      </span>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#FF7F50]" />
+                      <span className="text-sm text-gray-700">
+                        Dynamic action plans
+                      </span>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#FF7F50]" />
+                      <span className="text-sm text-gray-700">
+                        Unlimited AI queries
+                      </span>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#FF7F50]" />
+                      <span className="text-sm text-gray-700">
+                        Full biosecurity library
+                      </span>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#FF7F50]" />
+                      <span className="text-sm text-gray-700">
+                        Email support
+                      </span>
+                    </div>
+                  </div>
+
+                  <Button className="w-full bg-[#FF7F50] py-3 font-semibold text-white hover:bg-orange-600">
+                    Get started with Business
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Enterprise Plan */}
+              <Card className="relative overflow-hidden rounded-2xl bg-gray-900 text-white shadow-lg transition-all duration-300 hover:shadow-xl">
+                <CardContent className="p-8">
+                  <div className="mb-8 text-center">
+                    <h3 className="mb-6 text-xl font-bold text-white">
+                      Enterprise
+                    </h3>
+                    <div className="mb-6">
+                      <div className="mb-2 text-4xl font-bold text-white">
+                        Custom
+                      </div>
+                      <p className="text-sm text-gray-300">
+                        For multiple teams
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="mb-8 space-y-4">
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-white" />
+                      <span className="text-sm text-gray-200">
+                        Everything in Business, plus:
+                      </span>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-white" />
+                      <span className="text-sm text-gray-200">
+                        Multi-farm management
+                      </span>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-white" />
+                      <span className="text-sm text-gray-200">
+                        Advanced analytics
+                      </span>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-white" />
+                      <span className="text-sm text-gray-200">
+                        API integrations
+                      </span>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-white" />
+                      <span className="text-sm text-gray-200">
+                        Priority support
+                      </span>
+                    </div>
+                  </div>
+
+                  <Button className="w-full border border-white bg-transparent py-3 font-semibold text-white hover:bg-white hover:text-gray-900">
+                    Get started with Enterprise
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
 
             {/* Additional Info */}
             <div className="mt-12 text-center">
@@ -1174,16 +1055,23 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
 
-            {/* FAQ Section */}
-            <div className="relative mt-20">
+        {/* FAQ Section */}
+        <section
+          id="faq"
+          className="bg-gradient-to-br from-gray-50/50 to-orange-50/20 py-16 sm:py-20"
+        >
+          <div className="container mx-auto max-w-7xl px-8 sm:px-12 md:px-16 lg:px-8">
+            <div className="relative">
               {/* Background decoration */}
               <div className="absolute inset-0 -m-8 rounded-3xl bg-gradient-to-br from-gray-50/50 to-orange-50/30"></div>
               <div className="relative z-10">
                 <div className="mb-16 text-center">
-                  <h3 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
+                  <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
                     Frequently Asked Questions
-                  </h3>
+                  </h2>
                   <p className="mx-auto max-w-2xl text-lg text-gray-600">
                     Everything you need to know about LikAI's aquaculture
                     management platform
