@@ -162,7 +162,7 @@ export default function LandingPage() {
                 </h1>
                 <p className="mb-6 text-sm leading-relaxed text-gray-600 sm:mb-8 sm:text-base lg:text-lg">
                   Safeguard your shrimp farm with AI-driven biosecurity, aligned
-                  with BFAR GAqP standards, to eliminate outbreaks and boost
+                  with BFAR GAqP standards, to help prevent outbreaks and boost
                   yields.
                 </p>
                 <div className="mb-6 flex flex-col gap-4 px-2 sm:mb-8 sm:flex-row sm:gap-4 sm:px-0">
@@ -233,7 +233,7 @@ export default function LandingPage() {
                             </h4>
                             <p className="text-xs leading-tight text-red-800">
                               Typhoon risk: 75% pond overflow. Dyke inspection
-                              could prevent ₱200k losses.
+                              could prevent up to ₱200k losses.
                             </p>
                           </div>
 
@@ -242,7 +242,7 @@ export default function LandingPage() {
                               Cost Optimization
                             </h4>
                             <p className="text-xs leading-tight text-green-800">
-                              Solar disinfection: 40% cost reduction, 85%
+                              Solar disinfection: up to 40% cost reduction, 85%
                               effectiveness.
                             </p>
                           </div>
@@ -300,7 +300,7 @@ export default function LandingPage() {
                             </div>
                           </div>
                           <p className="text-center text-xs text-gray-600">
-                            optimal range
+                            within optimal range
                           </p>
                         </div>
 
@@ -339,7 +339,7 @@ export default function LandingPage() {
                     </span>
                   </div>
                   <p className="text-xs text-gray-600">
-                    Water quality improved by 23%
+                    Water quality improved by up to 23%
                   </p>
                 </div>
               </div>
@@ -356,7 +356,7 @@ export default function LandingPage() {
             </h2>
             <p className="mx-auto mb-12 max-w-2xl px-4 text-base text-gray-600 sm:px-0 sm:text-lg">
               Leverage AI precision to prevent costly losses. Gain real-time
-              control to maximize your yields and profits.
+              control to help maximize your yields and profits.
             </p>
 
             <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 px-4 sm:grid-cols-2 sm:gap-8 sm:px-0 md:grid-cols-3">
@@ -369,8 +369,8 @@ export default function LandingPage() {
                     Risk Mitigation
                   </h3>
                   <p className="mb-4 text-gray-600">
-                    Proactively eliminate costly disease outbreaks before they
-                    impact your profitability with AI-driven, predictive
+                    Proactively help prevent costly disease outbreaks before
+                    they impact your profitability with AI-driven, predictive
                     insights.
                   </p>
                 </CardContent>
@@ -1130,7 +1130,7 @@ export default function LandingPage() {
                                 LikAI specializes in AI-driven biosecurity for
                                 shrimp aquaculture. Our system provides
                                 personalized, adaptive action plans based on
-                                Good Aquaculture Practices (GAqP) and
+                                BFAR Good Aquaculture Practices (GAqP) and
                                 continuously evolves with your farm's progress.
                               </p>
                             </div>
@@ -1158,10 +1158,8 @@ export default function LandingPage() {
                           {expandedFaq === "general-2" && (
                             <div className="border-t border-gray-100 px-4 pb-4">
                               <p className="pt-3 text-sm leading-relaxed text-gray-600">
-                                Most farmers see immediate improvements in their
-                                biosecurity practices within the first week. The
-                                AI provides instant recommendations, and our
-                                dynamic action plans help optimize your
+                                The AI provides instant recommendations, and our
+                                dynamic action plans can help optimize your
                                 operations from day one.
                               </p>
                             </div>
@@ -1189,10 +1187,12 @@ export default function LandingPage() {
                           {expandedFaq === "general-3" && (
                             <div className="border-t border-gray-100 px-4 pb-4">
                               <p className="pt-3 text-sm leading-relaxed text-gray-600">
-                                Absolutely. We use enterprise-grade security to
-                                protect your farm data. Your information is
-                                never shared with competitors, and you maintain
-                                full ownership of your data at all times.
+                                Your farm's information is precious, and we keep
+                                it safe. Likai uses advanced digital 'locks'
+                                (blockchain) and a secure, private system (ICP)
+                                to make sure your data is always protected,
+                                never seen by others, and completely yours to
+                                control.
                               </p>
                             </div>
                           )}
@@ -1357,11 +1357,13 @@ export default function LandingPage() {
                           {expandedFaq === "pricing-4" && (
                             <div className="border-t border-gray-100 px-4 pb-4">
                               <p className="pt-3 text-sm leading-relaxed text-gray-600">
-                                Our Enterprise Plan generates detailed
-                                compliance reports formatted for BFAR
-                                accreditation and international export standards
-                                (HACCP, EU requirements), helping you meet
-                                regulatory requirements.
+                                Our Enterprise Plan empowers you to effortlessly
+                                meet complex regulatory demands. It
+                                automatically generates detailed compliance
+                                reports, precisely formatted for BFAR
+                                accreditation and stringent international export
+                                standards (including HACCP and EU requirements),
+                                ensuring seamless market access.
                               </p>
                             </div>
                           )}
