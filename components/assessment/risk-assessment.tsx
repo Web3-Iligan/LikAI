@@ -6,6 +6,9 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import {
   Activity,
   AlertTriangle,
@@ -39,6 +42,13 @@ interface RiskAssessmentProps {
 
 export function RiskAssessment({ farmProfile }: RiskAssessmentProps) {
   const [selectedRiskFactor, setSelectedRiskFactor] = useState<RiskFactor | null>(null) // State to hold the selected risk factor for detailed view
+  
+  // Sort and filter state
+  const [sortBy, setSortBy] = useState<string>("currentLevel")
+  const [filterImpact, setFilterImpact] = useState<string>("all")
+  const [filterCategory, setFilterCategory] = useState<string>("all")
+  const [filterTrend, setFilterTrend] = useState<string>("all")
+  const [maxRiskLevel, setMaxRiskLevel] = useState<string>("")
 
   const [riskFactors] = useState<RiskFactor[]>([
     {
@@ -236,71 +246,206 @@ export function RiskAssessment({ farmProfile }: RiskAssessmentProps) {
       <div className="space-y-4">
         <h3 className="text-lg font-semibold text-gray-900">Risk Factor Analysis</h3>
 
-        {riskFactors.map((factor) => {
-          const IconComponent = factor.icon
-          return (
-            <Card
-              key={factor.id}
-              className={`border-l-4 ${
-                factor.currentLevel >= 70
-                  ? "border-l-red-500"
-                  : factor.currentLevel >= 40
-                    ? "border-l-orange-500"
-                    : "border-l-green-500"
-              }`}
-            >
-              <CardHeader>
-                <div className="flex items-start justify-between">
-                  <div className="flex items-start gap-3">
-                    <IconComponent className="h-5 w-5 text-blue-600 mt-1" />
-                    <div>
-                      <CardTitle className="text-base flex items-center gap-2">
-                        {factor.name}
-                        {getTrendIcon(factor.trend)}
-                      </CardTitle>
-                      <CardDescription>{factor.category}</CardDescription>
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <Badge className={getImpactColor(factor.impact)}>{factor.impact.toUpperCase()} IMPACT</Badge>
-                    <Badge className={getRiskColor(factor.currentLevel)}>{factor.currentLevel}%</Badge>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>Risk Level</span>
-                      <span>{factor.currentLevel}%</span>
-                    </div>
-                    <Progress value={factor.currentLevel} className="h-2" />
-                  </div>
+        {/* Sort and Filter Controls */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+          <div className="space-y-2">
+            <Label htmlFor="sort-by" className="text-sm font-medium">
+              Sort by
+            </Label>
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger id="sort-by">
+                <SelectValue placeholder="Select sorting option" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="currentLevel">Risk Level</SelectItem>
+                <SelectItem value="name">Name</SelectItem>
+                <SelectItem value="category">Category</SelectItem>
+                <SelectItem value="impact">Impact</SelectItem>
+                <SelectItem value="trend">Trend</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="filter-impact" className="text-sm font-medium">
+              Filter by Impact
+            </Label>
+            <Select value={filterImpact} onValueChange={setFilterImpact}>
+              <SelectTrigger id="filter-impact">
+                <SelectValue placeholder="All impacts" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Impacts</SelectItem>
+                <SelectItem value="high">High Impact</SelectItem>
+                <SelectItem value="medium">Medium Impact</SelectItem>
+                <SelectItem value="low">Low Impact</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <div className="space-y-2">
+            <Label htmlFor="filter-category" className="text-sm font-medium">
+              Filter by Category
+            </Label>
+            <Select value={filterCategory} onValueChange={setFilterCategory}>
+              <SelectTrigger id="filter-category">
+                <SelectValue placeholder="All categories" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Categories</SelectItem>
+                <SelectItem value="Environmental">Environmental</SelectItem>
+                <SelectItem value="External Biosecurity">External Biosecurity</SelectItem>
+                <SelectItem value="Water Management">Water Management</SelectItem>
+                <SelectItem value="Feed Management">Feed Management</SelectItem>
+                <SelectItem value="Stock Health">Stock Health</SelectItem>
+                <SelectItem value="Equipment">Equipment</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
-                  <p className="text-sm text-gray-700">{factor.description}</p>
+          <div className="space-y-2">
+            <Label htmlFor="filter-trend" className="text-sm font-medium">
+              Filter by Trend
+            </Label>
+            <Select value={filterTrend} onValueChange={setFilterTrend}>
+              <SelectTrigger id="filter-trend">
+                <SelectValue placeholder="All trends" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Trends</SelectItem>
+                <SelectItem value="increasing">Increasing</SelectItem>
+                <SelectItem value="decreasing">Decreasing</SelectItem>
+                <SelectItem value="stable">Stable</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
 
-                  <div>
-                    <h4 className="font-medium text-sm mb-2">AI Recommendations:</h4>
-                    <ul className="space-y-1">
-                      {factor.recommendations.map((rec, index) => (
-                        <li key={index} className="text-sm text-gray-600 flex items-start gap-2">
-                          <span className="text-blue-600 mt-1">•</span>
-                          {rec}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+        {(() => {
+          // Apply filters first
+          const filteredFactors = riskFactors.filter((factor) => {
+            const impactMatch = filterImpact === "all" || factor.impact === filterImpact
+            const categoryMatch = filterCategory === "all" || factor.category === filterCategory
+            const trendMatch = filterTrend === "all" || factor.trend === filterTrend
+            const riskLevelMatch = maxRiskLevel === "" || isNaN(Number(maxRiskLevel)) || factor.currentLevel <= Number(maxRiskLevel)
+            return impactMatch && categoryMatch && trendMatch && riskLevelMatch
+          })
 
-                  <div className="flex justify-end">
-                    <Button variant="outline" size="sm" onClick={() => setSelectedRiskFactor(factor)}>
-                      View Detailed Action Plan
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+          // Apply sorting
+          const sortedFactors = [...filteredFactors].sort((a, b) => {
+            switch (sortBy) {
+              case "currentLevel":
+                return b.currentLevel - a.currentLevel // High to low
+              case "name":
+                return a.name.localeCompare(b.name)
+              case "category":
+                return a.category.localeCompare(b.category)
+              case "impact":
+                const impactOrder = { high: 0, medium: 1, low: 2 }
+                return impactOrder[a.impact] - impactOrder[b.impact]
+              case "trend":
+                const trendOrder = { increasing: 0, stable: 1, decreasing: 2 }
+                return trendOrder[a.trend] - trendOrder[b.trend]
+              default:
+                return 0
+            }
+          })
+
+          return sortedFactors.length > 0 ? (
+            <div className="space-y-4">
+              {sortedFactors.map((factor) => {
+                const IconComponent = factor.icon
+                return (
+                  <Card
+                    key={factor.id}
+                    className={`border-l-4 ${
+                      factor.currentLevel >= 70
+                        ? "border-l-red-500"
+                        : factor.currentLevel >= 40
+                          ? "border-l-orange-500"
+                          : "border-l-green-500"
+                    }`}
+                  >
+                    {/* ...existing card content... */}
+                    <CardHeader>
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-start gap-3">
+                          <IconComponent className="h-5 w-5 text-blue-600 mt-1" />
+                          <div>
+                            <CardTitle className="text-base flex items-center gap-2">
+                              {factor.name}
+                              {getTrendIcon(factor.trend)}
+                            </CardTitle>
+                            <CardDescription>{factor.category}</CardDescription>
+                          </div>
+                        </div>
+                        <div className="flex gap-2">
+                          <Badge className={getImpactColor(factor.impact)}>{factor.impact.toUpperCase()} IMPACT</Badge>
+                          <Badge className={getRiskColor(factor.currentLevel)}>{factor.currentLevel}%</Badge>
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        <div>
+                          <div className="flex justify-between text-sm mb-1">
+                            <span>Risk Level</span>
+                            <span>{factor.currentLevel}%</span>
+                          </div>
+                          <Progress value={factor.currentLevel} className="h-2" />
+                        </div>
+
+                        <p className="text-sm text-gray-700">{factor.description}</p>
+
+                        <div>
+                          <h4 className="font-medium text-sm mb-2">AI Recommendations:</h4>
+                          <ul className="space-y-1">
+                            {factor.recommendations.map((rec, index) => (
+                              <li key={index} className="text-sm text-gray-600 flex items-start gap-2">
+                                <span className="text-blue-600 mt-1">•</span>
+                                {rec}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div className="flex justify-end">
+                          <Button variant="outline" size="sm" onClick={() => setSelectedRiskFactor(factor)}>
+                            View Detailed Action Plan
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                )
+              })}
+            </div>
+          ) : (
+            <div className="text-center text-gray-500 py-10">
+              {maxRiskLevel !== "" && !isNaN(Number(maxRiskLevel))
+                ? "No risk factors found within your specified risk level."
+                : "No risk factors match your selected filters."}
+            </div>
           )
-        })}
+        })()}
+
+        {/* Results summary */}
+        <div className="text-center text-gray-500 text-sm mt-4">
+          Showing {(() => {
+            const filtered = riskFactors.filter((factor) => {
+              const impactMatch = filterImpact === "all" || factor.impact === filterImpact
+              const categoryMatch = filterCategory === "all" || factor.category === filterCategory
+              const trendMatch = filterTrend === "all" || factor.trend === filterTrend
+              const riskLevelMatch = maxRiskLevel === "" || isNaN(Number(maxRiskLevel)) || factor.currentLevel <= Number(maxRiskLevel)
+              return impactMatch && categoryMatch && trendMatch && riskLevelMatch
+            })
+            return filtered.length
+          })()} of {riskFactors.length} risk factors
+          {filterImpact !== "all" && ` • Impact: ${filterImpact}`}
+          {filterCategory !== "all" && ` • Category: ${filterCategory}`}
+          {filterTrend !== "all" && ` • Trend: ${filterTrend}`}
+          {maxRiskLevel !== "" && !isNaN(Number(maxRiskLevel)) && ` • Max Risk: ≤${Number(maxRiskLevel)}%`}
+        </div>
       </div>
 
       {/* What-If Scenarios */}
