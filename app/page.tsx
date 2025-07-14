@@ -372,7 +372,9 @@ export default function LandingPage() {
                     Risk Mitigation
                   </h3>
                   <p className="mb-4 text-gray-600">
-                    Proactively eliminate costly disease outbreaks before they impact your profitability with AI-powered, predictive insights.
+                    Proactively eliminate costly disease outbreaks before they
+                    impact your profitability with AI-powered, predictive
+                    insights.
                   </p>
                 </CardContent>
               </Card>
@@ -386,7 +388,9 @@ export default function LandingPage() {
                     Profit Maximization
                   </h3>
                   <p className="mb-4 text-gray-600">
-                    Optimize every cycle to achieve superior harvest quality and quantity, driven by AI insights for increased market value and profitability.
+                    Optimize every cycle to achieve superior harvest quality and
+                    quantity, driven by AI insights for increased market value
+                    and profitability.
                   </p>
                 </CardContent>
               </Card>
@@ -396,9 +400,12 @@ export default function LandingPage() {
                   <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#3498DB]/10">
                     <Target className="h-8 w-8 text-[#3498DB]" />
                   </div>
-                  <h3 className="mb-2 text-xl font-semibold">Resource Optimization</h3>
+                  <h3 className="mb-2 text-xl font-semibold">
+                    Resource Optimization
+                  </h3>
                   <p className="mb-4 text-gray-600">
-                    Minimize costly resource waste and optimize allocation automatically with AI-driven insights.
+                    Minimize costly resource waste and optimize allocation
+                    automatically with AI-driven insights.
                   </p>
                 </CardContent>
               </Card>
@@ -420,31 +427,30 @@ export default function LandingPage() {
                     1
                   </div>
                   <h2 className="text-xl font-bold text-gray-900 sm:text-2xl">
-                    Smart Farm Monitoring System
+                    Visual Step-by-Step Guides & Demonstrations
                   </h2>
                 </div>
                 <p className="mb-6 text-base leading-relaxed text-gray-600">
-                  Organize, prioritize and solve aquaculture challenges with an
-                  intuitive interface that feels familiar.
+                  Transform complex biosecurity into clear, actionable steps with intuitive visual guides that feel like an expert by your side
                 </p>
 
                 <div className="space-y-3">
                   <div className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-sm text-gray-700">
-                      Risk assignment & team collaboration
+                    <span className="text-base text-gray-700">
+                      Actionable Guidance for Every Task
                     </span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-sm text-gray-700">
-                      Real-time alerts & notifications
+                    <span className="text-base text-gray-700">
+                      Visual Reinforcement for Critical Alerts
                     </span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-sm text-gray-700">
-                      Priority-based task management
+                    <span className="text-base text-gray-700">
+                      Simplified Priority Task Execution
                     </span>
                   </div>
                 </div>
@@ -596,19 +602,19 @@ export default function LandingPage() {
                 <div className="space-y-3">
                   <div className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-sm text-gray-700">
+                    <span className="text-base text-gray-700">
                       24/7 instant responses
                     </span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-sm text-gray-700">
+                    <span className="text-base text-gray-700">
                       Context-aware recommendations
                     </span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-sm text-gray-700">
+                    <span className="text-base text-gray-700">
                       Seamless email continuation
                     </span>
                   </div>
@@ -635,19 +641,19 @@ export default function LandingPage() {
                 <div className="space-y-3">
                   <div className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-sm text-gray-700">
+                    <span className="text-base text-gray-700">
                       Searchable expert guides & tutorials
                     </span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-sm text-gray-700">
+                    <span className="text-base text-gray-700">
                       Mobile-optimized for field access
                     </span>
                   </div>
                   <div className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-sm text-gray-700">
+                    <span className="text-base text-gray-700">
                       Reduces support queries by 43%
                     </span>
                   </div>
