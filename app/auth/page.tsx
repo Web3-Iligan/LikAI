@@ -60,8 +60,14 @@ export default function AuthPage() {
                 <Button 
                   className="w-full h-16 bg-gradient-to-r from-[#3498DB] to-[#2980B9] hover:from-[#2980B9] hover:to-[#1F618D] text-white font-medium text-lg flex items-center justify-center space-x-4 rounded-xl shadow-xl transition-all duration-200 hover:shadow-2xl hover:scale-[1.02]"
                 >
-                  <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                    <span className="text-[#3498DB] font-bold text-lg">∞</span>
+                  <div className="w-8 h-8 flex items-center justify-center">
+                    <Image 
+                      src="/internet-computer-icp-logo.svg" 
+                      alt="Internet Computer" 
+                      width={32} 
+                      height={32}
+                      className="w-8 h-8"
+                    />
                   </div>
                   <span>Continue with Internet Identity</span>
                 </Button>
