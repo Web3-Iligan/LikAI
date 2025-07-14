@@ -12,7 +12,6 @@ import {
   BookOpen,
   Settings,
   LifeBuoy,
-  Fish,
   Menu,
   ClipboardList,
   FileText,
@@ -24,6 +23,7 @@ import { Sheet, SheetContent } from "@/components/ui/sheet"
 import { cn } from "@/lib/utils" // Import cn for conditional class names
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar" // Import Avatar components
 import { Badge } from "@/components/ui/badge" // Import Badge component
+import Image from "next/image"
 import { ScrollArea } from "@/components/ui/scroll-area" // Import ScrollArea
 
 interface NavigationItem {
@@ -109,8 +109,14 @@ export function DashboardLayout({ children, pathname }: DashboardLayoutProps) {
       {/* Logo */}
       <div className="border-b border-gray-200 p-6">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-600">
-            <Fish className="h-6 w-6 text-white" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white border border-gray-200/50">
+            <Image 
+              src="/Likai-logo.svg" 
+              alt="LikAI Logo" 
+              width={24} 
+              height={24}
+              className="w-6 h-6"
+            />
           </div>
           <div>
             <h1 className="text-lg font-semibold text-gray-900">LikAI</h1>

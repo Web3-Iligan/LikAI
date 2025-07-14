@@ -18,7 +18,7 @@ import {
   Users,
   Truck,
   Droplets,
-  Fish,
+  Heart,
   Shield,
 } from "lucide-react"
 import Link from "next/link" // Import Link for navigation
@@ -131,7 +131,7 @@ export function RiskAssessment({ farmProfile }: RiskAssessmentProps) {
         "Document any behavioral changes",
         "Keep health records updated",
       ],
-      icon: Fish,
+      icon: Heart,
     },
   ])
 

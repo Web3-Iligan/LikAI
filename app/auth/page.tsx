@@ -3,7 +3,8 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Fish, ArrowRight } from "lucide-react"
+import { ArrowRight } from "lucide-react"
+import Image from "next/image"
 
 export default function AuthPage() {
   return (
@@ -19,8 +20,14 @@ export default function AuthPage() {
       <header className="px-8 py-6 border-b border-blue-200/50 bg-white/90 backdrop-blur-sm relative z-50">
         <div className="flex items-center justify-between max-w-7xl mx-auto">
           <Link href="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-[#3498DB] to-[#2980B9] rounded-xl flex items-center justify-center shadow-lg">
-              <Fish className="h-6 w-6 text-white" />
+            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-lg border border-gray-200/50">
+              <Image 
+                src="/Likai-logo.svg" 
+                alt="LikAI Logo" 
+                width={32} 
+                height={32}
+                className="w-8 h-8"
+              />
             </div>
             <span className="text-2xl font-bold text-gray-900">LikAI</span>
           </Link>
@@ -121,7 +128,13 @@ export default function AuthPage() {
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3 p-2 bg-gray-50 rounded-lg">
                     <div className="w-8 h-8 bg-[#3498DB] rounded-full flex items-center justify-center">
-                      <Fish className="w-4 h-4 text-white" />
+                      <Image 
+                        src="/Likai-logo.svg" 
+                        alt="LikAI" 
+                        width={16} 
+                        height={16}
+                        className="w-4 h-4"
+                      />
                     </div>
                     <div className="flex-1">
                       <div className="text-sm font-medium text-gray-900">Water quality check completed</div>
@@ -143,7 +156,13 @@ export default function AuthPage() {
             
             {/* Floating elements */}
             <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-[#FF7F50] to-[#E6723C] rounded-xl shadow-lg flex items-center justify-center transform rotate-12">
-              <Fish className="w-8 h-8 text-white" />
+              <Image 
+                src="/Likai-logo.svg" 
+                alt="LikAI" 
+                width={32} 
+                height={32}
+                className="w-8 h-8"
+              />
             </div>
             <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-gradient-to-br from-[#3498DB] to-[#2980B9] rounded-lg shadow-lg flex items-center justify-center transform -rotate-12">
               <span className="text-white font-bold">AI</span>

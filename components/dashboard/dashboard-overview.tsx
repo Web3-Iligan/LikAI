@@ -15,7 +15,6 @@ import {
   DollarSign,
   Activity,
   Droplets,
-  Fish,
   Target,
   Zap,
   ArrowRight,
@@ -23,6 +22,7 @@ import {
   ChevronRight,
   AlertCircle,
 } from "lucide-react"
+import Image from "next/image"
 import RiskTrendChart from "@/components/reports/risk-trend-chart"
 import TaskCompletionChart from "@/components/reports/task-completion-chart"
 
@@ -142,7 +142,7 @@ export function DashboardOverview() {
       color: "text-green-600",
       bgColor: "bg-green-50",
       borderColor: "border-green-200",
-      icon: Fish,
+      icon: Activity,
       href: "/plan",
     },
     {
@@ -324,7 +324,7 @@ export function DashboardOverview() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Fish className="h-5 w-5 text-blue-600" />
+                <Activity className="h-5 w-5 text-blue-600" />
                 Farm Health Sentiment
               </CardTitle>
               <CardDescription>Overall biosecurity and health assessment</CardDescription>

@@ -4,7 +4,8 @@ import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Fish, ArrowLeft, ArrowRight, Loader2 } from "lucide-react"
+import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react"
+import Image from "next/image"
 
 export default function OnboardingPage() {
   const [currentStep, setCurrentStep] = useState(1)
@@ -60,8 +61,14 @@ export default function OnboardingPage() {
       <header className="px-8 py-6">
         <div className="flex items-center justify-between max-w-xl mx-auto">
           <Link href="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-[#3498DB] to-[#2980B9] rounded-xl flex items-center justify-center shadow-lg">
-              <Fish className="h-6 w-6 text-white" />
+            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-lg border border-gray-200/50">
+              <Image 
+                src="/Likai-logo.svg" 
+                alt="LikAI Logo" 
+                width={32} 
+                height={32}
+                className="w-8 h-8"
+              />
             </div>
             <span className="text-2xl font-bold text-gray-900">LikAI</span>
           </Link>
@@ -288,8 +295,14 @@ export default function OnboardingPage() {
                 </h1>
 
                 <div className="flex justify-center mb-6">
-                  <div className="w-24 h-24 bg-gradient-to-br from-[#3498DB] to-[#2980B9] rounded-xl flex items-center justify-center shadow-lg">
-                    <Fish className="h-12 w-12 text-white" />
+                  <div className="w-24 h-24 bg-white rounded-xl flex items-center justify-center shadow-lg border border-gray-200/50">
+                    <Image 
+                      src="/Likai-logo.svg" 
+                      alt="LikAI Logo" 
+                      width={48} 
+                      height={48}
+                      className="w-12 h-12"
+                    />
                   </div>
                 </div>
 

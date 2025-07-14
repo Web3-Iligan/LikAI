@@ -19,7 +19,7 @@ import {
   CheckCircle,
   Clock,
   AlertTriangle,
-  Fish,
+  Activity,
 } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -94,7 +94,7 @@ const categoryIcons: { [key: string]: any } = {
   "Pond Management": Droplets, // Can be more specific if needed
   "Equipment Management": Wrench,
   "Waste Management": Trash2,
-  "Animal Health": Fish,
+  "Animal Health": Activity,
   // Add more mappings as needed
 }
 

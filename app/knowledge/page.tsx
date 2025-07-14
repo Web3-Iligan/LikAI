@@ -159,7 +159,7 @@ export default function KnowledgeBasePage() {
       category: "Animal Health",
       tags: ["disease detection", "shrimp health", "symptoms"],
       content: `
-        <h3 class="text-xl font-semibold mb-3 flex items-center gap-2"><Fish class="h-5 w-5 text-red-600" /> Early Disease Detection</h3>
+        <h3 class="text-xl font-semibold mb-3 flex items-center gap-2"><span class="inline-block w-5 h-5 text-red-600">🔍</span> Early Disease Detection</h3>
         <p class="mb-4">Early detection of disease symptoms is critical for timely intervention and minimizing losses. Regularly observe your shrimp for these signs:</p>
 
         <h4 class="text-lg font-semibold mb-2">1. Behavioral Changes</h4>

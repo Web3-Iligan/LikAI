@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { 
-  Fish, 
   CheckCircle, 
   TrendingUp, 
   Shield, 
@@ -22,6 +21,7 @@ import {
   Plus
 } from "lucide-react"
 import { useState } from "react"
+import Image from "next/image"
 
 export default function LandingPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -36,8 +36,14 @@ export default function LandingPage() {
         {/* Logo */}
         <div className="flex-1">
           <Link href="#" className="flex items-center space-x-3 w-fit">
-            <div className="w-10 h-10 bg-gradient-to-br from-[#3498DB] to-[#2980B9] rounded-xl flex items-center justify-center shadow-lg">
-              <Fish className="h-6 w-6 text-white" />
+            <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-lg border border-gray-200/50">
+              <Image 
+                src="/Likai-logo.svg" 
+                alt="LikAI Logo" 
+                width={32} 
+                height={32}
+                className="w-8 h-8"
+              />
             </div>
             <span className="text-2xl font-bold text-gray-900 tracking-tight">LikAI</span>
           </Link>
@@ -1329,8 +1335,14 @@ export default function LandingPage() {
             {/* Logo and Description */}
             <div className="text-center md:text-left">
               <div className="flex items-center justify-center md:justify-start mb-3">
-                <div className="w-8 h-8 bg-gradient-to-br from-[#3498DB] to-[#2980B9] rounded-lg flex items-center justify-center mr-2">
-                  <Fish className="h-5 w-5 text-white" />
+                <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-2">
+                  <Image 
+                    src="/Likai-logo.svg" 
+                    alt="LikAI Logo" 
+                    width={20} 
+                    height={20}
+                    className="w-5 h-5"
+                  />
                 </div>
                 <span className="text-xl font-bold">LikAI</span>
               </div>
@@ -1347,21 +1359,7 @@ export default function LandingPage() {
               <Link href="#" className="text-gray-400 hover:text-white transition-colors">Privacy</Link>
               <Link href="#" className="text-gray-400 hover:text-white transition-colors">Terms</Link>
             </div>
-            
-            {/* Social Media */}
-            <div className="flex space-x-3">
-              <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#3498DB] transition-colors">
-                <span className="text-xs font-bold">FB</span>
-              </div>
-              <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#3498DB] transition-colors">
-                <span className="text-xs font-bold">TW</span>
-              </div>
-              <div className="w-8 h-8 bg-gray-800 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#3498DB] transition-colors">
-                <span className="text-xs font-bold">LI</span>
-              </div>
-            </div>
           </div>
-          
           <div className="border-t border-gray-800 mt-6 pt-6 text-center">
             <p className="text-gray-400 text-sm">
               © 2025 LikAI. All rights reserved. Made with ❤️ for Philippine aquaculture
