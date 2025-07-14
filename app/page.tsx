@@ -187,61 +187,61 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              {/* Dashboard Preview - Centered */}
-              <div className="relative w-full max-w-2xl px-2 sm:px-4 md:px-6 lg:px-0">
-                <div className="mx-auto max-w-sm overflow-hidden rounded-xl border bg-white shadow-2xl sm:rounded-2xl lg:max-w-none">
+              {/* Dashboard Preview - Centered and Enlarged */}
+              <div className="relative w-full max-w-5xl px-2 sm:px-4 md:px-6 lg:px-0">
+                <div className="mx-auto max-w-lg overflow-hidden rounded-xl border bg-white shadow-2xl sm:rounded-2xl lg:max-w-none">
                   {/* Dashboard Header */}
-                  <div className="flex items-center justify-between border-b bg-gray-50 px-3 py-3 sm:px-6 sm:py-4">
+                  <div className="flex items-center justify-between border-b bg-gray-50 px-4 py-4 sm:px-6 sm:py-5">
                     <div className="flex items-center space-x-2 sm:space-x-3">
-                      <div className="h-2 w-2 rounded-full bg-red-500 sm:h-3 sm:w-3"></div>
-                      <div className="h-2 w-2 rounded-full bg-orange-500 sm:h-3 sm:w-3"></div>
-                      <div className="h-2 w-2 rounded-full bg-green-500 sm:h-3 sm:w-3"></div>
+                      <div className="h-3 w-3 rounded-full bg-red-500 sm:h-3 sm:w-3"></div>
+                      <div className="h-3 w-3 rounded-full bg-orange-500 sm:h-3 sm:w-3"></div>
+                      <div className="h-3 w-3 rounded-full bg-green-500 sm:h-3 sm:w-3"></div>
                     </div>
-                    <div className="text-xs text-gray-600 sm:text-sm">
+                    <div className="text-sm text-gray-600 sm:text-base">
                       Dashboard
                     </div>
-                    <div className="rounded bg-green-100 px-2 py-1 text-xs font-medium text-green-700">
+                    <div className="rounded bg-green-100 px-3 py-1.5 text-sm font-medium text-green-700">
                       Live
                     </div>
                   </div>
 
                   {/* Dashboard Content */}
-                  <div className="p-2 sm:p-3 lg:p-6">
+                  <div className="p-4 sm:p-6 lg:p-8">
                     {/* Single Column Layout on Mobile */}
-                    <div className="grid grid-cols-1 gap-2 sm:gap-3 lg:grid-cols-2 lg:gap-6">
+                    <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2 lg:gap-8">
                       {/* AI-Generated Insights */}
-                      <div className="rounded-lg border bg-white p-2 sm:p-3 lg:p-6">
-                        <div className="mb-2 flex items-center sm:mb-4">
-                          <div className="mr-2 flex h-4 w-4 items-center justify-center rounded bg-orange-100 sm:mr-3 sm:h-6 sm:w-6">
-                            <span className="text-xs text-orange-600">⚡</span>
+                      <div className="rounded-lg border bg-white p-4 sm:p-6 lg:p-8">
+                        <div className="mb-3 flex items-center sm:mb-5">
+                          <div className="mr-3 flex h-6 w-6 items-center justify-center rounded bg-orange-100 sm:mr-4 sm:h-8 sm:w-8">
+                            <span className="text-sm text-orange-600">⚡</span>
                           </div>
                           <div>
-                            <h3 className="text-xs font-semibold text-gray-900 sm:text-sm">
+                            <h3 className="text-sm font-semibold text-gray-900 sm:text-base lg:text-lg">
                               AI-Generated Insights
                             </h3>
-                            <p className="hidden text-xs text-gray-600 sm:block">
+                            <p className="hidden text-sm text-gray-600 sm:block">
                               Personalized recommendations
                             </p>
                           </div>
                         </div>
 
                         {/* Insight Cards */}
-                        <div className="space-y-1 sm:space-y-2 lg:space-y-3">
-                          <div className="rounded border border-red-300 bg-red-50 p-1.5 sm:p-2 lg:p-3">
-                            <h4 className="mb-1 text-xs font-medium text-red-900">
+                        <div className="space-y-2 sm:space-y-3 lg:space-y-4">
+                          <div className="rounded border border-red-300 bg-red-50 p-3 sm:p-4 lg:p-5">
+                            <h4 className="mb-2 text-sm font-medium text-red-900 sm:text-base">
                               Weather Impact Analysis
                             </h4>
-                            <p className="text-xs leading-tight text-red-800">
+                            <p className="text-sm leading-relaxed text-red-800 sm:text-base">
                               Typhoon risk: 75% pond overflow. Dyke inspection
                               could prevent up to ₱200k losses.
                             </p>
                           </div>
 
-                          <div className="rounded border border-green-200 bg-green-50 p-1.5 sm:p-2 lg:p-3">
-                            <h4 className="mb-1 text-xs font-medium text-green-900">
+                          <div className="rounded border border-green-200 bg-green-50 p-3 sm:p-4 lg:p-5">
+                            <h4 className="mb-2 text-sm font-medium text-green-900 sm:text-base">
                               Cost Optimization
                             </h4>
-                            <p className="text-xs leading-tight text-green-800">
+                            <p className="text-sm leading-relaxed text-green-800 sm:text-base">
                               Solar disinfection: up to 40% cost reduction, 85%
                               effectiveness.
                             </p>
@@ -249,34 +249,34 @@ export default function LandingPage() {
                         </div>
 
                         {/* Action Button */}
-                        <div className="mt-2 border-t pt-2 text-center sm:mt-3 sm:pt-3 lg:mt-4">
-                          <button className="text-xs font-medium text-[#3498DB] hover:text-[#2980B9]">
+                        <div className="mt-4 border-t pt-4 text-center sm:mt-5 sm:pt-5 lg:mt-6">
+                          <button className="text-sm font-medium text-[#3498DB] hover:text-[#2980B9] sm:text-base">
                             Ask AI Coach
                           </button>
                         </div>
                       </div>
 
                       {/* Farm Health Sentiment */}
-                      <div className="rounded-lg border bg-white p-2 sm:p-3 lg:p-6">
-                        <div className="mb-2 flex items-center sm:mb-4">
-                          <div className="mr-2 flex h-4 w-4 items-center justify-center rounded bg-blue-100 sm:mr-3 sm:h-6 sm:w-6">
-                            <span className="text-xs text-blue-600">🛡️</span>
+                      <div className="rounded-lg border bg-white p-4 sm:p-6 lg:p-8">
+                        <div className="mb-3 flex items-center sm:mb-5">
+                          <div className="mr-3 flex h-6 w-6 items-center justify-center rounded bg-blue-100 sm:mr-4 sm:h-8 sm:w-8">
+                            <span className="text-sm text-blue-600">🛡️</span>
                           </div>
                           <div>
-                            <h3 className="text-xs font-semibold text-gray-900 sm:text-sm">
+                            <h3 className="text-sm font-semibold text-gray-900 sm:text-base lg:text-lg">
                               Farm Health
                             </h3>
-                            <p className="hidden text-xs text-gray-600 sm:block">
+                            <p className="hidden text-sm text-gray-600 sm:block">
                               Overall assessment
                             </p>
                           </div>
                         </div>
 
                         {/* Circular Progress */}
-                        <div className="mb-3 flex flex-col items-center sm:mb-4 lg:mb-6">
-                          <div className="relative mb-2 h-16 w-16 sm:mb-3 sm:h-20 sm:w-20 lg:h-24 lg:w-24">
+                        <div className="mb-4 flex flex-col items-center sm:mb-6 lg:mb-8">
+                          <div className="relative mb-3 h-20 w-20 sm:mb-4 sm:h-24 sm:w-24 lg:h-28 lg:w-28">
                             <svg
-                              className="h-16 w-16 -rotate-90 transform sm:h-20 sm:w-20 lg:h-24 lg:w-24"
+                              className="h-20 w-20 -rotate-90 transform sm:h-24 sm:w-24 lg:h-28 lg:w-28"
                               viewBox="0 0 36 36"
                             >
                               <path
@@ -294,18 +294,18 @@ export default function LandingPage() {
                               />
                             </svg>
                             <div className="absolute inset-0 flex items-center justify-center">
-                              <span className="text-sm font-bold text-gray-900 sm:text-base lg:text-lg">
+                              <span className="text-base font-bold text-gray-900 sm:text-lg lg:text-xl">
                                 92%
                               </span>
                             </div>
                           </div>
-                          <p className="text-center text-xs text-gray-600">
+                          <p className="text-center text-sm text-gray-600 sm:text-base">
                             within optimal range
                           </p>
                         </div>
 
                         {/* Status Items - Simplified for mobile */}
-                        <div className="space-y-1 text-xs sm:space-y-2 lg:space-y-3">
+                        <div className="space-y-2 text-sm sm:space-y-3 sm:text-base lg:space-y-4">
                           <div className="flex items-center justify-between">
                             <span className="text-gray-700">Water Quality</span>
                             <span className="font-medium text-green-600">
@@ -318,7 +318,7 @@ export default function LandingPage() {
                               Good
                             </span>
                           </div>
-                          <div className="flex items-center justify-between lg:border-t lg:pt-2">
+                          <div className="flex items-center justify-between lg:border-t lg:pt-3">
                             <span className="text-gray-700">Current Cycle</span>
                             <span className="font-medium text-blue-600">
                               Day 45/70
@@ -331,14 +331,14 @@ export default function LandingPage() {
                 </div>
 
                 {/* Floating notification */}
-                <div className="absolute -right-2 top-8 max-w-28 rounded-lg border bg-white p-2 shadow-lg sm:-right-2 sm:top-12 sm:max-w-32 sm:p-3 md:-right-4 md:top-16 md:max-w-40 lg:-right-4 lg:top-20 lg:max-w-48">
-                  <div className="mb-1 flex items-center space-x-1 sm:space-x-1.5 md:space-x-2">
-                    <div className="h-1.5 w-1.5 rounded-full bg-green-500 sm:h-2 sm:w-2"></div>
-                    <span className="text-xs font-medium text-gray-900">
+                <div className="md:top-18 absolute -right-2 top-10 max-w-32 rounded-lg border bg-white p-3 shadow-lg sm:-right-3 sm:top-14 sm:max-w-36 sm:p-4 md:-right-4 md:max-w-44 lg:-right-6 lg:top-24 lg:max-w-52">
+                  <div className="mb-2 flex items-center space-x-1.5 sm:space-x-2 md:space-x-2.5">
+                    <div className="h-2 w-2 rounded-full bg-green-500 sm:h-2.5 sm:w-2.5"></div>
+                    <span className="text-sm font-medium text-gray-900 sm:text-base">
                       Risk Decreased
                     </span>
                   </div>
-                  <p className="text-xs text-gray-600">
+                  <p className="text-sm text-gray-600 sm:text-base">
                     Water quality improved by up to 23%
                   </p>
                 </div>
@@ -1424,11 +1424,7 @@ export default function LandingPage() {
                       <div className="p-8 text-center">
                         {/* Analysis Result */}
                         <div className="mb-6">
-                          <div className="mb-4 flex items-center justify-center">
-                            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-orange-500">
-                              <span className="font-bold text-white">⚡</span>
-                            </div>
-                          </div>
+                          <div className="mb-4 flex items-center justify-center"></div>
                           <h3 className="mb-2 text-lg font-semibold text-gray-900">
                             Potential Farm Cost Savings Analysis
                           </h3>
@@ -1436,7 +1432,7 @@ export default function LandingPage() {
 
                         {/* Savings Amount */}
                         <div className="mb-8">
-                          <div className="mb-2 text-5xl font-bold text-gray-900">
+                          <div className="mb-2 text-5xl font-bold text-green-600">
                             ₱205,000
                           </div>
                           <div className="text-sm text-gray-600">
