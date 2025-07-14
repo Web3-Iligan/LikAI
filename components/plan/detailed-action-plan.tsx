@@ -1,6 +1,17 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+
+import {
+  ArrowLeft,
+  Bot,
+  Loader2,
+  MessageCircle,
+  Send,
+  User,
+} from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,17 +19,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  ArrowLeft,
-  MessageCircle,
-  Send,
-  Bot,
-  User,
-  Loader2,
-} from "lucide-react";
 
 interface RiskFactor {
   id: string;

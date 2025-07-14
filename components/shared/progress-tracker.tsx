@@ -1,5 +1,8 @@
 "use client";
 
+import { CalendarDays, CheckCircle, ListChecks } from "lucide-react";
+
+import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -8,8 +11,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
-import { CheckCircle, ListChecks, CalendarDays } from "lucide-react"; // Changed Calendar to CalendarDays
+
+// Changed Calendar to CalendarDays
 
 interface ProgressTrackerProps {
   farmProfile: {

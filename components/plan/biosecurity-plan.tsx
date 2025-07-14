@@ -1,6 +1,25 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
+import {
+  Activity,
+  AlertTriangle,
+  Building,
+  CheckCircle,
+  Clock,
+  Droplets,
+  Info,
+  Shield,
+  Trash2,
+  Truck,
+  Users,
+  Wrench,
+  Zap,
+} from "lucide-react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,27 +27,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Info,
-  Zap,
-  Droplets,
-  Shield,
-  Users,
-  Truck,
-  Wrench,
-  Trash2,
-  Building,
-  CheckCircle,
-  Clock,
-  AlertTriangle,
-  Activity,
-} from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Progress } from "@/components/ui/progress";
 import {
   Select,
   SelectContent,
@@ -36,6 +38,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+
 import { HowToGuideView } from "@/components/shared/how-to-guide-view";
 
 // Add a helper function to parse the estimated cost. Place this outside the component function.

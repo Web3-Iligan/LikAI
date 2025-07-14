@@ -1,6 +1,29 @@
 "use client";
 
 import { useState } from "react";
+
+import Link from "next/link";
+
+import {
+  AlertCircle,
+  ArrowLeft,
+  ArrowRight,
+  Bot,
+  CheckCircle,
+  DollarSign,
+  FileText,
+  HelpCircle,
+  Lightbulb,
+  MessageCircle,
+  RotateCcw,
+  Send,
+  User,
+  Video,
+  Wrench,
+} from "lucide-react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,28 +31,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import {
-  MessageCircle,
-  Send,
-  Bot,
-  User,
-  Lightbulb,
-  AlertCircle,
-  CheckCircle,
-  DollarSign,
-  ArrowLeft,
-  Video,
-  FileText,
-  Wrench,
-  HelpCircle,
-  RotateCcw,
-  ArrowRight,
-} from "lucide-react";
-import Link from "next/link";
 
 interface ChatMessage {
   id: string;

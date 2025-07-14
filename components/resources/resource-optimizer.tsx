@@ -1,6 +1,25 @@
 "use client";
 
 import { useState } from "react";
+
+import {
+  ArrowRight,
+  BarChart2,
+  Calculator,
+  CheckCircle,
+  Clock,
+  DollarSign,
+  Droplets,
+  Hammer,
+  Leaf,
+  Shield,
+  Wrench,
+  XCircle,
+  Zap,
+} from "lucide-react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,24 +27,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  DollarSign,
-  Calculator,
-  Wrench,
-  Shield,
-  CheckCircle,
-  XCircle,
-  Clock,
-  BarChart2,
-  Hammer,
-  Leaf,
-  Zap,
-  ArrowRight,
-  Droplets,
-} from "lucide-react"; // Added Trash2 for BiosecurityPlan
+
+// Added Trash2 for BiosecurityPlan
 
 interface ResourceOption {
   id: string;

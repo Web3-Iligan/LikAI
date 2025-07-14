@@ -1,25 +1,27 @@
 "use client";
 
 import { useState } from "react";
+
+import {
+  ArrowLeft,
+  BookOpen,
+  FileText,
+  Filter,
+  Lightbulb,
+  Search,
+  Tag,
+} from "lucide-react";
+
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import {
-  BookOpen,
-  Search,
-  Filter,
-  Tag,
-  FileText,
-  Lightbulb,
-  ArrowLeft,
-} from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Article {

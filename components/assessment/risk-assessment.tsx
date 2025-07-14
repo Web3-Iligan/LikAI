@@ -1,6 +1,25 @@
 "use client";
 
 import { useState } from "react";
+
+import Link from "next/link";
+
+import {
+  Activity,
+  AlertTriangle,
+  Cloud,
+  Droplets,
+  Heart,
+  Shield,
+  TrendingDown,
+  TrendingUp,
+  Truck,
+  Users,
+} from "lucide-react";
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -8,12 +27,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Progress } from "@/components/ui/progress";
 import {
   Select,
   SelectContent,
@@ -21,20 +37,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Activity,
-  AlertTriangle,
-  TrendingUp,
-  TrendingDown,
-  Cloud,
-  Users,
-  Truck,
-  Droplets,
-  Heart,
-  Shield,
-} from "lucide-react";
-import Link from "next/link"; // Import Link for navigation
-import { DetailedActionPlan } from "@/components/plan/detailed-action-plan"; // Import the new component
+
+// Import Link for navigation
+import { DetailedActionPlan } from "@/components/plan/detailed-action-plan";
+
+// Import the new component
 
 interface RiskFactor {
   id: string;

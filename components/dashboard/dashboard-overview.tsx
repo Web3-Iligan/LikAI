@@ -1,7 +1,30 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link"; // Import Link for navigation
+
+import Image from "next/image";
+import Link from "next/link";
+
+import {
+  Activity,
+  AlertCircle,
+  AlertTriangle,
+  ArrowRight,
+  BarChart3,
+  CheckCircle,
+  ChevronRight,
+  DollarSign,
+  Droplets,
+  Shield,
+  Target,
+  TrendingUp,
+  Zap,
+} from "lucide-react";
+
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+// Import Link for navigation
 import {
   Card,
   CardContent,
@@ -9,26 +32,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import {
-  Shield,
-  TrendingUp,
-  AlertTriangle,
-  CheckCircle,
-  DollarSign,
-  Activity,
-  Droplets,
-  Target,
-  Zap,
-  ArrowRight,
-  BarChart3,
-  ChevronRight,
-  AlertCircle,
-} from "lucide-react";
-import Image from "next/image";
+
 import RiskTrendChart from "@/components/reports/risk-trend-chart";
 import TaskCompletionChart from "@/components/reports/task-completion-chart";
 

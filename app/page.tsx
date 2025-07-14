@@ -1,27 +1,30 @@
 "use client";
 
+import { useState } from "react";
+
+import Image from "next/image";
 import Link from "next/link";
+
+import {
+  ArrowRight,
+  Award,
+  BarChart3,
+  CheckCircle,
+  Globe,
+  Menu,
+  Plus,
+  Shield,
+  Star,
+  Target,
+  TrendingUp,
+  Users,
+  X,
+  Zap,
+} from "lucide-react";
+
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import {
-  CheckCircle,
-  TrendingUp,
-  Shield,
-  BarChart3,
-  Users,
-  Star,
-  ArrowRight,
-  Zap,
-  Target,
-  Globe,
-  Award,
-  Menu,
-  X,
-  Plus,
-} from "lucide-react";
-import { useState } from "react";
-import Image from "next/image";
 
 export default function LandingPage() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

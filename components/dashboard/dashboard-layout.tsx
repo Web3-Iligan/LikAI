@@ -2,29 +2,37 @@
 
 import React from "react";
 
+// Import Badge component
+import Image from "next/image";
 import Link from "next/link";
+
 import {
+  BarChart3,
+  Bell,
+  BookOpen,
+  ClipboardList,
+  DollarSign,
+  FileText,
+  LayoutDashboard,
+  LifeBuoy,
   ListChecks,
+  Menu,
+  Settings,
   Shield,
   Zap,
-  DollarSign,
-  BarChart3,
-  BookOpen,
-  Settings,
-  LifeBuoy,
-  Menu,
-  ClipboardList,
-  FileText,
-  Bell,
-  LayoutDashboard,
 } from "lucide-react";
+
+// Import cn for conditional class names
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+// Import Avatar components
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { cn } from "@/lib/utils"; // Import cn for conditional class names
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"; // Import Avatar components
-import { Badge } from "@/components/ui/badge"; // Import Badge component
-import Image from "next/image";
-import { ScrollArea } from "@/components/ui/scroll-area"; // Import ScrollArea
+
+import { cn } from "@/lib/utils";
+
+// Import ScrollArea
 
 interface NavigationItem {
   title: string;

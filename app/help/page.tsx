@@ -1,11 +1,12 @@
+import { HelpCircle } from "lucide-react";
+
 import {
   Card,
   CardContent,
+  CardDescription,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
-import { HelpCircle } from "lucide-react";
 
 export default function HelpPage() {
   return (

@@ -3,6 +3,7 @@
 import type React from "react";
 
 import { usePathname } from "next/navigation";
+
 import { DashboardLayout } from "./dashboard/dashboard-layout";
 
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {

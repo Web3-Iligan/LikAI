@@ -1,19 +1,20 @@
 "use client";
 
 import { useState } from "react";
+
+import clsx from "clsx";
 import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  ReferenceLine,
   Area,
   AreaChart,
+  CartesianGrid,
+  Line,
+  LineChart,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
 } from "recharts";
-import clsx from "clsx";
 
 interface RiskTrendChartProps {
   data: { date: string; value: number }[];

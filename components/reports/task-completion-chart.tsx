@@ -1,15 +1,15 @@
 "use client";
 
+import clsx from "clsx";
 import {
-  BarChart,
   Bar,
+  BarChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
 } from "recharts";
-import clsx from "clsx";
 
 export interface TaskCompletionPoint {
   label: string;
