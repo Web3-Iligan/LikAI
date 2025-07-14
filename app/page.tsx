@@ -818,7 +818,8 @@ export default function LandingPage() {
                 Plans and Pricing
               </h2>
               <p className="mx-auto mb-8 max-w-2xl px-4 text-base text-gray-600 sm:px-0 sm:text-lg">
-                Receive unlimited credits when you pay yearly, and save on your plan.
+                Choose the plan that fits your farm's biosecurity needs. Upgrade
+                as your operation grows.
               </p>
 
               {/* Billing Period Toggle */}
@@ -865,12 +866,21 @@ export default function LandingPage() {
                         ₱0
                       </div>
                       <p className="text-sm text-gray-600">
-                        For your hobby projects
+                        Get started with basic biosecurity
                       </p>
                     </div>
+                    <p className="text-sm text-gray-600">
+                      Perfect for getting familiar with GAqP standards
+                    </p>
                   </div>
 
                   <div className="mb-8 space-y-4">
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />
+                      <span className="text-sm text-gray-700">
+                        Static GAqP biosecurity plan template
+                      </span>
+                    </div>
                     <div className="flex items-start space-x-3">
                       <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />
                       <span className="text-sm text-gray-700">
@@ -880,25 +890,19 @@ export default function LandingPage() {
                     <div className="flex items-start space-x-3">
                       <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />
                       <span className="text-sm text-gray-700">
-                        Limited action plans
+                        Limited biosecurity library access
                       </span>
                     </div>
                     <div className="flex items-start space-x-3">
                       <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />
                       <span className="text-sm text-gray-700">
-                        Basic how-to guides
+                        3 AI coaching queries per day
                       </span>
                     </div>
                     <div className="flex items-start space-x-3">
                       <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />
                       <span className="text-sm text-gray-700">
-                        3 AI queries per day
-                      </span>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-400" />
-                      <span className="text-sm text-gray-700">
-                        Community support
+                        Community support forum
                       </span>
                     </div>
                   </div>
@@ -910,7 +914,7 @@ export default function LandingPage() {
               </Card>
 
               {/* Business Plan - Highlighted */}
-              <Card className="relative overflow-hidden rounded-2xl border-2 border-[#FF7F50] bg-white shadow-2xl transition-all duration-300 hover:shadow-3xl">
+              <Card className="hover:shadow-3xl relative overflow-hidden rounded-2xl border-2 border-[#FF7F50] bg-white shadow-2xl transition-all duration-300">
                 <div className="absolute right-4 top-4 rounded-full bg-[#FF7F50] px-3 py-1 text-xs font-semibold text-white">
                   Most Popular
                 </div>
@@ -929,7 +933,7 @@ export default function LandingPage() {
                           : "per year, billed annually"}
                       </p>
                       <p className="mt-1 text-sm font-medium text-gray-700">
-                        Great for small businesses
+                        Continuous biosecurity coaching for GAqP compliance
                       </p>
                     </div>
                   </div>
@@ -944,25 +948,31 @@ export default function LandingPage() {
                     <div className="flex items-start space-x-3">
                       <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#FF7F50]" />
                       <span className="text-sm text-gray-700">
-                        Dynamic action plans
+                        Dynamic, adaptive biosecurity plans
                       </span>
                     </div>
                     <div className="flex items-start space-x-3">
                       <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#FF7F50]" />
                       <span className="text-sm text-gray-700">
-                        Unlimited AI queries
+                        Unlimited AI biosecurity coaching
                       </span>
                     </div>
                     <div className="flex items-start space-x-3">
                       <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#FF7F50]" />
                       <span className="text-sm text-gray-700">
-                        Full biosecurity library
+                        Real-time resource optimization alerts
                       </span>
                     </div>
                     <div className="flex items-start space-x-3">
                       <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#FF7F50]" />
                       <span className="text-sm text-gray-700">
-                        Email support
+                        Continuous compliance monitoring
+                      </span>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#FF7F50]" />
+                      <span className="text-sm text-gray-700">
+                        Complete biosecurity library & email support
                       </span>
                     </div>
                   </div>
@@ -985,7 +995,7 @@ export default function LandingPage() {
                         Custom
                       </div>
                       <p className="text-sm text-gray-300">
-                        For multiple teams
+                        Strategic oversight for large-scale operations
                       </p>
                     </div>
                   </div>
@@ -1000,25 +1010,25 @@ export default function LandingPage() {
                     <div className="flex items-start space-x-3">
                       <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-white" />
                       <span className="text-sm text-gray-200">
-                        Multi-farm management
+                        Multi-site farm management & oversight
                       </span>
                     </div>
                     <div className="flex items-start space-x-3">
                       <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-white" />
                       <span className="text-sm text-gray-200">
-                        Advanced analytics
+                        Advanced compliance analytics & reporting
                       </span>
                     </div>
                     <div className="flex items-start space-x-3">
                       <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-white" />
                       <span className="text-sm text-gray-200">
-                        API integrations
+                        Export requirement management
                       </span>
                     </div>
                     <div className="flex items-start space-x-3">
                       <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-white" />
                       <span className="text-sm text-gray-200">
-                        Priority support
+                        Human expert consultation & API integrations
                       </span>
                     </div>
                   </div>
@@ -1033,8 +1043,8 @@ export default function LandingPage() {
             {/* Additional Info */}
             <div className="mt-12 text-center">
               <p className="mb-4 text-gray-600">
-                All plans include unlimited AI Coach Queries and AI-powered
-                recommendations
+                All plans include GAqP-aligned biosecurity guidance and ongoing
+                compliance support
               </p>
               <div className="flex flex-col items-center justify-center gap-4 text-sm text-gray-500 sm:flex-row">
                 <div className="flex items-center space-x-2">
@@ -1051,7 +1061,7 @@ export default function LandingPage() {
                 </div>
                 <div className="flex items-center space-x-2">
                   <CheckCircle className="h-4 w-4 text-green-500" />
-                  <span>24/7 support included</span>
+                  <span>Expert biosecurity support</span>
                 </div>
               </div>
             </div>
