@@ -859,7 +859,7 @@ export default function LandingPage() {
                 <CardContent className="p-8">
                   <div className="mb-8 text-center">
                     <h3 className="mb-6 text-xl font-bold text-gray-900">
-                      Free
+                      Starter
                     </h3>
                     <div className="mb-6">
                       <div className="mb-2 text-4xl font-bold text-gray-900">
@@ -1043,8 +1043,8 @@ export default function LandingPage() {
             {/* Additional Info */}
             <div className="mt-12 text-center">
               <p className="mb-4 text-gray-600">
-                All plans include GAqP-aligned biosecurity guidance and ongoing
-                compliance support
+                All plans include BFAR GAqP-aligned biosecurity guidance and
+                ongoing compliance support
               </p>
               <div className="flex flex-col items-center justify-center gap-4 text-sm text-gray-500 sm:flex-row">
                 <div className="flex items-center space-x-2">
