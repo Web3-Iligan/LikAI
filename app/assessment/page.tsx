@@ -1,6 +1,12 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { FarmAssessmentForm } from "@/components/assessment/farm-assessment-form"
-import { ClipboardList } from "lucide-react"
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import { FarmAssessmentForm } from "@/components/assessment/farm-assessment-form";
+import { ClipboardList } from "lucide-react";
 
 export default function AssessmentPage() {
   return (
@@ -12,7 +18,8 @@ export default function AssessmentPage() {
             Farm Biosecurity Assessment
           </CardTitle>
           <CardDescription>
-            Please answer the questions below to help us generate a tailored biosecurity action plan.
+            Please answer the questions below to help us generate a tailored
+            biosecurity action plan.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -20,5 +27,5 @@ export default function AssessmentPage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

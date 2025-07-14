@@ -1,4 +1,4 @@
-import { RiskAssessment } from "@/components/assessment/risk-assessment"
+import { RiskAssessment } from "@/components/assessment/risk-assessment";
 
 // Dummy farm profile for demonstration
 const farmProfile = {
@@ -11,8 +11,8 @@ const farmProfile = {
   riskLevel: "medium" as const,
   completedTasks: 12,
   totalTasks: 18,
-}
+};
 
 export default function RiskPage() {
-  return <RiskAssessment farmProfile={farmProfile} />
+  return <RiskAssessment farmProfile={farmProfile} />;
 }

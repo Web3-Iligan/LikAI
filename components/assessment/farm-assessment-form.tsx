@@ -1,111 +1,129 @@
-"use client"
+"use client";
 
-import { useState, useMemo } from "react"
-import { useRouter } from "next/navigation"
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { CheckCircle, Circle, Loader2 } from "lucide-react"
+import { useState, useMemo } from "react";
+import { useRouter } from "next/navigation";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Checkbox } from "@/components/ui/checkbox";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { CheckCircle, Circle, Loader2 } from "lucide-react";
 
 const steps = [
   { id: 0, title: "Basic Profile", description: "Farm details and species" },
-  { id: 1, title: "Setup & Resources", description: "Infrastructure and budget" },
+  {
+    id: 1,
+    title: "Setup & Resources",
+    description: "Infrastructure and budget",
+  },
   { id: 2, title: "Concerns", description: "Top challenges and priorities" },
-  { id: 3, title: "Pond Preparation", description: "Site preparation practices" },
-  { id: 4, title: "Water Management", description: "Water source and treatment" },
+  {
+    id: 3,
+    title: "Pond Preparation",
+    description: "Site preparation practices",
+  },
+  {
+    id: 4,
+    title: "Water Management",
+    description: "Water source and treatment",
+  },
   { id: 5, title: "Stock Sourcing", description: "Post-larvae procurement" },
   { id: 6, title: "Access & Sanitation", description: "Biosecurity measures" },
   { id: 7, title: "Waste & Health", description: "Management protocols" },
-]
+];
 
 // Grouped steps for progress indicator display
 const progressGroups = [
-  { 
-    id: 0, 
-    title: "Farm Setup", 
+  {
+    id: 0,
+    title: "Farm Setup",
     description: "Basic information and resources",
-    stepIndexes: [0, 1] // Basic Profile, Setup & Resources
+    stepIndexes: [0, 1], // Basic Profile, Setup & Resources
   },
-  { 
-    id: 1, 
-    title: "Planning", 
+  {
+    id: 1,
+    title: "Planning",
     description: "Concerns and preparation",
-    stepIndexes: [2, 3] // Concerns, Pond Preparation
+    stepIndexes: [2, 3], // Concerns, Pond Preparation
   },
-  { 
-    id: 2, 
-    title: "Management", 
+  {
+    id: 2,
+    title: "Management",
     description: "Water and stock sourcing",
-    stepIndexes: [4, 5] // Water Management, Stock Sourcing
+    stepIndexes: [4, 5], // Water Management, Stock Sourcing
   },
-  { 
-    id: 3, 
-    title: "Biosecurity", 
+  {
+    id: 3,
+    title: "Biosecurity",
     description: "Access control and sanitation",
-    stepIndexes: [6] // Access & Sanitation
+    stepIndexes: [6], // Access & Sanitation
   },
-  { 
-    id: 4, 
-    title: "Operations", 
+  {
+    id: 4,
+    title: "Operations",
     description: "Waste management and health monitoring",
-    stepIndexes: [7] // Waste & Health
+    stepIndexes: [7], // Waste & Health
   },
-]
+];
 
 interface FormData {
   // Basic Profile
-  farmName: string
-  location: string
-  primarySpecies: string
-  farmType: string
-  farmSize: string
-  
+  farmName: string;
+  location: string;
+  primarySpecies: string;
+  farmType: string;
+  farmSize: string;
+
   // Setup & Resources
-  isNewFarmer: string
-  existingPondYears: string
-  waterSource: string[]
-  initialBudget: string
-  hasElectricity: string
-  
+  isNewFarmer: string;
+  existingPondYears: string;
+  waterSource: string[];
+  initialBudget: string;
+  hasElectricity: string;
+
   // Concerns
-  topConcerns: string[]
-  
+  topConcerns: string[];
+
   // Pond Preparation
-  pondDrainSunDry: string
-  removeMuckLayer: string
-  disinfectPond: string
-  
+  pondDrainSunDry: string;
+  removeMuckLayer: string;
+  disinfectPond: string;
+
   // Water Management
-  filterIncomingWater: string
-  separateReservoir: string
-  waterMonitoringFrequency: string
-  
+  filterIncomingWater: string;
+  separateReservoir: string;
+  waterMonitoringFrequency: string;
+
   // Stock Sourcing
-  plSource: string
-  acclimatePLs: string
-  quarantinePLs: string
-  
+  plSource: string;
+  acclimatePLs: string;
+  quarantinePLs: string;
+
   // Access & Sanitation
-  hasFencing: string
-  useFootbaths: string
-  equipmentSharing: string
-  visitorManagement: string
-  
+  hasFencing: string;
+  useFootbaths: string;
+  equipmentSharing: string;
+  visitorManagement: string;
+
   // Waste & Health
-  wasteDisposal: string
-  controlFeeding: string
-  healthMonitoring: string
-  keepRecords: string
+  wasteDisposal: string;
+  controlFeeding: string;
+  healthMonitoring: string;
+  keepRecords: string;
 }
 
 export function FarmAssessmentForm() {
-  const router = useRouter()
-  const [currentStep, setCurrentStep] = useState(0)
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter();
+  const [currentStep, setCurrentStep] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>({
     farmName: "",
     location: "",
@@ -135,174 +153,284 @@ export function FarmAssessmentForm() {
     controlFeeding: "",
     healthMonitoring: "",
     keepRecords: "",
-  })
+  });
 
-  const isExistingPond = formData.isNewFarmer === "Existing Pond"
+  const isExistingPond = formData.isNewFarmer === "Existing Pond";
 
   // Helper functions for progress groups
   const getCurrentProgressGroup = (stepIndex: number): number => {
-    return progressGroups.findIndex(group => group.stepIndexes.includes(stepIndex))
-  }
+    return progressGroups.findIndex(group =>
+      group.stepIndexes.includes(stepIndex)
+    );
+  };
 
   const isProgressGroupCompleted = (groupIndex: number): boolean => {
-    const group = progressGroups[groupIndex]
+    const group = progressGroups[groupIndex];
     return group.stepIndexes.every(stepIndex => {
       switch (stepIndex) {
         case 0: // Basic Profile
-          return !!(formData.farmName && formData.location && formData.primarySpecies && formData.farmType && formData.farmSize)
+          return !!(
+            formData.farmName &&
+            formData.location &&
+            formData.primarySpecies &&
+            formData.farmType &&
+            formData.farmSize
+          );
         case 1: // Setup & Resources
-          return !!(formData.isNewFarmer && formData.waterSource.length > 0 && formData.initialBudget && formData.hasElectricity)
+          return !!(
+            formData.isNewFarmer &&
+            formData.waterSource.length > 0 &&
+            formData.initialBudget &&
+            formData.hasElectricity
+          );
         case 2: // Concerns
-          return formData.topConcerns.length > 0
+          return formData.topConcerns.length > 0;
         case 3: // Pond Preparation
-          if (formData.isNewFarmer === "New Setup") return true
-          return !!(formData.pondDrainSunDry && formData.removeMuckLayer && formData.disinfectPond)
+          if (formData.isNewFarmer === "New Setup") return true;
+          return !!(
+            formData.pondDrainSunDry &&
+            formData.removeMuckLayer &&
+            formData.disinfectPond
+          );
         case 4: // Water Management
-          return !!(formData.filterIncomingWater && formData.separateReservoir && formData.waterMonitoringFrequency)
+          return !!(
+            formData.filterIncomingWater &&
+            formData.separateReservoir &&
+            formData.waterMonitoringFrequency
+          );
         case 5: // Stock Sourcing
-          return !!(formData.plSource && formData.acclimatePLs && formData.quarantinePLs)
+          return !!(
+            formData.plSource &&
+            formData.acclimatePLs &&
+            formData.quarantinePLs
+          );
         case 6: // Access & Sanitation
-          return !!(formData.hasFencing && formData.useFootbaths && formData.equipmentSharing && formData.visitorManagement)
+          return !!(
+            formData.hasFencing &&
+            formData.useFootbaths &&
+            formData.equipmentSharing &&
+            formData.visitorManagement
+          );
         case 7: // Waste & Health
-          return !!(formData.wasteDisposal && formData.controlFeeding && formData.healthMonitoring && formData.keepRecords)
+          return !!(
+            formData.wasteDisposal &&
+            formData.controlFeeding &&
+            formData.healthMonitoring &&
+            formData.keepRecords
+          );
         default:
-          return false
+          return false;
       }
-    })
-  }
+    });
+  };
 
   // Memoize step completion status to prevent infinite re-renders
   const stepCompletionStatus = useMemo(() => {
     return steps.map((_, stepIndex) => {
       switch (stepIndex) {
         case 0: // Basic Profile
-          return !!(formData.farmName && formData.location && formData.primarySpecies && formData.farmType && formData.farmSize)
+          return !!(
+            formData.farmName &&
+            formData.location &&
+            formData.primarySpecies &&
+            formData.farmType &&
+            formData.farmSize
+          );
         case 1: // Setup & Resources
-          return !!(formData.isNewFarmer && formData.waterSource.length > 0 && formData.initialBudget && formData.hasElectricity)
+          return !!(
+            formData.isNewFarmer &&
+            formData.waterSource.length > 0 &&
+            formData.initialBudget &&
+            formData.hasElectricity
+          );
         case 2: // Concerns
-          return formData.topConcerns.length > 0
+          return formData.topConcerns.length > 0;
         case 3: // Pond Preparation
-          if (formData.isNewFarmer === "New Setup") return true
-          return !!(formData.pondDrainSunDry && formData.removeMuckLayer && formData.disinfectPond)
+          if (formData.isNewFarmer === "New Setup") return true;
+          return !!(
+            formData.pondDrainSunDry &&
+            formData.removeMuckLayer &&
+            formData.disinfectPond
+          );
         case 4: // Water Management
-          return !!(formData.filterIncomingWater && formData.separateReservoir && formData.waterMonitoringFrequency)
+          return !!(
+            formData.filterIncomingWater &&
+            formData.separateReservoir &&
+            formData.waterMonitoringFrequency
+          );
         case 5: // Stock Sourcing
-          return !!(formData.plSource && formData.acclimatePLs && formData.quarantinePLs)
+          return !!(
+            formData.plSource &&
+            formData.acclimatePLs &&
+            formData.quarantinePLs
+          );
         case 6: // Access & Sanitation
-          return !!(formData.hasFencing && formData.useFootbaths && formData.equipmentSharing && formData.visitorManagement)
+          return !!(
+            formData.hasFencing &&
+            formData.useFootbaths &&
+            formData.equipmentSharing &&
+            formData.visitorManagement
+          );
         case 7: // Waste & Health
-          return !!(formData.wasteDisposal && formData.controlFeeding && formData.healthMonitoring && formData.keepRecords)
+          return !!(
+            formData.wasteDisposal &&
+            formData.controlFeeding &&
+            formData.healthMonitoring &&
+            formData.keepRecords
+          );
         default:
-          return false
+          return false;
       }
-    })
-  }, [formData])
+    });
+  }, [formData]);
 
   // Memoize progress group completion status
   const progressGroupCompletionStatus = useMemo(() => {
-    return progressGroups.map((_, groupIndex) => isProgressGroupCompleted(groupIndex))
-  }, [formData])
+    return progressGroups.map((_, groupIndex) =>
+      isProgressGroupCompleted(groupIndex)
+    );
+  }, [formData]);
 
-  const currentProgressGroup = getCurrentProgressGroup(currentStep)
+  const currentProgressGroup = getCurrentProgressGroup(currentStep);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value, type } = e.target
-    
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { id, value, type } = e.target;
+
     if (type === "checkbox") {
-      const { checked } = e.target as HTMLInputElement
-      const checkboxValue = (e.target as HTMLInputElement).value
-      
+      const { checked } = e.target as HTMLInputElement;
+      const checkboxValue = (e.target as HTMLInputElement).value;
+
       if (id === "waterSource" || id === "topConcerns") {
         setFormData(prev => ({
           ...prev,
-          [id]: checked 
-            ? [...prev[id as keyof FormData] as string[], checkboxValue]
-            : (prev[id as keyof FormData] as string[]).filter(item => item !== checkboxValue)
-        }))
+          [id]: checked
+            ? [...(prev[id as keyof FormData] as string[]), checkboxValue]
+            : (prev[id as keyof FormData] as string[]).filter(
+                item => item !== checkboxValue
+              ),
+        }));
       }
     } else {
-      setFormData(prev => ({ ...prev, [id]: value }))
+      setFormData(prev => ({ ...prev, [id]: value }));
     }
-  }
+  };
 
   const handleSelectChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }))
-  }
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
 
   const handleRadioChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }))
-  }
+    setFormData(prev => ({ ...prev, [field]: value }));
+  };
 
   const validateCurrentStep = (): boolean => {
     switch (currentStep) {
       case 0: // Basic Profile
-        return !!(formData.farmName && formData.location && formData.primarySpecies && formData.farmType && formData.farmSize)
+        return !!(
+          formData.farmName &&
+          formData.location &&
+          formData.primarySpecies &&
+          formData.farmType &&
+          formData.farmSize
+        );
       case 1: // Setup & Resources
-        return !!(formData.isNewFarmer && formData.waterSource.length > 0 && formData.initialBudget && formData.hasElectricity)
+        return !!(
+          formData.isNewFarmer &&
+          formData.waterSource.length > 0 &&
+          formData.initialBudget &&
+          formData.hasElectricity
+        );
       case 2: // Concerns
-        return formData.topConcerns.length > 0
+        return formData.topConcerns.length > 0;
       case 3: // Pond Preparation
-        if (formData.isNewFarmer === "New Setup") return true
-        return !!(formData.pondDrainSunDry && formData.removeMuckLayer && formData.disinfectPond)
+        if (formData.isNewFarmer === "New Setup") return true;
+        return !!(
+          formData.pondDrainSunDry &&
+          formData.removeMuckLayer &&
+          formData.disinfectPond
+        );
       case 4: // Water Management
-        return !!(formData.filterIncomingWater && formData.separateReservoir && formData.waterMonitoringFrequency)
+        return !!(
+          formData.filterIncomingWater &&
+          formData.separateReservoir &&
+          formData.waterMonitoringFrequency
+        );
       case 5: // Stock Sourcing
-        return !!(formData.plSource && formData.acclimatePLs && formData.quarantinePLs)
+        return !!(
+          formData.plSource &&
+          formData.acclimatePLs &&
+          formData.quarantinePLs
+        );
       case 6: // Access & Sanitation
-        return !!(formData.hasFencing && formData.useFootbaths && formData.equipmentSharing && formData.visitorManagement)
+        return !!(
+          formData.hasFencing &&
+          formData.useFootbaths &&
+          formData.equipmentSharing &&
+          formData.visitorManagement
+        );
       case 7: // Waste & Health
-        return !!(formData.wasteDisposal && formData.controlFeeding && formData.healthMonitoring && formData.keepRecords)
+        return !!(
+          formData.wasteDisposal &&
+          formData.controlFeeding &&
+          formData.healthMonitoring &&
+          formData.keepRecords
+        );
       default:
-        return false
+        return false;
     }
-  }
+  };
 
   const handleNext = () => {
     if (validateCurrentStep() && currentStep < steps.length - 1) {
-      setCurrentStep(currentStep + 1)
+      setCurrentStep(currentStep + 1);
     }
-  }
+  };
 
   const handlePrevious = () => {
     if (currentStep > 0) {
-      setCurrentStep(currentStep - 1)
+      setCurrentStep(currentStep - 1);
     }
-  }
+  };
 
   const handleStepClick = (stepIndex: number) => {
     // Allow navigation to completed steps, current step, or next step if current is completed
-    if (stepIndex <= currentStep || (stepIndex === currentStep + 1 && stepCompletionStatus[currentStep])) {
-      setCurrentStep(stepIndex)
+    if (
+      stepIndex <= currentStep ||
+      (stepIndex === currentStep + 1 && stepCompletionStatus[currentStep])
+    ) {
+      setCurrentStep(stepIndex);
     }
-  }
+  };
 
   const handleSubmit = async () => {
-    if (!validateCurrentStep()) return
+    if (!validateCurrentStep()) return;
 
-    setIsSubmitting(true)
+    setIsSubmitting(true);
     try {
       const response = await fetch("/api/generate-assessment-plan", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
-      })
+      });
 
-      if (!response.ok) throw new Error("Failed to submit assessment")
+      if (!response.ok) throw new Error("Failed to submit assessment");
 
-      router.push("/plan")
+      router.push("/plan");
     } catch (error) {
-      console.error("Error submitting assessment:", error)
+      console.error("Error submitting assessment:", error);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   function renderStepContent() {
     switch (currentStep) {
       case 0: // Basic Profile
         return (
           <div className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="farmName">Farm Name</Label>
                 <Input
@@ -314,7 +442,9 @@ export function FarmAssessmentForm() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="location">Location (City/Province, Region)</Label>
+                <Label htmlFor="location">
+                  Location (City/Province, Region)
+                </Label>
                 <Input
                   id="location"
                   value={formData.location}
@@ -324,49 +454,67 @@ export function FarmAssessmentForm() {
                 />
               </div>
             </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="space-y-2">
                 <Label htmlFor="primarySpecies">Primary Shrimp Species</Label>
                 <Select
                   value={formData.primarySpecies}
-                  onValueChange={(val) => handleSelectChange("primarySpecies", val)}
+                  onValueChange={val =>
+                    handleSelectChange("primarySpecies", val)
+                  }
                   required
                 >
                   <SelectTrigger id="primarySpecies">
                     <SelectValue placeholder="Select species" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="vannamei">Pacific White Shrimp (L. vannamei)</SelectItem>
-                    <SelectItem value="monodon">Giant Tiger Prawn (P. monodon)</SelectItem>
-                    <SelectItem value="indicus">Indian White Prawn (F. indicus)</SelectItem>
+                    <SelectItem value="vannamei">
+                      Pacific White Shrimp (L. vannamei)
+                    </SelectItem>
+                    <SelectItem value="monodon">
+                      Giant Tiger Prawn (P. monodon)
+                    </SelectItem>
+                    <SelectItem value="indicus">
+                      Indian White Prawn (F. indicus)
+                    </SelectItem>
                     <SelectItem value="other">Other species</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
-              
+
               <div className="space-y-2">
                 <Label htmlFor="farmType">Farm Type</Label>
                 <Select
                   value={formData.farmType}
-                  onValueChange={(val) => handleSelectChange("farmType", val)}
+                  onValueChange={val => handleSelectChange("farmType", val)}
                   required
                 >
                   <SelectTrigger id="farmType">
                     <SelectValue placeholder="Select type" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="extensive">Extensive (low density)</SelectItem>
-                    <SelectItem value="semi-intensive">Semi-intensive (medium density)</SelectItem>
-                    <SelectItem value="intensive">Intensive (high density)</SelectItem>
-                    <SelectItem value="super-intensive">Super-intensive (very high density)</SelectItem>
+                    <SelectItem value="extensive">
+                      Extensive (low density)
+                    </SelectItem>
+                    <SelectItem value="semi-intensive">
+                      Semi-intensive (medium density)
+                    </SelectItem>
+                    <SelectItem value="intensive">
+                      Intensive (high density)
+                    </SelectItem>
+                    <SelectItem value="super-intensive">
+                      Super-intensive (very high density)
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="farmSize">Approximate Farm Size (in hectares)</Label>
+              <Label htmlFor="farmSize">
+                Approximate Farm Size (in hectares)
+              </Label>
               <Input
                 id="farmSize"
                 value={formData.farmSize}
@@ -376,16 +524,18 @@ export function FarmAssessmentForm() {
               />
             </div>
           </div>
-        )
+        );
 
       case 1: // Setup & Resources
         return (
           <div className="space-y-6">
             <div className="space-y-4">
-              <Label>Are you setting up a new farm or working with existing ponds?</Label>
+              <Label>
+                Are you setting up a new farm or working with existing ponds?
+              </Label>
               <RadioGroup
                 value={formData.isNewFarmer}
-                onValueChange={(val) => handleRadioChange("isNewFarmer", val)}
+                onValueChange={val => handleRadioChange("isNewFarmer", val)}
                 required
               >
                 <div className="flex items-center space-x-2">
@@ -401,10 +551,14 @@ export function FarmAssessmentForm() {
 
             {isExistingPond && (
               <div className="space-y-2">
-                <Label htmlFor="existingPondYears">How many years have you been operating?</Label>
+                <Label htmlFor="existingPondYears">
+                  How many years have you been operating?
+                </Label>
                 <Select
                   value={formData.existingPondYears}
-                  onValueChange={(val) => handleSelectChange("existingPondYears", val)}
+                  onValueChange={val =>
+                    handleSelectChange("existingPondYears", val)
+                  }
                 >
                   <SelectTrigger id="existingPondYears">
                     <SelectValue placeholder="Select years" />
@@ -422,20 +576,31 @@ export function FarmAssessmentForm() {
             <div className="space-y-3">
               <Label>Water Source (Select all that apply)</Label>
               <div className="grid grid-cols-2 gap-3">
-                {["Groundwater/Artesian Well", "River", "Creek", "Sea Water", "Municipal Water Supply"].map((source) => (
+                {[
+                  "Groundwater/Artesian Well",
+                  "River",
+                  "Creek",
+                  "Sea Water",
+                  "Municipal Water Supply",
+                ].map(source => (
                   <div key={source} className="flex items-center space-x-2">
                     <Checkbox
                       id="waterSource"
                       value={source}
                       checked={formData.waterSource.includes(source)}
-                      onCheckedChange={(checked) => {
+                      onCheckedChange={checked => {
                         if (checked) {
-                          setFormData(prev => ({ ...prev, waterSource: [...prev.waterSource, source] }))
+                          setFormData(prev => ({
+                            ...prev,
+                            waterSource: [...prev.waterSource, source],
+                          }));
                         } else {
-                          setFormData(prev => ({ 
-                            ...prev, 
-                            waterSource: prev.waterSource.filter(item => item !== source) 
-                          }))
+                          setFormData(prev => ({
+                            ...prev,
+                            waterSource: prev.waterSource.filter(
+                              item => item !== source
+                            ),
+                          }));
                         }
                       }}
                     />
@@ -445,12 +610,16 @@ export function FarmAssessmentForm() {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="initialBudget">Initial Budget Range (PHP)</Label>
+                <Label htmlFor="initialBudget">
+                  Initial Budget Range (PHP)
+                </Label>
                 <Select
                   value={formData.initialBudget}
-                  onValueChange={(val) => handleSelectChange("initialBudget", val)}
+                  onValueChange={val =>
+                    handleSelectChange("initialBudget", val)
+                  }
                   required
                 >
                   <SelectTrigger id="initialBudget">
@@ -459,7 +628,9 @@ export function FarmAssessmentForm() {
                   <SelectContent>
                     <SelectItem value="<50k">Less than ₱50,000</SelectItem>
                     <SelectItem value="50k-100k">₱50,000 - ₱100,000</SelectItem>
-                    <SelectItem value="100k-500k">₱100,000 - ₱500,000</SelectItem>
+                    <SelectItem value="100k-500k">
+                      ₱100,000 - ₱500,000
+                    </SelectItem>
                     <SelectItem value="500k+">More than ₱500,000</SelectItem>
                   </SelectContent>
                 </Select>
@@ -469,7 +640,9 @@ export function FarmAssessmentForm() {
                 <Label>Do you have reliable electricity access?</Label>
                 <RadioGroup
                   value={formData.hasElectricity}
-                  onValueChange={(val) => handleRadioChange("hasElectricity", val)}
+                  onValueChange={val =>
+                    handleRadioChange("hasElectricity", val)
+                  }
                   required
                 >
                   <div className="flex items-center space-x-2">
@@ -482,23 +655,28 @@ export function FarmAssessmentForm() {
                   </div>
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value="Limited" id="electricity-limited" />
-                    <Label htmlFor="electricity-limited">Limited/Intermittent</Label>
+                    <Label htmlFor="electricity-limited">
+                      Limited/Intermittent
+                    </Label>
                   </div>
                 </RadioGroup>
               </div>
             </div>
           </div>
-        )
+        );
 
       case 2: // Concerns
         return (
           <div className="space-y-6">
             <div className="space-y-3">
-              <Label>What are your top concerns about shrimp farming? (Select all that apply)</Label>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <Label>
+                What are your top concerns about shrimp farming? (Select all
+                that apply)
+              </Label>
+              <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                 {[
                   "Disease outbreaks",
-                  "High feed costs", 
+                  "High feed costs",
                   "Limited capital",
                   "Lack of technical knowledge",
                   "Market access",
@@ -506,21 +684,26 @@ export function FarmAssessmentForm() {
                   "Seed stock quality",
                   "Environmental compliance",
                   "Weather/climate risks",
-                  "Equipment failures"
-                ].map((concern) => (
+                  "Equipment failures",
+                ].map(concern => (
                   <div key={concern} className="flex items-center space-x-2">
                     <Checkbox
                       id="topConcerns"
                       value={concern}
                       checked={formData.topConcerns.includes(concern)}
-                      onCheckedChange={(checked) => {
+                      onCheckedChange={checked => {
                         if (checked) {
-                          setFormData(prev => ({ ...prev, topConcerns: [...prev.topConcerns, concern] }))
+                          setFormData(prev => ({
+                            ...prev,
+                            topConcerns: [...prev.topConcerns, concern],
+                          }));
                         } else {
-                          setFormData(prev => ({ 
-                            ...prev, 
-                            topConcerns: prev.topConcerns.filter(item => item !== concern) 
-                          }))
+                          setFormData(prev => ({
+                            ...prev,
+                            topConcerns: prev.topConcerns.filter(
+                              item => item !== concern
+                            ),
+                          }));
                         }
                       }}
                     />
@@ -530,23 +713,32 @@ export function FarmAssessmentForm() {
               </div>
             </div>
           </div>
-        )
+        );
 
       case 3: // Pond Preparation
         return (
           <div className="space-y-6">
             {formData.isNewFarmer === "New Setup" ? (
-              <div className="text-center py-12">
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">New Setup Detected</h3>
-                <p className="text-gray-600">Since you're setting up a new farm, pond preparation steps will be included in your customized plan.</p>
+              <div className="py-12 text-center">
+                <h3 className="mb-2 text-xl font-semibold text-gray-900">
+                  New Setup Detected
+                </h3>
+                <p className="text-gray-600">
+                  Since you're setting up a new farm, pond preparation steps
+                  will be included in your customized plan.
+                </p>
               </div>
             ) : (
               <>
                 <div className="space-y-4">
-                  <Label>Do you drain and sun-dry your ponds between crops?</Label>
+                  <Label>
+                    Do you drain and sun-dry your ponds between crops?
+                  </Label>
                   <RadioGroup
                     value={formData.pondDrainSunDry}
-                    onValueChange={(val) => handleRadioChange("pondDrainSunDry", val)}
+                    onValueChange={val =>
+                      handleRadioChange("pondDrainSunDry", val)
+                    }
                     required
                   >
                     <div className="flex items-center space-x-2">
@@ -565,10 +757,14 @@ export function FarmAssessmentForm() {
                 </div>
 
                 <div className="space-y-4">
-                  <Label>Do you remove the organic muck layer from pond bottom?</Label>
+                  <Label>
+                    Do you remove the organic muck layer from pond bottom?
+                  </Label>
                   <RadioGroup
                     value={formData.removeMuckLayer}
-                    onValueChange={(val) => handleRadioChange("removeMuckLayer", val)}
+                    onValueChange={val =>
+                      handleRadioChange("removeMuckLayer", val)
+                    }
                     required
                   >
                     <div className="flex items-center space-x-2">
@@ -590,7 +786,9 @@ export function FarmAssessmentForm() {
                   <Label>Do you disinfect ponds before stocking?</Label>
                   <RadioGroup
                     value={formData.disinfectPond}
-                    onValueChange={(val) => handleRadioChange("disinfectPond", val)}
+                    onValueChange={val =>
+                      handleRadioChange("disinfectPond", val)
+                    }
                     required
                   >
                     <div className="flex items-center space-x-2">
@@ -598,7 +796,10 @@ export function FarmAssessmentForm() {
                       <Label htmlFor="disinfect-always">Always</Label>
                     </div>
                     <div className="flex items-center space-x-2">
-                      <RadioGroupItem value="Sometimes" id="disinfect-sometimes" />
+                      <RadioGroupItem
+                        value="Sometimes"
+                        id="disinfect-sometimes"
+                      />
                       <Label htmlFor="disinfect-sometimes">Sometimes</Label>
                     </div>
                     <div className="flex items-center space-x-2">
@@ -610,7 +811,7 @@ export function FarmAssessmentForm() {
               </>
             )}
           </div>
-        )
+        );
 
       case 4: // Water Management
         return (
@@ -619,7 +820,9 @@ export function FarmAssessmentForm() {
               <Label>Do you filter incoming water?</Label>
               <RadioGroup
                 value={formData.filterIncomingWater}
-                onValueChange={(val) => handleRadioChange("filterIncomingWater", val)}
+                onValueChange={val =>
+                  handleRadioChange("filterIncomingWater", val)
+                }
                 required
               >
                 <div className="flex items-center space-x-2">
@@ -638,10 +841,14 @@ export function FarmAssessmentForm() {
             </div>
 
             <div className="space-y-4">
-              <Label>Do you have a separate water reservoir/settling pond?</Label>
+              <Label>
+                Do you have a separate water reservoir/settling pond?
+              </Label>
               <RadioGroup
                 value={formData.separateReservoir}
-                onValueChange={(val) => handleRadioChange("separateReservoir", val)}
+                onValueChange={val =>
+                  handleRadioChange("separateReservoir", val)
+                }
                 required
               >
                 <div className="flex items-center space-x-2">
@@ -653,7 +860,10 @@ export function FarmAssessmentForm() {
                   <Label htmlFor="reservoir-no">No</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Planning to build" id="reservoir-planning" />
+                  <RadioGroupItem
+                    value="Planning to build"
+                    id="reservoir-planning"
+                  />
                   <Label htmlFor="reservoir-planning">Planning to build</Label>
                 </div>
               </RadioGroup>
@@ -663,7 +873,9 @@ export function FarmAssessmentForm() {
               <Label>How often do you monitor water quality?</Label>
               <RadioGroup
                 value={formData.waterMonitoringFrequency}
-                onValueChange={(val) => handleRadioChange("waterMonitoringFrequency", val)}
+                onValueChange={val =>
+                  handleRadioChange("waterMonitoringFrequency", val)
+                }
                 required
               >
                 <div className="flex items-center space-x-2">
@@ -685,7 +897,7 @@ export function FarmAssessmentForm() {
               </RadioGroup>
             </div>
           </div>
-        )
+        );
 
       case 5: // Stock Sourcing
         return (
@@ -694,11 +906,14 @@ export function FarmAssessmentForm() {
               <Label>Where do you source your post-larvae (PLs)?</Label>
               <RadioGroup
                 value={formData.plSource}
-                onValueChange={(val) => handleRadioChange("plSource", val)}
+                onValueChange={val => handleRadioChange("plSource", val)}
                 required
               >
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Certified hatchery" id="pl-certified" />
+                  <RadioGroupItem
+                    value="Certified hatchery"
+                    id="pl-certified"
+                  />
                   <Label htmlFor="pl-certified">Certified hatchery</Label>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -720,7 +935,7 @@ export function FarmAssessmentForm() {
               <Label>Do you properly acclimate PLs before stocking?</Label>
               <RadioGroup
                 value={formData.acclimatePLs}
-                onValueChange={(val) => handleRadioChange("acclimatePLs", val)}
+                onValueChange={val => handleRadioChange("acclimatePLs", val)}
                 required
               >
                 <div className="flex items-center space-x-2">
@@ -742,7 +957,7 @@ export function FarmAssessmentForm() {
               <Label>Do you quarantine new PLs?</Label>
               <RadioGroup
                 value={formData.quarantinePLs}
-                onValueChange={(val) => handleRadioChange("quarantinePLs", val)}
+                onValueChange={val => handleRadioChange("quarantinePLs", val)}
                 required
               >
                 <div className="flex items-center space-x-2">
@@ -760,7 +975,7 @@ export function FarmAssessmentForm() {
               </RadioGroup>
             </div>
           </div>
-        )
+        );
 
       case 6: // Access & Sanitation
         return (
@@ -769,11 +984,14 @@ export function FarmAssessmentForm() {
               <Label>Do you have proper fencing around your farm?</Label>
               <RadioGroup
                 value={formData.hasFencing}
-                onValueChange={(val) => handleRadioChange("hasFencing", val)}
+                onValueChange={val => handleRadioChange("hasFencing", val)}
                 required
               >
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Complete fencing" id="fence-complete" />
+                  <RadioGroupItem
+                    value="Complete fencing"
+                    id="fence-complete"
+                  />
                   <Label htmlFor="fence-complete">Complete fencing</Label>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -791,7 +1009,7 @@ export function FarmAssessmentForm() {
               <Label>Do you use disinfectant footbaths?</Label>
               <RadioGroup
                 value={formData.useFootbaths}
-                onValueChange={(val) => handleRadioChange("useFootbaths", val)}
+                onValueChange={val => handleRadioChange("useFootbaths", val)}
                 required
               >
                 <div className="flex items-center space-x-2">
@@ -813,7 +1031,9 @@ export function FarmAssessmentForm() {
               <Label>How do you handle equipment sharing with neighbors?</Label>
               <RadioGroup
                 value={formData.equipmentSharing}
-                onValueChange={(val) => handleRadioChange("equipmentSharing", val)}
+                onValueChange={val =>
+                  handleRadioChange("equipmentSharing", val)
+                }
                 required
               >
                 <div className="flex items-center space-x-2">
@@ -821,12 +1041,20 @@ export function FarmAssessmentForm() {
                   <Label htmlFor="share-never">Never share equipment</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Disinfect before use" id="share-disinfect" />
+                  <RadioGroupItem
+                    value="Disinfect before use"
+                    id="share-disinfect"
+                  />
                   <Label htmlFor="share-disinfect">Disinfect before use</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Share without cleaning" id="share-no-clean" />
-                  <Label htmlFor="share-no-clean">Share without special cleaning</Label>
+                  <RadioGroupItem
+                    value="Share without cleaning"
+                    id="share-no-clean"
+                  />
+                  <Label htmlFor="share-no-clean">
+                    Share without special cleaning
+                  </Label>
                 </div>
               </RadioGroup>
             </div>
@@ -835,16 +1063,26 @@ export function FarmAssessmentForm() {
               <Label>How do you manage visitors to your farm?</Label>
               <RadioGroup
                 value={formData.visitorManagement}
-                onValueChange={(val) => handleRadioChange("visitorManagement", val)}
+                onValueChange={val =>
+                  handleRadioChange("visitorManagement", val)
+                }
                 required
               >
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="No visitors allowed" id="visitor-none" />
+                  <RadioGroupItem
+                    value="No visitors allowed"
+                    id="visitor-none"
+                  />
                   <Label htmlFor="visitor-none">No visitors allowed</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Restricted access with protocols" id="visitor-restricted" />
-                  <Label htmlFor="visitor-restricted">Restricted access with protocols</Label>
+                  <RadioGroupItem
+                    value="Restricted access with protocols"
+                    id="visitor-restricted"
+                  />
+                  <Label htmlFor="visitor-restricted">
+                    Restricted access with protocols
+                  </Label>
                 </div>
                 <div className="flex items-center space-x-2">
                   <RadioGroupItem value="Open access" id="visitor-open" />
@@ -853,7 +1091,7 @@ export function FarmAssessmentForm() {
               </RadioGroup>
             </div>
           </div>
-        )
+        );
 
       case 7: // Waste & Health
         return (
@@ -862,19 +1100,28 @@ export function FarmAssessmentForm() {
               <Label>How do you dispose of dead shrimp and farm waste?</Label>
               <RadioGroup
                 value={formData.wasteDisposal}
-                onValueChange={(val) => handleRadioChange("wasteDisposal", val)}
+                onValueChange={val => handleRadioChange("wasteDisposal", val)}
                 required
               >
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Proper composting/burial" id="waste-proper" />
+                  <RadioGroupItem
+                    value="Proper composting/burial"
+                    id="waste-proper"
+                  />
                   <Label htmlFor="waste-proper">Proper composting/burial</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Burn or bury on-site" id="waste-burn" />
+                  <RadioGroupItem
+                    value="Burn or bury on-site"
+                    id="waste-burn"
+                  />
                   <Label htmlFor="waste-burn">Burn or bury on-site</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Throw in water body" id="waste-water" />
+                  <RadioGroupItem
+                    value="Throw in water body"
+                    id="waste-water"
+                  />
                   <Label htmlFor="waste-water">Throw in water body</Label>
                 </div>
               </RadioGroup>
@@ -884,19 +1131,30 @@ export function FarmAssessmentForm() {
               <Label>How do you control feeding practices?</Label>
               <RadioGroup
                 value={formData.controlFeeding}
-                onValueChange={(val) => handleRadioChange("controlFeeding", val)}
+                onValueChange={val => handleRadioChange("controlFeeding", val)}
                 required
               >
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Scheduled feeding with monitoring" id="feed-scheduled" />
-                  <Label htmlFor="feed-scheduled">Scheduled feeding with monitoring</Label>
+                  <RadioGroupItem
+                    value="Scheduled feeding with monitoring"
+                    id="feed-scheduled"
+                  />
+                  <Label htmlFor="feed-scheduled">
+                    Scheduled feeding with monitoring
+                  </Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Regular feeding schedule" id="feed-regular" />
+                  <RadioGroupItem
+                    value="Regular feeding schedule"
+                    id="feed-regular"
+                  />
                   <Label htmlFor="feed-regular">Regular feeding schedule</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Feed as available" id="feed-available" />
+                  <RadioGroupItem
+                    value="Feed as available"
+                    id="feed-available"
+                  />
                   <Label htmlFor="feed-available">Feed as available</Label>
                 </div>
               </RadioGroup>
@@ -906,11 +1164,16 @@ export function FarmAssessmentForm() {
               <Label>How often do you monitor shrimp health?</Label>
               <RadioGroup
                 value={formData.healthMonitoring}
-                onValueChange={(val) => handleRadioChange("healthMonitoring", val)}
+                onValueChange={val =>
+                  handleRadioChange("healthMonitoring", val)
+                }
                 required
               >
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Daily visual checks" id="health-daily" />
+                  <RadioGroupItem
+                    value="Daily visual checks"
+                    id="health-daily"
+                  />
                   <Label htmlFor="health-daily">Daily visual checks</Label>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -918,21 +1181,31 @@ export function FarmAssessmentForm() {
                   <Label htmlFor="health-weekly">Weekly checks</Label>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Only when problems occur" id="health-problems" />
-                  <Label htmlFor="health-problems">Only when problems occur</Label>
+                  <RadioGroupItem
+                    value="Only when problems occur"
+                    id="health-problems"
+                  />
+                  <Label htmlFor="health-problems">
+                    Only when problems occur
+                  </Label>
                 </div>
               </RadioGroup>
             </div>
 
             <div className="space-y-4">
-              <Label>Do you keep farm records (stocking, feeding, mortality, etc.)?</Label>
+              <Label>
+                Do you keep farm records (stocking, feeding, mortality, etc.)?
+              </Label>
               <RadioGroup
                 value={formData.keepRecords}
-                onValueChange={(val) => handleRadioChange("keepRecords", val)}
+                onValueChange={val => handleRadioChange("keepRecords", val)}
                 required
               >
                 <div className="flex items-center space-x-2">
-                  <RadioGroupItem value="Detailed records" id="records-detailed" />
+                  <RadioGroupItem
+                    value="Detailed records"
+                    id="records-detailed"
+                  />
                   <Label htmlFor="records-detailed">Detailed records</Label>
                 </div>
                 <div className="flex items-center space-x-2">
@@ -946,10 +1219,10 @@ export function FarmAssessmentForm() {
               </RadioGroup>
             </div>
           </div>
-        )
+        );
 
       default:
-        return <div>Step not implemented</div>
+        return <div>Step not implemented</div>;
     }
   }
 
@@ -957,65 +1230,82 @@ export function FarmAssessmentForm() {
     <div className="space-y-8">
       {/* Step Progress Indicator */}
       <div className="w-full">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-semibold text-gray-900">Assessment Progress</h2>
-          <span className="text-sm text-gray-500">{currentStep + 1} of {steps.length}</span>
+        <div className="mb-6 flex items-center justify-between">
+          <h2 className="text-lg font-semibold text-gray-900">
+            Assessment Progress
+          </h2>
+          <span className="text-sm text-gray-500">
+            {currentStep + 1} of {steps.length}
+          </span>
         </div>
-        
+
         {/* Progress Groups with Labels */}
         <div className="relative mb-8">
           {/* Progress Line */}
-          <div className="absolute top-5 left-0 right-0 h-1 bg-gray-200 rounded-full z-0">
-            <div 
-              className="h-full bg-blue-600 rounded-full transition-all duration-500 ease-in-out"
-              style={{ width: `${(currentProgressGroup / (progressGroups.length - 1)) * 100}%` }}
+          <div className="absolute left-0 right-0 top-5 z-0 h-1 rounded-full bg-gray-200">
+            <div
+              className="h-full rounded-full bg-blue-600 transition-all duration-500 ease-in-out"
+              style={{
+                width: `${(currentProgressGroup / (progressGroups.length - 1)) * 100}%`,
+              }}
             />
           </div>
 
           {/* Progress Group Circles and Labels */}
-          <div className="flex justify-between items-start relative z-10">
+          <div className="relative z-10 flex items-start justify-between">
             {progressGroups.map((group, index) => (
-              <div key={group.id} className="flex flex-col items-center max-w-[120px]">
+              <div
+                key={group.id}
+                className="flex max-w-[120px] flex-col items-center"
+              >
                 {/* Progress Circle */}
                 <div
-                  className={`flex items-center justify-center w-10 h-10 rounded-full cursor-pointer mb-3 transition-all duration-300 relative z-20 ${
+                  className={`relative z-20 mb-3 flex h-10 w-10 cursor-pointer items-center justify-center rounded-full transition-all duration-300 ${
                     index === currentProgressGroup
-                      ? "bg-blue-600 text-white ring-4 ring-blue-200 shadow-lg"
-                      : index < currentProgressGroup || progressGroupCompletionStatus[index]
-                      ? "bg-green-600 text-white shadow-md"
-                      : "bg-white border-2 border-gray-300 text-gray-400 hover:border-gray-400"
+                      ? "bg-blue-600 text-white shadow-lg ring-4 ring-blue-200"
+                      : index < currentProgressGroup ||
+                          progressGroupCompletionStatus[index]
+                        ? "bg-green-600 text-white shadow-md"
+                        : "border-2 border-gray-300 bg-white text-gray-400 hover:border-gray-400"
                   }`}
                   onClick={() => {
                     // Navigate to first step of the clicked group
-                    const firstStepOfGroup = group.stepIndexes[0]
-                    handleStepClick(firstStepOfGroup)
+                    const firstStepOfGroup = group.stepIndexes[0];
+                    handleStepClick(firstStepOfGroup);
                   }}
                 >
-                  {index < currentProgressGroup || progressGroupCompletionStatus[index] ? (
+                  {index < currentProgressGroup ||
+                  progressGroupCompletionStatus[index] ? (
                     <CheckCircle className="h-5 w-5" />
                   ) : (
                     <span className="text-sm font-semibold">{index + 1}</span>
                   )}
                 </div>
-                
+
                 {/* Group Label */}
                 <div className="text-center">
-                  <div className={`text-xs font-medium mb-1 transition-colors duration-300 ${
-                    index === currentProgressGroup 
-                      ? "text-blue-600" 
-                      : index < currentProgressGroup || progressGroupCompletionStatus[index]
-                      ? "text-green-600"
-                      : "text-gray-400"
-                  }`}>
+                  <div
+                    className={`mb-1 text-xs font-medium transition-colors duration-300 ${
+                      index === currentProgressGroup
+                        ? "text-blue-600"
+                        : index < currentProgressGroup ||
+                            progressGroupCompletionStatus[index]
+                          ? "text-green-600"
+                          : "text-gray-400"
+                    }`}
+                  >
                     {group.title}
                   </div>
-                  <div className={`text-xs leading-tight transition-colors duration-300 ${
-                    index === currentProgressGroup
-                      ? "text-gray-600"
-                      : index < currentProgressGroup || progressGroupCompletionStatus[index]
-                      ? "text-gray-500"
-                      : "text-gray-300"
-                  }`}>
+                  <div
+                    className={`text-xs leading-tight transition-colors duration-300 ${
+                      index === currentProgressGroup
+                        ? "text-gray-600"
+                        : index < currentProgressGroup ||
+                            progressGroupCompletionStatus[index]
+                          ? "text-gray-500"
+                          : "text-gray-300"
+                    }`}
+                  >
                     {group.description}
                   </div>
                 </div>
@@ -1029,13 +1319,13 @@ export function FarmAssessmentForm() {
       <Card>
         <CardContent className="p-6">
           <div className="mb-6">
-            <div className="flex items-center justify-between mb-2">
+            <div className="mb-2 flex items-center justify-between">
               <h3 className="text-xl font-semibold text-gray-900">
                 {steps[currentStep].title}
               </h3>
               {stepCompletionStatus[currentStep] && (
-                <span className="flex items-center text-green-600 text-sm font-medium">
-                  <CheckCircle className="h-4 w-4 mr-1" />
+                <span className="flex items-center text-sm font-medium text-green-600">
+                  <CheckCircle className="mr-1 h-4 w-4" />
                   Complete
                 </span>
               )}
@@ -1044,12 +1334,10 @@ export function FarmAssessmentForm() {
           </div>
 
           {/* Step Content */}
-          <div className="min-h-[300px]">
-            {renderStepContent()}
-          </div>
+          <div className="min-h-[300px]">{renderStepContent()}</div>
 
           {/* Navigation */}
-          <div className="flex justify-between mt-8 pt-6 border-t border-gray-200">
+          <div className="mt-8 flex justify-between border-t border-gray-200 pt-6">
             <Button
               type="button"
               variant="outline"
@@ -1058,7 +1346,7 @@ export function FarmAssessmentForm() {
             >
               Previous
             </Button>
-            
+
             {currentStep === steps.length - 1 ? (
               <Button
                 type="button"
@@ -1068,7 +1356,7 @@ export function FarmAssessmentForm() {
               >
                 {isSubmitting ? (
                   <>
-                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                     Generating Plan...
                   </>
                 ) : (
@@ -1089,5 +1377,5 @@ export function FarmAssessmentForm() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

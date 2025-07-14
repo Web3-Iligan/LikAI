@@ -1,12 +1,12 @@
-import { generateText } from "ai"
-import { openai } from "@ai-sdk/openai"
+import { generateText } from "ai";
+import { openai } from "@ai-sdk/openai";
 
 export async function POST(req: Request) {
   try {
-    const { task } = await req.json()
+    const { task } = await req.json();
 
     if (!task) {
-      return new Response("Task details are required", { status: 400 })
+      return new Response("Task details are required", { status: 400 });
     }
 
     // Fallback when no API key is set
@@ -25,10 +25,10 @@ export async function POST(req: Request) {
         <p class="mt-4 text-sm text-gray-600 italic">
           (Set OPENAI_API_KEY to get full AI-generated how-to guides.)
         </p>
-      `
+      `;
       return new Response(JSON.stringify({ guide: fallbackGuide }), {
         headers: { "Content-Type": "application/json" },
-      })
+      });
     }
 
     const prompt = `Generate a detailed, step-by-step how-to guide for the following aquaculture task. Focus on practical, actionable steps, including materials, procedures, and tips.
@@ -39,18 +39,18 @@ export async function POST(req: Request) {
     Estimated Cost: ${task.estimatedCost}
     Timeframe: ${task.timeframe}
     
-    Provide the guide in a clear, numbered list format. Include sections for "Materials Needed", "Step-by-Step Procedure", and "Tips for Success". Use HTML formatting for readability.`
+    Provide the guide in a clear, numbered list format. Include sections for "Materials Needed", "Step-by-Step Procedure", and "Tips for Success". Use HTML formatting for readability.`;
 
     const { text } = await generateText({
       model: openai("gpt-4o"),
       prompt: prompt,
-    })
+    });
 
     return new Response(JSON.stringify({ guide: text }), {
       headers: { "Content-Type": "application/json" },
-    })
+    });
   } catch (error) {
-    console.error("Error generating how-to guide:", error)
-    return new Response("Failed to generate how-to guide", { status: 500 })
+    console.error("Error generating how-to guide:", error);
+    return new Response("Failed to generate how-to guide", { status: 500 });
   }
 }

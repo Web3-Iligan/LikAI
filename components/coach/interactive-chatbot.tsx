@@ -1,20 +1,42 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { MessageCircle, Send, Bot, User, Lightbulb, AlertCircle, CheckCircle, DollarSign, ArrowLeft, Video, FileText, Wrench, HelpCircle, RotateCcw, ArrowRight } from "lucide-react"
-import Link from "next/link"
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import {
+  MessageCircle,
+  Send,
+  Bot,
+  User,
+  Lightbulb,
+  AlertCircle,
+  CheckCircle,
+  DollarSign,
+  ArrowLeft,
+  Video,
+  FileText,
+  Wrench,
+  HelpCircle,
+  RotateCcw,
+  ArrowRight,
+} from "lucide-react";
+import Link from "next/link";
 
 interface ChatMessage {
-  id: string
-  type: "user" | "bot"
-  content: string
-  timestamp: Date
-  category?: "how-to" | "troubleshooting" | "cost-benefit" | "general"
+  id: string;
+  type: "user" | "bot";
+  content: string;
+  timestamp: Date;
+  category?: "how-to" | "troubleshooting" | "cost-benefit" | "general";
 }
 
 export function InteractiveChatbot() {
@@ -27,10 +49,10 @@ export function InteractiveChatbot() {
       timestamp: new Date(),
       category: "general",
     },
-  ])
+  ]);
 
-  const [inputMessage, setInputMessage] = useState("")
-  const [isTyping, setIsTyping] = useState(false)
+  const [inputMessage, setInputMessage] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
 
   const handleNewQuestion = () => {
     setMessages([
@@ -42,10 +64,10 @@ export function InteractiveChatbot() {
         timestamp: new Date(),
         category: "general",
       },
-    ])
-    setInputMessage("")
-    setIsTyping(false)
-  }
+    ]);
+    setInputMessage("");
+    setIsTyping(false);
+  };
 
   const quickActions = [
     {
@@ -78,10 +100,10 @@ export function InteractiveChatbot() {
       category: "troubleshooting",
       icon: HelpCircle,
     },
-  ]
+  ];
 
   const handleSendMessage = async (message: string) => {
-    if (!message.trim()) return
+    if (!message.trim()) return;
 
     // Add user message
     const userMessage: ChatMessage = {
@@ -89,27 +111,30 @@ export function InteractiveChatbot() {
       type: "user",
       content: message,
       timestamp: new Date(),
-    }
+    };
 
-    setMessages((prev) => [...prev, userMessage])
-    setInputMessage("")
-    setIsTyping(true)
+    setMessages(prev => [...prev, userMessage]);
+    setInputMessage("");
+    setIsTyping(true);
 
     // Simulate AI response
     setTimeout(() => {
-      const botResponse = generateBotResponse(message)
-      setMessages((prev) => [...prev, botResponse])
-      setIsTyping(false)
-    }, 1500)
-  }
+      const botResponse = generateBotResponse(message);
+      setMessages(prev => [...prev, botResponse]);
+      setIsTyping(false);
+    }, 1500);
+  };
 
   const generateBotResponse = (userMessage: string): ChatMessage => {
-    const lowerMessage = userMessage.toLowerCase()
+    const lowerMessage = userMessage.toLowerCase();
 
-    let response = ""
-    let category: ChatMessage["category"] = "general"
+    let response = "";
+    let category: ChatMessage["category"] = "general";
 
-    if (lowerMessage.includes("footbath") || lowerMessage.includes("how to set up")) {
+    if (
+      lowerMessage.includes("footbath") ||
+      lowerMessage.includes("how to set up")
+    ) {
       response = `**Setting up Footbath Protocol - Step by Step:**
 
 **Materials Needed:**
@@ -136,9 +161,12 @@ export function InteractiveChatbot() {
 • Setup demonstration video
 • Maintenance checklist diagram
 
-Would you like specific recommendations for your farm size or budget?`
-      category = "how-to"
-    } else if (lowerMessage.includes("murky") || lowerMessage.includes("water")) {
+Would you like specific recommendations for your farm size or budget?`;
+      category = "how-to";
+    } else if (
+      lowerMessage.includes("murky") ||
+      lowerMessage.includes("water")
+    ) {
       response = `**🚨 Troubleshooting Murky Pond Water:**
 
 **Immediate Actions (Next 24 hours):**
@@ -163,8 +191,8 @@ Would you like specific recommendations for your farm size or budget?`
 • Simple filtration: ₱500-1,000
 • Water testing kit: ₱300-600
 
-📊 **Need help with water testing procedures or equipment recommendations?**`
-      category = "troubleshooting"
+📊 **Need help with water testing procedures or equipment recommendations?**`;
+      category = "troubleshooting";
     } else if (lowerMessage.includes("cost") || lowerMessage.includes("uv")) {
       response = `**💰 UV Water Treatment - Cost-Benefit Analysis:**
 
@@ -189,9 +217,12 @@ Would you like specific recommendations for your farm size or budget?`
 • Chlorination system: ₱5,000-10,000
 • Sand filtration: ₱3,000-8,000
 
-📊 **Want specific ROI calculations based on your farm size and current losses?**`
-      category = "cost-benefit"
-    } else if (lowerMessage.includes("visitor") || lowerMessage.includes("disinfection")) {
+📊 **Want specific ROI calculations based on your farm size and current losses?**`;
+      category = "cost-benefit";
+    } else if (
+      lowerMessage.includes("visitor") ||
+      lowerMessage.includes("disinfection")
+    ) {
       response = `**🛡️ Visitor Disinfection Best Practices:**
 
 **Standard Entry Protocol:**
@@ -219,9 +250,12 @@ Would you like specific recommendations for your farm size or budget?`
 • Farm workers follow same protocols
 • Regular protocol training for staff
 
-📋 **Need help setting up visitor registration system or training materials?**`
-      category = "how-to"
-    } else if (lowerMessage.includes("feed") || lowerMessage.includes("feeding")) {
+📋 **Need help setting up visitor registration system or training materials?**`;
+      category = "how-to";
+    } else if (
+      lowerMessage.includes("feed") ||
+      lowerMessage.includes("feeding")
+    ) {
       response = `**🍽️ Feed Management Schedule Implementation:**
 
 **Daily Feeding Protocol:**
@@ -249,9 +283,12 @@ Would you like specific recommendations for your farm size or budget?`
 • Mobile apps for recording
 • Weekly biomass estimation
 
-Want help calculating specific feed amounts for your pond size?`
-      category = "how-to"
-    } else if (lowerMessage.includes("stress") || lowerMessage.includes("shrimp")) {
+Want help calculating specific feed amounts for your pond size?`;
+      category = "how-to";
+    } else if (
+      lowerMessage.includes("stress") ||
+      lowerMessage.includes("shrimp")
+    ) {
       response = `**🚨 Shrimp Stress Signs - Emergency Response:**
 
 **Immediate Visual Signs:**
@@ -284,8 +321,8 @@ Want help calculating specific feed amounts for your pond size?`
 • No improvement after 48hrs
 • Suspected disease outbreak
 
-Need emergency contact numbers for aquaculture specialists in your area?`
-      category = "troubleshooting"
+Need emergency contact numbers for aquaculture specialists in your area?`;
+      category = "troubleshooting";
     } else {
       response = `I understand you're asking about "${userMessage}". 
 
@@ -308,7 +345,7 @@ Need emergency contact numbers for aquaculture specialists in your area?`
 • Equipment maintenance schedules
 • Feed management strategies
 
-I'm here to provide **practical, actionable guidance** for your farm! 🦐`
+I'm here to provide **practical, actionable guidance** for your farm! 🦐`;
     }
 
     return {
@@ -317,39 +354,39 @@ I'm here to provide **practical, actionable guidance** for your farm! 🦐`
       content: response,
       timestamp: new Date(),
       category,
-    }
-  }
+    };
+  };
 
   const handleQuickAction = (action: (typeof quickActions)[0]) => {
-    handleSendMessage(action.label)
-  }
+    handleSendMessage(action.label);
+  };
 
   const getCategoryColor = (category?: string) => {
     switch (category) {
       case "how-to":
-        return "bg-blue-100 text-blue-800"
+        return "bg-blue-100 text-blue-800";
       case "troubleshooting":
-        return "bg-red-100 text-red-800"
+        return "bg-red-100 text-red-800";
       case "cost-benefit":
-        return "bg-green-100 text-green-800"
+        return "bg-green-100 text-green-800";
       default:
-        return "bg-gray-100 text-gray-800"
+        return "bg-gray-100 text-gray-800";
     }
-  }
+  };
 
   return (
     <div className="space-y-4">
       {/* Navigation Buttons */}
-      <div className="flex justify-between items-center">
+      <div className="flex items-center justify-between">
         <Link href="/plan">
           <Button variant="outline" className="flex items-center gap-2">
             <ArrowLeft className="h-4 w-4" />
             Back to Plan
           </Button>
         </Link>
-        <Button 
+        <Button
           onClick={handleNewQuestion}
-          variant="outline" 
+          variant="outline"
           className="flex items-center gap-2"
         >
           <RotateCcw className="h-4 w-4" />
@@ -363,7 +400,9 @@ I'm here to provide **practical, actionable guidance** for your farm! 🦐`
             <MessageCircle className="h-5 w-5 text-blue-600" />
             Interactive AI Coach
           </CardTitle>
-          <CardDescription>Get instant guidance, troubleshooting, and cost-benefit insights</CardDescription>
+          <CardDescription>
+            Get instant guidance, troubleshooting, and cost-benefit insights
+          </CardDescription>
         </CardHeader>
       </Card>
 
@@ -373,27 +412,32 @@ I'm here to provide **practical, actionable guidance** for your farm! 🦐`
           <CardTitle className="text-base">Quick Help</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
             {quickActions.map((action, index) => {
-              const IconComponent = action.icon
+              const IconComponent = action.icon;
               return (
                 <Button
                   key={index}
                   variant="outline"
-                  className="justify-start h-auto p-3 text-left bg-transparent hover:bg-blue-50 hover:border-blue-200 transition-colors"
+                  className="h-auto justify-start bg-transparent p-3 text-left transition-colors hover:border-blue-200 hover:bg-blue-50"
                   onClick={() => handleQuickAction(action)}
                 >
-                  <div className="flex items-start gap-2 w-full">
-                    <IconComponent className={`h-4 w-4 flex-shrink-0 mt-0.5 ${
-                      action.category === 'how-to' ? 'text-blue-600' :
-                      action.category === 'troubleshooting' ? 'text-red-600' :
-                      action.category === 'cost-benefit' ? 'text-green-600' :
-                      'text-gray-600'
-                    }`} />
-                    <span className="text-sm text-left">{action.label}</span>
+                  <div className="flex w-full items-start gap-2">
+                    <IconComponent
+                      className={`mt-0.5 h-4 w-4 flex-shrink-0 ${
+                        action.category === "how-to"
+                          ? "text-blue-600"
+                          : action.category === "troubleshooting"
+                            ? "text-red-600"
+                            : action.category === "cost-benefit"
+                              ? "text-green-600"
+                              : "text-gray-600"
+                      }`}
+                    />
+                    <span className="text-left text-sm">{action.label}</span>
                   </div>
                 </Button>
-              )
+              );
             })}
           </div>
         </CardContent>
@@ -402,41 +446,49 @@ I'm here to provide **practical, actionable guidance** for your farm! 🦐`
       {/* Chat Interface */}
       <Card className="h-[500px]">
         <CardHeader className="pb-2">
-          <CardTitle className="text-base flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 text-base">
             <MessageCircle className="h-4 w-4" />
             Chat with AI Coach
           </CardTitle>
         </CardHeader>
-        <CardContent className="p-0 h-full flex flex-col pb-4">
+        <CardContent className="flex h-full flex-col p-0 pb-4">
           <ScrollArea className="flex-1 p-4">
             <div className="space-y-4">
-              {messages.map((message) => (
+              {messages.map(message => (
                 <div
                   key={message.id}
                   className={`flex gap-3 ${message.type === "user" ? "justify-end" : "justify-start"}`}
                 >
                   {message.type === "bot" && (
-                    <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+                    <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-blue-100">
                       <Bot className="h-4 w-4 text-blue-600" />
                     </div>
                   )}
 
                   <div
                     className={`max-w-[80%] rounded-lg p-3 ${
-                      message.type === "user" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-900"
+                      message.type === "user"
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-100 text-gray-900"
                     }`}
                   >
                     {message.category && message.type === "bot" && (
-                      <Badge className={`mb-2 ${getCategoryColor(message.category)}`}>
+                      <Badge
+                        className={`mb-2 ${getCategoryColor(message.category)}`}
+                      >
                         {message.category.replace("-", " ").toUpperCase()}
                       </Badge>
                     )}
-                    <div className="whitespace-pre-wrap text-sm">{message.content}</div>
-                    <div className="text-xs opacity-70 mt-1">{message.timestamp.toLocaleTimeString()}</div>
+                    <div className="whitespace-pre-wrap text-sm">
+                      {message.content}
+                    </div>
+                    <div className="mt-1 text-xs opacity-70">
+                      {message.timestamp.toLocaleTimeString()}
+                    </div>
                   </div>
 
                   {message.type === "user" && (
-                    <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0">
+                    <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-blue-600">
                       <User className="h-4 w-4 text-white" />
                     </div>
                   )}
@@ -444,19 +496,19 @@ I'm here to provide **practical, actionable guidance** for your farm! 🦐`
               ))}
 
               {isTyping && (
-                <div className="flex gap-3 justify-start">
-                  <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
+                <div className="flex justify-start gap-3">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-blue-100">
                     <Bot className="h-4 w-4 text-blue-600" />
                   </div>
-                  <div className="bg-gray-100 rounded-lg p-3">
+                  <div className="rounded-lg bg-gray-100 p-3">
                     <div className="flex space-x-1">
-                      <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                      <div className="h-2 w-2 animate-bounce rounded-full bg-gray-400"></div>
                       <div
-                        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                        className="h-2 w-2 animate-bounce rounded-full bg-gray-400"
                         style={{ animationDelay: "0.1s" }}
                       ></div>
                       <div
-                        className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                        className="h-2 w-2 animate-bounce rounded-full bg-gray-400"
                         style={{ animationDelay: "0.2s" }}
                       ></div>
                     </div>
@@ -470,12 +522,17 @@ I'm here to provide **practical, actionable guidance** for your farm! 🦐`
             <div className="flex gap-2">
               <Input
                 value={inputMessage}
-                onChange={(e) => setInputMessage(e.target.value)}
+                onChange={e => setInputMessage(e.target.value)}
                 placeholder="Ask me anything about biosecurity..."
-                onKeyPress={(e) => e.key === "Enter" && handleSendMessage(inputMessage)}
+                onKeyPress={e =>
+                  e.key === "Enter" && handleSendMessage(inputMessage)
+                }
                 className="flex-1"
               />
-              <Button onClick={() => handleSendMessage(inputMessage)} disabled={!inputMessage.trim() || isTyping}>
+              <Button
+                onClick={() => handleSendMessage(inputMessage)}
+                disabled={!inputMessage.trim() || isTyping}
+              >
                 <Send className="h-4 w-4" />
               </Button>
             </div>
@@ -483,5 +540,5 @@ I'm here to provide **practical, actionable guidance** for your farm! 🦐`
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

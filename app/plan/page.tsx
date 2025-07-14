@@ -1,4 +1,4 @@
-import { BiosecurityPlan } from "@/components/plan/biosecurity-plan"
+import { BiosecurityPlan } from "@/components/plan/biosecurity-plan";
 
 // Dummy farm profile for demonstration
 const farmProfile = {
@@ -11,8 +11,8 @@ const farmProfile = {
   riskLevel: "medium" as const,
   completedTasks: 12,
   totalTasks: 18,
-}
+};
 
 export default function PlanPage() {
-  return <BiosecurityPlan farmProfile={farmProfile} />
+  return <BiosecurityPlan farmProfile={farmProfile} />;
 }

@@ -1,22 +1,30 @@
-"use client"
+"use client";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
-import { Badge } from "@/components/ui/badge"
-import { CheckCircle, ListChecks, CalendarDays } from "lucide-react" // Changed Calendar to CalendarDays
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
+import { Badge } from "@/components/ui/badge";
+import { CheckCircle, ListChecks, CalendarDays } from "lucide-react"; // Changed Calendar to CalendarDays
 
 interface ProgressTrackerProps {
   farmProfile: {
-    completedTasks: number
-    totalTasks: number
-    currentCycle?: number
-  }
+    completedTasks: number;
+    totalTasks: number;
+    currentCycle?: number;
+  };
 }
 
 export function ProgressTracker({ farmProfile }: ProgressTrackerProps) {
-  const { completedTasks, totalTasks, currentCycle } = farmProfile
-  const percentage = totalTasks ? Math.round((completedTasks / totalTasks) * 100) : 0
-  const remaining = totalTasks - completedTasks
+  const { completedTasks, totalTasks, currentCycle } = farmProfile;
+  const percentage = totalTasks
+    ? Math.round((completedTasks / totalTasks) * 100)
+    : 0;
+  const remaining = totalTasks - completedTasks;
 
   return (
     <Card>
@@ -25,13 +33,15 @@ export function ProgressTracker({ farmProfile }: ProgressTrackerProps) {
           <ListChecks className="h-5 w-5 text-blue-600" />
           Plan Progress Overview
         </CardTitle>
-        <CardDescription>Track completion of your dynamic biosecurity & GAqP action plan tasks</CardDescription>
+        <CardDescription>
+          Track completion of your dynamic biosecurity & GAqP action plan tasks
+        </CardDescription>
       </CardHeader>
 
       <CardContent className="space-y-6">
         {/* Progress bar */}
         <div>
-          <div className="flex items-center justify-between mb-2">
+          <div className="mb-2 flex items-center justify-between">
             <span className="text-sm font-medium">Overall Completion</span>
             <span className="text-sm text-gray-600">{percentage}%</span>
           </div>
@@ -39,31 +49,32 @@ export function ProgressTracker({ farmProfile }: ProgressTrackerProps) {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="text-center p-3 bg-green-50 rounded-lg border border-green-200">
-            <p className="text-2xl font-bold text-green-600 flex items-center justify-center gap-1">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div className="rounded-lg border border-green-200 bg-green-50 p-3 text-center">
+            <p className="flex items-center justify-center gap-1 text-2xl font-bold text-green-600">
               {completedTasks}
               <CheckCircle className="h-5 w-5" />
             </p>
             <p className="text-sm text-green-700">Tasks Completed</p>
           </div>
 
-          <div className="text-center p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+          <div className="rounded-lg border border-yellow-200 bg-yellow-50 p-3 text-center">
             <p className="text-2xl font-bold text-yellow-600">{remaining}</p>
             <p className="text-sm text-yellow-700">Tasks Remaining</p>
           </div>
 
-          <div className="text-center p-3 bg-blue-50 rounded-lg border border-blue-200">
-            <p className="text-2xl font-bold text-blue-600 flex items-center justify-center gap-1">
+          <div className="rounded-lg border border-blue-200 bg-blue-50 p-3 text-center">
+            <p className="flex items-center justify-center gap-1 text-2xl font-bold text-blue-600">
               {currentCycle ?? "-"}
-              <CalendarDays className="h-5 w-5" /> {/* Changed icon to CalendarDays */}
+              <CalendarDays className="h-5 w-5" />{" "}
+              {/* Changed icon to CalendarDays */}
             </p>
             <p className="text-sm text-blue-700">Current Production Cycle</p>
           </div>
         </div>
 
         {/* Badge summary */}
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex flex-wrap gap-2">
           <Badge variant="default">
             {completedTasks}/{totalTasks} tasks done
           </Badge>
@@ -73,5 +84,5 @@ export function ProgressTracker({ farmProfile }: ProgressTrackerProps) {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

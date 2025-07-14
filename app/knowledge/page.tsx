@@ -1,32 +1,47 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { BookOpen, Search, Filter, Tag, FileText, Lightbulb, ArrowLeft } from "lucide-react"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { ScrollArea } from "@/components/ui/scroll-area"
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import {
+  BookOpen,
+  Search,
+  Filter,
+  Tag,
+  FileText,
+  Lightbulb,
+  ArrowLeft,
+} from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface Article {
-  id: string
-  title: string
-  description: string
-  category: string
-  tags: string[]
-  content: string // Detailed content for the article
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  tags: string[];
+  content: string; // Detailed content for the article
 }
 
 export default function KnowledgeBasePage() {
-  const [searchTerm, setSearchTerm] = useState("")
-  const [selectedCategory, setSelectedCategory] = useState("All")
-  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null) // New state for selected article
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const [selectedArticle, setSelectedArticle] = useState<Article | null>(null); // New state for selected article
 
   const articles: Article[] = [
     {
       id: "1",
       title: "Understanding Water Quality Parameters",
-      description: "A comprehensive guide to pH, DO, ammonia, and nitrite in aquaculture ponds.",
+      description:
+        "A comprehensive guide to pH, DO, ammonia, and nitrite in aquaculture ponds.",
       category: "Water Management",
       tags: ["water quality", "monitoring", "pH", "DO", "ammonia"],
       content: `
@@ -66,7 +81,8 @@ export default function KnowledgeBasePage() {
     {
       id: "2",
       title: "Essential Biosecurity Protocols for Shrimp Farms",
-      description: "Key practices to prevent disease introduction and spread on your farm.",
+      description:
+        "Key practices to prevent disease introduction and spread on your farm.",
       category: "Biosecurity",
       tags: ["disease prevention", "farm management", "protocols"],
       content: `
@@ -117,7 +133,8 @@ export default function KnowledgeBasePage() {
     {
       id: "3",
       title: "Cost-Effective Feed Management Strategies",
-      description: "Optimize feeding practices to reduce costs and improve FCR.",
+      description:
+        "Optimize feeding practices to reduce costs and improve FCR.",
       category: "Farm Operations",
       tags: ["feed", "cost saving", "FCR"],
       content: `
@@ -155,7 +172,8 @@ export default function KnowledgeBasePage() {
     {
       id: "4",
       title: "Recognizing Early Signs of Disease in Shrimp",
-      description: "Visual and behavioral indicators of common shrimp diseases.",
+      description:
+        "Visual and behavioral indicators of common shrimp diseases.",
       category: "Animal Health",
       tags: ["disease detection", "shrimp health", "symptoms"],
       content: `
@@ -192,7 +210,8 @@ export default function KnowledgeBasePage() {
     {
       id: "5",
       title: "Implementing a Visitor Disinfection Station",
-      description: "Step-by-step guide to setting up an effective footbath and vehicle disinfection point.",
+      description:
+        "Step-by-step guide to setting up an effective footbath and vehicle disinfection point.",
       category: "Biosecurity",
       tags: ["access control", "disinfection", "footbath"],
       content: `
@@ -237,7 +256,8 @@ export default function KnowledgeBasePage() {
     {
       id: "6",
       title: "Emergency Response Plan for Typhoon Season",
-      description: "Prepare your farm for extreme weather events to minimize damage and losses.",
+      description:
+        "Prepare your farm for extreme weather events to minimize damage and losses.",
       category: "Risk Management",
       tags: ["weather", "emergency", "typhoon", "disaster preparedness"],
       content: `
@@ -271,20 +291,26 @@ export default function KnowledgeBasePage() {
         <p class="text-sm text-gray-600 italic">Having a well-rehearsed emergency plan can significantly reduce the impact of natural disasters on your farm. Regularly review and update your plan.</p>
       `,
     },
-  ]
+  ];
 
-  const categories = ["All", ...new Set(articles.map((article) => article.category))]
+  const categories = [
+    "All",
+    ...new Set(articles.map(article => article.category)),
+  ];
 
-  const filteredArticles = articles.filter((article) => {
+  const filteredArticles = articles.filter(article => {
     const matchesSearch =
       article.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
       article.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      article.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+      article.tags.some(tag =>
+        tag.toLowerCase().includes(searchTerm.toLowerCase())
+      );
 
-    const matchesCategory = selectedCategory === "All" || article.category === selectedCategory
+    const matchesCategory =
+      selectedCategory === "All" || article.category === selectedCategory;
 
-    return matchesSearch && matchesCategory
-  })
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="space-y-6">
@@ -294,21 +320,34 @@ export default function KnowledgeBasePage() {
             <BookOpen className="h-5 w-5 text-green-600" />
             Knowledge Base
           </CardTitle>
-          <CardDescription>Access detailed guides, best practices, and aquaculture resources.</CardDescription>
+          <CardDescription>
+            Access detailed guides, best practices, and aquaculture resources.
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           {selectedArticle ? (
             // Detailed Article View
             <div className="space-y-4">
-              <Button variant="outline" onClick={() => setSelectedArticle(null)} className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                onClick={() => setSelectedArticle(null)}
+                className="flex items-center gap-2"
+              >
                 <ArrowLeft className="h-4 w-4" /> Back to Articles
               </Button>
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-2xl">{selectedArticle.title}</CardTitle>
-                  <CardDescription>{selectedArticle.description}</CardDescription>
-                  <div className="flex flex-wrap gap-2 mt-2">
-                    <Badge variant="secondary" className="flex items-center gap-1">
+                  <CardTitle className="text-2xl">
+                    {selectedArticle.title}
+                  </CardTitle>
+                  <CardDescription>
+                    {selectedArticle.description}
+                  </CardDescription>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    <Badge
+                      variant="secondary"
+                      className="flex items-center gap-1"
+                    >
                       <Tag className="h-3 w-3" /> {selectedArticle.category}
                     </Badge>
                     {selectedArticle.tags.map((tag, index) => (
@@ -321,8 +360,10 @@ export default function KnowledgeBasePage() {
                 <CardContent>
                   {/* Render HTML content directly */}
                   <div
-                    className="prose max-w-none text-gray-700 leading-relaxed"
-                    dangerouslySetInnerHTML={{ __html: selectedArticle.content }}
+                    className="prose max-w-none leading-relaxed text-gray-700"
+                    dangerouslySetInnerHTML={{
+                      __html: selectedArticle.content,
+                    }}
                   />
                 </CardContent>
               </Card>
@@ -332,28 +373,36 @@ export default function KnowledgeBasePage() {
             <>
               {/* Search Input */}
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
                 <Input
                   placeholder="Search articles, guides, or topics..."
                   value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onChange={e => setSearchTerm(e.target.value)}
                   className="pl-9 pr-4"
                 />
               </div>
 
               {/* Category Filters */}
-              <div className="flex items-center gap-2 flex-wrap">
+              <div className="flex flex-wrap items-center gap-2">
                 <Filter className="h-4 w-4 text-gray-600" />
-                <span className="text-sm font-medium text-gray-700">Categories:</span>
-                {categories.map((category) => (
+                <span className="text-sm font-medium text-gray-700">
+                  Categories:
+                </span>
+                {categories.map(category => (
                   <Button
                     key={category}
-                    variant={selectedCategory === category ? "default" : "outline"}
+                    variant={
+                      selectedCategory === category ? "default" : "outline"
+                    }
                     size="sm"
                     onClick={() => setSelectedCategory(category)}
                     className="flex items-center gap-1"
                   >
-                    {category === "All" ? <Lightbulb className="h-3 w-3" /> : <Tag className="h-3 w-3" />}
+                    {category === "All" ? (
+                      <Lightbulb className="h-3 w-3" />
+                    ) : (
+                      <Tag className="h-3 w-3" />
+                    )}
                     {category}
                   </Button>
                 ))}
@@ -363,26 +412,35 @@ export default function KnowledgeBasePage() {
               <ScrollArea className="h-[400px] rounded-md border p-4">
                 <div className="space-y-4">
                   {filteredArticles.length > 0 ? (
-                    filteredArticles.map((article) => (
+                    filteredArticles.map(article => (
                       <Card
                         key={article.id}
-                        className="hover:shadow-md transition-shadow cursor-pointer"
+                        className="cursor-pointer transition-shadow hover:shadow-md"
                         onClick={() => setSelectedArticle(article)} // Make card clickable
                       >
                         <CardHeader className="pb-2">
-                          <CardTitle className="text-base flex items-center gap-2">
+                          <CardTitle className="flex items-center gap-2 text-base">
                             <FileText className="h-4 w-4 text-blue-600" />
                             {article.title}
                           </CardTitle>
-                          <CardDescription>{article.description}</CardDescription>
+                          <CardDescription>
+                            {article.description}
+                          </CardDescription>
                         </CardHeader>
                         <CardContent>
                           <div className="flex flex-wrap gap-2">
-                            <Badge variant="secondary" className="flex items-center gap-1">
+                            <Badge
+                              variant="secondary"
+                              className="flex items-center gap-1"
+                            >
                               <Tag className="h-3 w-3" /> {article.category}
                             </Badge>
                             {article.tags.map((tag, index) => (
-                              <Badge key={index} variant="outline" className="text-xs">
+                              <Badge
+                                key={index}
+                                variant="outline"
+                                className="text-xs"
+                              >
                                 {tag}
                               </Badge>
                             ))}
@@ -391,7 +449,9 @@ export default function KnowledgeBasePage() {
                       </Card>
                     ))
                   ) : (
-                    <div className="text-center text-gray-500 py-10">No articles found matching your criteria.</div>
+                    <div className="py-10 text-center text-gray-500">
+                      No articles found matching your criteria.
+                    </div>
                   )}
                 </div>
               </ScrollArea>
@@ -400,5 +460,5 @@ export default function KnowledgeBasePage() {
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

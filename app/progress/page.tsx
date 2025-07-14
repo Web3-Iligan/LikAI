@@ -1,4 +1,4 @@
-import { ProgressTracker } from "@/components/shared/progress-tracker"
+import { ProgressTracker } from "@/components/shared/progress-tracker";
 
 // Dummy farm profile for demonstration
 const farmProfile = {
@@ -11,8 +11,8 @@ const farmProfile = {
   riskLevel: "medium" as const,
   completedTasks: 12,
   totalTasks: 18,
-}
+};
 
 export default function ProgressPage() {
-  return <ProgressTracker farmProfile={farmProfile} />
+  return <ProgressTracker farmProfile={farmProfile} />;
 }

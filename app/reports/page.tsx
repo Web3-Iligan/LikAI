@@ -1,19 +1,46 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { FileText, Download, PlusCircle, BarChart3, Shield, DollarSign, CalendarDays } from "lucide-react"
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  FileText,
+  Download,
+  PlusCircle,
+  BarChart3,
+  Shield,
+  DollarSign,
+  CalendarDays,
+} from "lucide-react";
 
 interface Report {
-  id: string
-  name: string
-  type: string
-  date: string
-  status: "Generated" | "Pending" | "Failed"
-  downloadLink: string
+  id: string;
+  name: string;
+  type: string;
+  date: string;
+  status: "Generated" | "Pending" | "Failed";
+  downloadLink: string;
 }
 
 export default function ReportsPage() {
@@ -50,10 +77,10 @@ export default function ReportsPage() {
       status: "Pending",
       downloadLink: "#",
     },
-  ])
+  ]);
 
-  const [reportType, setReportType] = useState("")
-  const [timeframe, setTimeframe] = useState("")
+  const [reportType, setReportType] = useState("");
+  const [timeframe, setTimeframe] = useState("");
 
   const handleGenerateReport = () => {
     // In a real application, this would trigger an API call to generate a report
@@ -65,10 +92,12 @@ export default function ReportsPage() {
       date: new Date().toISOString().slice(0, 10),
       status: "Pending",
       downloadLink: "#",
-    }
-    setRecentReports((prev) => [newReport, ...prev])
-    alert(`Generating ${reportType} report for ${timeframe}. It will appear in the list shortly.`)
-  }
+    };
+    setRecentReports(prev => [newReport, ...prev]);
+    alert(
+      `Generating ${reportType} report for ${timeframe}. It will appear in the list shortly.`
+    );
+  };
 
   return (
     <div className="space-y-6">
@@ -78,23 +107,31 @@ export default function ReportsPage() {
             <FileText className="h-5 w-5 text-cyan-600" />
             Farm Reports
           </CardTitle>
-          <CardDescription>Generate and view comprehensive farm performance and biosecurity reports.</CardDescription>
+          <CardDescription>
+            Generate and view comprehensive farm performance and biosecurity
+            reports.
+          </CardDescription>
         </CardHeader>
       </Card>
 
       {/* Report Generation Tools */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-lg flex items-center gap-2">
+          <CardTitle className="flex items-center gap-2 text-lg">
             <PlusCircle className="h-5 w-5 text-green-600" />
             Generate New Report
           </CardTitle>
-          <CardDescription>Select report type and timeframe to create a new report.</CardDescription>
+          <CardDescription>
+            Select report type and timeframe to create a new report.
+          </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div>
-              <label htmlFor="report-type" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="report-type"
+                className="mb-1 block text-sm font-medium text-gray-700"
+              >
                 Report Type
               </label>
               <Select value={reportType} onValueChange={setReportType}>
@@ -104,29 +141,36 @@ export default function ReportsPage() {
                 <SelectContent>
                   <SelectItem value="Biosecurity">
                     <div className="flex items-center gap-2">
-                      <Shield className="h-4 w-4 text-blue-600" /> Biosecurity Compliance
+                      <Shield className="h-4 w-4 text-blue-600" /> Biosecurity
+                      Compliance
                     </div>
                   </SelectItem>
                   <SelectItem value="Production">
                     <div className="flex items-center gap-2">
-                      <BarChart3 className="h-4 w-4 text-purple-600" /> Production Performance
+                      <BarChart3 className="h-4 w-4 text-purple-600" />{" "}
+                      Production Performance
                     </div>
                   </SelectItem>
                   <SelectItem value="Financial">
                     <div className="flex items-center gap-2">
-                      <DollarSign className="h-4 w-4 text-green-600" /> Financial Summary
+                      <DollarSign className="h-4 w-4 text-green-600" />{" "}
+                      Financial Summary
                     </div>
                   </SelectItem>
                   <SelectItem value="Water Quality">
                     <div className="flex items-center gap-2">
-                      <CalendarDays className="h-4 w-4 text-orange-600" /> Water Quality Trends
+                      <CalendarDays className="h-4 w-4 text-orange-600" /> Water
+                      Quality Trends
                     </div>
                   </SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div>
-              <label htmlFor="timeframe" className="block text-sm font-medium text-gray-700 mb-1">
+              <label
+                htmlFor="timeframe"
+                className="mb-1 block text-sm font-medium text-gray-700"
+              >
                 Timeframe
               </label>
               <Select value={timeframe} onValueChange={setTimeframe}>
@@ -146,7 +190,7 @@ export default function ReportsPage() {
           <Button
             onClick={handleGenerateReport}
             disabled={!reportType || !timeframe}
-            className="w-full flex items-center gap-2"
+            className="flex w-full items-center gap-2"
           >
             <PlusCircle className="h-4 w-4" /> Generate Report
           </Button>
@@ -157,7 +201,9 @@ export default function ReportsPage() {
       <Card>
         <CardHeader>
           <CardTitle className="text-lg">Recent Reports</CardTitle>
-          <CardDescription>View and download your previously generated reports.</CardDescription>
+          <CardDescription>
+            View and download your previously generated reports.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           {recentReports.length > 0 ? (
@@ -172,14 +218,14 @@ export default function ReportsPage() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {recentReports.map((report) => (
+                {recentReports.map(report => (
                   <TableRow key={report.id}>
                     <TableCell className="font-medium">{report.name}</TableCell>
                     <TableCell>{report.type}</TableCell>
                     <TableCell>{report.date}</TableCell>
                     <TableCell>
                       <span
-                        className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                        className={`rounded-full px-2 py-1 text-xs font-semibold ${
                           report.status === "Generated"
                             ? "bg-green-100 text-green-800"
                             : report.status === "Pending"
@@ -191,8 +237,12 @@ export default function ReportsPage() {
                       </span>
                     </TableCell>
                     <TableCell className="text-right">
-                      <Button variant="outline" size="sm" disabled={report.status !== "Generated"}>
-                        <Download className="h-4 w-4 mr-2" /> Download
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        disabled={report.status !== "Generated"}
+                      >
+                        <Download className="mr-2 h-4 w-4" /> Download
                       </Button>
                     </TableCell>
                   </TableRow>
@@ -200,10 +250,12 @@ export default function ReportsPage() {
               </TableBody>
             </Table>
           ) : (
-            <div className="text-center text-gray-500 py-10">No reports generated yet.</div>
+            <div className="py-10 text-center text-gray-500">
+              No reports generated yet.
+            </div>
           )}
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }
