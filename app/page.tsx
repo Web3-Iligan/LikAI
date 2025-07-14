@@ -925,7 +925,7 @@ export default function LandingPage() {
                     </h3>
                     <div className="mb-6">
                       <div className="mb-2 text-4xl font-bold text-gray-900">
-                        {billingPeriod === "monthly" ? "₱2,000" : "₱20,000"}
+                        {billingPeriod === "monthly" ? "₱1,200" : "₱12,000"}
                       </div>
                       <p className="text-sm text-gray-600">
                         {billingPeriod === "monthly"
@@ -1387,14 +1387,12 @@ export default function LandingPage() {
         <section className="bg-gradient-to-br from-blue-50/40 to-orange-50/20 py-16 sm:py-20">
           <div className="container mx-auto max-w-7xl px-8 sm:px-12 md:px-16 lg:px-8">
             <div className="mb-12 text-center sm:mb-16">
-              <h2 className="mb-6 text-2xl font-bold text-gray-900 sm:text-3xl md:text-4xl lg:text-5xl">
-                Analyze your farm
-                <br className="hidden sm:block" />
-                <span className="sm:hidden"> </span>in{" "}
-                <span className="text-[#FF7F50]">15 minutes</span>
+              <h2 className="mb-6 text-xl font-bold text-gray-900 sm:text-2xl md:text-3xl lg:text-4xl">
+                Complete Your Initial Farm Assessment{" "}
+                <span className="text-[#FF7F50]">in 15 Minutes</span>
               </h2>
               <p className="mb-4 px-4 text-base text-gray-600 sm:px-0 sm:text-lg">
-                Start your savings analysis
+                Start your personalized biosecurity journey now
               </p>
               <p className="text-sm text-gray-500">
                 100% free, no credit card required
@@ -1509,9 +1507,9 @@ export default function LandingPage() {
                       Get your personalized farm analysis
                     </h3>
                     <p className="mb-8 text-lg text-gray-600">
-                      Our AI analyzes your farm operations and identifies
-                      specific opportunities to reduce costs and increase yields
-                      in just 2 minutes.
+                      Our AI quickly assesses your farm's basic operations,
+                      instantly highlighting key opportunities to reduce costs
+                      and boost yields.
                     </p>
                   </div>
 
@@ -1571,7 +1569,7 @@ export default function LandingPage() {
                           size="lg"
                           className="w-full bg-orange-500 px-8 py-4 text-base font-semibold text-white hover:bg-orange-600 sm:w-auto sm:text-lg"
                         >
-                          Start Free Analysis
+                          Quick Scan
                           <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                         </Button>
                       </Link>
@@ -1594,10 +1592,7 @@ export default function LandingPage() {
                         <CheckCircle className="h-4 w-4 text-green-500" />
                         <span>100% Free</span>
                       </div>
-                      <div className="flex items-center space-x-2">
-                        <CheckCircle className="h-4 w-4 text-green-500" />
-                        <span>15-minute setup</span>
-                      </div>
+
                       <div className="flex items-center space-x-2">
                         <CheckCircle className="h-4 w-4 text-green-500" />
                         <span>No hidden fees</span>
