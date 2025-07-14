@@ -148,9 +148,9 @@ export default function LandingPage() {
           <div className="absolute bottom-10 left-10 h-24 w-24 rounded-full bg-[#3498DB]/10 blur-lg"></div>
           <div className="absolute right-1/4 top-1/2 h-16 w-16 rounded-full bg-[#FF7F50]/5 blur-md"></div>
           <div className="container relative z-10 mx-auto max-w-7xl px-8 py-16 sm:px-12 sm:py-20 md:px-16 md:py-24 lg:px-8 lg:py-32">
-            <div className="grid items-center gap-8 sm:gap-12 lg:grid-cols-2">
-              {/* Left Column - Content */}
-              <div className="relative mx-auto max-w-2xl lg:mx-0">
+            <div className="flex flex-col items-center gap-8 text-center sm:gap-12">
+              {/* Content - Centered */}
+              <div className="relative mx-auto max-w-4xl">
                 <div className="absolute inset-0 -z-10 -m-8 rounded-3xl bg-white/40 backdrop-blur-sm"></div>
                 <Badge className="mb-4 bg-[#3498DB]/10 text-[#3498DB] hover:bg-[#3498DB]/10 sm:mb-6">
                   <Zap className="mr-1 h-3 w-3" />
@@ -165,7 +165,7 @@ export default function LandingPage() {
                   with BFAR GAqP standards, to help prevent outbreaks and boost
                   yields.
                 </p>
-                <div className="mb-6 flex flex-col gap-4 px-2 sm:mb-8 sm:flex-row sm:gap-4 sm:px-0">
+                <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:justify-center sm:gap-4">
                   <Link href="/auth" className="w-full sm:w-auto">
                     <Button
                       size="lg"
@@ -187,8 +187,8 @@ export default function LandingPage() {
                 </div>
               </div>
 
-              {/* Right Column - Dashboard Preview */}
-              <div className="relative mt-8 px-2 sm:px-4 md:px-6 lg:mt-0 lg:px-0">
+              {/* Dashboard Preview - Centered */}
+              <div className="relative w-full max-w-2xl px-2 sm:px-4 md:px-6 lg:px-0">
                 <div className="mx-auto max-w-sm overflow-hidden rounded-xl border bg-white shadow-2xl sm:rounded-2xl lg:max-w-none">
                   {/* Dashboard Header */}
                   <div className="flex items-center justify-between border-b bg-gray-50 px-3 py-3 sm:px-6 sm:py-4">
