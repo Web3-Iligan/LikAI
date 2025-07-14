@@ -28,7 +28,7 @@ export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       {/* Header */}
-      <header className="px-6 lg:px-8 h-20 flex items-center justify-between bg-white border-b border-gray-100 sticky top-0 z-50">
+      <header className="px-4 lg:px-8 h-20 flex items-center justify-between bg-white border-b border-gray-100 sticky top-0 z-50">
         {/* Logo */}
         <Link href="#" className="flex items-center space-x-3">
           <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl flex items-center justify-center shadow-lg">
@@ -80,7 +80,7 @@ export default function LandingPage() {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white border-b border-gray-100 shadow-lg">
-          <div className="px-6 py-4 space-y-4">
+          <div className="px-4 py-4 space-y-4">
             <Link 
               href="#about" 
               className="block text-gray-600 hover:text-gray-900 font-medium transition-colors duration-200"
@@ -129,47 +129,47 @@ export default function LandingPage() {
                   <Zap className="w-3 h-3 mr-1" />
                   AI-Powered Biosecurity
                 </Badge>
-                <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl mb-6">
+                <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl mb-6">
                   Prevent outbreaks.
                   <span className="text-blue-600"> Protect your profits.</span>
                 </h1>
-                <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                <p className="text-base sm:text-lg text-gray-600 mb-8 leading-relaxed">
                   Making aquaculture risk management automated, effortless, and science-based. 
                   Protect your shrimp farm with AI-driven biosecurity solutions.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 mb-8">
-                  <Link href="/auth">
-                    <Button size="lg" className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-8">
+                  <Link href="/auth" className="w-full sm:w-auto">
+                    <Button size="lg" className="w-full sm:w-auto bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-8">
                       Start Saving
                       <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </Link>
-                  <Link href="#demo">
-                    <Button size="lg" variant="outline" className="border-gray-300 hover:bg-gray-50">
+                  <Link href="#demo" className="w-full sm:w-auto">
+                    <Button size="lg" variant="outline" className="w-full sm:w-auto border-gray-300 hover:bg-gray-50">
                       Get a Demo
                     </Button>
                   </Link>
                 </div>
                 
                 {/* Trust Indicators */}
-                <div className="flex items-center space-x-6 text-sm text-gray-500">
+                <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-sm text-gray-500">
                   <div className="flex items-center space-x-2">
                     <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
                       <span className="text-xs font-bold">DA</span>
                     </div>
-                    <span>Department of Agriculture</span>
+                    <span className="text-xs sm:text-sm">Department of Agriculture</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
                       <span className="text-xs font-bold">PH</span>
                     </div>
-                    <span>Philippines.gov</span>
+                    <span className="text-xs sm:text-sm">Philippines.gov</span>
                   </div>
                   <div className="flex items-center space-x-2">
                     <div className="w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
                       <Globe className="h-4 w-4" />
                     </div>
-                    <span>SEAFDEC</span>
+                    <span className="text-xs sm:text-sm">SEAFDEC</span>
                   </div>
                 </div>
               </div>
@@ -191,41 +191,41 @@ export default function LandingPage() {
                   </div>
 
                   {/* Dashboard Content */}
-                  <div className="p-6">
+                  <div className="p-3 sm:p-6">
                     {/* Two Column Layout */}
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-6">
                       {/* Left Column - AI-Generated Insights */}
-                      <div className="bg-white border rounded-lg p-6">
+                      <div className="bg-white border rounded-lg p-3 sm:p-6">
                         <div className="flex items-center mb-4">
                           <div className="w-6 h-6 bg-yellow-100 rounded flex items-center justify-center mr-3">
                             <span className="text-yellow-600 text-xs">⚡</span>
                           </div>
                           <div>
-                            <h3 className="font-semibold text-gray-900 text-sm">AI-Generated Insights</h3>
+                            <h3 className="font-semibold text-gray-900 text-xs sm:text-sm">AI-Generated Insights</h3>
                             <p className="text-xs text-gray-600">Personalized recommendations based on your farm data</p>
                           </div>
                         </div>
 
                         {/* Insight Cards */}
-                        <div className="space-y-3">
-                          <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                        <div className="space-y-2 sm:space-y-3">
+                          <div className="bg-blue-50 border border-blue-200 rounded-lg p-2 sm:p-3">
                             <h4 className="font-medium text-blue-900 text-xs mb-1">Weather Impact Analysis</h4>
                             <p className="text-blue-800 text-xs">Based on the approaching typhoon, your farm has a 75% risk of pond overflow. Prioritizing dyke inspection could prevent up to ₱200,000 in potential losses.</p>
                           </div>
                           
-                          <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+                          <div className="bg-green-50 border border-green-200 rounded-lg p-2 sm:p-3">
                             <h4 className="font-medium text-green-900 text-xs mb-1">Cost Optimization Opportunity</h4>
                             <p className="text-green-800 text-xs">Implementing solar water disinfection could reduce your water treatment costs by 40% while maintaining 85% effectiveness compared to your current method.</p>
                           </div>
                           
-                          <div className="bg-orange-50 border border-orange-200 rounded-lg p-3">
+                          <div className="bg-orange-50 border border-orange-200 rounded-lg p-2 sm:p-3">
                             <h4 className="font-medium text-orange-900 text-xs mb-1">Biosecurity Gap Detected</h4>
                             <p className="text-orange-800 text-xs">Your visitor protocol compliance is at 60%. Enhancing this to 90% could reduce disease introduction risk by an additional 25%.</p>
                           </div>
                         </div>
 
                         {/* Action Button */}
-                        <div className="mt-4 pt-3 border-t text-center">
+                        <div className="mt-3 sm:mt-4 pt-3 border-t text-center">
                           <button className="text-xs text-blue-600 hover:text-blue-800 font-medium">
                             Ask AI Coach for more insights
                           </button>
@@ -233,21 +233,21 @@ export default function LandingPage() {
                       </div>
 
                       {/* Right Column - Farm Health Sentiment */}
-                      <div className="bg-white border rounded-lg p-6">
+                      <div className="bg-white border rounded-lg p-3 sm:p-6">
                         <div className="flex items-center mb-4">
                           <div className="w-6 h-6 bg-blue-100 rounded flex items-center justify-center mr-3">
                             <span className="text-blue-600 text-xs">🛡️</span>
                           </div>
                           <div>
-                            <h3 className="font-semibold text-gray-900 text-sm">Farm Health Sentiment</h3>
+                            <h3 className="font-semibold text-gray-900 text-xs sm:text-sm">Farm Health Sentiment</h3>
                             <p className="text-xs text-gray-600">Overall biosecurity and health assessment</p>
                           </div>
                         </div>
 
                         {/* Circular Progress */}
-                        <div className="flex flex-col items-center mb-6">
-                          <div className="relative w-24 h-24 mb-3">
-                            <svg className="w-24 h-24 transform -rotate-90" viewBox="0 0 36 36">
+                        <div className="flex flex-col items-center mb-4 sm:mb-6">
+                          <div className="relative w-20 h-20 sm:w-24 sm:h-24 mb-3">
+                            <svg className="w-20 h-20 sm:w-24 sm:h-24 transform -rotate-90" viewBox="0 0 36 36">
                               <path
                                 d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                                 fill="none"
@@ -263,14 +263,14 @@ export default function LandingPage() {
                               />
                             </svg>
                             <div className="absolute inset-0 flex items-center justify-center">
-                              <span className="text-lg font-bold text-gray-900">92%</span>
+                              <span className="text-base sm:text-lg font-bold text-gray-900">92%</span>
                             </div>
                           </div>
                           <p className="text-xs text-gray-600 text-center">of parameters within optimal range</p>
                         </div>
 
                         {/* Status Items */}
-                        <div className="space-y-3 text-xs">
+                        <div className="space-y-2 sm:space-y-3 text-xs">
                           <div className="flex justify-between items-center">
                             <span className="text-gray-700">Water Quality</span>
                             <span className="text-green-600 font-medium">Excellent</span>
@@ -298,7 +298,7 @@ export default function LandingPage() {
                 </div>
 
                 {/* Floating notification */}
-                <div className="absolute -right-4 top-20 bg-white rounded-lg shadow-lg border p-3 max-w-48">
+                <div className="absolute -right-2 sm:-right-4 top-16 sm:top-20 bg-white rounded-lg shadow-lg border p-2 sm:p-3 max-w-40 sm:max-w-48">
                   <div className="flex items-center space-x-2 mb-1">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                     <span className="text-xs font-medium text-gray-900">Risk Decreased</span>
@@ -1019,12 +1019,12 @@ export default function LandingPage() {
         <section className="py-20 bg-white">
           <div className="container mx-auto px-4">
             <div className="text-center mb-16">
-              <h2 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 mb-6">
                 Analyze your farm
-                <br />
-                in two minutes
+                <br className="hidden sm:block" />
+                <span className="sm:hidden"> </span>in two minutes
               </h2>
-              <p className="text-lg text-gray-600 mb-4">Start your savings analysis</p>
+              <p className="text-base sm:text-lg text-gray-600 mb-4">Start your savings analysis</p>
               <p className="text-sm text-gray-500">100% free, no credit card required</p>
             </div>
 
@@ -1173,7 +1173,7 @@ export default function LandingPage() {
 
                   {/* Trust indicators */}
                   <div className="pt-4 border-t border-gray-100">
-                    <div className="flex items-center space-x-6 text-sm text-gray-500">
+                    <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-sm text-gray-500">
                       <div className="flex items-center space-x-2">
                         <CheckCircle className="h-4 w-4 text-green-500" />
                         <span>100% Free</span>
