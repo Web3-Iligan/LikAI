@@ -294,7 +294,7 @@ export default function LandingPage() {
         </section>
 
         {/* Savings Section */}
-        <section className="py-16 sm:py-20 bg-white">
+        <section className="py-16 sm:py-20 bg-gradient-to-br from-gray-50 to-blue-50/30">
           <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-8 text-center max-w-7xl">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-4">
               Save up to <span className="text-blue-600">75%</span> on your operational costs
@@ -344,7 +344,7 @@ export default function LandingPage() {
         </section>
 
         {/* Features Section */}
-        <section id="features" className="py-16 sm:py-20 bg-white">
+        <section id="features" className="py-16 sm:py-20 bg-gradient-to-br from-white to-gray-50/50">
           <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-8 max-w-7xl">
             {/* Feature 1 - Shared Inbox */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 sm:gap-16 items-center mb-24 sm:mb-32">
@@ -697,7 +697,7 @@ export default function LandingPage() {
         </section>
 
         {/* Pricing Section */}
-        <section id="pricing" className="py-16 sm:py-20 bg-gray-50">
+        <section id="pricing" className="py-16 sm:py-20 bg-gradient-to-br from-orange-50/30 to-blue-50/20">
           <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-8 max-w-7xl">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">Pricing</h2>
@@ -998,8 +998,11 @@ export default function LandingPage() {
             </div>
 
             {/* FAQ Section */}
-            <div className="mt-20">
-              <div className="text-center mb-16">
+            <div className="mt-20 relative">
+              {/* Background decoration */}
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 to-orange-50/30 rounded-3xl -m-8"></div>
+              <div className="relative z-10">
+                <div className="text-center mb-16">
                 <h3 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
                   Frequently Asked Questions
                 </h3>
@@ -1221,12 +1224,13 @@ export default function LandingPage() {
                   </Button>
                 </div>
               </div>
+              </div>
             </div>
           </div>
         </section>
      
         {/* CTA Section - Analyze Your Farm */}
-        <section className="py-16 sm:py-20 bg-white">
+        <section className="py-16 sm:py-20 bg-gradient-to-br from-blue-50/40 to-orange-50/20">
           <div className="container mx-auto px-8 sm:px-12 md:px-16 lg:px-8 max-w-7xl">
             <div className="text-center mb-12 sm:mb-16">
               <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
