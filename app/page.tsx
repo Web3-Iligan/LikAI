@@ -166,11 +166,17 @@ export default function LandingPage() {
                 </Badge>
                 <h1
                   id="hero-heading"
-                  className="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
+                  className="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl"
                 >
-                  Prevent outbreaks.
-                  <span className="text-green-600"> Protect your profits.</span>
+                  AI-Driven Aquaculture Biosecurity
                 </h1>
+                <h2 className="mb-4 text-xl font-semibold text-gray-800 sm:text-2xl md:text-3xl">
+                  <span className="text-[#FF7F50]">Reduce Disease Risk</span>
+                  <span className="text-gray-700"> & </span>
+                  <span className="text-green-600">
+                    Secure Your Farm Profits
+                  </span>
+                </h2>
                 <p className="mb-6 text-sm leading-relaxed text-gray-600 sm:mb-8 sm:text-base lg:text-lg">
                   Safeguard your shrimp farm with AI-driven biosecurity, aligned
                   with BFAR GAqP standards, to help prevent outbreaks and boost
@@ -383,8 +389,8 @@ export default function LandingPage() {
                 id="savings-heading"
                 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl"
               >
-                Save up to <span className="font-bold text-[#FF7F50]">75%</span>{" "}
-                on your operational costs
+                <span className="text-[#FF7F50]">Significantly reduce</span>{" "}
+                your operational costs
               </h2>
               <p className="mx-auto max-w-2xl px-4 text-base text-gray-600 sm:px-0 sm:text-lg">
                 Leverage AI precision to prevent costly losses. Gain real-time

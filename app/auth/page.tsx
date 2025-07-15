@@ -12,12 +12,12 @@ export default function AuthPage() {
     "@type": "WebPage",
     name: "Sign Up - LikAI",
     description:
-      "Create your free LikAI account and access AI-powered biosecurity solutions for aquaculture farms",
+      "Create your free LikAI account and access AI-driven biosecurity solutions for aquaculture farms",
     url: "https://likai.ai/auth",
     mainEntity: {
-      "@type": "Organization",
+      "@type": "Startup",
       name: "LikAI",
-      description: "AI-powered biosecurity platform for aquaculture",
+      description: "AI-driven biosecurity platform for aquaculture",
       url: "https://likai.ai",
     },
   };
