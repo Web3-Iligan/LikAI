@@ -305,8 +305,8 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
               </span>
               <span className="text-sm font-medium text-green-600">
                 {progressPercentage > 0
-                  ? "Keep up the good work! 🌱"
-                  : "Let's get started! 💪"}
+                  ? "Keep up the good work!"
+                  : "Let's get started!"}
               </span>
             </div>
           </div>
@@ -416,7 +416,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                               </h3>
                               {isCritical && (
                                 <div className="mb-2 text-sm font-medium text-red-700">
-                                  🚨 Urgent Action Required
+                                  Urgent Action Required
                                 </div>
                               )}
                             </div>
@@ -438,10 +438,10 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                                 }`}
                               >
                                 {isCompleted
-                                  ? "✅ Completed"
+                                  ? "Completed"
                                   : isInProgress
-                                    ? "⏳ In Progress"
-                                    : "⏸ Pending"}
+                                    ? "In Progress"
+                                    : "Pending"}
                               </Badge>
                             </div>
                           </div>
@@ -449,49 +449,6 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                           <p className="mb-4 leading-relaxed text-gray-700">
                             {task.description}
                           </p>
-
-                          {/* Simplified Key Details with Icons */}
-                          <div className="flex flex-wrap gap-6 text-sm">
-                            <div className="flex items-center gap-2">
-                              <span className="text-lg">
-                                {task.category === "Water Management"
-                                  ? "💧"
-                                  : task.category === "Infrastructure"
-                                    ? "🏗️"
-                                    : task.category === "Access Control"
-                                      ? "🔒"
-                                      : task.category === "Human Resources"
-                                        ? "👥"
-                                        : task.category === "Feed Management"
-                                          ? "🐟"
-                                          : task.category ===
-                                              "Equipment Management"
-                                            ? "⚙️"
-                                            : task.category ===
-                                                "Waste Management"
-                                              ? "♻️"
-                                              : task.category ===
-                                                  "Animal Health"
-                                                ? "🐠"
-                                                : "📋"}
-                              </span>
-                              <span className="text-gray-600">
-                                {task.category}
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <span className="text-lg">⏰</span>
-                              <span className="text-gray-600">
-                                {task.timeframe}
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <span className="text-lg">💰</span>
-                              <span className="text-gray-600">
-                                {task.estimatedCost}
-                              </span>
-                            </div>
-                          </div>
                         </div>
 
                         {/* Action Buttons */}
@@ -501,7 +458,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                               className="bg-green-600 px-4 py-2 font-medium text-white hover:bg-green-700"
                               onClick={() => toggleTaskStatus(task.id)}
                             >
-                              ✅ Mark Complete
+                              Mark Complete
                             </Button>
                           )}
                           <Button
@@ -510,7 +467,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                             className="border-blue-200 text-blue-600 hover:bg-blue-50"
                             onClick={() => setSelectedTaskForGuide(task)}
                           >
-                            ❓ Get Help
+                            Get Help
                           </Button>
                         </div>
                       </div>
@@ -620,7 +577,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
           {currentStep ? (
             <div className="border bg-white shadow-sm">
               <div className="border-b bg-blue-50 px-4 py-3">
-                <h3 className="font-medium text-blue-800">🎯 What's Next?</h3>
+                <h3 className="font-medium text-blue-800">What's Next?</h3>
               </div>
               <div className="p-4">
                 <div className="mb-4">
@@ -632,7 +589,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                   </div>
                   {currentStep.priority === "critical" && (
                     <div className="mt-2 text-sm font-medium text-red-700">
-                      ⚠️ Urgent - Do this first!
+                      Urgent - Do this first!
                     </div>
                   )}
                 </div>
@@ -642,7 +599,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                     className="w-full bg-green-600 py-3 text-base font-semibold text-white hover:bg-green-700"
                     onClick={() => toggleTaskStatus(currentStep.id)}
                   >
-                    ✅ I Completed This Step
+                    I Completed This Step
                   </Button>
 
                   <Button
@@ -650,7 +607,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                     className="w-full border-blue-200 py-2 font-medium text-blue-600 hover:bg-blue-50"
                     onClick={() => setSelectedTaskForGuide(currentStep)}
                   >
-                    💬 Get Help With This Step
+                    Get Help With This Step
                   </Button>
                 </div>
               </div>
@@ -662,10 +619,10 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                   <CheckCircle className="mx-auto h-12 w-12 text-green-600" />
                 </div>
                 <div className="mb-2 text-lg font-semibold text-gray-900">
-                  🎉 All Steps Complete!
+                  All Steps Complete!
                 </div>
                 <div className="text-gray-600">
-                  Your farm is well protected. Great work! 🌟
+                  Your farm is well protected. Great work!
                 </div>
               </div>
             </div>
@@ -701,13 +658,13 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
           {/* Status Overview */}
           <div className="border bg-white shadow-sm">
             <div className="border-b bg-gray-50 px-4 py-3">
-              <h3 className="font-medium text-gray-900">📊 Quick Overview</h3>
+              <h3 className="font-medium text-gray-900">Quick Overview</h3>
             </div>
             <div className="p-4">
               <div className="grid grid-cols-1 gap-3">
                 <div className="flex items-center justify-between rounded-lg border border-red-100 bg-red-50 p-3">
                   <div className="flex items-center gap-2">
-                    <span className="text-lg">🚨</span>
+                    <span className="text-lg">!</span>
                     <span className="text-sm font-medium text-red-800">
                       Critical
                     </span>
@@ -718,7 +675,6 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                 </div>
                 <div className="flex items-center justify-between rounded-lg border border-blue-100 bg-blue-50 p-3">
                   <div className="flex items-center gap-2">
-                    <span className="text-lg">⏳</span>
                     <span className="text-sm font-medium text-blue-800">
                       Active
                     </span>
@@ -732,7 +688,6 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                 </div>
                 <div className="flex items-center justify-between rounded-lg border border-gray-100 bg-gray-50 p-3">
                   <div className="flex items-center gap-2">
-                    <span className="text-lg">⏸️</span>
                     <span className="text-sm font-medium text-gray-700">
                       Pending
                     </span>
@@ -749,7 +704,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
           {hasUrgentTasks && (
             <div className="border bg-white shadow-sm">
               <div className="border-b bg-red-50 px-4 py-3">
-                <h3 className="font-medium text-red-800">🚨 Critical Steps</h3>
+                <h3 className="font-medium text-red-800">Critical Steps</h3>
               </div>
               <div className="p-4">
                 <div className="space-y-3">
@@ -768,7 +723,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                     </span>
                   </div>
                   <div className="mt-3 rounded border border-red-200 bg-red-50 p-3 text-sm text-red-700">
-                    💡 <strong>Tip:</strong> Always do critical steps first to
+                    <strong>Tip:</strong> Always do critical steps first to
                     protect your farm!
                   </div>
                 </div>
