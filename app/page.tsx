@@ -1574,12 +1574,12 @@ export default function LandingPage() {
                 <div className="space-y-8">
                   <div>
                     <h3 className="mb-6 text-2xl font-bold text-gray-900">
-                      Get your personalized farm analysis
+                      Unlock Your Farm's Profit Potential
                     </h3>
                     <p className="mb-8 text-lg text-gray-600">
-                      Our AI quickly assesses your farm's basic operations,
-                      instantly highlighting key opportunities to reduce costs
-                      and boost yields.
+                      Likai's AI rapidly analyzes your farm's operations,
+                      delivering actionable insights to immediately cut costs
+                      and significantly boost yields.
                     </p>
                   </div>
 
