@@ -508,56 +508,27 @@ export default function LandingPage() {
                 <ul className="list-none space-y-3">
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <div>
-                      <span className="text-base font-medium text-gray-900">
-                        Interactive Action Plans:
-                      </span>
-                      <span className="text-base text-gray-700">
-                        {" "}
-                        Step-by-step guidance with progress tracking, time
-                        estimates, and priority levels for every biosecurity
-                        task
-                      </span>
-                    </div>
+                    <span className="text-base font-medium text-gray-900">
+                      Interactive Action Plans
+                    </span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <div>
-                      <span className="text-base font-medium text-gray-900">
-                        Visual Task Management:
-                      </span>
-                      <span className="text-base text-gray-700">
-                        {" "}
-                        Color-coded priorities, completion status, and real-time
-                        updates to keep you on track
-                      </span>
-                    </div>
+                    <span className="text-base font-medium text-gray-900">
+                      Visual Task Management
+                    </span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <div>
-                      <span className="text-base font-medium text-gray-900">
-                        Smart Sequencing:
-                      </span>
-                      <span className="text-base text-gray-700">
-                        {" "}
-                        Automatically organized task flow that ensures critical
-                        steps are completed in the right order
-                      </span>
-                    </div>
+                    <span className="text-base font-medium text-gray-900">
+                      Smart Sequencing
+                    </span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <div>
-                      <span className="text-base font-medium text-gray-900">
-                        Emergency Protocols:
-                      </span>
-                      <span className="text-base text-gray-700">
-                        {" "}
-                        Instant access to urgent action plans with clear
-                        escalation paths for critical situations
-                      </span>
-                    </div>
+                    <span className="text-base font-medium text-gray-900">
+                      Emergency Protocols
+                    </span>
                   </li>
                 </ul>
               </header>
@@ -918,55 +889,27 @@ export default function LandingPage() {
                 <ul className="list-none space-y-3">
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <div>
-                      <span className="text-base font-medium text-gray-900">
-                        Proactive Monitoring:
-                      </span>
-                      <span className="text-base text-gray-700">
-                        {" "}
-                        AI detects issues before they become problems and alerts
-                        you with immediate action plans
-                      </span>
-                    </div>
+                    <span className="text-base font-medium text-gray-900">
+                      Proactive Issue Detection
+                    </span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <div>
-                      <span className="text-base font-medium text-gray-900">
-                        Contextual Responses:
-                      </span>
-                      <span className="text-base text-gray-700">
-                        {" "}
-                        Every recommendation is tailored to your specific farm
-                        conditions, history, and current biosecurity plan
-                      </span>
-                    </div>
+                    <span className="text-base font-medium text-gray-900">
+                      Contextual Responses
+                    </span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <div>
-                      <span className="text-base font-medium text-gray-900">
-                        Instant Action Integration:
-                      </span>
-                      <span className="text-base text-gray-700">
-                        {" "}
-                        Chat responses can be automatically added to your action
-                        plans with one click
-                      </span>
-                    </div>
+                    <span className="text-base font-medium text-gray-900">
+                      Instant Action Integration
+                    </span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <div>
-                      <span className="text-base font-medium text-gray-900">
-                        Multi-format Support:
-                      </span>
-                      <span className="text-base text-gray-700">
-                        {" "}
-                        Ask questions via text, attach photos of symptoms, or
-                        use quick suggestion buttons
-                      </span>
-                    </div>
+                    <span className="text-base font-medium text-gray-900">
+                      Multi-format Support
+                    </span>
                   </li>
                 </ul>
               </header>
@@ -995,23 +938,20 @@ export default function LandingPage() {
                 <ul className="list-none space-y-3">
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-base text-gray-700">
-                      Discover practical, low-cost, and DIY alternatives for
-                      essential biosecurity measures.
+                    <span className="text-base font-medium text-gray-900">
+                      Practical DIY Alternatives
                     </span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-base text-gray-700">
-                      Get recommendations specifically designed to fit your
-                      farm's financial capacity and local resource availability.
+                    <span className="text-base font-medium text-gray-900">
+                      Budget-Fit Recommendations
                     </span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-base text-gray-700">
-                      Understand the potential financial benefits and ROI of
-                      each recommended biosecurity upgrade.
+                    <span className="text-base font-medium text-gray-900">
+                      ROI Analysis
                     </span>
                   </li>
                 </ul>
@@ -1269,29 +1209,28 @@ export default function LandingPage() {
                   </h3>
                 </div>
                 <p className="mb-6 text-base leading-relaxed text-gray-600">
-                  Comprehensive aquaculture resources that help farmers solve
-                  problems independently.
+                  Access comprehensive, GAqP-aligned aquaculture resources that
+                  empower farmers to solve challenges confidently and
+                  independently.
                 </p>
 
                 <ul className="list-none space-y-3">
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-base text-gray-700">
-                      Searchable expert guides, step-by-step tutorials & visual
-                      demonstrations
+                    <span className="text-base font-medium text-gray-900">
+                      Expert Guides & Tutorials
                     </span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-base text-gray-700">
-                      Optimized for easy mobile access, even in the field
+                    <span className="text-base font-medium text-gray-900">
+                      Mobile-Optimized Access
                     </span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-base text-gray-700">
-                      Equips you with immediate, actionable solutions for common
-                      issues
+                    <span className="text-base font-medium text-gray-900">
+                      Immediate Solutions
                     </span>
                   </li>
                 </ul>
