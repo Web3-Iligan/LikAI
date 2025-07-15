@@ -64,7 +64,10 @@ export default function LandingPage() {
         </nav>
 
         {/* CTA Buttons */}
-        <div className="hidden flex-1 items-center justify-end space-x-4 md:flex">
+        <aside
+          className="hidden flex-1 items-center justify-end space-x-4 md:flex"
+          aria-label="Call to action buttons"
+        >
           <Link href="#demo">
             <Button
               variant="ghost"
@@ -78,7 +81,7 @@ export default function LandingPage() {
               Get Started
             </Button>
           </Link>
-        </div>
+        </aside>
 
         {/* Mobile Menu Button */}
         <button
@@ -95,7 +98,11 @@ export default function LandingPage() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="border-b border-gray-100 bg-white shadow-lg md:hidden">
+        <nav
+          className="border-b border-gray-100 bg-white shadow-lg md:hidden"
+          role="navigation"
+          aria-label="Mobile navigation"
+        >
           <div className="space-y-4 px-8 py-4 sm:px-12">
             <Link
               href="#about"
@@ -118,7 +125,10 @@ export default function LandingPage() {
             >
               Pricing
             </Link>
-            <div className="flex flex-col space-y-2 border-t border-gray-100 pt-4">
+            <aside
+              className="flex flex-col space-y-2 border-t border-gray-100 pt-4"
+              aria-label="Mobile call to action buttons"
+            >
               <Link href="#demo" onClick={() => setIsMobileMenuOpen(false)}>
                 <Button
                   variant="ghost"
@@ -132,9 +142,9 @@ export default function LandingPage() {
                   Get Started
                 </Button>
               </Link>
-            </div>
+            </aside>
           </div>
-        </div>
+        </nav>
       )}
 
       <main className="flex-1">
@@ -142,18 +152,22 @@ export default function LandingPage() {
         <section
           id="about"
           className="relative overflow-hidden bg-gradient-to-br from-[#FF7F50]/5 via-white to-[#3498DB]/10"
+          aria-labelledby="hero-heading"
         >
           <div className="from-[#FF7F50]/3 absolute inset-0 bg-gradient-to-r to-transparent opacity-50"></div>
           <div className="container relative z-10 mx-auto max-w-7xl px-8 py-16 sm:px-12 sm:py-20 md:px-16 md:py-24 lg:px-8 lg:py-32">
             <div className="flex flex-col items-center gap-8 text-center sm:gap-12">
               {/* Content - Centered */}
-              <div className="relative mx-auto max-w-4xl">
+              <header className="relative mx-auto max-w-4xl">
                 <div className="absolute inset-0 -z-10 -m-8 rounded-3xl bg-white/40 backdrop-blur-sm"></div>
                 <Badge className="mb-4 bg-[#3498DB]/10 text-[#3498DB] hover:bg-[#3498DB]/10 sm:mb-6">
                   <Zap className="mr-1 h-3 w-3" />
                   AI-driven Biosecurity
                 </Badge>
-                <h1 className="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl">
+                <h1
+                  id="hero-heading"
+                  className="mb-4 text-2xl font-bold tracking-tight text-gray-900 sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
+                >
                   Prevent outbreaks.
                   <span className="text-green-600"> Protect your profits.</span>
                 </h1>
@@ -182,10 +196,13 @@ export default function LandingPage() {
                     </Button>
                   </Link>
                 </div>
-              </div>
+              </header>
 
               {/* Dashboard Preview - Centered and Enlarged */}
-              <div className="relative w-full max-w-5xl px-2 sm:px-4 md:px-6 lg:px-0">
+              <figure
+                className="relative w-full max-w-5xl px-2 sm:px-4 md:px-6 lg:px-0"
+                aria-labelledby="dashboard-caption"
+              >
                 {/* Decorative circles for dashboard preview - Behind dashboard */}
                 <div className="absolute -bottom-8 -left-8 -z-10 h-32 w-32 rounded-full bg-[#3498DB]/10 blur-xl"></div>
                 <div className="absolute -right-8 -top-8 -z-10 h-24 w-24 rounded-full bg-[#FF7F50]/10 blur-lg"></div>
@@ -346,22 +363,34 @@ export default function LandingPage() {
                     Water quality improved by up to 23%
                   </p>
                 </div>
-              </div>
+                <figcaption id="dashboard-caption" className="sr-only">
+                  Interactive dashboard preview showing AI-powered farm
+                  management insights
+                </figcaption>
+              </figure>
             </div>
           </div>
         </section>
 
         {/* Savings Section */}
-        <section className="bg-gradient-to-br from-gray-50 to-blue-50/30 py-16 sm:py-20">
+        <section
+          className="bg-gradient-to-br from-gray-50 to-blue-50/30 py-16 sm:py-20"
+          aria-labelledby="savings-heading"
+        >
           <div className="container mx-auto max-w-7xl px-8 text-center sm:px-12 md:px-16 lg:px-8">
-            <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
-              Save up to <span className="font-bold text-[#FF7F50]">75%</span>{" "}
-              on your operational costs
-            </h2>
-            <p className="mx-auto mb-12 max-w-2xl px-4 text-base text-gray-600 sm:px-0 sm:text-lg">
-              Leverage AI precision to prevent costly losses. Gain real-time
-              control to help maximize your yields and profits.
-            </p>
+            <header className="mb-12">
+              <h2
+                id="savings-heading"
+                className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl"
+              >
+                Save up to <span className="font-bold text-[#FF7F50]">75%</span>{" "}
+                on your operational costs
+              </h2>
+              <p className="mx-auto max-w-2xl px-4 text-base text-gray-600 sm:px-0 sm:text-lg">
+                Leverage AI precision to prevent costly losses. Gain real-time
+                control to help maximize your yields and profits.
+              </p>
+            </header>
 
             <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 px-4 sm:grid-cols-2 sm:gap-8 sm:px-0 md:grid-cols-3">
               <Card className="border-0 shadow-lg">
@@ -418,18 +447,25 @@ export default function LandingPage() {
         <section
           id="features"
           className="bg-gradient-to-br from-white to-gray-50/50 py-16 sm:py-20"
+          aria-labelledby="features-heading"
         >
           <div className="container mx-auto max-w-7xl px-8 sm:px-12 md:px-16 lg:px-8">
-            {/* Feature 1 - Shared Inbox */}
-            <div className="mb-16 grid grid-cols-1 items-center gap-8 sm:mb-20 sm:gap-12 lg:grid-cols-2">
-              <div className="order-2 lg:order-1">
+            <h2 id="features-heading" className="sr-only">
+              Product Features
+            </h2>
+            {/* Feature 1 - Visual Step-by-Step Guides */}
+            <article className="mb-16 grid grid-cols-1 items-center gap-8 sm:mb-20 sm:gap-12 lg:grid-cols-2">
+              <header className="order-2 lg:order-1">
                 <div className="mb-4 flex items-center">
-                  <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">
+                  <div
+                    className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white"
+                    aria-hidden="true"
+                  >
                     1
                   </div>
-                  <h2 className="text-xl font-bold text-gray-900 sm:text-2xl">
+                  <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
                     Visual Step-by-Step Guides
-                  </h2>
+                  </h3>
                 </div>
                 <p className="mb-6 text-base leading-relaxed text-gray-600">
                   Transform complex biosecurity into clear, actionable steps
@@ -457,9 +493,9 @@ export default function LandingPage() {
                     </span>
                   </div>
                 </div>
-              </div>
+              </header>
 
-              <div className="relative order-1 lg:order-2">
+              <figure className="relative order-1 lg:order-2">
                 <div className="rounded-xl bg-gradient-to-br from-blue-50 to-[#3498DB]/10 p-6 shadow-lg">
                   {/* Main Dashboard Interface */}
                   <div className="overflow-hidden rounded-lg bg-white shadow-md">
@@ -534,12 +570,12 @@ export default function LandingPage() {
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </figure>
+            </article>
 
             {/* Feature 2 - Live Chat */}
-            <div className="mb-16 grid items-center gap-8 sm:mb-20 sm:gap-12 lg:grid-cols-2">
-              <div className="relative">
+            <article className="mb-16 grid items-center gap-8 sm:mb-20 sm:gap-12 lg:grid-cols-2">
+              <figure className="relative">
                 <div className="rounded-xl bg-gradient-to-br from-[#3498DB]/10 to-blue-50 p-6 shadow-lg">
                   {/* Chat Interface */}
                   <div className="overflow-hidden rounded-lg bg-white shadow-md">
@@ -608,16 +644,19 @@ export default function LandingPage() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </figure>
 
-              <div>
+              <header>
                 <div className="mb-4 flex items-center">
-                  <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">
+                  <div
+                    className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white"
+                    aria-hidden="true"
+                  >
                     2
                   </div>
-                  <h2 className="text-xl font-bold text-gray-900 sm:text-2xl">
+                  <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
                     AI Biosecurity Coach & Troubleshooting
-                  </h2>
+                  </h3>
                 </div>
                 <p className="mb-6 text-base leading-relaxed text-gray-600">
                   Get instant help on any aspect of your farm management with
@@ -644,19 +683,22 @@ export default function LandingPage() {
                     </span>
                   </div>
                 </div>
-              </div>
-            </div>
+              </header>
+            </article>
 
             {/* Feature 3 - Knowledge Base */}
-            <div className="grid grid-cols-1 items-center gap-8 sm:gap-12 lg:grid-cols-2">
-              <div className="order-2 lg:order-1">
+            <article className="grid grid-cols-1 items-center gap-8 sm:gap-12 lg:grid-cols-2">
+              <header className="order-2 lg:order-1">
                 <div className="mb-4 flex items-center">
-                  <div className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white">
+                  <div
+                    className="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-sm font-bold text-white"
+                    aria-hidden="true"
+                  >
                     3
                   </div>
-                  <h2 className="text-xl font-bold text-gray-900 sm:text-2xl">
+                  <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
                     Practical Biosecurity Library
-                  </h2>
+                  </h3>
                 </div>
                 <p className="mb-6 text-base leading-relaxed text-gray-600">
                   Comprehensive aquaculture resources that help farmers solve
@@ -685,9 +727,9 @@ export default function LandingPage() {
                     </span>
                   </div>
                 </div>
-              </div>
+              </header>
 
-              <div className="relative order-1 lg:order-2">
+              <figure className="relative order-1 lg:order-2">
                 <div className="rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 p-6 shadow-lg">
                   {/* Enhanced Knowledge Base Interface */}
                   <div className="overflow-hidden rounded-lg bg-white shadow-md">
@@ -806,8 +848,8 @@ export default function LandingPage() {
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
+              </figure>
+            </article>
           </div>
         </section>
 
@@ -815,10 +857,14 @@ export default function LandingPage() {
         <section
           id="pricing"
           className="bg-gradient-to-br from-orange-50/30 to-blue-50/20 py-16 sm:py-20"
+          aria-labelledby="pricing-heading"
         >
           <div className="container mx-auto max-w-7xl px-8 sm:px-12 md:px-16 lg:px-8">
-            <div className="mb-12 text-center sm:mb-16">
-              <h2 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl">
+            <header className="mb-12 text-center sm:mb-16">
+              <h2
+                id="pricing-heading"
+                className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl"
+              >
                 Plans and Pricing
               </h2>
               <p className="mx-auto mb-8 max-w-2xl px-4 text-base text-gray-600 sm:px-0 sm:text-lg">
@@ -854,7 +900,7 @@ export default function LandingPage() {
                   </button>
                 </div>
               </div>
-            </div>
+            </header>
 
             {/* Three Column Layout */}
             <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-4 sm:gap-8 sm:px-0 lg:grid-cols-3">
