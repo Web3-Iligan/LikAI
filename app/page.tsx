@@ -144,10 +144,6 @@ export default function LandingPage() {
           className="relative overflow-hidden bg-gradient-to-br from-[#FF7F50]/5 via-white to-[#3498DB]/10"
         >
           <div className="from-[#FF7F50]/3 absolute inset-0 bg-gradient-to-r to-transparent opacity-50"></div>
-          {/* Decorative circles */}
-          <div className="absolute right-10 top-10 h-32 w-32 rounded-full bg-[#FF7F50]/10 blur-xl"></div>
-          <div className="absolute bottom-10 left-10 h-24 w-24 rounded-full bg-[#3498DB]/10 blur-lg"></div>
-          <div className="absolute right-1/4 top-1/2 h-16 w-16 rounded-full bg-[#FF7F50]/5 blur-md"></div>
           <div className="container relative z-10 mx-auto max-w-7xl px-8 py-16 sm:px-12 sm:py-20 md:px-16 md:py-24 lg:px-8 lg:py-32">
             <div className="flex flex-col items-center gap-8 text-center sm:gap-12">
               {/* Content - Centered */}
@@ -190,6 +186,9 @@ export default function LandingPage() {
 
               {/* Dashboard Preview - Centered and Enlarged */}
               <div className="relative w-full max-w-5xl px-2 sm:px-4 md:px-6 lg:px-0">
+                {/* Decorative circles for dashboard preview - Behind dashboard */}
+                <div className="absolute -bottom-8 -left-8 -z-10 h-32 w-32 rounded-full bg-[#3498DB]/10 blur-xl"></div>
+                <div className="absolute -right-8 -top-8 -z-10 h-24 w-24 rounded-full bg-[#FF7F50]/10 blur-lg"></div>
                 <div className="mx-auto max-w-lg overflow-hidden rounded-xl border bg-white shadow-2xl sm:rounded-2xl lg:max-w-none">
                   {/* Dashboard Header */}
                   <div className="flex items-center justify-between border-b bg-gray-50 px-4 py-4 sm:px-6 sm:py-5">
