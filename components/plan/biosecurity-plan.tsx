@@ -7,11 +7,11 @@ import {
   AlertTriangle,
   Building,
   CheckCircle,
+  ChevronDown,
+  ChevronUp,
   Clock,
   Droplets,
-  Info,
   Shield,
-  Trash2,
   Truck,
   Users,
   Wrench,
@@ -21,65 +21,20 @@ import {
 import { HowToGuideView } from "@/components/shared/how-to-guide-view";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
-// Add a helper function to parse the estimated cost. Place this outside the component function.
-function parseEstimatedCost(costString: string): number {
-  const cleanedString = costString.replace(/[₱,]/g, ""); // Remove peso sign and commas
-  const parts = cleanedString.split("-");
-  if (parts.length === 2) {
-    return Number.parseFloat(parts[1].trim()); // Use the upper bound of the range
-  }
-  return Number.parseFloat(parts[0].trim()); // Use the single value
-}
-
-// Helpers to style tasks ----------------------------------------------
-
-const getStatusIcon = (status: string) => {
-  switch (status) {
-    case "completed":
-      return <CheckCircle className="h-4 w-4 text-green-600" />;
-    case "in-progress":
-      return <Clock className="h-4 w-4 text-blue-600" />;
-    case "pending":
-      return <AlertTriangle className="h-4 w-4 text-orange-600" />;
-    default:
-      return <Clock className="h-4 w-4 text-gray-600" />;
-  }
+// Helper to map categories to Lucide icons
+const categoryIcons: { [key: string]: any } = {
+  Infrastructure: Building,
+  "Access Control": Shield,
+  "Water Management": Droplets,
+  "Human Resources": Users,
+  "Feed Management": Truck,
+  "Pond Management": Droplets,
+  "Equipment Management": Wrench,
+  "Waste Management": AlertTriangle,
+  "Animal Health": Activity,
 };
-
-const getPriorityColor = (priority: string) => {
-  switch (priority) {
-    case "critical":
-      return "bg-red-100 text-red-800 border-red-200";
-    case "high":
-      return "bg-orange-100 text-orange-800 border-orange-200";
-    case "medium":
-      return "bg-yellow-100 text-yellow-800 border-yellow-200";
-    case "low":
-      return "bg-green-100 text-green-800 border-green-200";
-    default:
-      return "bg-gray-100 text-gray-800 border-gray-200";
-  }
-};
-// ----------------------------------------------------------------------
 
 interface BiosecurityTask {
   id: string;
@@ -91,138 +46,84 @@ interface BiosecurityTask {
   estimatedCost: string;
   timeframe: string;
   adaptationReason?: string;
-  icon?: any; // Make icon optional as AI won't generate it directly
+  icon?: any;
 }
 
 interface BiosecurityPlanProps {
   farmProfile: any;
 }
 
-// Helper to map categories to Lucide icons
-const categoryIcons: { [key: string]: any } = {
-  Infrastructure: Building,
-  "Access Control": Shield,
-  "Water Management": Droplets,
-  "Human Resources": Users,
-  "Feed Management": Truck,
-  "Pond Management": Droplets, // Can be more specific if needed
-  "Equipment Management": Wrench,
-  "Waste Management": Trash2,
-  "Animal Health": Activity,
-  // Add more mappings as needed
-};
-
 export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
-  const [maxBudget, setMaxBudget] = useState<number | string>("");
+  // Suppress unused parameter warning - farmProfile will be used for future enhancements
+  void farmProfile;
   const [selectedTaskForGuide, setSelectedTaskForGuide] =
     useState<BiosecurityTask | null>(null);
+  const [showAllSteps, setShowAllSteps] = useState(false);
   const [aiGeneratedTasks, setAiGeneratedTasks] = useState<
     BiosecurityTask[] | null
-  >(null); // State for AI-generated tasks
-
-  // New state for sorting and filtering
-  const [sortBy, setSortBy] = useState<string>("priority");
-  const [filterStatus, setFilterStatus] = useState<string>("all");
-  const [filterCategory, setFilterCategory] = useState<string>("all");
+  >(null);
 
   // Default tasks if no AI plan is generated
   const defaultTasks: BiosecurityTask[] = [
     {
       id: "1",
-      title: "Emergency Pond Dyke Inspection",
+      title: "Check water quality in Pond 3",
       description:
-        "Inspect all pond dykes for damage due to incoming heavy rains. Check for cracks, erosion, or weak spots.",
+        "Test dissolved oxygen levels immediately - readings show concern",
       priority: "critical",
-      status: "pending",
-      category: "Infrastructure",
-      estimatedCost: "₱500-1,000",
-      timeframe: "Today",
-      adaptationReason: "Prioritized due to typhoon alert",
+      status: "in-progress",
+      category: "Water Management",
+      estimatedCost: "₱0 (existing equipment)",
+      timeframe: "Started 5 min ago",
+      adaptationReason: "Critical oxygen depletion detected",
       icon: Droplets,
     },
     {
       id: "2",
-      title: "Enhanced Visitor Disinfection Protocol",
-      description:
-        "Implement strict footbath and vehicle disinfection due to nearby farm disease outbreak.",
+      title: "Turn on backup aerators",
+      description: "Activate all 3 backup aerators to increase oxygen",
       priority: "critical",
-      status: "in-progress",
-      category: "Access Control",
-      estimatedCost: "₱200-500",
-      timeframe: "Immediate",
-      adaptationReason: "Elevated due to neighbor farm outbreak",
-      icon: Shield,
+      status: "completed",
+      category: "Water Management",
+      estimatedCost: "₱0",
+      timeframe: "Completed 15 min ago",
+      icon: Zap,
     },
     {
       id: "3",
-      title: "Water Quality Monitoring Increase",
+      title: "Monitor water for 2 hours",
       description:
-        "Double daily water parameter checks (pH, DO, temperature) during weather disturbance.",
+        "Check dissolved oxygen every 30 minutes - target: above 5mg/L",
       priority: "high",
       status: "pending",
       category: "Water Management",
-      estimatedCost: "₱0 (existing equipment)",
-      timeframe: "Next 7 days",
-      icon: Droplets,
+      estimatedCost: "₱0",
+      timeframe: "Starts after step 1",
+      icon: Clock,
     },
     {
       id: "4",
-      title: "Staff Biosecurity Training Refresher",
+      title: "Inspect pond dykes for damage",
       description:
-        "Conduct emergency biosecurity protocol review with all farm workers.",
+        "Check all pond walls for cracks due to heavy rains forecast",
       priority: "high",
-      status: "completed",
-      category: "Human Resources",
-      estimatedCost: "₱300-500",
-      timeframe: "This week",
-      icon: Users,
+      status: "pending",
+      category: "Infrastructure",
+      estimatedCost: "₱200-500",
+      timeframe: "Today before 5pm",
+      adaptationReason: "Prioritized due to typhoon alert",
+      icon: Building,
     },
     {
       id: "5",
-      title: "Feed Storage Waterproofing",
-      description:
-        "Secure feed storage areas against water damage from heavy rains.",
+      title: "Set up visitor disinfection",
+      description: "Prepare footbath and disinfection station at farm entrance",
       priority: "medium",
       status: "pending",
-      category: "Feed Management",
-      estimatedCost: "₱1,000-2,000",
-      timeframe: "Within 3 days",
-      icon: Truck,
-    },
-    {
-      id: "6",
-      title: "Regular Pond Preparation",
-      description:
-        "Standard cleaning and disinfection of ponds before stocking.",
-      priority: "medium",
-      status: "completed",
-      category: "Pond Management",
-      estimatedCost: "₱1,500-3,000",
-      timeframe: "Before each cycle",
-      icon: Droplets,
-    },
-    {
-      id: "7",
-      title: "Equipment Disinfection Routine",
-      description: "Daily disinfection of all shared farm equipment.",
-      priority: "medium",
-      status: "pending",
-      category: "Equipment Management",
-      estimatedCost: "₱100-200",
-      timeframe: "Daily",
-      icon: Wrench,
-    },
-    {
-      id: "8",
-      title: "Waste Management Protocol",
-      description:
-        "Proper disposal of dead shrimp and farm waste to prevent disease spread.",
-      priority: "high",
-      status: "pending",
-      category: "Waste Management",
-      estimatedCost: "₱50-100",
-      timeframe: "Daily",
-      icon: Trash2,
+      category: "Access Control",
+      estimatedCost: "₱150-300",
+      timeframe: "Tomorrow",
+      icon: Shield,
     },
   ];
 
@@ -232,7 +133,6 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
     if (storedPlan) {
       try {
         const parsedPlan: BiosecurityTask[] = JSON.parse(storedPlan);
-        // Assign IDs and default status if not present (from AI generation)
         const tasksWithDefaults = parsedPlan.map((task, index) => ({
           ...task,
           id: task.id || `ai-task-${index}`,
@@ -241,18 +141,15 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
             "pending",
         }));
         setAiGeneratedTasks(tasksWithDefaults);
-        localStorage.removeItem("aiGeneratedPlan"); // Clear after use
+        localStorage.removeItem("aiGeneratedPlan");
       } catch (error) {
-        console.error(
-          "Failed to parse AI generated plan from localStorage:",
-          error
-        );
-        setAiGeneratedTasks(null); // Fallback to default if parsing fails
+        console.error("Failed to parse AI generated plan:", error);
+        setAiGeneratedTasks(null);
       }
     }
   }, []);
 
-  const currentTasks = aiGeneratedTasks || defaultTasks; // Use AI tasks if available, else default
+  const currentTasks = aiGeneratedTasks || defaultTasks;
 
   const toggleTaskStatus = (taskId: string) => {
     const updatedTasks = currentTasks.map(task => {
@@ -265,69 +162,26 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
     });
     if (aiGeneratedTasks) {
       setAiGeneratedTasks(updatedTasks);
-    } else {
-      // If using default tasks, update them in a local state
-      const updatedDefaultTasks = defaultTasks.map(task => {
-        if (task.id === taskId) {
-          const newStatus: "completed" | "in-progress" | "pending" =
-            task.status === "completed" ? "pending" : "completed";
-          return { ...task, status: newStatus };
-        }
-        return task;
-      });
-      setAiGeneratedTasks(null); // Force re-evaluation to use defaultTasks if no AI plan
     }
   };
 
-  // Re-evaluate currentTasks based on the updated status
-  const tasksToDisplay = aiGeneratedTasks || defaultTasks;
-
-  // Apply status and category filters first
-  const filteredTasks = tasksToDisplay.filter(task => {
-    const statusMatch = filterStatus === "all" || task.status === filterStatus;
-    const categoryMatch =
-      filterCategory === "all" || task.category === filterCategory;
-    return statusMatch && categoryMatch;
-  });
-
-  // Apply sorting
-  const sortedTasks = [...filteredTasks].sort((a, b) => {
-    switch (sortBy) {
-      case "priority":
-        const priorityOrder = { critical: 0, high: 1, medium: 2, low: 3 };
-        return priorityOrder[a.priority] - priorityOrder[b.priority];
-      case "category":
-        return a.category.localeCompare(b.category);
-      case "status":
-        const statusOrder = { pending: 0, "in-progress": 1, completed: 2 };
-        return statusOrder[a.status] - statusOrder[b.status];
-      case "timeframe":
-        // Simple alphabetical sort for timeframe (could be enhanced with date parsing)
-        return a.timeframe.localeCompare(b.timeframe);
-      case "cost":
-        return (
-          parseEstimatedCost(a.estimatedCost) -
-          parseEstimatedCost(b.estimatedCost)
-        );
-      default:
-        return 0;
-    }
-  });
-
-  // Apply budget filter last
-  const tasksFilteredByBudget = sortedTasks.filter(task => {
-    if (maxBudget === "" || isNaN(Number(maxBudget))) return true; // Show all if no budget or invalid input
-    const budget = Number(maxBudget);
-    const estimatedCostValue = parseEstimatedCost(task.estimatedCost);
-    return estimatedCostValue <= budget;
-  });
-
-  const completedTasksCount = tasksFilteredByBudget.filter(
+  const completedTasksCount = currentTasks.filter(
     task => task.status === "completed"
   ).length;
-  const progressPercentage = tasksFilteredByBudget.length
-    ? Math.round((completedTasksCount / tasksFilteredByBudget.length) * 100)
-    : 0;
+  const progressPercentage = Math.round(
+    (completedTasksCount / currentTasks.length) * 100
+  );
+
+  // Determine if plan is urgent based on critical priority tasks
+  const hasUrgentTasks = currentTasks.some(
+    task => task.priority === "critical"
+  );
+
+  // Get current step (first non-completed task)
+  const currentStep = currentTasks.find(task => task.status !== "completed");
+  const currentStepNumber = currentStep
+    ? currentTasks.findIndex(task => task.id === currentStep.id) + 1
+    : 1;
 
   if (selectedTaskForGuide) {
     const taskWithIcon = {
@@ -346,261 +200,305 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Plan Overview */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Zap className="h-5 w-5 text-blue-600" />
-            Dynamic Biosecurity Action Plan
-          </CardTitle>
-          <CardDescription>
-            AI-adapted plan based on current farm conditions and external
-            factors
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {/* Budget Input Section */}
-            <div className="space-y-2">
-              <Label htmlFor="max-budget" className="text-sm font-medium">
-                Maximum Budget (₱)
-              </Label>
-              <Input
-                id="max-budget"
-                type="number"
-                placeholder="e.g., 5000"
-                value={maxBudget}
-                onChange={e => setMaxBudget(e.target.value)}
-                className="w-full md:w-1/2"
-              />
-              <p className="text-xs text-gray-500">
-                Enter your available budget to filter suggested tasks.
-              </p>
-            </div>
-
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium">Overall Progress</span>
-              <span className="text-sm text-gray-600">
-                {completedTasksCount}/{tasksFilteredByBudget.length} tasks
-                completed
-              </span>
-            </div>
-            <Progress value={progressPercentage} className="h-3" />
-
-            <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
-              <div className="rounded-lg border border-red-200 bg-red-50 p-3 text-center">
-                <p className="text-2xl font-bold text-red-600">
-                  {
-                    tasksFilteredByBudget.filter(t => t.priority === "critical")
-                      .length
-                  }
-                </p>
-                <p className="text-sm text-red-700">Critical Tasks</p>
-              </div>
-              <div className="rounded-lg border border-orange-200 bg-orange-50 p-3 text-center">
-                <p className="text-2xl font-bold text-orange-600">
-                  {
-                    tasksFilteredByBudget.filter(t => t.priority === "high")
-                      .length
-                  }
-                </p>
-                <p className="text-sm text-orange-700">High Priority</p>
-              </div>
-              <div className="rounded-lg border border-blue-200 bg-blue-50 p-3 text-center">
-                <p className="text-2xl font-bold text-blue-600">
-                  {tasksFilteredByBudget.filter(t => t.adaptationReason).length}
-                </p>
-                <p className="text-sm text-blue-700">AI Adaptations</p>
-              </div>
-            </div>
+    <div className="mx-auto max-w-7xl px-6 py-8">
+      {/* Header - Clean and minimal */}
+      <div className="mb-8">
+        <div className="mb-6 flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <h1 className="text-3xl font-bold text-gray-900">Action Plan</h1>
+            {hasUrgentTasks && (
+              <Badge variant="destructive" className="px-3 py-1">
+                <AlertTriangle className="mr-2 h-4 w-4" />
+                Urgent
+              </Badge>
+            )}
           </div>
-        </CardContent>
-      </Card>
-
-      {/* Task List */}
-      <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-gray-900">
-          Prioritized Action Items
-        </h3>
-
-        {/* Sort and Filter Controls */}
-        <div className="grid grid-cols-1 gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4 md:grid-cols-3">
-          <div className="space-y-2">
-            <Label htmlFor="sort-by" className="text-sm font-medium">
-              Sort by
-            </Label>
-            <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger id="sort-by">
-                <SelectValue placeholder="Select sorting option" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="priority">Priority</SelectItem>
-                <SelectItem value="category">Category</SelectItem>
-                <SelectItem value="status">Status</SelectItem>
-                <SelectItem value="timeframe">Timeframe</SelectItem>
-                <SelectItem value="cost">Estimated Cost</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="filter-status" className="text-sm font-medium">
-              Filter by Status
-            </Label>
-            <Select value={filterStatus} onValueChange={setFilterStatus}>
-              <SelectTrigger id="filter-status">
-                <SelectValue placeholder="All statuses" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Statuses</SelectItem>
-                <SelectItem value="pending">Pending</SelectItem>
-                <SelectItem value="in-progress">In Progress</SelectItem>
-                <SelectItem value="completed">Completed</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="filter-category" className="text-sm font-medium">
-              Filter by Category
-            </Label>
-            <Select value={filterCategory} onValueChange={setFilterCategory}>
-              <SelectTrigger id="filter-category">
-                <SelectValue placeholder="All categories" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
-                <SelectItem value="Infrastructure">Infrastructure</SelectItem>
-                <SelectItem value="Access Control">Access Control</SelectItem>
-                <SelectItem value="Water Management">
-                  Water Management
-                </SelectItem>
-                <SelectItem value="Human Resources">Human Resources</SelectItem>
-                <SelectItem value="Feed Management">Feed Management</SelectItem>
-                <SelectItem value="Pond Management">Pond Management</SelectItem>
-                <SelectItem value="Equipment Management">
-                  Equipment Management
-                </SelectItem>
-                <SelectItem value="Waste Management">
-                  Waste Management
-                </SelectItem>
-                <SelectItem value="Animal Health">Animal Health</SelectItem>
-              </SelectContent>
-            </Select>
+          <div className="text-right">
+            <div className="text-sm text-gray-500">Progress</div>
+            <div className="text-2xl font-bold text-gray-900">
+              {progressPercentage}%
+            </div>
           </div>
         </div>
 
-        {tasksFilteredByBudget.length > 0 ? (
-          tasksFilteredByBudget.map(task => {
-            const IconComponent = categoryIcons[task.category] || Zap; // Fallback icon
-            return (
-              <Card
-                key={task.id}
-                className={`border-l-4 ${
-                  task.priority === "critical"
-                    ? "border-l-red-500"
-                    : task.priority === "high"
-                      ? "border-l-orange-500"
-                      : task.priority === "medium"
-                        ? "border-l-yellow-500"
-                        : "border-l-green-500"
-                }`}
-              >
-                <CardHeader className="pb-3">
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-start gap-3">
-                      <Checkbox
-                        checked={task.status === "completed"}
-                        onCheckedChange={() => toggleTaskStatus(task.id)}
-                        className="mt-1"
-                      />
-                      <div className="space-y-1">
-                        <div className="flex items-center gap-2">
-                          <IconComponent className="h-4 w-4 text-blue-600" />
-                          <CardTitle className="text-base">
-                            {task.title}
-                          </CardTitle>
-                          {getStatusIcon(task.status)}
-                        </div>
-                        <CardDescription>{task.description}</CardDescription>
-                      </div>
-                    </div>
-                    <Badge className={getPriorityColor(task.priority)}>
-                      {task.priority.toUpperCase()}
-                    </Badge>
-                  </div>
-                </CardHeader>
-                <CardContent className="pt-0">
-                  <div className="grid grid-cols-1 gap-4 text-sm md:grid-cols-4">
-                    <div>
-                      <p className="font-medium text-gray-600">Category</p>
-                      <p className="text-gray-800">{task.category}</p>
-                    </div>
-                    <div>
-                      <p className="font-medium text-gray-600">Est. Cost</p>
-                      <p className="text-gray-800">{task.estimatedCost}</p>
-                    </div>
-                    <div>
-                      <p className="font-medium text-gray-600">Timeframe</p>
-                      <p className="text-gray-800">{task.timeframe}</p>
-                    </div>
-                    <div className="flex justify-end">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setSelectedTaskForGuide(task)}
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
+          <div className="lg:col-span-3">
+            <Progress value={progressPercentage} className="h-2" />
+            <div className="mt-2 text-sm text-gray-600">
+              {completedTasksCount} of {currentTasks.length} steps completed
+            </div>
+          </div>
+
+          <div className="flex gap-4 lg:justify-end">
+            <div className="text-center">
+              <div className="text-lg font-bold text-red-600">
+                {currentTasks.filter(t => t.priority === "critical").length}
+              </div>
+              <div className="text-xs text-gray-500">Critical</div>
+            </div>
+            <div className="text-center">
+              <div className="text-lg font-bold text-blue-600">
+                {currentTasks.filter(t => t.status === "in-progress").length}
+              </div>
+              <div className="text-xs text-gray-500">Active</div>
+            </div>
+            <div className="text-center">
+              <div className="text-lg font-bold text-gray-600">
+                {currentTasks.filter(t => t.status === "pending").length}
+              </div>
+              <div className="text-xs text-gray-500">Pending</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content */}
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
+        {/* Left Column - Step List */}
+        <div className="lg:col-span-3">
+          <div className="border bg-white">
+            <div className="border-b px-6 py-4">
+              <h2 className="text-lg font-semibold text-gray-900">
+                Action Steps
+              </h2>
+            </div>
+
+            <div className="divide-y">
+              {currentTasks
+                .slice(0, showAllSteps ? currentTasks.length : 5)
+                .map((task, index) => {
+                  const stepNumber = index + 1;
+                  const isCompleted = task.status === "completed";
+                  const isInProgress = task.status === "in-progress";
+                  const isCritical = task.priority === "critical";
+
+                  return (
+                    <div
+                      key={task.id}
+                      className="flex items-start gap-4 p-6 hover:bg-gray-50"
+                    >
+                      {/* Step Number */}
+                      <div
+                        className={`flex h-8 w-8 flex-shrink-0 items-center justify-center text-sm font-medium ${
+                          isCompleted
+                            ? "bg-green-600 text-white"
+                            : isInProgress
+                              ? "bg-blue-600 text-white"
+                              : isCritical
+                                ? "bg-red-600 text-white"
+                                : "bg-gray-200 text-gray-600"
+                        }`}
                       >
-                        Get How-To Guide
-                      </Button>
-                    </div>
-                  </div>
-
-                  {task.adaptationReason && (
-                    <div className="mt-3 rounded-lg border border-blue-200 bg-blue-50 p-3">
-                      <div className="flex items-center gap-2">
-                        <Info className="h-4 w-4 text-blue-600" />
-                        <p className="text-sm font-medium text-blue-800">
-                          AI Adaptation
-                        </p>
+                        {isCompleted ? (
+                          <CheckCircle className="h-4 w-4" />
+                        ) : (
+                          stepNumber
+                        )}
                       </div>
-                      <p className="mt-1 text-sm text-blue-700">
-                        {task.adaptationReason}
-                      </p>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-            );
-          })
-        ) : (
-          <div className="py-10 text-center text-gray-500">
-            {maxBudget !== "" && !isNaN(Number(maxBudget))
-              ? "No tasks found within your specified budget."
-              : "No tasks available. Please submit a farm assessment to generate a personalized plan."}
-          </div>
-        )}
-        {tasksFilteredByBudget.filter(task => {
-          if (maxBudget === "" || isNaN(Number(maxBudget))) return false;
-          const budget = Number(maxBudget);
-          const estimatedCostValue = parseEstimatedCost(task.estimatedCost);
-          return estimatedCostValue > budget;
-        }).length > 0 && (
-          <div className="mt-4 text-center text-sm text-gray-500">
-            Some tasks are hidden because they exceed your budget of{" "}
-            {Number(maxBudget).toLocaleString()} ₱.
-          </div>
-        )}
 
-        {/* Results summary */}
-        <div className="mt-4 text-center text-sm text-gray-500">
-          Showing {tasksFilteredByBudget.length} of {tasksToDisplay.length}{" "}
-          tasks
-          {filterStatus !== "all" && ` • Status: ${filterStatus}`}
-          {filterCategory !== "all" && ` • Category: ${filterCategory}`}
-          {maxBudget !== "" &&
-            !isNaN(Number(maxBudget)) &&
-            ` • Budget: ≤₱${Number(maxBudget).toLocaleString()}`}
+                      {/* Step Content */}
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-start justify-between">
+                          <div className="min-w-0 flex-1">
+                            <div className="mb-2 flex items-center gap-3">
+                              <h3 className="font-medium text-gray-900">
+                                {task.title}
+                              </h3>
+                              <Badge
+                                variant="secondary"
+                                className={`text-xs ${
+                                  isCompleted
+                                    ? "bg-green-100 text-green-700"
+                                    : isInProgress
+                                      ? "bg-blue-100 text-blue-700"
+                                      : "bg-gray-100 text-gray-600"
+                                }`}
+                              >
+                                {isCompleted
+                                  ? "Complete"
+                                  : isInProgress
+                                    ? "Active"
+                                    : "Pending"}
+                              </Badge>
+                            </div>
+
+                            <p className="mb-4 text-gray-600">
+                              {task.description}
+                            </p>
+
+                            {/* Task Details */}
+                            <div className="grid grid-cols-3 gap-4 text-sm">
+                              <div>
+                                <div className="mb-1 text-gray-500">
+                                  Category
+                                </div>
+                                <div className="font-medium text-gray-900">
+                                  {task.category}
+                                </div>
+                              </div>
+                              <div>
+                                <div className="mb-1 text-gray-500">
+                                  Timeline
+                                </div>
+                                <div className="font-medium text-gray-900">
+                                  {task.timeframe}
+                                </div>
+                              </div>
+                              <div>
+                                <div className="mb-1 text-gray-500">Cost</div>
+                                <div className="font-medium text-gray-900">
+                                  {task.estimatedCost}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Actions */}
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="ml-4 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                            onClick={() => setSelectedTaskForGuide(task)}
+                          >
+                            View Details
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+
+              {/* Show More/Less */}
+              {currentTasks.length > 5 && (
+                <div className="border-t bg-gray-50 p-6 text-center">
+                  <Button
+                    variant="ghost"
+                    onClick={() => setShowAllSteps(!showAllSteps)}
+                    className="text-blue-600 hover:bg-blue-50"
+                  >
+                    {showAllSteps ? (
+                      <>
+                        Show Less <ChevronUp className="ml-1 h-4 w-4" />
+                      </>
+                    ) : (
+                      <>
+                        Show {currentTasks.length - 5} More{" "}
+                        <ChevronDown className="ml-1 h-4 w-4" />
+                      </>
+                    )}
+                  </Button>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Right Column - Sidebar */}
+        <div className="space-y-6">
+          {/* Current Step */}
+          {currentStep ? (
+            <div className="border bg-white">
+              <div className="border-b px-4 py-3">
+                <h3 className="font-medium text-gray-900">Current Step</h3>
+              </div>
+              <div className="p-4">
+                <div className="mb-4">
+                  <div className="mb-1 text-sm text-gray-500">
+                    Step {currentStepNumber}
+                  </div>
+                  <div className="font-medium text-gray-900">
+                    {currentStep.title}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <Button
+                    className="w-full bg-blue-600 text-white hover:bg-blue-700"
+                    onClick={() => toggleTaskStatus(currentStep.id)}
+                  >
+                    Mark Complete
+                  </Button>
+
+                  <Button
+                    variant="outline"
+                    className="w-full border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                    onClick={() => setSelectedTaskForGuide(currentStep)}
+                  >
+                    Get Help
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div className="border bg-white">
+              <div className="p-6 text-center">
+                <CheckCircle className="mx-auto mb-2 h-8 w-8 text-green-600" />
+                <div className="font-medium text-gray-900">
+                  All Steps Complete
+                </div>
+                <div className="text-sm text-gray-500">Great work!</div>
+              </div>
+            </div>
+          )}
+
+          {/* Progress Summary */}
+          <div className="border bg-white">
+            <div className="border-b px-4 py-3">
+              <h3 className="font-medium text-gray-900">Progress</h3>
+            </div>
+            <div className="p-4">
+              <div className="space-y-3">
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-500">Total Steps</span>
+                  <span className="font-medium">{currentTasks.length}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-500">Completed</span>
+                  <span className="font-medium text-green-600">
+                    {completedTasksCount}
+                  </span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-500">Remaining</span>
+                  <span className="font-medium text-gray-600">
+                    {currentTasks.length - completedTasksCount}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Status Overview */}
+          <div className="border bg-white">
+            <div className="border-b px-4 py-3">
+              <h3 className="font-medium text-gray-900">Status Overview</h3>
+            </div>
+            <div className="p-4">
+              <div className="grid grid-cols-1 gap-2">
+                <div className="flex items-center justify-between py-2">
+                  <span className="text-sm text-gray-600">Critical</span>
+                  <span className="text-lg font-bold text-red-600">
+                    {currentTasks.filter(t => t.priority === "critical").length}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between py-2">
+                  <span className="text-sm text-gray-600">Active</span>
+                  <span className="text-lg font-bold text-blue-600">
+                    {
+                      currentTasks.filter(t => t.status === "in-progress")
+                        .length
+                    }
+                  </span>
+                </div>
+                <div className="flex items-center justify-between py-2">
+                  <span className="text-sm text-gray-600">Pending</span>
+                  <span className="text-lg font-bold text-gray-600">
+                    {currentTasks.filter(t => t.status === "pending").length}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
