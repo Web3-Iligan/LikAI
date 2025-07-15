@@ -527,35 +527,35 @@ export default function LandingPage() {
               </header>
 
               <figure className="relative order-1 lg:order-2">
-                <div className="rounded-xl bg-gradient-to-br from-blue-50 to-[#3498DB]/10 p-6 shadow-lg">
+                <div className="rounded-xl bg-gradient-to-br from-blue-50 to-[#3498DB]/10 p-4 shadow-lg">
                   {/* Enhanced Step-by-Step Dashboard Interface */}
                   <div className="overflow-hidden rounded-lg bg-white shadow-md">
                     {/* Header with progress indicator */}
-                    <div className="border-b bg-gradient-to-r from-[#3498DB] to-[#2980B9] px-4 py-4 text-white">
-                      <div className="mb-2 flex items-center justify-between">
+                    <div className="border-b bg-gradient-to-r from-[#3498DB] to-[#2980B9] px-3 py-3 text-white">
+                      <div className="mb-1.5 flex items-center justify-between">
                         <div className="text-sm font-bold">
                           Step-by-Step Action Plan
                         </div>
                         <div className="flex space-x-1">
-                          <div className="h-2 w-2 rounded-full bg-red-400"></div>
-                          <div className="h-2 w-2 rounded-full bg-orange-400"></div>
-                          <div className="h-2 w-2 rounded-full bg-green-400"></div>
+                          <div className="h-1.5 w-1.5 rounded-full bg-red-400"></div>
+                          <div className="h-1.5 w-1.5 rounded-full bg-orange-400"></div>
+                          <div className="h-1.5 w-1.5 rounded-full bg-green-400"></div>
                         </div>
                       </div>
-                      <div className="flex items-center space-x-3">
+                      <div className="flex items-center space-x-2">
                         <div className="text-xs opacity-90">
                           Progress: 2/5 steps
                         </div>
                         <div className="flex-1 rounded-full bg-white/20">
-                          <div className="h-1.5 w-2/5 rounded-full bg-white"></div>
+                          <div className="h-1 w-2/5 rounded-full bg-white"></div>
                         </div>
                         <div className="text-xs opacity-90">40%</div>
                       </div>
                     </div>
 
-                    <div className="p-5">
+                    <div className="p-4">
                       {/* Current Plan Header */}
-                      <div className="mb-4 flex items-center justify-between">
+                      <div className="mb-3 flex items-center justify-between">
                         <div>
                           <h4 className="text-sm font-bold text-gray-900">
                             Water Quality Recovery Plan
@@ -564,7 +564,7 @@ export default function LandingPage() {
                             Pond 3 - Critical Priority
                           </p>
                         </div>
-                        <div className="rounded-full bg-red-100 px-3 py-1">
+                        <div className="rounded-full bg-red-100 px-2 py-0.5">
                           <span className="text-xs font-medium text-red-700">
                             🚨 Urgent
                           </span>
@@ -572,23 +572,23 @@ export default function LandingPage() {
                       </div>
 
                       {/* Enhanced Step List */}
-                      <div className="space-y-3">
+                      <div className="space-y-2">
                         {/* Step 1 - Current */}
-                        <div className="rounded-lg border-l-4 border-orange-500 bg-orange-50 p-3">
-                          <div className="flex items-start space-x-3">
-                            <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-orange-500 text-xs font-bold text-white">
+                        <div className="rounded-lg border-l-4 border-orange-500 bg-orange-50 p-2.5">
+                          <div className="flex items-start space-x-2">
+                            <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-orange-500 text-xs font-bold text-white">
                               1
                             </div>
                             <div className="flex-1">
                               <div className="text-sm font-semibold text-gray-900">
                                 Test dissolved oxygen levels
                               </div>
-                              <div className="mb-2 text-xs text-gray-700">
+                              <div className="mb-1 text-xs text-gray-700">
                                 Use DO meter in Pond 3 immediately - readings
                                 below 4mg/L
                               </div>
                               <div className="flex items-center space-x-2">
-                                <span className="rounded bg-orange-100 px-2 py-1 text-xs font-medium text-orange-800">
+                                <span className="rounded bg-orange-100 px-1.5 py-0.5 text-xs font-medium text-orange-800">
                                   In Progress
                                 </span>
                                 <span className="text-xs text-gray-500">
@@ -600,20 +600,20 @@ export default function LandingPage() {
                         </div>
 
                         {/* Step 2 - Completed */}
-                        <div className="rounded-lg border-l-4 border-green-500 bg-green-50 p-3">
-                          <div className="flex items-start space-x-3">
-                            <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-green-500 text-xs font-bold text-white">
+                        <div className="rounded-lg border-l-4 border-green-500 bg-green-50 p-2.5">
+                          <div className="flex items-start space-x-2">
+                            <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-green-500 text-xs font-bold text-white">
                               ✓
                             </div>
                             <div className="flex-1">
                               <div className="text-sm font-semibold text-gray-900">
                                 Increase aeration
                               </div>
-                              <div className="mb-2 text-xs text-gray-700">
+                              <div className="mb-1 text-xs text-gray-700">
                                 Turn on backup aerators - all 3 units activated
                               </div>
                               <div className="flex items-center space-x-2">
-                                <span className="rounded bg-green-100 px-2 py-1 text-xs font-medium text-green-800">
+                                <span className="rounded bg-green-100 px-1.5 py-0.5 text-xs font-medium text-green-800">
                                   Completed
                                 </span>
                                 <span className="text-xs text-gray-500">
@@ -625,21 +625,21 @@ export default function LandingPage() {
                         </div>
 
                         {/* Step 3 - Next */}
-                        <div className="rounded-lg border-l-4 border-gray-300 bg-gray-50 p-3">
-                          <div className="flex items-start space-x-3">
-                            <div className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-gray-400 text-xs font-bold text-white">
+                        <div className="rounded-lg border-l-4 border-gray-300 bg-gray-50 p-2.5">
+                          <div className="flex items-start space-x-2">
+                            <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-gray-400 text-xs font-bold text-white">
                               3
                             </div>
                             <div className="flex-1">
                               <div className="text-sm font-semibold text-gray-700">
                                 Monitor for 2 hours
                               </div>
-                              <div className="mb-2 text-xs text-gray-600">
+                              <div className="mb-1 text-xs text-gray-600">
                                 Recheck DO levels every 30 minutes - target:
                                 &gt;5mg/L
                               </div>
                               <div className="flex items-center space-x-2">
-                                <span className="rounded bg-gray-100 px-2 py-1 text-xs font-medium text-gray-600">
+                                <span className="rounded bg-gray-100 px-1.5 py-0.5 text-xs font-medium text-gray-600">
                                   Pending
                                 </span>
                                 <span className="text-xs text-gray-500">
@@ -651,14 +651,14 @@ export default function LandingPage() {
                         </div>
 
                         {/* Steps 4-5 - Collapsed view */}
-                        <div className="rounded-lg border border-gray-200 bg-white p-3">
+                        <div className="rounded-lg border border-gray-200 bg-white p-2.5">
                           <div className="flex items-center justify-between">
-                            <div className="flex items-center space-x-3">
+                            <div className="flex items-center space-x-2">
                               <div className="flex space-x-1">
-                                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-200 text-xs font-semibold text-gray-600">
+                                <div className="flex h-4 w-4 items-center justify-center rounded-full bg-gray-200 text-xs font-semibold text-gray-600">
                                   4
                                 </div>
-                                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-gray-200 text-xs font-semibold text-gray-600">
+                                <div className="flex h-4 w-4 items-center justify-center rounded-full bg-gray-200 text-xs font-semibold text-gray-600">
                                   5
                                 </div>
                               </div>
@@ -674,11 +674,11 @@ export default function LandingPage() {
                       </div>
 
                       {/* Action buttons */}
-                      <div className="mt-4 flex space-x-2">
-                        <button className="flex-1 rounded-lg bg-[#3498DB] px-3 py-2 text-xs font-medium text-white hover:bg-[#2980B9]">
+                      <div className="mt-3 flex space-x-2">
+                        <button className="flex-1 rounded-lg bg-[#3498DB] px-2.5 py-1.5 text-xs font-medium text-white hover:bg-[#2980B9]">
                           Mark Step 1 Complete
                         </button>
-                        <button className="rounded-lg border border-gray-300 px-3 py-2 text-xs font-medium text-gray-700 hover:bg-gray-50">
+                        <button className="rounded-lg border border-gray-300 px-2.5 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50">
                           Get Help
                         </button>
                       </div>
