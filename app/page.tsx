@@ -299,7 +299,7 @@ export default function LandingPage() {
                             </svg>
                             {/* Center content */}
                             <div className="absolute inset-0 flex flex-col items-center justify-center">
-                              <span className="text-lg font-bold text-gray-900 sm:text-xl lg:text-2xl">
+                              <span className="text-base font-bold text-gray-900 sm:text-lg lg:text-xl">
                                 92%
                               </span>
                             </div>
