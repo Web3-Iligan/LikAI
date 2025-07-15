@@ -276,31 +276,35 @@ export default function LandingPage() {
                         <div className="mb-4 flex flex-col items-center sm:mb-6 lg:mb-8">
                           <div className="relative mb-3 h-20 w-20 sm:mb-4 sm:h-24 sm:w-24 lg:h-28 lg:w-28">
                             <svg
-                              className="h-20 w-20 -rotate-90 transform sm:h-24 sm:w-24 lg:h-28 lg:w-28"
+                              className="h-20 w-20 transform sm:h-24 sm:w-24 lg:h-28 lg:w-28"
                               viewBox="0 0 36 36"
                             >
+                              {/* Background circle */}
                               <path
                                 d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                                 fill="none"
                                 stroke="#E5E7EB"
-                                strokeWidth="2"
+                                strokeWidth="3"
                               />
+                              {/* Progress circle */}
                               <path
                                 d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
                                 fill="none"
                                 stroke="#F59E0B"
-                                strokeWidth="2"
-                                strokeDasharray="92, 100"
+                                strokeWidth="3"
+                                strokeDasharray="92, 8"
+                                strokeLinecap="round"
                               />
                             </svg>
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <span className="text-base font-bold text-gray-900 sm:text-lg lg:text-xl">
+                            {/* Center content */}
+                            <div className="absolute inset-0 flex flex-col items-center justify-center">
+                              <span className="text-lg font-bold text-gray-900 sm:text-xl lg:text-2xl">
                                 92%
                               </span>
                             </div>
                           </div>
-                          <p className="text-center text-sm text-gray-600 sm:text-base">
-                            within optimal range
+                          <p className="text-center text-sm font-medium text-orange-600 sm:text-base">
+                            Good
                           </p>
                         </div>
 
