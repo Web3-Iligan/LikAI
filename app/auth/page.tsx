@@ -10,11 +10,6 @@ export default function AuthPage() {
     <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#FF7F50]/5 via-white to-[#3498DB]/10">
       {/* Background Effects - Similar to Hero Section */}
       <div className="from-[#FF7F50]/3 absolute inset-0 bg-gradient-to-r to-transparent opacity-50"></div>
-      {/* Decorative circles */}
-      <div className="absolute right-10 top-10 h-32 w-32 rounded-full bg-[#FF7F50]/10 blur-xl"></div>
-      <div className="absolute bottom-10 left-10 h-24 w-24 rounded-full bg-[#3498DB]/10 blur-lg"></div>
-      <div className="absolute right-1/4 top-1/2 h-16 w-16 rounded-full bg-[#FF7F50]/5 blur-md"></div>
-      <div className="bg-[#3498DB]/8 absolute left-1/4 top-20 h-20 w-20 rounded-full blur-lg"></div>
       {/* Header */}
       <header className="relative z-50 border-b border-blue-200/50 bg-white/90 px-8 py-6 backdrop-blur-sm">
         <div className="mx-auto flex max-w-7xl items-center justify-between">
@@ -72,7 +67,11 @@ export default function AuthPage() {
 
           {/* Right Side - Dashboard Preview */}
           <div className="relative hidden lg:block">
-            <div className="relative rotate-1 transform rounded-2xl border border-gray-200/50 bg-white p-6 shadow-2xl transition-transform duration-300 hover:rotate-0">
+            {/* Decorative circles behind dashboard */}
+            <div className="absolute -right-6 -top-6 -z-10 h-28 w-28 rounded-full bg-[#FF7F50]/10 blur-lg"></div>
+            <div className="absolute -bottom-8 -left-8 -z-10 h-32 w-32 rounded-full bg-[#3498DB]/10 blur-xl"></div>
+            
+            <div className="relative z-10 rotate-1 transform rounded-2xl border border-gray-200/50 bg-white p-6 shadow-2xl transition-transform duration-300 hover:rotate-0">
               {/* Mock Dashboard Content */}
               <div className="space-y-4">
                 {/* Header */}
@@ -179,7 +178,7 @@ export default function AuthPage() {
             </div>
 
             {/* Floating elements */}
-            <div className="absolute -bottom-4 -left-4 flex h-12 w-12 -rotate-12 transform items-center justify-center rounded-lg bg-gradient-to-br from-[#3498DB] to-[#2980B9] shadow-lg">
+            <div className="absolute -bottom-4 -left-4 z-20 flex h-12 w-12 -rotate-12 transform items-center justify-center rounded-lg bg-gradient-to-br from-[#3498DB] to-[#2980B9] shadow-lg">
               <span className="font-bold text-white">AI</span>
             </div>
           </div>
