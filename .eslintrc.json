@@ -16,7 +16,13 @@
     "import/order": [
       "error",
       {
-        "groups": ["builtin", "external", "internal", ["parent", "sibling"], "index"],
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["parent", "sibling"],
+          "index"
+        ],
         "pathGroups": [
           {
             "pattern": "react",
@@ -37,7 +43,10 @@
       }
     ],
     "import/no-unresolved": "error", // Ensures imported modules resolve to a file
-    "import/no-unused-modules": ["warn", { "unusedExports": true, "ignoreExports": ["next.config.mjs"] }], // Warn about unused exports, adjust ignoreExports as needed
+    "import/no-unused-modules": [
+      "warn",
+      { "unusedExports": true, "ignoreExports": ["next.config.mjs"] }
+    ], // Warn about unused exports, adjust ignoreExports as needed
     "import/first": "error" // Ensures all imports are at the top of the file
   },
   "settings": {
@@ -50,10 +59,5 @@
       }
     }
   },
-  "ignorePatterns": [
-    "node_modules/",
-    ".next/",
-    "public/",
-    "out/"
-  ]
+  "ignorePatterns": ["node_modules/", ".next/", "public/", "out/"]
 }

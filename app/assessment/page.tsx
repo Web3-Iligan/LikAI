@@ -1,5 +1,6 @@
 import { ClipboardList } from "lucide-react";
 
+import { FarmAssessmentForm } from "@/components/assessment/farm-assessment-form";
 import {
   Card,
   CardContent,
@@ -7,8 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
-import { FarmAssessmentForm } from "@/components/assessment/farm-assessment-form";
 
 export default function AssessmentPage() {
   return (

@@ -3,9 +3,6 @@
 import React from "react";
 
 // Import Badge component
-import Image from "next/image";
-import Link from "next/link";
-
 import {
   BarChart3,
   Bell,
@@ -21,6 +18,8 @@ import {
   Shield,
   Zap,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 // Import cn for conditional class names
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -29,7 +28,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-
 import { cn } from "@/lib/utils";
 
 // Import ScrollArea

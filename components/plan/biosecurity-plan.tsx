@@ -18,6 +18,7 @@ import {
   Zap,
 } from "lucide-react";
 
+import { HowToGuideView } from "@/components/shared/how-to-guide-view";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -38,8 +39,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
-import { HowToGuideView } from "@/components/shared/how-to-guide-view";
 
 // Add a helper function to parse the estimated cost. Place this outside the component function.
 function parseEstimatedCost(costString: string): number {

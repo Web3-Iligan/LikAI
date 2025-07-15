@@ -2,9 +2,6 @@
 
 import { useState } from "react";
 
-import Image from "next/image";
-import Link from "next/link";
-
 import {
   Activity,
   AlertCircle,
@@ -20,7 +17,11 @@ import {
   TrendingUp,
   Zap,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
+import RiskTrendChart from "@/components/reports/risk-trend-chart";
+import TaskCompletionChart from "@/components/reports/task-completion-chart";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -33,9 +34,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-
-import RiskTrendChart from "@/components/reports/risk-trend-chart";
-import TaskCompletionChart from "@/components/reports/task-completion-chart";
 
 export function DashboardOverview() {
   const [showImprovements, setShowImprovements] = useState(false);

@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 
-import Link from "next/link";
-
 import {
   Activity,
   AlertTriangle,
@@ -16,7 +14,9 @@ import {
   Truck,
   Users,
 } from "lucide-react";
+import Link from "next/link";
 
+import { DetailedActionPlan } from "@/components/plan/detailed-action-plan";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -39,7 +39,6 @@ import {
 } from "@/components/ui/select";
 
 // Import Link for navigation
-import { DetailedActionPlan } from "@/components/plan/detailed-action-plan";
 
 // Import the new component
 
