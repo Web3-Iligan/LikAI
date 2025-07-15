@@ -1,0 +1,59 @@
+{
+  "extends": [
+    "next/core-web-vitals", // Essential Next.js recommended rules
+    "plugin:prettier/recommended" // Integrates Prettier with ESLint
+  ],
+  "plugins": [
+    "import" // For import sorting and optimization
+  ],
+  "rules": {
+    // Custom rules or overrides go here
+    // Example: Allow specific props without requiring prop-types (if not using TypeScript and prefer to skip prop-types)
+    // "react/react-in-jsx-scope": "off",
+    // "react/prop-types": "off",
+
+    // Import sorting rules from eslint-plugin-import
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal", ["parent", "sibling"], "index"],
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "external",
+            "position": "before"
+          },
+          {
+            "pattern": "@/**", // Adjust this if your absolute import alias is different (e.g., "~/")
+            "group": "internal"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react"],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "import/no-unresolved": "error", // Ensures imported modules resolve to a file
+    "import/no-unused-modules": ["warn", { "unusedExports": true, "ignoreExports": ["next.config.mjs"] }], // Warn about unused exports, adjust ignoreExports as needed
+    "import/first": "error" // Ensures all imports are at the top of the file
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      "typescript": {
+        "alwaysTryTypes": true // This helps import resolver understand TypeScript paths
+      }
+    }
+  },
+  "ignorePatterns": [
+    "node_modules/",
+    ".next/",
+    "public/",
+    "out/"
+  ]
+}
