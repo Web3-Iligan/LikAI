@@ -1064,42 +1064,42 @@ export default function LandingPage() {
             {/* Feature 4 - Practical Biosecurity Library */}
             <article className="grid grid-cols-1 items-center gap-8 sm:gap-12 lg:grid-cols-2">
               <figure className="relative order-1 lg:order-1">
-                <div className="rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 p-6 shadow-lg">
+                <div className="rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 p-4 shadow-lg">
                   {/* Enhanced Knowledge Base Interface */}
                   <div className="overflow-hidden rounded-lg bg-white shadow-md">
                     {/* Header with improved styling */}
-                    <div className="bg-gradient-to-r from-[#3498DB] to-[#2980B9] px-4 py-5 text-center text-white">
-                      <h3 className="mb-3 text-lg font-bold">
+                    <div className="bg-gradient-to-r from-[#3498DB] to-[#2980B9] px-3 py-4 text-center text-white">
+                      <h3 className="mb-2 text-base font-bold">
                         Biosecurity Library
                       </h3>
                       <div className="relative">
                         <input
                           type="text"
                           placeholder="Search for help..."
-                          className="w-full rounded-lg border-0 px-4 py-2.5 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:ring-2 focus:ring-white/50"
+                          className="w-full rounded-lg border-0 px-3 py-2 text-sm text-gray-900 placeholder-gray-400 shadow-sm focus:ring-2 focus:ring-white/50"
                           readOnly
                         />
-                        <button className="absolute right-3 top-2.5 text-gray-400 hover:text-gray-600">
+                        <button className="absolute right-2.5 top-2 text-gray-400 hover:text-gray-600">
                           🔍
                         </button>
                       </div>
                     </div>
 
-                    <div className="p-5">
+                    <div className="p-4">
                       {/* Category Cards with improved design */}
-                      <div className="mb-5 grid grid-cols-2 gap-3">
-                        <div className="group cursor-pointer rounded-lg border border-gray-200 bg-gradient-to-br from-red-50 to-orange-50 p-4 transition-all hover:border-red-300 hover:shadow-md">
-                          <div className="mb-2 text-2xl">🦐</div>
-                          <h4 className="mb-1 text-base font-semibold text-gray-900">
+                      <div className="mb-4 grid grid-cols-2 gap-2">
+                        <div className="group cursor-pointer rounded-lg border border-gray-200 bg-gradient-to-br from-red-50 to-orange-50 p-3 transition-all hover:border-red-300 hover:shadow-md">
+                          <div className="mb-1 text-xl">🦐</div>
+                          <h4 className="mb-0.5 text-sm font-semibold text-gray-900">
                             Shrimp Health
                           </h4>
                           <p className="text-xs text-gray-600">
                             Disease prevention & monitoring
                           </p>
                         </div>
-                        <div className="group cursor-pointer rounded-lg border border-gray-200 bg-gradient-to-br from-blue-50 to-cyan-50 p-4 transition-all hover:border-blue-300 hover:shadow-md">
-                          <div className="mb-2 text-2xl">💧</div>
-                          <h4 className="mb-1 text-base font-semibold text-gray-900">
+                        <div className="group cursor-pointer rounded-lg border border-gray-200 bg-gradient-to-br from-blue-50 to-cyan-50 p-3 transition-all hover:border-blue-300 hover:shadow-md">
+                          <div className="mb-1 text-xl">💧</div>
+                          <h4 className="mb-0.5 text-sm font-semibold text-gray-900">
                             Water Quality
                           </h4>
                           <p className="text-xs text-gray-600">
@@ -1109,19 +1109,19 @@ export default function LandingPage() {
                       </div>
 
                       {/* Popular Articles with visual enhancements */}
-                      <div className="border-t border-gray-100 pt-4">
-                        <div className="mb-3 flex items-center justify-between">
-                          <h4 className="text-base font-semibold text-gray-900">
+                      <div className="border-t border-gray-100 pt-3">
+                        <div className="mb-2 flex items-center justify-between">
+                          <h4 className="text-sm font-semibold text-gray-900">
                             Popular Step-by-Step Guides
                           </h4>
-                          <span className="rounded-full bg-[#3498DB]/10 px-2 py-1 text-xs font-medium text-[#3498DB]">
+                          <span className="rounded-full bg-[#3498DB]/10 px-2 py-0.5 text-xs font-medium text-[#3498DB]">
                             24 guides
                           </span>
                         </div>
-                        <div className="space-y-2">
-                          <div className="group flex cursor-pointer items-center space-x-3 rounded-lg p-2 transition-colors hover:bg-gray-50">
-                            <div className="flex h-6 w-6 items-center justify-center rounded bg-[#3498DB]/10">
-                              <span className="text-xs">�</span>
+                        <div className="space-y-1.5">
+                          <div className="group flex cursor-pointer items-center space-x-2 rounded-lg p-1.5 transition-colors hover:bg-gray-50">
+                            <div className="flex h-5 w-5 items-center justify-center rounded bg-[#3498DB]/10">
+                              <span className="text-xs">💧</span>
                             </div>
                             <div className="flex-1">
                               <div className="text-xs font-medium text-gray-900 group-hover:text-[#3498DB]">
@@ -1135,8 +1135,8 @@ export default function LandingPage() {
                               5 min read
                             </div>
                           </div>
-                          <div className="group flex cursor-pointer items-center space-x-3 rounded-lg p-2 transition-colors hover:bg-gray-50">
-                            <div className="flex h-6 w-6 items-center justify-center rounded bg-green-100">
+                          <div className="group flex cursor-pointer items-center space-x-2 rounded-lg p-1.5 transition-colors hover:bg-gray-50">
+                            <div className="flex h-5 w-5 items-center justify-center rounded bg-green-100">
                               <span className="text-xs">🎥</span>
                             </div>
                             <div className="flex-1">
@@ -1149,9 +1149,9 @@ export default function LandingPage() {
                             </div>
                             <div className="text-xs text-gray-400">Video</div>
                           </div>
-                          <div className="group flex cursor-pointer items-center space-x-3 rounded-lg p-2 transition-colors hover:bg-gray-50">
-                            <div className="flex h-6 w-6 items-center justify-center rounded bg-orange-100">
-                              <span className="text-xs">�</span>
+                          <div className="group flex cursor-pointer items-center space-x-2 rounded-lg p-1.5 transition-colors hover:bg-gray-50">
+                            <div className="flex h-5 w-5 items-center justify-center rounded bg-orange-100">
+                              <span className="text-xs">📋</span>
                             </div>
                             <div className="flex-1">
                               <div className="text-xs font-medium text-gray-900 group-hover:text-[#3498DB]">
@@ -1169,9 +1169,9 @@ export default function LandingPage() {
                       </div>
 
                       {/* Mobile-optimized indicator */}
-                      <div className="mt-4 flex items-center justify-center rounded-lg bg-green-50 px-3 py-2">
-                        <div className="flex items-center space-x-2">
-                          <div className="flex h-5 w-5 items-center justify-center rounded-full bg-green-500">
+                      <div className="mt-3 flex items-center justify-center rounded-lg bg-green-50 px-2 py-1.5">
+                        <div className="flex items-center space-x-1.5">
+                          <div className="flex h-4 w-4 items-center justify-center rounded-full bg-green-500">
                             <span className="text-xs text-white">📱</span>
                           </div>
                           <span className="text-xs font-medium text-green-700">
