@@ -717,8 +717,8 @@ export default function LandingPage() {
               </header>
             </article>
 
-            {/* Feature 3 - Knowledge Base */}
-            <article className="grid grid-cols-1 items-center gap-8 sm:gap-12 lg:grid-cols-2">
+            {/* Feature 3 - Smart Investment Guidance */}
+            <article className="mb-16 grid grid-cols-1 items-center gap-8 sm:mb-20 sm:gap-12 lg:grid-cols-2">
               <header className="order-2 lg:order-1">
                 <div className="mb-4 flex items-center">
                   <div
@@ -728,39 +728,159 @@ export default function LandingPage() {
                     3
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
-                    Practical Biosecurity Library
+                    Smart Investment Guidance
                   </h3>
                 </div>
                 <p className="mb-6 text-base leading-relaxed text-gray-600">
-                  Comprehensive aquaculture resources that help farmers solve
-                  problems independently.
+                  Maximize your farm's budget efficiency with AI-driven
+                  insights, ensuring every biosecurity investment delivers
+                  optimal returns.
                 </p>
 
                 <ul className="list-none space-y-3">
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
                     <span className="text-base text-gray-700">
-                      Searchable expert guides, step-by-step tutorials & visual
-                      demonstrations
+                      Discover practical, low-cost, and DIY alternatives for
+                      essential biosecurity measures.
                     </span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
                     <span className="text-base text-gray-700">
-                      Optimized for easy mobile access, even in the field
+                      Get recommendations specifically designed to fit your
+                      farm's financial capacity and local resource availability.
                     </span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
                     <span className="text-base text-gray-700">
-                      Equips you with immediate, actionable solutions for common
-                      issues
+                      Understand the potential financial benefits and ROI of
+                      each recommended biosecurity upgrade.
                     </span>
                   </li>
                 </ul>
               </header>
 
               <figure className="relative order-1 lg:order-2">
+                <div className="rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 p-6 shadow-lg">
+                  {/* Investment Dashboard Interface */}
+                  <div className="overflow-hidden rounded-lg bg-white shadow-md">
+                    {/* Header */}
+                    <div className="bg-gradient-to-r from-green-500 to-emerald-600 px-4 py-5 text-center text-white">
+                      <h3 className="mb-3 text-lg font-bold">
+                        Investment ROI Calculator
+                      </h3>
+                      <div className="text-sm opacity-90">
+                        Budget: ₱50,000 | Timeline: 6 months
+                      </div>
+                    </div>
+
+                    <div className="p-5">
+                      {/* Investment Recommendations */}
+                      <div className="mb-5 space-y-3">
+                        <div className="rounded-lg border-l-4 border-green-500 bg-green-50 p-3">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <h4 className="text-sm font-semibold text-green-900">
+                                Water Quality Sensors
+                              </h4>
+                              <p className="text-xs text-green-700">
+                                DIY pH monitoring system
+                              </p>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-sm font-bold text-green-600">
+                                ₱8,500
+                              </div>
+                              <div className="text-xs text-green-500">
+                                ROI: 240%
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="rounded-lg border-l-4 border-blue-500 bg-blue-50 p-3">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <h4 className="text-sm font-semibold text-blue-900">
+                                Pond Aeration Upgrade
+                              </h4>
+                              <p className="text-xs text-blue-700">
+                                Solar-powered solution
+                              </p>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-sm font-bold text-blue-600">
+                                ₱25,000
+                              </div>
+                              <div className="text-xs text-blue-500">
+                                ROI: 180%
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="rounded-lg border-l-4 border-orange-500 bg-orange-50 p-3">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <h4 className="text-sm font-semibold text-orange-900">
+                                Feed Management System
+                              </h4>
+                              <p className="text-xs text-orange-700">
+                                Automated feeding timer
+                              </p>
+                            </div>
+                            <div className="text-right">
+                              <div className="text-sm font-bold text-orange-600">
+                                ₱12,000
+                              </div>
+                              <div className="text-xs text-orange-500">
+                                ROI: 150%
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Budget Summary */}
+                      <div className="rounded-lg bg-gray-50 p-4">
+                        <div className="mb-2 flex items-center justify-between">
+                          <span className="text-sm font-medium text-gray-700">
+                            Total Investment
+                          </span>
+                          <span className="text-sm font-bold text-gray-900">
+                            ₱45,500
+                          </span>
+                        </div>
+                        <div className="mb-2 flex items-center justify-between">
+                          <span className="text-sm font-medium text-gray-700">
+                            Projected Annual Savings
+                          </span>
+                          <span className="text-sm font-bold text-green-600">
+                            ₱89,200
+                          </span>
+                        </div>
+                        <div className="border-t border-gray-200 pt-2">
+                          <div className="flex items-center justify-between">
+                            <span className="text-sm font-bold text-gray-900">
+                              Average ROI
+                            </span>
+                            <span className="text-lg font-bold text-green-600">
+                              196%
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </figure>
+            </article>
+
+            {/* Feature 4 - Practical Biosecurity Library */}
+            <article className="grid grid-cols-1 items-center gap-8 sm:gap-12 lg:grid-cols-2">
+              <figure className="relative order-1 lg:order-1">
                 <div className="rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 p-6 shadow-lg">
                   {/* Enhanced Knowledge Base Interface */}
                   <div className="overflow-hidden rounded-lg bg-white shadow-md">
@@ -880,124 +1000,6 @@ export default function LandingPage() {
                   </div>
                 </div>
               </figure>
-            </article>
-
-            {/* Feature 4 - Smart Investment Guidance */}
-            <article className="grid grid-cols-1 items-center gap-8 sm:gap-12 lg:grid-cols-2">
-              <figure className="relative order-1 lg:order-1">
-                <div className="rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 p-6 shadow-lg">
-                  {/* Investment Dashboard Interface */}
-                  <div className="overflow-hidden rounded-lg bg-white shadow-md">
-                    {/* Header */}
-                    <div className="bg-gradient-to-r from-green-500 to-emerald-600 px-4 py-5 text-center text-white">
-                      <h3 className="mb-3 text-lg font-bold">
-                        Investment ROI Calculator
-                      </h3>
-                      <div className="text-sm opacity-90">
-                        Budget: ₱50,000 | Timeline: 6 months
-                      </div>
-                    </div>
-
-                    <div className="p-5">
-                      {/* Investment Recommendations */}
-                      <div className="mb-5 space-y-3">
-                        <div className="rounded-lg border-l-4 border-green-500 bg-green-50 p-3">
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <h4 className="text-sm font-semibold text-green-900">
-                                Water Quality Sensors
-                              </h4>
-                              <p className="text-xs text-green-700">
-                                DIY pH monitoring system
-                              </p>
-                            </div>
-                            <div className="text-right">
-                              <div className="text-sm font-bold text-green-600">
-                                ₱8,500
-                              </div>
-                              <div className="text-xs text-green-500">
-                                ROI: 240%
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="rounded-lg border-l-4 border-blue-500 bg-blue-50 p-3">
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <h4 className="text-sm font-semibold text-blue-900">
-                                Pond Aeration Upgrade
-                              </h4>
-                              <p className="text-xs text-blue-700">
-                                Solar-powered solution
-                              </p>
-                            </div>
-                            <div className="text-right">
-                              <div className="text-sm font-bold text-blue-600">
-                                ₱25,000
-                              </div>
-                              <div className="text-xs text-blue-500">
-                                ROI: 180%
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="rounded-lg border-l-4 border-orange-500 bg-orange-50 p-3">
-                          <div className="flex items-center justify-between">
-                            <div>
-                              <h4 className="text-sm font-semibold text-orange-900">
-                                Feed Management System
-                              </h4>
-                              <p className="text-xs text-orange-700">
-                                Automated feeding timer
-                              </p>
-                            </div>
-                            <div className="text-right">
-                              <div className="text-sm font-bold text-orange-600">
-                                ₱12,000
-                              </div>
-                              <div className="text-xs text-orange-500">
-                                ROI: 150%
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Budget Summary */}
-                      <div className="rounded-lg bg-gray-50 p-4">
-                        <div className="mb-2 flex items-center justify-between">
-                          <span className="text-sm font-medium text-gray-700">
-                            Total Investment
-                          </span>
-                          <span className="text-sm font-bold text-gray-900">
-                            ₱45,500
-                          </span>
-                        </div>
-                        <div className="mb-2 flex items-center justify-between">
-                          <span className="text-sm font-medium text-gray-700">
-                            Projected Annual Savings
-                          </span>
-                          <span className="text-sm font-bold text-green-600">
-                            ₱89,200
-                          </span>
-                        </div>
-                        <div className="border-t border-gray-200 pt-2">
-                          <div className="flex items-center justify-between">
-                            <span className="text-sm font-bold text-gray-900">
-                              Average ROI
-                            </span>
-                            <span className="text-lg font-bold text-green-600">
-                              196%
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </figure>
 
               <header className="order-2 lg:order-2">
                 <div className="mb-4 flex items-center">
@@ -1008,35 +1010,33 @@ export default function LandingPage() {
                     4
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
-                    Smart Investment Guidance
+                    Practical Biosecurity Library
                   </h3>
                 </div>
                 <p className="mb-6 text-base leading-relaxed text-gray-600">
-                  Maximize your farm's budget efficiency with AI-driven
-                  insights, ensuring every biosecurity investment delivers
-                  optimal returns.
+                  Comprehensive aquaculture resources that help farmers solve
+                  problems independently.
                 </p>
 
                 <ul className="list-none space-y-3">
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
                     <span className="text-base text-gray-700">
-                      Discover practical, low-cost, and DIY alternatives for
-                      essential biosecurity measures.
+                      Searchable expert guides, step-by-step tutorials & visual
+                      demonstrations
                     </span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
                     <span className="text-base text-gray-700">
-                      Get recommendations specifically designed to fit your
-                      farm's financial capacity and local resource availability.
+                      Optimized for easy mobile access, even in the field
                     </span>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
                     <span className="text-base text-gray-700">
-                      Understand the potential financial benefits and ROI of
-                      each recommended biosecurity upgrade.
+                      Equips you with immediate, actionable solutions for common
+                      issues
                     </span>
                   </li>
                 </ul>
