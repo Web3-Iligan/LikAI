@@ -32,35 +32,43 @@ export default function LandingPage() {
       {/* Header */}
       <header className="sticky top-0 z-50 flex h-20 items-center border-b border-gray-100 bg-white px-8 sm:px-12 md:px-16 lg:px-8">
         {/* Logo */}
-        <div className="flex-1">
+        <h1 className="flex-1">
           <Link href="#" className="flex w-fit items-center space-x-3">
             <span className="text-2xl font-bold tracking-tight">
               <span className="text-[#FF7F50]">Lik</span>
               <span className="text-[#3498DB]">AI</span>
             </span>
           </Link>
-        </div>
+        </h1>
 
         {/* Navigation - Centered */}
         <nav className="hidden flex-1 items-center justify-center space-x-8 md:flex">
-          <Link
-            href="#about"
-            className="font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900"
-          >
-            About
-          </Link>
-          <Link
-            href="#features"
-            className="font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900"
-          >
-            Features
-          </Link>
-          <Link
-            href="#pricing"
-            className="font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900"
-          >
-            Pricing
-          </Link>
+          <ul className="flex items-center space-x-8">
+            <li>
+              <Link
+                href="#about"
+                className="font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900"
+              >
+                About
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="#features"
+                className="font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900"
+              >
+                Features
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="#pricing"
+                className="font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900"
+              >
+                Pricing
+              </Link>
+            </li>
+          </ul>
         </nav>
 
         {/* CTA Buttons */}
@@ -103,47 +111,55 @@ export default function LandingPage() {
           role="navigation"
           aria-label="Mobile navigation"
         >
-          <div className="space-y-4 px-8 py-4 sm:px-12">
-            <Link
-              href="#about"
-              className="block font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              About
-            </Link>
-            <Link
-              href="#features"
-              className="block font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Features
-            </Link>
-            <Link
-              href="#pricing"
-              className="block font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Pricing
-            </Link>
-            <aside
-              className="flex flex-col space-y-2 border-t border-gray-100 pt-4"
-              aria-label="Mobile call to action buttons"
-            >
-              <Link href="#demo" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-start font-medium text-gray-600 hover:text-gray-900"
-                >
-                  Book a Demo
-                </Button>
+          <ul className="space-y-4 px-8 py-4 sm:px-12">
+            <li>
+              <Link
+                href="#about"
+                className="block font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                About
               </Link>
-              <Link href="/auth" onClick={() => setIsMobileMenuOpen(false)}>
-                <Button className="w-full bg-gradient-to-r from-[#3498DB] to-[#2980B9] font-medium text-white shadow-lg transition-all duration-200 hover:from-[#2980B9] hover:to-[#21618C] hover:shadow-xl">
-                  Get Started
-                </Button>
+            </li>
+            <li>
+              <Link
+                href="#features"
+                className="block font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Features
               </Link>
-            </aside>
-          </div>
+            </li>
+            <li>
+              <Link
+                href="#pricing"
+                className="block font-medium text-gray-600 transition-colors duration-200 hover:text-gray-900"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Pricing
+              </Link>
+            </li>
+            <li className="border-t border-gray-100 pt-4">
+              <aside
+                className="flex flex-col space-y-2"
+                aria-label="Mobile call to action buttons"
+              >
+                <Link href="#demo" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button
+                    variant="ghost"
+                    className="w-full justify-start font-medium text-gray-600 hover:text-gray-900"
+                  >
+                    Book a Demo
+                  </Button>
+                </Link>
+                <Link href="/auth" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Button className="w-full bg-gradient-to-r from-[#3498DB] to-[#2980B9] font-medium text-white shadow-lg transition-all duration-200 hover:from-[#2980B9] hover:to-[#21618C] hover:shadow-xl">
+                    Get Started
+                  </Button>
+                </Link>
+              </aside>
+            </li>
+          </ul>
         </nav>
       )}
 
@@ -182,7 +198,10 @@ export default function LandingPage() {
                   with BFAR GAqP standards, to minimize disease risk and
                   maximize your harvest potential.
                 </p>
-                <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:justify-center sm:gap-4">
+                <nav
+                  className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:justify-center sm:gap-4"
+                  aria-label="Primary call-to-action buttons"
+                >
                   <Link href="/auth" className="w-full sm:w-auto">
                     <Button
                       size="lg"
@@ -201,7 +220,7 @@ export default function LandingPage() {
                       Book a Demo
                     </Button>
                   </Link>
-                </div>
+                </nav>
               </header>
 
               {/* Dashboard Preview - Centered and Enlarged */}
@@ -398,54 +417,60 @@ export default function LandingPage() {
               </p>
             </header>
 
-            <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 px-4 sm:grid-cols-2 sm:gap-8 sm:px-0 md:grid-cols-3">
-              <Card className="border-0 shadow-lg">
-                <CardContent className="p-8 text-center">
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100">
-                    <Shield className="h-8 w-8 text-blue-600" />
-                  </div>
-                  <h3 className="mb-2 text-xl font-semibold">
-                    Risk Mitigation
-                  </h3>
-                  <p className="mb-4 text-gray-600">
-                    Proactively help prevent costly disease outbreaks before
-                    they impact your profitability with AI-driven, predictive
-                    insights.
-                  </p>
-                </CardContent>
-              </Card>
+            <ul className="mx-auto grid max-w-5xl list-none grid-cols-1 gap-6 px-4 sm:grid-cols-2 sm:gap-8 sm:px-0 md:grid-cols-3">
+              <li>
+                <Card className="border-0 shadow-lg">
+                  <CardContent className="p-8 text-center">
+                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100">
+                      <Shield className="h-8 w-8 text-blue-600" />
+                    </div>
+                    <h3 className="mb-2 text-xl font-semibold">
+                      Risk Mitigation
+                    </h3>
+                    <p className="mb-4 text-gray-600">
+                      Proactively help prevent costly disease outbreaks before
+                      they impact your profitability with AI-driven, predictive
+                      insights.
+                    </p>
+                  </CardContent>
+                </Card>
+              </li>
 
-              <Card className="border-0 shadow-lg">
-                <CardContent className="p-8 text-center">
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
-                    <TrendingUp className="h-8 w-8 text-green-600" />
-                  </div>
-                  <h3 className="mb-2 text-xl font-semibold">
-                    Profit Maximization
-                  </h3>
-                  <p className="mb-4 text-gray-600">
-                    Optimize every cycle to achieve superior harvest quality and
-                    quantity, driven by AI insights for increased market value
-                    and profitability.
-                  </p>
-                </CardContent>
-              </Card>
+              <li>
+                <Card className="border-0 shadow-lg">
+                  <CardContent className="p-8 text-center">
+                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+                      <TrendingUp className="h-8 w-8 text-green-600" />
+                    </div>
+                    <h3 className="mb-2 text-xl font-semibold">
+                      Profit Maximization
+                    </h3>
+                    <p className="mb-4 text-gray-600">
+                      Optimize every cycle to achieve superior harvest quality
+                      and quantity, driven by AI insights for increased market
+                      value and profitability.
+                    </p>
+                  </CardContent>
+                </Card>
+              </li>
 
-              <Card className="border-0 shadow-lg">
-                <CardContent className="p-8 text-center">
-                  <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#3498DB]/10">
-                    <Target className="h-8 w-8 text-[#3498DB]" />
-                  </div>
-                  <h3 className="mb-2 text-xl font-semibold">
-                    Resource Optimization
-                  </h3>
-                  <p className="mb-4 text-gray-600">
-                    Minimize costly resource waste and optimize allocation
-                    automatically with AI-driven insights.
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
+              <li>
+                <Card className="border-0 shadow-lg">
+                  <CardContent className="p-8 text-center">
+                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#3498DB]/10">
+                      <Target className="h-8 w-8 text-[#3498DB]" />
+                    </div>
+                    <h3 className="mb-2 text-xl font-semibold">
+                      Resource Optimization
+                    </h3>
+                    <p className="mb-4 text-gray-600">
+                      Minimize costly resource waste and optimize allocation
+                      automatically with AI-driven insights.
+                    </p>
+                  </CardContent>
+                </Card>
+              </li>
+            </ul>
           </div>
         </section>
 
@@ -479,26 +504,26 @@ export default function LandingPage() {
                   side
                 </p>
 
-                <div className="space-y-3">
-                  <div className="flex items-start space-x-3">
+                <ul className="list-none space-y-3">
+                  <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
                     <span className="text-base text-gray-700">
                       Actionable Guidance for Every Task
                     </span>
-                  </div>
-                  <div className="flex items-start space-x-3">
+                  </li>
+                  <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
                     <span className="text-base text-gray-700">
                       Visual Reinforcement for Critical Alerts
                     </span>
-                  </div>
-                  <div className="flex items-start space-x-3">
+                  </li>
+                  <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
                     <span className="text-base text-gray-700">
                       Simplified Priority Task Execution
                     </span>
-                  </div>
-                </div>
+                  </li>
+                </ul>
               </header>
 
               <figure className="relative order-1 lg:order-2">
@@ -669,26 +694,26 @@ export default function LandingPage() {
                   our intelligent AI assistant.
                 </p>
 
-                <div className="space-y-3">
-                  <div className="flex items-start space-x-3">
+                <ul className="list-none space-y-3">
+                  <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
                     <span className="text-base text-gray-700">
                       24/7 instant responses for all biosecurity queries
                     </span>
-                  </div>
-                  <div className="flex items-start space-x-3">
+                  </li>
+                  <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
                     <span className="text-base text-gray-700">
                       Context-aware recommendations tailored to your farm's plan
                     </span>
-                  </div>
-                  <div className="flex items-start space-x-3">
+                  </li>
+                  <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
                     <span className="text-base text-gray-700">
                       Seamless escalation for complex issues
                     </span>
-                  </div>
-                </div>
+                  </li>
+                </ul>
               </header>
             </article>
 
@@ -711,28 +736,28 @@ export default function LandingPage() {
                   problems independently.
                 </p>
 
-                <div className="space-y-3">
-                  <div className="flex items-start space-x-3">
+                <ul className="list-none space-y-3">
+                  <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
                     <span className="text-base text-gray-700">
                       Searchable expert guides, step-by-step tutorials & visual
                       demonstrations
                     </span>
-                  </div>
-                  <div className="flex items-start space-x-3">
+                  </li>
+                  <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
                     <span className="text-base text-gray-700">
                       Optimized for easy mobile access, even in the field
                     </span>
-                  </div>
-                  <div className="flex items-start space-x-3">
+                  </li>
+                  <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
                     <span className="text-base text-gray-700">
                       Equips you with immediate, actionable solutions for common
                       issues
                     </span>
-                  </div>
-                </div>
+                  </li>
+                </ul>
               </header>
 
               <figure className="relative order-1 lg:order-2">
@@ -1097,30 +1122,30 @@ export default function LandingPage() {
             </div>
 
             {/* Additional Info */}
-            <div className="mt-12 text-center">
+            <aside className="mt-12 text-center">
               <p className="mb-4 text-gray-600">
                 All plans include BFAR GAqP-aligned biosecurity guidance and
                 ongoing compliance support
               </p>
-              <div className="flex flex-col items-center justify-center gap-4 text-sm text-gray-500 sm:flex-row">
-                <div className="flex items-center space-x-2">
+              <ul className="flex list-none flex-col items-center justify-center gap-4 text-sm text-gray-500 sm:flex-row">
+                <li className="flex items-center space-x-2">
                   <CheckCircle className="h-4 w-4 text-green-500" />
                   <span>14-day free trial</span>
-                </div>
-                <div className="flex items-center space-x-2">
+                </li>
+                <li className="flex items-center space-x-2">
                   <CheckCircle className="h-4 w-4 text-green-500" />
                   <span>No setup fees</span>
-                </div>
-                <div className="flex items-center space-x-2">
+                </li>
+                <li className="flex items-center space-x-2">
                   <CheckCircle className="h-4 w-4 text-green-500" />
                   <span>Cancel anytime</span>
-                </div>
-                <div className="flex items-center space-x-2">
+                </li>
+                <li className="flex items-center space-x-2">
                   <CheckCircle className="h-4 w-4 text-green-500" />
                   <span>Expert biosecurity support</span>
-                </div>
-              </div>
-            </div>
+                </li>
+              </ul>
+            </aside>
           </div>
         </section>
 
@@ -1559,8 +1584,8 @@ export default function LandingPage() {
                   </div>
 
                   {/* Steps */}
-                  <div className="space-y-6">
-                    <div className="flex items-start space-x-4">
+                  <ol className="list-none space-y-6">
+                    <li className="flex items-start space-x-4">
                       <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-600">
                         1
                       </div>
@@ -1573,9 +1598,9 @@ export default function LandingPage() {
                           and current operations
                         </p>
                       </div>
-                    </div>
+                    </li>
 
-                    <div className="flex items-start space-x-4">
+                    <li className="flex items-start space-x-4">
                       <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-600">
                         2
                       </div>
@@ -1588,9 +1613,9 @@ export default function LandingPage() {
                           opportunities specific to your farm
                         </p>
                       </div>
-                    </div>
+                    </li>
 
-                    <div className="flex items-start space-x-4">
+                    <li className="flex items-start space-x-4">
                       <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-blue-100 text-sm font-bold text-blue-600">
                         3
                       </div>
@@ -1603,8 +1628,8 @@ export default function LandingPage() {
                           recommendations and projected savings
                         </p>
                       </div>
-                    </div>
-                  </div>
+                    </li>
+                  </ol>
 
                   {/* CTA Buttons */}
                   <div className="px-4 pt-6 sm:px-0">
@@ -1680,38 +1705,50 @@ export default function LandingPage() {
             </div>
 
             {/* Essential Links */}
-            <div className="flex flex-wrap justify-center gap-6 text-sm">
-              <Link
-                href="#about"
-                className="text-gray-400 transition-colors hover:text-white"
-              >
-                About
-              </Link>
-              <Link
-                href="#features"
-                className="text-gray-400 transition-colors hover:text-white"
-              >
-                Features
-              </Link>
-              <Link
-                href="#pricing"
-                className="text-gray-400 transition-colors hover:text-white"
-              >
-                Pricing
-              </Link>
-              <Link
-                href="#"
-                className="text-gray-400 transition-colors hover:text-white"
-              >
-                Privacy
-              </Link>
-              <Link
-                href="#"
-                className="text-gray-400 transition-colors hover:text-white"
-              >
-                Terms
-              </Link>
-            </div>
+            <nav className="flex flex-wrap justify-center gap-6 text-sm">
+              <ul className="flex list-none flex-wrap justify-center gap-6">
+                <li>
+                  <Link
+                    href="#about"
+                    className="text-gray-400 transition-colors hover:text-white"
+                  >
+                    About
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#features"
+                    className="text-gray-400 transition-colors hover:text-white"
+                  >
+                    Features
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#pricing"
+                    className="text-gray-400 transition-colors hover:text-white"
+                  >
+                    Pricing
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="text-gray-400 transition-colors hover:text-white"
+                  >
+                    Privacy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="#"
+                    className="text-gray-400 transition-colors hover:text-white"
+                  >
+                    Terms
+                  </Link>
+                </li>
+              </ul>
+            </nav>
           </div>
           <div className="mt-6 border-t border-gray-800 pt-6 text-center">
             <p className="text-sm text-gray-400">
