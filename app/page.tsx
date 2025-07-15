@@ -501,27 +501,63 @@ export default function LandingPage() {
                 <p className="mb-6 text-base leading-relaxed text-gray-600">
                   Transform complex biosecurity into clear, actionable steps
                   with intuitive visual guides that feel like an expert by your
-                  side
+                  side. Get detailed, prioritized action plans with progress
+                  tracking.
                 </p>
 
                 <ul className="list-none space-y-3">
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-base text-gray-700">
-                      Actionable Guidance for Every Task
-                    </span>
+                    <div>
+                      <span className="text-base font-medium text-gray-900">
+                        Interactive Action Plans:
+                      </span>
+                      <span className="text-base text-gray-700">
+                        {" "}
+                        Step-by-step guidance with progress tracking, time
+                        estimates, and priority levels for every biosecurity
+                        task
+                      </span>
+                    </div>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-base text-gray-700">
-                      Visual Reinforcement for Critical Alerts
-                    </span>
+                    <div>
+                      <span className="text-base font-medium text-gray-900">
+                        Visual Task Management:
+                      </span>
+                      <span className="text-base text-gray-700">
+                        {" "}
+                        Color-coded priorities, completion status, and real-time
+                        updates to keep you on track
+                      </span>
+                    </div>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-base text-gray-700">
-                      Simplified Priority Task Execution
-                    </span>
+                    <div>
+                      <span className="text-base font-medium text-gray-900">
+                        Smart Sequencing:
+                      </span>
+                      <span className="text-base text-gray-700">
+                        {" "}
+                        Automatically organized task flow that ensures critical
+                        steps are completed in the right order
+                      </span>
+                    </div>
+                  </li>
+                  <li className="flex items-start space-x-3">
+                    <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
+                    <div>
+                      <span className="text-base font-medium text-gray-900">
+                        Emergency Protocols:
+                      </span>
+                      <span className="text-base text-gray-700">
+                        {" "}
+                        Instant access to urgent action plans with clear
+                        escalation paths for critical situations
+                      </span>
+                    </div>
                   </li>
                 </ul>
               </header>
