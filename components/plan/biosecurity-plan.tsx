@@ -201,6 +201,24 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
 
   return (
     <div className="mx-auto max-w-7xl px-6 py-8">
+      {/* Critical Alert Banner */}
+      {hasUrgentTasks && (
+        <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4">
+          <div className="flex items-center">
+            <AlertTriangle className="mr-3 h-5 w-5 text-red-600" />
+            <div>
+              <h3 className="text-lg font-medium text-red-800">
+                Critical Actions Required
+              </h3>
+              <p className="text-sm text-red-700">
+                {currentTasks.filter(t => t.priority === "critical").length}{" "}
+                critical step(s) need immediate attention.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Header - Clean and minimal */}
       <div className="mb-8">
         <div className="mb-6 flex items-center justify-between">
@@ -256,8 +274,8 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-4">
         {/* Left Column - Step List */}
         <div className="lg:col-span-3">
-          <div className="border bg-white">
-            <div className="border-b px-6 py-4">
+          <div className="border bg-white shadow-sm">
+            <div className="border-b bg-gray-50 px-6 py-4">
               <h2 className="text-lg font-semibold text-gray-900">
                 Action Steps
               </h2>
@@ -275,22 +293,32 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                   return (
                     <div
                       key={task.id}
-                      className="flex items-start gap-4 p-6 hover:bg-gray-50"
+                      className={`relative flex items-start gap-4 p-6 hover:bg-gray-50 ${
+                        isCritical ? "border-l-4 border-l-red-500" : ""
+                      }`}
                     >
+                      {isCritical && (
+                        <div className="absolute right-4 top-4">
+                          <div className="flex h-2 w-2">
+                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
+                            <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500"></span>
+                          </div>
+                        </div>
+                      )}
                       {/* Step Number */}
                       <div
-                        className={`flex h-8 w-8 flex-shrink-0 items-center justify-center text-sm font-medium ${
+                        className={`flex h-10 w-10 flex-shrink-0 items-center justify-center text-sm font-semibold ${
                           isCompleted
-                            ? "bg-green-600 text-white"
+                            ? "rounded-full bg-green-500 text-white"
                             : isInProgress
-                              ? "bg-blue-600 text-white"
+                              ? "rounded-full bg-blue-500 text-white"
                               : isCritical
-                                ? "bg-red-600 text-white"
-                                : "bg-gray-200 text-gray-600"
+                                ? "rounded-full bg-red-500 text-white"
+                                : "rounded-full bg-gray-200 text-gray-700"
                         }`}
                       >
                         {isCompleted ? (
-                          <CheckCircle className="h-4 w-4" />
+                          <CheckCircle className="h-5 w-5" />
                         ) : (
                           stepNumber
                         )}
@@ -304,20 +332,25 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                               <h3 className="font-medium text-gray-900">
                                 {task.title}
                               </h3>
+                              {isCritical && (
+                                <Badge className="bg-red-600 text-xs font-medium text-white">
+                                  CRITICAL
+                                </Badge>
+                              )}
                               <Badge
                                 variant="secondary"
-                                className={`text-xs ${
+                                className={`px-2 py-1 text-xs ${
                                   isCompleted
-                                    ? "bg-green-100 text-green-700"
+                                    ? "border-green-200 bg-green-100 text-green-700"
                                     : isInProgress
-                                      ? "bg-blue-100 text-blue-700"
-                                      : "bg-gray-100 text-gray-600"
+                                      ? "border-blue-200 bg-blue-100 text-blue-700"
+                                      : "border-gray-200 bg-gray-100 text-gray-600"
                                 }`}
                               >
                                 {isCompleted
-                                  ? "Complete"
+                                  ? "Completed"
                                   : isInProgress
-                                    ? "Active"
+                                    ? "In Progress"
                                     : "Pending"}
                               </Badge>
                             </div>
@@ -327,28 +360,45 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                             </p>
 
                             {/* Task Details */}
-                            <div className="grid grid-cols-3 gap-4 text-sm">
-                              <div>
-                                <div className="mb-1 text-gray-500">
-                                  Category
-                                </div>
-                                <div className="font-medium text-gray-900">
+                            <div className="grid grid-cols-4 gap-4 text-sm">
+                              <div className="flex flex-col">
+                                <span className="mb-1 text-xs font-medium text-gray-500">
+                                  PRIORITY
+                                </span>
+                                <span
+                                  className={`font-medium ${
+                                    isCritical
+                                      ? "font-bold text-red-600"
+                                      : "text-gray-900"
+                                  }`}
+                                >
+                                  {task.priority.charAt(0).toUpperCase() +
+                                    task.priority.slice(1)}
+                                </span>
+                              </div>
+                              <div className="flex flex-col">
+                                <span className="mb-1 text-xs font-medium text-gray-500">
+                                  CATEGORY
+                                </span>
+                                <span className="font-medium text-gray-900">
                                   {task.category}
-                                </div>
+                                </span>
                               </div>
-                              <div>
-                                <div className="mb-1 text-gray-500">
-                                  Timeline
-                                </div>
-                                <div className="font-medium text-gray-900">
+                              <div className="flex flex-col">
+                                <span className="mb-1 text-xs font-medium text-gray-500">
+                                  TIMELINE
+                                </span>
+                                <span className="font-medium text-gray-900">
                                   {task.timeframe}
-                                </div>
+                                </span>
                               </div>
-                              <div>
-                                <div className="mb-1 text-gray-500">Cost</div>
-                                <div className="font-medium text-gray-900">
+                              <div className="flex flex-col">
+                                <span className="mb-1 text-xs font-medium text-gray-500">
+                                  EST. COST
+                                </span>
+                                <span className="font-medium text-gray-900">
                                   {task.estimatedCost}
-                                </div>
+                                </span>
                               </div>
                             </div>
                           </div>
@@ -357,10 +407,10 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                           <Button
                             variant="outline"
                             size="sm"
-                            className="ml-4 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                            className="ml-4 border-blue-200 text-blue-600 hover:bg-blue-50"
                             onClick={() => setSelectedTaskForGuide(task)}
                           >
-                            View Details
+                            View
                           </Button>
                         </div>
                       </div>
@@ -397,8 +447,8 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
         <div className="space-y-6">
           {/* Current Step */}
           {currentStep ? (
-            <div className="border bg-white">
-              <div className="border-b px-4 py-3">
+            <div className="border bg-white shadow-sm">
+              <div className="border-b bg-gray-50 px-4 py-3">
                 <h3 className="font-medium text-gray-900">Current Step</h3>
               </div>
               <div className="p-4">
@@ -411,9 +461,9 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                   </div>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <Button
-                    className="w-full bg-blue-600 text-white hover:bg-blue-700"
+                    className="w-full bg-blue-600 font-medium text-white hover:bg-blue-700"
                     onClick={() => toggleTaskStatus(currentStep.id)}
                   >
                     Mark Complete
@@ -421,7 +471,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
 
                   <Button
                     variant="outline"
-                    className="w-full border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white"
+                    className="w-full border-blue-200 font-medium text-blue-600 hover:bg-blue-50"
                     onClick={() => setSelectedTaskForGuide(currentStep)}
                   >
                     Get Help
@@ -430,7 +480,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
               </div>
             </div>
           ) : (
-            <div className="border bg-white">
+            <div className="border bg-white shadow-sm">
               <div className="p-6 text-center">
                 <CheckCircle className="mx-auto mb-2 h-8 w-8 text-green-600" />
                 <div className="font-medium text-gray-900">
@@ -442,8 +492,8 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
           )}
 
           {/* Progress Summary */}
-          <div className="border bg-white">
-            <div className="border-b px-4 py-3">
+          <div className="border bg-white shadow-sm">
+            <div className="border-b bg-gray-50 px-4 py-3">
               <h3 className="font-medium text-gray-900">Progress</h3>
             </div>
             <div className="p-4">
@@ -469,8 +519,8 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
           </div>
 
           {/* Status Overview */}
-          <div className="border bg-white">
-            <div className="border-b px-4 py-3">
+          <div className="border bg-white shadow-sm">
+            <div className="border-b bg-gray-50 px-4 py-3">
               <h3 className="font-medium text-gray-900">Status Overview</h3>
             </div>
             <div className="p-4">
@@ -496,6 +546,38 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                     {currentTasks.filter(t => t.status === "pending").length}
                   </span>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Visual Guide */}
+          <div className="border bg-white shadow-sm">
+            <div className="border-b bg-gray-50 px-4 py-3">
+              <h3 className="font-medium text-gray-900">
+                Critical Steps Guide
+              </h3>
+            </div>
+            <div className="space-y-3 p-4">
+              <div className="flex items-center gap-3">
+                <div className="flex h-6 w-6 items-center justify-center rounded-full bg-red-500">
+                  <span className="text-xs font-bold text-white">
+                    {currentTasks.findIndex(t => t.priority === "critical") + 1}
+                  </span>
+                </div>
+                <span className="text-sm text-gray-700">Red step numbers</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <Badge className="bg-red-600 text-xs font-medium text-white">
+                  CRITICAL
+                </Badge>
+                <span className="text-sm text-gray-700">Critical badges</span>
+              </div>
+              <div className="flex items-center gap-3">
+                <div className="h-2 w-2 animate-pulse rounded-full bg-red-500"></div>
+                <span className="text-sm text-gray-700">Urgent indicator</span>
+              </div>
+              <div className="mt-3 rounded border border-red-100 bg-red-50 p-3 text-xs text-red-700">
+                Critical steps require immediate action to prevent issues.
               </div>
             </div>
           </div>
