@@ -905,32 +905,68 @@ export default function LandingPage() {
                     2
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 sm:text-2xl">
-                    AI Biosecurity Coach & Troubleshooting
+                    AI Coach & Knowledge Assistant
                   </h3>
                 </div>
                 <p className="mb-6 text-base leading-relaxed text-gray-600">
-                  Get instant help on any aspect of your farm management with
-                  our intelligent AI assistant.
+                  Get instant, expert-level guidance on your farm's biosecurity
+                  and GAqP challenges with our intelligent AI assistant. From
+                  routine questions to emergency situations, get expert support
+                  24/7.
                 </p>
 
                 <ul className="list-none space-y-3">
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-base text-gray-700">
-                      24/7 instant responses for all biosecurity queries
-                    </span>
+                    <div>
+                      <span className="text-base font-medium text-gray-900">
+                        Proactive Monitoring:
+                      </span>
+                      <span className="text-base text-gray-700">
+                        {" "}
+                        AI detects issues before they become problems and alerts
+                        you with immediate action plans
+                      </span>
+                    </div>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-base text-gray-700">
-                      Context-aware recommendations tailored to your farm's plan
-                    </span>
+                    <div>
+                      <span className="text-base font-medium text-gray-900">
+                        Contextual Responses:
+                      </span>
+                      <span className="text-base text-gray-700">
+                        {" "}
+                        Every recommendation is tailored to your specific farm
+                        conditions, history, and current biosecurity plan
+                      </span>
+                    </div>
                   </li>
                   <li className="flex items-start space-x-3">
                     <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
-                    <span className="text-base text-gray-700">
-                      Seamless escalation for complex issues
-                    </span>
+                    <div>
+                      <span className="text-base font-medium text-gray-900">
+                        Instant Action Integration:
+                      </span>
+                      <span className="text-base text-gray-700">
+                        {" "}
+                        Chat responses can be automatically added to your action
+                        plans with one click
+                      </span>
+                    </div>
+                  </li>
+                  <li className="flex items-start space-x-3">
+                    <CheckCircle className="mt-1 h-4 w-4 flex-shrink-0 text-green-500" />
+                    <div>
+                      <span className="text-base font-medium text-gray-900">
+                        Multi-format Support:
+                      </span>
+                      <span className="text-base text-gray-700">
+                        {" "}
+                        Ask questions via text, attach photos of symptoms, or
+                        use quick suggestion buttons
+                      </span>
+                    </div>
                   </li>
                 </ul>
               </header>
