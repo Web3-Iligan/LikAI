@@ -70,7 +70,7 @@ export default function AuthPage() {
             {/* Decorative circles behind dashboard */}
             <div className="absolute -right-6 -top-6 -z-10 h-28 w-28 rounded-full bg-[#FF7F50]/10 blur-lg"></div>
             <div className="absolute -bottom-8 -left-8 -z-10 h-32 w-32 rounded-full bg-[#3498DB]/10 blur-xl"></div>
-            
+
             <div className="relative z-10 rotate-1 transform rounded-2xl border border-gray-200/50 bg-white p-6 shadow-2xl transition-transform duration-300 hover:rotate-0">
               {/* Mock Dashboard Content */}
               <div className="space-y-4">
@@ -108,19 +108,8 @@ export default function AuthPage() {
                     <div className="mb-2 text-sm text-gray-600">
                       Overall Risk Score
                     </div>
-                    <div className="flex items-center justify-between">
-                      <div className="text-2xl font-bold text-orange-600">
-                        68/100
-                      </div>
-                      <div className="h-6 w-6 text-orange-500">
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="h-full w-full"
-                        >
-                          <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7C13.4,7 14.8,8.6 14.8,10V14.5C14.8,16.9 13.4,18.5 12,18.5C10.6,18.5 9.2,16.9 9.2,14.5V10C9.2,8.6 10.6,7 12,7Z" />
-                        </svg>
-                      </div>
+                    <div className="text-2xl font-bold text-orange-600">
+                      68/100
                     </div>
                     <div className="mt-1 text-xs text-gray-500">
                       +5 from yesterday
