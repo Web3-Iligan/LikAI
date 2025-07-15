@@ -688,74 +688,173 @@ export default function LandingPage() {
               </figure>
             </article>
 
-            {/* Feature 2 - Live Chat */}
+            {/* Feature 2 - AI Biosecurity Coach & Troubleshooting */}
             <article className="mb-16 grid items-center gap-8 sm:mb-20 sm:gap-12 lg:grid-cols-2">
               <figure className="relative">
                 <div className="rounded-xl bg-gradient-to-br from-[#3498DB]/10 to-blue-50 p-6 shadow-lg">
-                  {/* Chat Interface */}
+                  {/* Enhanced Chat Interface */}
                   <div className="overflow-hidden rounded-lg bg-white shadow-md">
-                    <div className="flex items-center justify-between bg-[#3498DB] px-3 py-2 text-white">
+                    {/* Chat Header */}
+                    <div className="flex items-center justify-between bg-gradient-to-r from-[#3498DB] to-[#2980B9] px-4 py-3 text-white">
+                      <div className="flex items-center space-x-3">
+                        <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-white/20">
+                          <span className="text-sm font-bold text-white">
+                            🤖
+                          </span>
+                          <div className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full border-2 border-white bg-green-400"></div>
+                        </div>
+                        <div>
+                          <div className="text-sm font-semibold">
+                            LikAI Assistant
+                          </div>
+                          <div className="flex items-center text-xs text-blue-100">
+                            <div className="mr-1 h-2 w-2 rounded-full bg-green-400"></div>
+                            Online • Expert advisor
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex space-x-1">
+                        <div className="h-2 w-2 rounded-full bg-red-400"></div>
+                        <div className="h-2 w-2 rounded-full bg-orange-400"></div>
+                        <div className="h-2 w-2 rounded-full bg-green-400"></div>
+                      </div>
+                    </div>
+
+                    {/* Smart Alert Banner */}
+                    <div className="border-b bg-orange-50 px-4 py-2">
                       <div className="flex items-center space-x-2">
-                        <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#2980B9]">
+                        <div className="h-2 w-2 rounded-full bg-orange-500"></div>
+                        <span className="text-xs font-medium text-orange-700">
+                          🚨 pH Alert: Pond 3 trending high (8.2)
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Chat Messages */}
+                    <div className="h-56 space-y-4 overflow-y-auto p-4">
+                      {/* AI Message with avatar */}
+                      <div className="flex items-start space-x-3">
+                        <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#3498DB]">
                           <span className="text-xs font-bold text-white">
                             AI
                           </span>
                         </div>
-                        <div>
-                          <div className="text-sm font-medium">
-                            LikAI Assistant
+                        <div className="flex-1">
+                          <div className="max-w-xs rounded-lg bg-gray-100 p-3">
+                            <p className="text-sm text-gray-800">
+                              I've detected elevated pH levels in Pond 3. This
+                              could stress your fish and affect growth rates.
+                              Would you like specific recommendations?
+                            </p>
                           </div>
-                          <div className="text-xs text-blue-200">Online</div>
-                        </div>
-                      </div>
-                      <div className="text-xs text-blue-200">●</div>
-                    </div>
-
-                    <div className="h-48 space-y-3 overflow-y-auto p-3">
-                      <div className="flex items-start space-x-2">
-                        <div className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#3498DB]">
-                          <span className="text-xs text-white">AI</span>
-                        </div>
-                        <div className="max-w-xs rounded-lg bg-gray-100 p-2">
-                          <p className="text-xs text-gray-800">
-                            Your pond's pH is trending up. Need recommendations?
-                          </p>
+                          <div className="mt-1 text-xs text-gray-500">
+                            2 min ago
+                          </div>
                         </div>
                       </div>
 
+                      {/* User Response */}
                       <div className="flex justify-end">
-                        <div className="max-w-xs rounded-lg bg-[#3498DB] p-2 text-white">
-                          <p className="text-xs">Yes, please help.</p>
+                        <div className="flex flex-col items-end">
+                          <div className="max-w-xs rounded-lg bg-[#3498DB] p-3 text-white">
+                            <p className="text-sm">
+                              Yes, what should I do immediately?
+                            </p>
+                          </div>
+                          <div className="mt-1 text-xs text-gray-500">
+                            Just now
+                          </div>
                         </div>
                       </div>
 
-                      <div className="flex items-start space-x-2">
-                        <div className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-[#3498DB]">
-                          <span className="text-xs text-white">AI</span>
+                      {/* AI Response with typing indicator */}
+                      <div className="flex items-start space-x-3">
+                        <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#3498DB]">
+                          <span className="text-xs font-bold text-white">
+                            AI
+                          </span>
                         </div>
-                        <div className="max-w-xs rounded-lg bg-gray-100 p-2">
-                          <p className="text-xs text-gray-800">
-                            Reduce feeding by 15% and add beneficial bacteria.
-                          </p>
+                        <div className="flex-1">
+                          <div className="max-w-xs rounded-lg bg-gray-100 p-3">
+                            <p className="text-sm text-gray-800">
+                              <strong>Immediate actions:</strong>
+                              <br />
+                              1. Reduce feeding by 20% for next 2 days
+                              <br />
+                              2. Increase aeration in affected area
+                              <br />
+                              3. Test again in 4 hours
+                              <br />
+                              <br />
+                              I'll monitor and alert you of changes.
+                            </p>
+                          </div>
+                          <div className="mt-1 flex items-center space-x-2">
+                            <div className="text-xs text-gray-500">Now</div>
+                            <div className="flex space-x-1">
+                              <div className="h-1 w-1 animate-pulse rounded-full bg-gray-400"></div>
+                              <div
+                                className="h-1 w-1 animate-pulse rounded-full bg-gray-400"
+                                style={{ animationDelay: "0.2s" }}
+                              ></div>
+                              <div
+                                className="h-1 w-1 animate-pulse rounded-full bg-gray-400"
+                                style={{ animationDelay: "0.4s" }}
+                              ></div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
 
-                    <div className="border-t bg-gray-50 p-2">
+                    {/* Quick Suggestions */}
+                    <div className="border-t bg-gray-50 px-4 py-2">
+                      <div className="mb-2 text-xs font-medium text-gray-600">
+                        Quick questions:
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        <button className="rounded-full bg-white px-3 py-1 text-xs text-gray-700 shadow-sm hover:bg-gray-100">
+                          Water quality tips
+                        </button>
+                        <button className="rounded-full bg-white px-3 py-1 text-xs text-gray-700 shadow-sm hover:bg-gray-100">
+                          Feeding schedule
+                        </button>
+                        <button className="rounded-full bg-white px-3 py-1 text-xs text-gray-700 shadow-sm hover:bg-gray-100">
+                          Disease prevention
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* Input Area */}
+                    <div className="border-t bg-white p-3">
                       <div className="flex items-center space-x-2">
                         <input
                           type="text"
-                          placeholder="Ask about your farm..."
-                          className="flex-1 rounded border px-2 py-1 text-xs"
+                          placeholder="Ask about biosecurity, water quality, feeding..."
+                          className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-[#3498DB] focus:outline-none focus:ring-1 focus:ring-[#3498DB]"
                           readOnly
                         />
                         <Button
                           size="sm"
-                          className="bg-[#3498DB] px-2 py-1 text-xs hover:bg-[#2980B9]"
+                          className="bg-[#3498DB] px-4 py-2 text-sm hover:bg-[#2980B9]"
                         >
+                          <span className="mr-1">📤</span>
                           Send
                         </Button>
                       </div>
+                      <div className="mt-1 text-xs text-gray-500">
+                        AI is analyzing your farm data...
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Floating status indicator */}
+                  <div className="absolute -right-4 top-4 rounded-lg bg-white p-2 shadow-lg">
+                    <div className="flex items-center space-x-2">
+                      <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                      <span className="text-xs font-medium text-gray-700">
+                        AI Expert Online
+                      </span>
                     </div>
                   </div>
                 </div>
