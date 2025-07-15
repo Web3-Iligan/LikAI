@@ -179,8 +179,8 @@ export default function LandingPage() {
                 </h2>
                 <p className="mb-6 text-sm leading-relaxed text-gray-600 sm:mb-8 sm:text-base lg:text-lg">
                   Safeguard your shrimp farm with AI-driven biosecurity, aligned
-                  with BFAR GAqP standards, to help prevent outbreaks and boost
-                  yields.
+                  with BFAR GAqP standards, to minimize disease risk and
+                  maximize your harvest potential.
                 </p>
                 <div className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:justify-center sm:gap-4">
                   <Link href="/auth" className="w-full sm:w-auto">
@@ -1641,6 +1641,11 @@ export default function LandingPage() {
                       <div className="flex items-center space-x-2">
                         <CheckCircle className="h-4 w-4 text-green-500" />
                         <span>No hidden fees</span>
+                      </div>
+
+                      <div className="flex items-center space-x-2">
+                        <CheckCircle className="h-4 w-4 text-green-500" />
+                        <span>No setup fees</span>
                       </div>
                     </div>
                   </div>
