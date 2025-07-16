@@ -5,14 +5,8 @@ import { useState } from "react";
 import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { PolarAngleAxis, PolarGrid, Radar, RadarChart } from "recharts";
 
 import { Button } from "@/components/ui/button";
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-} from "@/components/ui/chart";
 import { Input } from "@/components/ui/input";
 
 export default function OnboardingPage() {
@@ -746,12 +740,12 @@ export default function OnboardingPage() {
 
             {/* Step 6: Biosecurity Report */}
             {currentStep === 6 && (
-              <div className="space-y-12">
+              <div className="space-y-16">
                 <div className="text-center">
                   <h1 className="mb-6 text-4xl font-bold text-gray-900">
                     Your Personalized Biosecurity Starter Plan!
                   </h1>
-                  <p className="text-xl leading-relaxed text-gray-600">
+                  <p className="text-2xl leading-relaxed text-gray-700 font-medium">
                     Great job,{" "}
                     {formData.farmName
                       ? `Farmer ${formData.farmName}`
@@ -762,265 +756,124 @@ export default function OnboardingPage() {
                   </p>
                 </div>
 
-                {/* Biosecurity Snapshot Section */}
-                <div className="space-y-8">
-                  <div className="border-b border-gray-200 pb-6 text-center">
-                    <h2 className="mb-4 text-3xl font-bold text-gray-900">
-                      🎯 Your Biosecurity Snapshot
-                    </h2>
-                    <p className="mb-2 text-lg text-gray-600">
-                      Understanding Your Farm's Health at a Glance
-                    </p>
-                    <p className="mx-auto max-w-2xl text-base text-gray-500">
-                      Likai's AI analyzed your answers to show you where your
-                      farm is already strong in biosecurity, and where you have
-                      the biggest opportunities to grow.
-                    </p>
-                  </div>
+                {/* Farm Health Status - Simple Traffic Light System */}
+                <div className="border-b border-gray-200 pb-8 text-center bg-blue-50 rounded-2xl p-8 mb-8">
+                  <h2 className="mb-6 text-4xl font-bold text-gray-900">
+                    🎯 Your Farm's Health Report
+                  </h2>
+                  <p className="mb-4 text-2xl text-gray-700 font-medium">
+                    Quick Look at Your Farm's Strengths
+                  </p>
+                  <p className="mx-auto max-w-2xl text-lg text-gray-600">
+                    We checked your answers and here's what we found. Green is good, 
+                    yellow needs some work, red needs urgent attention.
+                  </p>
+                </div>
 
-                  {/* Enhanced Radar Chart */}
-                  <div className="mx-auto max-w-4xl">
-                    {(() => {
-                      const scores = calculateBiosecurityScores();
+                <div className="space-y-6">
+                  {(() => {
+                    const scores = calculateBiosecurityScores();
+                    
+                    const farmAreas = [
+                      {
+                        name: "Pond & Water Care",
+                        score: scores.pondWaterCare,
+                        icon: "💧",
+                        description: "How well you prepare your ponds"
+                      },
+                      {
+                        name: "Farm Access Control", 
+                        score: scores.farmAccess,
+                        icon: "🚪",
+                        description: "Who can enter your farm"
+                      },
+                      {
+                        name: "Healthy Stock Sourcing",
+                        score: scores.stockSourcing,
+                        icon: "🦐", 
+                        description: "Where you get your baby shrimp"
+                      },
+                      {
+                        name: "Farm Setup Basics",
+                        score: scores.farmSetup,
+                        icon: "🏗️",
+                        description: "Your farm design and species choice"
+                      },
+                      {
+                        name: "Disease Readiness",
+                        score: scores.diseaseReadiness,
+                        icon: "🛡️",
+                        description: "How ready you are for health problems"
+                      }
+                    ];
 
-                      // Prepare data for radar chart
-                      const chartData = [
-                        {
-                          category: "Farm Setup",
-                          score: scores.farmSetup,
-                          fullName: "Farm Setup Basics",
-                        },
-                        {
-                          category: "Pond Care",
-                          score: scores.pondWaterCare,
-                          fullName: "Pond & Water Care",
-                        },
-                        {
-                          category: "Stock Source",
-                          score: scores.stockSourcing,
-                          fullName: "Healthy Stock Sourcing",
-                        },
-                        {
-                          category: "Access Control",
-                          score: scores.farmAccess,
-                          fullName: "Farm Access Control",
-                        },
-                        {
-                          category: "Disease Ready",
-                          score: scores.diseaseReadiness,
-                          fullName: "Disease Readiness",
-                        },
-                      ];
+                    const getStatusInfo = (score: number) => {
+                      if (score > 80) return { 
+                        status: "Excellent", 
+                        color: "bg-green-500", 
+                        bgColor: "bg-green-50 border-green-200",
+                        textColor: "text-green-800"
+                      };
+                      if (score > 60) return { 
+                        status: "Good", 
+                        color: "bg-blue-500", 
+                        bgColor: "bg-blue-50 border-blue-200",
+                        textColor: "text-blue-800"
+                      };
+                      if (score > 40) return { 
+                        status: "Needs Work", 
+                        color: "bg-yellow-500", 
+                        bgColor: "bg-yellow-50 border-yellow-200",
+                        textColor: "text-yellow-800"
+                      };
+                      return { 
+                        status: "Urgent Focus", 
+                        color: "bg-red-500", 
+                        bgColor: "bg-red-50 border-red-200",
+                        textColor: "text-red-800"
+                      };
+                    };
 
-                      const chartConfig = {
-                        score: {
-                          label: "Score",
-                          color: "#FF7F50",
-                        },
-                      } satisfies ChartConfig;
-
+                    return farmAreas.map((area, index) => {
+                      const statusInfo = getStatusInfo(area.score);
+                      
                       return (
-                        <div className="rounded-2xl border border-gray-200 bg-white p-8 shadow-lg">
-                          <div className="mb-6 text-center">
-                            <h3 className="mb-2 text-xl font-bold text-gray-900">
-                              Your Farm's Biosecurity Profile
-                            </h3>
-                            <p className="text-gray-600">
-                              Hover over each point to see detailed scores
-                            </p>
+                        <div key={index} className={`rounded-2xl border-2 p-6 ${statusInfo.bgColor} transition-all hover:shadow-lg`}>
+                          <div className="flex items-center justify-between mb-4">
+                            <div className="flex items-center space-x-4">
+                              <div className="text-4xl">{area.icon}</div>
+                              <div>
+                                <h4 className={`text-2xl font-bold ${statusInfo.textColor}`}>
+                                  {area.name}
+                                </h4>
+                                <p className="text-lg text-gray-600">{area.description}</p>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <div className={`text-2xl font-bold px-4 py-2 rounded-full ${statusInfo.bgColor} ${statusInfo.textColor} border-2`}>
+                                {statusInfo.status}
+                              </div>
+                              <p className="text-lg text-gray-600 mt-1">{area.score}/100</p>
+                            </div>
                           </div>
-
-                          <ChartContainer
-                            config={chartConfig}
-                            className="mx-auto aspect-square max-h-[400px] w-full"
-                          >
-                            <RadarChart data={chartData}>
-                              <ChartTooltip
-                                cursor={false}
-                                content={({ active, payload }) => {
-                                  if (active && payload && payload.length) {
-                                    const data = payload[0].payload;
-                                    return (
-                                      <div className="rounded-lg border border-gray-200 bg-white p-3 shadow-lg">
-                                        <p className="font-semibold text-gray-900">
-                                          {data.fullName}
-                                        </p>
-                                        <p className="text-sm text-gray-600">
-                                          Score:{" "}
-                                          <span className="font-medium">
-                                            {data.score}/100
-                                          </span>
-                                        </p>
-                                        <p className="text-sm text-gray-600">
-                                          Status:{" "}
-                                          <span
-                                            className={`font-medium ${
-                                              data.score > 80
-                                                ? "text-green-600"
-                                                : data.score > 60
-                                                  ? "text-blue-600"
-                                                  : data.score > 40
-                                                    ? "text-yellow-600"
-                                                    : "text-red-600"
-                                            }`}
-                                          >
-                                            {data.score > 80
-                                              ? "Excellent"
-                                              : data.score > 60
-                                                ? "Good"
-                                                : data.score > 40
-                                                  ? "Fair"
-                                                  : "Needs Attention"}
-                                          </span>
-                                        </p>
-                                      </div>
-                                    );
-                                  }
-                                  return null;
-                                }}
-                              />
-                              <PolarAngleAxis
-                                dataKey="category"
-                                tick={{ fontSize: 12, fontWeight: 600 }}
-                                className="fill-gray-700"
-                              />
-                              <PolarGrid stroke="#e5e7eb" strokeWidth={1} />
-                              <Radar
-                                dataKey="score"
-                                stroke="#FF7F50"
-                                strokeWidth={3}
-                                fill="#FF7F50"
-                                fillOpacity={0.2}
-                                dot={{
-                                  r: 6,
-                                  fill: "#FF7F50",
-                                  strokeWidth: 2,
-                                  stroke: "#ffffff",
-                                  fillOpacity: 1,
-                                }}
-                              />
-                            </RadarChart>
-                          </ChartContainer>
-
-                          {/* Chart Legend */}
-                          <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-5">
-                            {chartData.map((item, index) => {
-                              const getScoreColor = (score: number) => {
-                                if (score > 80)
-                                  return "text-green-600 bg-green-50 border-green-200";
-                                if (score > 60)
-                                  return "text-blue-600 bg-blue-50 border-blue-200";
-                                if (score > 40)
-                                  return "text-yellow-600 bg-yellow-50 border-yellow-200";
-                                return "text-red-600 bg-red-50 border-red-200";
-                              };
-
-                              return (
-                                <div key={index} className="text-center">
-                                  <div
-                                    className={`rounded-full border px-2 py-1 text-xs font-medium ${getScoreColor(item.score)}`}
-                                  >
-                                    {item.score > 80
-                                      ? "Excellent"
-                                      : item.score > 60
-                                        ? "Good"
-                                        : item.score > 40
-                                          ? "Fair"
-                                          : "Needs Attention"}
-                                  </div>
-                                  <p className="mt-1 text-xs font-medium text-gray-600">
-                                    {item.category}
-                                  </p>
-                                  <p className="text-xs text-gray-500">
-                                    {item.score}/100
-                                  </p>
-                                </div>
-                              );
-                            })}
+                          
+                          {/* Visual Progress Bar */}
+                          <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                            <div 
+                              className={`h-full transition-all duration-1000 ${statusInfo.color}`}
+                              style={{ width: `${area.score}%` }}
+                            ></div>
                           </div>
                         </div>
                       );
-                    })()}
-                  </div>
-
-                  {/* Enhanced Score Summary */}
-                  <div className="mx-auto grid max-w-2xl gap-4">
-                    {(() => {
-                      const scores = calculateBiosecurityScores();
-                      const categories = [
-                        {
-                          name: "Farm Setup Basics",
-                          score: scores.farmSetup,
-                          color: "bg-blue-100 text-blue-800 border-blue-200",
-                          icon: "🏗️",
-                        },
-                        {
-                          name: "Pond & Water Care",
-                          score: scores.pondWaterCare,
-                          color:
-                            "bg-orange-100 text-orange-800 border-orange-200",
-                          icon: "💧",
-                        },
-                        {
-                          name: "Healthy Stock Sourcing",
-                          score: scores.stockSourcing,
-                          color: "bg-green-100 text-green-800 border-green-200",
-                          icon: "🦐",
-                        },
-                        {
-                          name: "Farm Access Control",
-                          score: scores.farmAccess,
-                          color:
-                            "bg-yellow-100 text-yellow-800 border-yellow-200",
-                          icon: "🚪",
-                        },
-                        {
-                          name: "Disease Readiness",
-                          score: scores.diseaseReadiness,
-                          color:
-                            "bg-purple-100 text-purple-800 border-purple-200",
-                          icon: "🛡️",
-                        },
-                      ];
-
-                      return categories.map(category => (
-                        <div
-                          key={category.name}
-                          className={`flex items-center justify-between rounded-xl border-2 p-4 shadow-sm ${category.color}`}
-                        >
-                          <div className="flex items-center space-x-3">
-                            <span className="text-2xl">{category.icon}</span>
-                            <span className="text-lg font-semibold">
-                              {category.name}
-                            </span>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <div className="h-2 w-24 overflow-hidden rounded-full bg-white">
-                              <div
-                                className="h-full bg-current transition-all duration-500"
-                                style={{ width: `${category.score}%` }}
-                              ></div>
-                            </div>
-                            <span className="min-w-[100px] text-center text-lg font-bold">
-                              {category.score > 80
-                                ? "Excellent"
-                                : category.score > 60
-                                  ? "Good"
-                                  : category.score > 40
-                                    ? "Fair"
-                                    : "Needs Attention"}
-                            </span>
-                          </div>
-                        </div>
-                      ));
-                    })()}
-                  </div>
+                    });
+                  })()}
                 </div>
 
-                {/* Enhanced "What Your Snapshot Means" */}
-                <div className="space-y-6 border-b border-gray-200 pb-8">
-                  <h3 className="text-center text-3xl font-bold text-gray-900">
-                    📊 What Your Snapshot Means
+                {/* What Your Snapshot Means */}
+                <div className="space-y-8 bg-gray-50 rounded-2xl p-8">
+                  <h3 className="text-center text-4xl font-bold text-gray-900 mb-8">
+                    📊 What This Means for Your Farm
                   </h3>
 
                   {(() => {
@@ -1030,101 +883,89 @@ export default function OnboardingPage() {
 
                     if (scores.farmSetup >= 60)
                       strengths.push({
-                        name: "Farm Setup Basics",
+                        name: "Farm Setup",
                         icon: "✅",
-                        detail:
-                          "Your species selection and farming system choices show good planning and knowledge of aquaculture fundamentals.",
+                        detail: "Good species choice and farm design."
                       });
                     else
                       improvements.push({
-                        name: "Farm Setup Basics",
+                        name: "Farm Setup", 
                         icon: "🎯",
-                        detail:
-                          "Optimizing your farm setup will create a stronger foundation for healthy shrimp production and better yields.",
+                        detail: "Better farm setup = healthier shrimp and higher profits."
                       });
 
                     if (scores.stockSourcing >= 60)
                       strengths.push({
-                        name: "Healthy Stock Sourcing",
-                        icon: "✅",
-                        detail:
-                          "Your approach to sourcing quality post-larvae demonstrates awareness of disease prevention principles.",
+                        name: "Stock Sourcing",
+                        icon: "✅", 
+                        detail: "You know how to pick quality baby shrimp."
                       });
                     else
                       improvements.push({
-                        name: "Healthy Stock Sourcing",
+                        name: "Stock Sourcing",
                         icon: "🎯",
-                        detail:
-                          "Better stock sourcing practices will prevent diseases from entering your farm and improve survival rates.",
+                        detail: "Better baby shrimp = fewer diseases and more harvest."
                       });
 
                     if (scores.pondWaterCare >= 60)
                       strengths.push({
-                        name: "Pond & Water Care",
+                        name: "Pond Care",
                         icon: "✅",
-                        detail:
-                          "Your pond preparation and water management practices show understanding of proper aquaculture protocols.",
+                        detail: "Your pond preparation protects your shrimp."
                       });
                     else
                       improvements.push({
-                        name: "Pond & Water Care",
+                        name: "Pond Care", 
                         icon: "🎯",
-                        detail:
-                          "Improving pond preparation and water management can significantly reduce stress on your shrimp and prevent diseases.",
+                        detail: "Clean, dry ponds prevent diseases and boost growth."
                       });
 
                     if (scores.farmAccess >= 60)
                       strengths.push({
-                        name: "Farm Access Control",
+                        name: "Farm Security",
                         icon: "✅",
-                        detail:
-                          "Your farm security measures help protect against unauthorized access and potential contamination.",
+                        detail: "You control who enters your farm well."
                       });
                     else
                       improvements.push({
-                        name: "Farm Access Control",
-                        icon: "🎯",
-                        detail:
-                          "Strengthening entry points is key to stopping unwanted visitors and potential pathogen introduction.",
+                        name: "Farm Security",
+                        icon: "🎯", 
+                        detail: "Controlling access stops diseases from entering."
                       });
 
                     if (scores.diseaseReadiness >= 60)
                       strengths.push({
-                        name: "Disease Readiness",
+                        name: "Disease Prep",
                         icon: "✅",
-                        detail:
-                          "Your preparation and budget allocation show good planning for health management challenges.",
+                        detail: "You're ready to handle health problems."
                       });
                     else
                       improvements.push({
-                        name: "Disease Readiness",
+                        name: "Disease Prep",
                         icon: "🎯",
-                        detail:
-                          "Better preparation will help you handle health challenges quickly and protect your investment.",
+                        detail: "Being prepared saves your crops when problems hit."
                       });
 
                     return (
-                      <div className="mx-auto grid max-w-4xl gap-6">
+                      <div className="grid max-w-6xl mx-auto gap-8 lg:grid-cols-2">
                         {strengths.length > 0 && (
-                          <div className="rounded-2xl border border-green-200 bg-gradient-to-r from-green-50 to-emerald-50 p-6 shadow-sm">
-                            <h4 className="mb-4 flex items-center text-xl font-bold text-green-800">
-                              <span className="mr-3 text-2xl">🌟</span>
-                              Your Strengths (What You're Doing Well!)
+                          <div className="rounded-2xl border-2 border-green-300 bg-green-50 p-8 shadow-lg">
+                            <h4 className="mb-6 flex items-center text-3xl font-bold text-green-800">
+                              <span className="mr-4 text-4xl">🌟</span>
+                              What You're Doing Great!
                             </h4>
-                            <div className="space-y-3">
+                            <div className="space-y-4">
                               {strengths.map((strength, index) => (
                                 <div
                                   key={index}
-                                  className="flex items-start space-x-3 rounded-lg border border-green-100 bg-white p-3"
+                                  className="flex items-center space-x-4 rounded-xl border-2 border-green-200 bg-white p-4 shadow-sm"
                                 >
-                                  <span className="mt-1 flex-shrink-0 text-xl">
-                                    {strength.icon}
-                                  </span>
+                                  <span className="text-3xl">{strength.icon}</span>
                                   <div>
-                                    <div className="mb-1 font-semibold text-green-800">
+                                    <div className="text-xl font-bold text-green-800">
                                       {strength.name}
                                     </div>
-                                    <div className="text-sm leading-relaxed text-green-700">
+                                    <div className="text-lg text-green-700">
                                       {strength.detail}
                                     </div>
                                   </div>
@@ -1135,25 +976,23 @@ export default function OnboardingPage() {
                         )}
 
                         {improvements.length > 0 && (
-                          <div className="rounded-2xl border border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 shadow-sm">
-                            <h4 className="mb-4 flex items-center text-xl font-bold text-blue-800">
-                              <span className="mr-3 text-2xl">🚀</span>
-                              Areas for Growth (Where We Can Help You Improve!)
+                          <div className="rounded-2xl border-2 border-orange-300 bg-orange-50 p-8 shadow-lg">
+                            <h4 className="mb-6 flex items-center text-3xl font-bold text-orange-800">
+                              <span className="mr-4 text-4xl">🚀</span>
+                              Where You Can Improve
                             </h4>
-                            <div className="space-y-3">
+                            <div className="space-y-4">
                               {improvements.map((improvement, index) => (
                                 <div
                                   key={index}
-                                  className="flex items-start space-x-3 rounded-lg border border-blue-100 bg-white p-3"
+                                  className="flex items-center space-x-4 rounded-xl border-2 border-orange-200 bg-white p-4 shadow-sm"
                                 >
-                                  <span className="mt-1 flex-shrink-0 text-xl">
-                                    {improvement.icon}
-                                  </span>
+                                  <span className="text-3xl">{improvement.icon}</span>
                                   <div>
-                                    <div className="mb-1 font-semibold text-blue-800">
+                                    <div className="text-xl font-bold text-orange-800">
                                       {improvement.name}
                                     </div>
-                                    <div className="text-sm leading-relaxed text-blue-700">
+                                    <div className="text-lg text-orange-700">
                                       {improvement.detail}
                                     </div>
                                   </div>
