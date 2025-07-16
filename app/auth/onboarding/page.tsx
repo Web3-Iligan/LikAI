@@ -13,12 +13,19 @@ export default function OnboardingPage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
-    email: "",
-    firstName: "",
-    lastName: "",
-    farmType: "",
-    farmerType: "",
-    companyName: "",
+    farmName: "",
+    farmLocation: "",
+    shrimpSpecies: "",
+    farmingSystem: "",
+    farmSize: "",
+    farmSizeUnit: "hectares",
+    waterSources: [] as string[],
+    pondDrying: "",
+    shrimpSource: "",
+    farmAccess: "",
+    diseaseHistory: "",
+    diseaseDescription: "",
+    budget: "",
   });
 
   const totalSteps = 6;
@@ -41,7 +48,7 @@ export default function OnboardingPage() {
     setCurrentStep(prev => prev - 1);
   };
 
-  const updateFormData = (field: string, value: string) => {
+  const updateFormData = (field: string, value: string | string[]) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -181,55 +188,55 @@ export default function OnboardingPage() {
               </div>
             )}
 
-            {/* Step 2: Name */}
+            {/* Step 1: Farm at a Glance */}
             {currentStep === 1 && (
               <div className="space-y-6">
                 <div className="text-center">
                   <h1 className="mb-3 text-2xl font-bold text-gray-900">
-                    What is your name?
+                    Your Farm at a Glance
                   </h1>
                 </div>
 
                 <div className="space-y-5">
                   <div>
                     <label
-                      htmlFor="firstName"
+                      htmlFor="farmName"
                       className="mb-2 block text-base font-medium text-gray-700"
                     >
-                      First name
+                      What is your farm's name?
                     </label>
                     <Input
-                      id="firstName"
+                      id="farmName"
                       type="text"
-                      value={formData.firstName}
-                      onChange={e =>
-                        updateFormData("firstName", e.target.value)
-                      }
+                      value={formData.farmName}
+                      onChange={e => updateFormData("farmName", e.target.value)}
                       className="h-14 w-full rounded-none border-b-2 border-l-0 border-r-0 border-t-0 border-[#3498DB] bg-transparent px-4 text-lg focus:border-[#3498DB] focus:ring-0"
-                      placeholder="First name"
+                      placeholder="e.g., Sunrise Aqua Farm"
                     />
                   </div>
 
                   <div>
                     <label
-                      htmlFor="lastName"
+                      htmlFor="farmLocation"
                       className="mb-2 block text-base font-medium text-gray-700"
                     >
-                      Last name
+                      Where is your farm located?
                     </label>
                     <Input
-                      id="lastName"
+                      id="farmLocation"
                       type="text"
-                      value={formData.lastName}
-                      onChange={e => updateFormData("lastName", e.target.value)}
+                      value={formData.farmLocation}
+                      onChange={e =>
+                        updateFormData("farmLocation", e.target.value)
+                      }
                       className="h-14 w-full rounded-none border-b-2 border-l-0 border-r-0 border-t-0 border-[#3498DB] bg-transparent px-4 text-lg focus:border-[#3498DB] focus:ring-0"
-                      placeholder="Last name"
+                      placeholder="e.g., Tagum City, Davao del Norte"
                     />
                   </div>
 
                   <Button
                     onClick={handleNext}
-                    disabled={!formData.firstName || !formData.lastName}
+                    disabled={!formData.farmName || !formData.farmLocation}
                     className="mt-6 h-14 w-full rounded-lg bg-[#FF7F50] text-base font-medium text-white hover:bg-[#E6723C] disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     Next <ArrowRight className="ml-2 h-4 w-4" />
@@ -238,166 +245,293 @@ export default function OnboardingPage() {
               </div>
             )}
 
-            {/* Step 3: Farm Type */}
-            {currentStep === 3 && (
+            {/* Step 2: Farm Specifications */}
+            {currentStep === 2 && (
               <div className="space-y-6">
                 <div className="text-center">
                   <h1 className="mb-2 text-2xl font-bold text-gray-900">
-                    Nice to meet you {formData.firstName}!
+                    Farm Specifications
                   </h1>
-                  <h2 className="text-lg font-semibold text-gray-700">
-                    What is your farm type?
-                  </h2>
                 </div>
 
-                <div className="mt-6 grid grid-cols-3 gap-3">
-                  {[
-                    {
-                      id: "small",
-                      label: "Small Scale Farm",
-                      desc: "Individual or family-owned operations",
-                    },
-                    {
-                      id: "medium",
-                      label: "Medium Scale Farm",
-                      desc: "Commercial operations with moderate capacity",
-                    },
-                    {
-                      id: "enterprise",
-                      label: "Enterprise Farm",
-                      desc: "Large-scale commercial aquaculture facilities",
-                    },
-                  ].map(option => (
-                    <button
-                      key={option.id}
-                      onClick={() => {
-                        updateFormData("farmType", option.id);
-                        setTimeout(handleNext, 300);
-                      }}
-                      className={`flex min-h-[100px] flex-col justify-center rounded-lg border-2 p-3 text-center transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
-                        formData.farmType === option.id
-                          ? "border-[#3498DB] bg-blue-50"
-                          : "border-gray-200"
-                      }`}
-                    >
-                      <div className="mb-1 text-sm font-semibold text-gray-900">
-                        {option.label}
-                      </div>
-                      <div className="text-xs leading-relaxed text-gray-600">
-                        {option.desc}
-                      </div>
-                    </button>
-                  ))}
+                <div className="space-y-5">
+                  <div>
+                    <label className="mb-3 block text-base font-medium text-gray-700">
+                      What is the main shrimp species you currently farm or plan
+                      to farm?
+                    </label>
+                    <div className="space-y-2">
+                      {[
+                        {
+                          id: "vannamei",
+                          label:
+                            "Penaeus vannamei (Pacific White Shrimp / Suati)",
+                        },
+                        {
+                          id: "monodon",
+                          label:
+                            "Penaeus monodon (Giant Black Tiger Shrimp / Sugpo)",
+                        },
+                        {
+                          id: "other",
+                          label: "Other (Please specify briefly)",
+                        },
+                      ].map(option => (
+                        <button
+                          key={option.id}
+                          onClick={() =>
+                            updateFormData("shrimpSpecies", option.id)
+                          }
+                          className={`w-full rounded-lg border-2 p-3 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
+                            formData.shrimpSpecies === option.id
+                              ? "border-[#3498DB] bg-blue-50"
+                              : "border-gray-200"
+                          }`}
+                        >
+                          <div className="text-sm font-medium text-gray-900">
+                            {option.label}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="mb-3 block text-base font-medium text-gray-700">
+                      What is your current farming system?
+                    </label>
+                    <div className="space-y-2">
+                      {[
+                        {
+                          id: "intensive",
+                          label:
+                            "Intensive (High density, relies on commercial feed)",
+                        },
+                        {
+                          id: "semi-intensive",
+                          label:
+                            "Semi-intensive (Medium density, uses natural food & commercial feed)",
+                        },
+                        {
+                          id: "extensive",
+                          label:
+                            "Extensive (Low density, relies mostly on natural food)",
+                        },
+                        {
+                          id: "polyculture",
+                          label:
+                            "Polyculture (Raising shrimp with other species)",
+                        },
+                      ].map(option => (
+                        <button
+                          key={option.id}
+                          onClick={() =>
+                            updateFormData("farmingSystem", option.id)
+                          }
+                          className={`w-full rounded-lg border-2 p-3 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
+                            formData.farmingSystem === option.id
+                              ? "border-[#3498DB] bg-blue-50"
+                              : "border-gray-200"
+                          }`}
+                        >
+                          <div className="text-sm font-medium text-gray-900">
+                            {option.label}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <Button
+                    onClick={handleNext}
+                    disabled={
+                      !formData.shrimpSpecies || !formData.farmingSystem
+                    }
+                    className="mt-6 h-14 w-full rounded-lg bg-[#FF7F50] text-base font-medium text-white hover:bg-[#E6723C] disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    Next <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
                 </div>
               </div>
             )}
 
-            {/* Step 4: Farmer Type */}
+            {/* Step 3: Water & Pond Basics */}
+            {currentStep === 3 && (
+              <div className="space-y-6">
+                <div className="text-center">
+                  <h1 className="mb-3 text-xl font-bold text-gray-900">
+                    Water & Pond Basics
+                  </h1>
+                </div>
+
+                <div className="space-y-5">
+                  <div>
+                    <label className="mb-3 block text-base font-medium text-gray-700">
+                      What is your main water source for the ponds? (Select all
+                      that apply)
+                    </label>
+                    <div className="space-y-2">
+                      {[
+                        { id: "river", label: "River" },
+                        { id: "sea", label: "Sea/Ocean" },
+                        { id: "well", label: "Deep Well" },
+                        { id: "rain", label: "Rainwater" },
+                        { id: "other", label: "Other" },
+                      ].map(option => (
+                        <button
+                          key={option.id}
+                          onClick={() => {
+                            const currentSources = formData.waterSources;
+                            const newSources = currentSources.includes(
+                              option.id
+                            )
+                              ? currentSources.filter(
+                                  source => source !== option.id
+                                )
+                              : [...currentSources, option.id];
+                            updateFormData("waterSources", newSources);
+                          }}
+                          className={`w-full rounded-lg border-2 p-3 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
+                            formData.waterSources.includes(option.id)
+                              ? "border-[#3498DB] bg-blue-50"
+                              : "border-gray-200"
+                          }`}
+                        >
+                          <div className="text-sm font-medium text-gray-900">
+                            {option.label}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="mb-3 block text-base font-medium text-gray-700">
+                      Before stocking shrimp, do you completely drain and
+                      sun-dry your ponds until the bottom cracks?
+                    </label>
+                    <div className="space-y-2">
+                      {[
+                        { id: "always", label: "Yes, always" },
+                        { id: "sometimes", label: "Partially or sometimes" },
+                        { id: "rarely", label: "No, rarely or never" },
+                      ].map(option => (
+                        <button
+                          key={option.id}
+                          onClick={() =>
+                            updateFormData("pondDrying", option.id)
+                          }
+                          className={`w-full rounded-lg border-2 p-3 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
+                            formData.pondDrying === option.id
+                              ? "border-[#3498DB] bg-blue-50"
+                              : "border-gray-200"
+                          }`}
+                        >
+                          <div className="text-sm font-medium text-gray-900">
+                            {option.label}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <Button
+                    onClick={handleNext}
+                    disabled={
+                      formData.waterSources.length === 0 || !formData.pondDrying
+                    }
+                    className="mt-6 h-14 w-full rounded-lg bg-[#FF7F50] text-base font-medium text-white hover:bg-[#E6723C] disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    Next <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Step 4: Stock & Farm Entry */}
             {currentStep === 4 && (
               <div className="space-y-6">
                 <div className="text-center">
                   <h1 className="mb-3 text-xl font-bold text-gray-900">
-                    Which best describes your role?
-                  </h1>
-                </div>
-
-                <div className="grid grid-cols-3 gap-3">
-                  {[
-                    { id: "owner", label: "Owner" },
-                    { id: "executive", label: "Executive Team" },
-                    { id: "manager", label: "Manager" },
-                    { id: "employee", label: "Employee" },
-                    { id: "student", label: "Student/Intern" },
-                    { id: "freelancer", label: "Freelancer" },
-                  ].map(option => (
-                    <button
-                      key={option.id}
-                      onClick={() => updateFormData("farmerType", option.id)}
-                      className={`flex min-h-[70px] items-center justify-center rounded-lg border-2 p-3 text-center transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
-                        formData.farmerType === option.id
-                          ? "border-[#3498DB] bg-blue-50"
-                          : "border-gray-200"
-                      }`}
-                    >
-                      <div className="text-sm font-medium text-gray-900">
-                        {option.label}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-
-                {formData.farmerType && (
-                  <div className="mt-6 text-center">
-                    <button
-                      onClick={handleNext}
-                      className="text-base font-medium text-[#3498DB] hover:text-[#2980B9]"
-                    >
-                      None of these describe my role
-                    </button>
-                  </div>
-                )}
-
-                {formData.farmerType && (
-                  <Button
-                    onClick={handleNext}
-                    className="mt-6 h-14 w-full rounded-lg bg-[#FF7F50] text-base font-medium text-white hover:bg-[#E6723C]"
-                  >
-                    Next <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                )}
-              </div>
-            )}
-
-            {/* Step 5: Company Name */}
-            {currentStep === 5 && (
-              <div className="space-y-6">
-                <div className="text-center">
-                  <h1 className="mb-3 text-xl font-bold text-gray-900">
-                    What is your farm's name?
+                    Stock & Farm Entry
                   </h1>
                 </div>
 
                 <div className="space-y-5">
                   <div>
-                    <label
-                      htmlFor="companyName"
-                      className="mb-2 block text-base font-medium text-gray-700"
-                    >
-                      Farm name
+                    <label className="mb-3 block text-base font-medium text-gray-700">
+                      Where do you typically get your young shrimp (post-larvae
+                      / PLs) from?
                     </label>
-                    <div className="relative">
-                      <Input
-                        id="companyName"
-                        type="text"
-                        value={formData.companyName}
-                        onChange={e =>
-                          updateFormData("companyName", e.target.value)
-                        }
-                        className="h-14 w-full rounded-lg border border-gray-300 px-4 text-lg focus:border-transparent focus:ring-2 focus:ring-[#3498DB]"
-                        placeholder="Enter your farm name"
-                      />
-                      <div className="absolute right-3 top-1/2 -translate-y-1/2 transform">
-                        <div className="flex h-5 w-5 items-center justify-center rounded bg-blue-500">
-                          <span className="text-xs text-white">i</span>
-                        </div>
-                      </div>
+                    <div className="space-y-2">
+                      {[
+                        {
+                          id: "bfar-hatchery",
+                          label: "BFAR-accredited hatchery",
+                        },
+                        {
+                          id: "local-hatchery",
+                          label: "Non-accredited local hatchery",
+                        },
+                        { id: "wild-caught", label: "Wild-caught" },
+                        { id: "own-hatchery", label: "Own hatchery" },
+                        { id: "other", label: "Other" },
+                      ].map(option => (
+                        <button
+                          key={option.id}
+                          onClick={() =>
+                            updateFormData("shrimpSource", option.id)
+                          }
+                          className={`w-full rounded-lg border-2 p-3 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
+                            formData.shrimpSource === option.id
+                              ? "border-[#3498DB] bg-blue-50"
+                              : "border-gray-200"
+                          }`}
+                        >
+                          <div className="text-sm font-medium text-gray-900">
+                            {option.label}
+                          </div>
+                        </button>
+                      ))}
                     </div>
                   </div>
 
-                  {formData.companyName && (
-                    <div className="rounded-lg bg-gray-800 p-3 text-white">
-                      <div className="flex items-center space-x-2">
-                        <span className="text-sm">No items to show</span>
-                      </div>
-                      <button className="mt-2 flex items-center text-sm text-[#3498DB]">
-                        <span className="mr-2">+</span> New Identity
-                      </button>
+                  <div>
+                    <label className="mb-3 block text-base font-medium text-gray-700">
+                      Do you have basic measures to control who enters your farm
+                      (e.g., a fence, gate, or sign)?
+                    </label>
+                    <div className="space-y-2">
+                      {[
+                        { id: "yes", label: "Yes, we have some control" },
+                        {
+                          id: "partial",
+                          label: "Partially, some areas are controlled",
+                        },
+                        { id: "no", label: "No, access is generally open" },
+                      ].map(option => (
+                        <button
+                          key={option.id}
+                          onClick={() =>
+                            updateFormData("farmAccess", option.id)
+                          }
+                          className={`w-full rounded-lg border-2 p-3 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
+                            formData.farmAccess === option.id
+                              ? "border-[#3498DB] bg-blue-50"
+                              : "border-gray-200"
+                          }`}
+                        >
+                          <div className="text-sm font-medium text-gray-900">
+                            {option.label}
+                          </div>
+                        </button>
+                      ))}
                     </div>
-                  )}
+                  </div>
 
                   <Button
                     onClick={handleNext}
-                    disabled={!formData.companyName}
+                    disabled={!formData.shrimpSource || !formData.farmAccess}
                     className="mt-6 h-14 w-full rounded-lg bg-[#FF7F50] text-base font-medium text-white hover:bg-[#E6723C] disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     Next <ArrowRight className="ml-2 h-4 w-4" />
@@ -406,11 +540,126 @@ export default function OnboardingPage() {
               </div>
             )}
 
-            {/* Step 6: Welcome/Loading */}
+            {/* Step 5: Health & Challenges */}
+            {currentStep === 5 && (
+              <div className="space-y-6">
+                <div className="text-center">
+                  <h1 className="mb-3 text-xl font-bold text-gray-900">
+                    Health & Challenges
+                  </h1>
+                </div>
+
+                <div className="space-y-5">
+                  <div>
+                    <label className="mb-3 block text-base font-medium text-gray-700">
+                      Have you experienced any disease outbreaks or unexplained
+                      mass mortalities in your shrimp in the past year?
+                    </label>
+                    <div className="space-y-2">
+                      {[
+                        { id: "several", label: "Yes, several times" },
+                        { id: "once-twice", label: "Yes, once or twice" },
+                        { id: "no", label: "No, not really" },
+                      ].map(option => (
+                        <button
+                          key={option.id}
+                          onClick={() =>
+                            updateFormData("diseaseHistory", option.id)
+                          }
+                          className={`w-full rounded-lg border-2 p-3 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
+                            formData.diseaseHistory === option.id
+                              ? "border-[#3498DB] bg-blue-50"
+                              : "border-gray-200"
+                          }`}
+                        >
+                          <div className="text-sm font-medium text-gray-900">
+                            {option.label}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {(formData.diseaseHistory === "several" ||
+                    formData.diseaseHistory === "once-twice") && (
+                    <div>
+                      <label
+                        htmlFor="diseaseDescription"
+                        className="mb-2 block text-base font-medium text-gray-700"
+                      >
+                        Briefly describe the most common issue you faced
+                        (optional)
+                      </label>
+                      <Input
+                        id="diseaseDescription"
+                        type="text"
+                        value={formData.diseaseDescription}
+                        onChange={e =>
+                          updateFormData("diseaseDescription", e.target.value)
+                        }
+                        className="h-14 w-full rounded-lg border border-gray-300 px-4 text-lg focus:border-transparent focus:ring-2 focus:ring-[#3498DB]"
+                        placeholder="e.g., White spot disease, sudden mortality..."
+                      />
+                    </div>
+                  )}
+
+                  <div>
+                    <label className="mb-3 block text-base font-medium text-gray-700">
+                      What is your estimated budget range for biosecurity
+                      improvements in the next 6-12 months?
+                    </label>
+                    <div className="space-y-2">
+                      {[
+                        {
+                          id: "very-limited",
+                          label: "Very Limited (< Php 50,000)",
+                        },
+                        {
+                          id: "limited",
+                          label: "Limited (Php 50,000 - Php 200,000)",
+                        },
+                        {
+                          id: "moderate",
+                          label: "Moderate (Php 200,000 - Php 500,000)",
+                        },
+                        {
+                          id: "sufficient",
+                          label: "Sufficient (> Php 500,000)",
+                        },
+                      ].map(option => (
+                        <button
+                          key={option.id}
+                          onClick={() => updateFormData("budget", option.id)}
+                          className={`w-full rounded-lg border-2 p-3 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
+                            formData.budget === option.id
+                              ? "border-[#3498DB] bg-blue-50"
+                              : "border-gray-200"
+                          }`}
+                        >
+                          <div className="text-sm font-medium text-gray-900">
+                            {option.label}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <Button
+                    onClick={handleNext}
+                    disabled={!formData.diseaseHistory || !formData.budget}
+                    className="mt-6 h-14 w-full rounded-lg bg-[#FF7F50] text-base font-medium text-white hover:bg-[#E6723C] disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    Complete Assessment <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Step 6: Completion */}
             {currentStep === 6 && (
               <div className="space-y-6 text-center">
                 <h1 className="mb-4 text-2xl font-bold text-gray-900">
-                  We're glad you're here, {formData.firstName}!
+                  Assessment Complete!
                 </h1>
 
                 <div className="mb-6 flex justify-center">
@@ -428,20 +677,21 @@ export default function OnboardingPage() {
                 {!isLoading ? (
                   <>
                     <p className="mb-6 text-base text-gray-600">
-                      Next, let's tailor your aquaculture experience
+                      Thank you for completing your farm assessment. Let's set
+                      up your personalized aquaculture dashboard.
                     </p>
                     <Button
                       onClick={handleNext}
                       className="h-14 w-full rounded-lg bg-[#FF7F50] text-base font-medium text-white hover:bg-[#E6723C]"
                     >
-                      Get Started
+                      Go to Dashboard
                     </Button>
                   </>
                 ) : (
                   <div className="space-y-4">
                     <Loader2 className="mx-auto h-8 w-8 animate-spin text-[#3498DB]" />
                     <p className="text-base text-gray-600">
-                      Setting up your aquaculture dashboard...
+                      Analyzing your farm data and setting up your dashboard...
                     </p>
                   </div>
                 )}
