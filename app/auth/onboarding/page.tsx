@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 export default function OnboardingPage() {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -21,7 +21,7 @@ export default function OnboardingPage() {
     companyName: "",
   });
 
-  const totalSteps = 5;
+  const totalSteps = 6;
 
   const handleNext = () => {
     if (currentStep === totalSteps) {
@@ -68,7 +68,7 @@ export default function OnboardingPage() {
               <span className="text-[#3498DB]">AI</span>
             </span>
           </Link>
-          {currentStep > 1 && currentStep < totalSteps && (
+          {currentStep > 0 && currentStep < totalSteps && (
             <Button
               variant="ghost"
               onClick={handleBack}
@@ -89,7 +89,99 @@ export default function OnboardingPage() {
           <div className="absolute bottom-0 left-0 h-24 w-24 -translate-x-12 translate-y-12 rounded-full bg-gradient-to-tr from-[#FF7F50]/10 to-[#3498DB]/10"></div>
 
           <div className="relative z-10">
-            {/* Step 1: Name */}
+            {/* Step 0: Introduction */}
+            {currentStep === 0 && (
+              <div className="space-y-6">
+                <div className="text-center">
+                  <h1 className="mb-4 text-3xl font-bold text-gray-900">
+                    Complete Your Initial Farm Assessment in 15 Minutes
+                  </h1>
+                  <p className="mb-8 text-lg text-gray-600">
+                    Our AI quickly assesses your farm's basic operations,
+                    instantly highlighting key opportunities to reduce costs and
+                    boost yields.
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100">
+                      <svg
+                        className="h-5 w-5 text-green-600"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                    <span className="text-base font-medium text-gray-700">
+                      Gain clarity on your current farm operations
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100">
+                      <svg
+                        className="h-5 w-5 text-green-600"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                    <span className="text-base font-medium text-gray-700">
+                      Understand the habits that are holding you back
+                    </span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100">
+                      <svg
+                        className="h-5 w-5 text-green-600"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                    <span className="text-base font-medium text-gray-700">
+                      Identify which aspects to work on next (and why)
+                    </span>
+                  </div>
+                </div>
+
+                <div className="text-center">
+                  <p className="mb-6 text-base text-gray-600">
+                    You'll also download a personalised report after completing
+                    the assessment.
+                  </p>
+
+                  <Button
+                    onClick={handleNext}
+                    className="mb-4 h-14 w-full rounded-lg bg-[#FF7F50] text-base font-medium text-white hover:bg-[#E6723C]"
+                  >
+                    Start My Farm Assessment{" "}
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+
+                  <p className="text-sm text-gray-500">
+                    100% Free • No Credit Card Required
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {/* Step 2: Name */}
             {currentStep === 1 && (
               <div className="space-y-6">
                 <div className="text-center">
@@ -146,8 +238,8 @@ export default function OnboardingPage() {
               </div>
             )}
 
-            {/* Step 2: Farm Type */}
-            {currentStep === 2 && (
+            {/* Step 3: Farm Type */}
+            {currentStep === 3 && (
               <div className="space-y-6">
                 <div className="text-center">
                   <h1 className="mb-2 text-2xl font-bold text-gray-900">
@@ -200,8 +292,8 @@ export default function OnboardingPage() {
               </div>
             )}
 
-            {/* Step 3: Farmer Type */}
-            {currentStep === 3 && (
+            {/* Step 4: Farmer Type */}
+            {currentStep === 4 && (
               <div className="space-y-6">
                 <div className="text-center">
                   <h1 className="mb-3 text-xl font-bold text-gray-900">
@@ -256,8 +348,8 @@ export default function OnboardingPage() {
               </div>
             )}
 
-            {/* Step 4: Company Name */}
-            {currentStep === 4 && (
+            {/* Step 5: Company Name */}
+            {currentStep === 5 && (
               <div className="space-y-6">
                 <div className="text-center">
                   <h1 className="mb-3 text-xl font-bold text-gray-900">
@@ -314,8 +406,8 @@ export default function OnboardingPage() {
               </div>
             )}
 
-            {/* Step 5: Welcome/Loading */}
-            {currentStep === 5 && (
+            {/* Step 6: Welcome/Loading */}
+            {currentStep === 6 && (
               <div className="space-y-6 text-center">
                 <h1 className="mb-4 text-2xl font-bold text-gray-900">
                   We're glad you're here, {formData.firstName}!
