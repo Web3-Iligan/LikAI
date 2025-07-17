@@ -24,6 +24,7 @@ export default function OnboardingPage() {
     farmSize: "",
     farmSizeUnit: "hectares",
     waterSources: [] as string[],
+    waterSourceOther: "",
     pondDrying: "",
     shrimpSource: "",
     shrimpSourceOther: "",
@@ -576,7 +577,7 @@ export default function OnboardingPage() {
                     <label className="mb-3 block text-base font-medium text-gray-700">
                       What is your main water source for the ponds? (Select all
                       that apply)
-                    </label>
+                    </label>{" "}
                     <div className="space-y-3">
                       {[
                         { id: "river", label: "River" },
@@ -585,46 +586,72 @@ export default function OnboardingPage() {
                         { id: "rain", label: "Rainwater" },
                         { id: "other", label: "Other" },
                       ].map(option => (
-                        <button
-                          key={option.id}
-                          onClick={() => {
-                            const currentSources = formData.waterSources;
-                            const newSources = currentSources.includes(
-                              option.id
-                            )
-                              ? currentSources.filter(
-                                  source => source !== option.id
-                                )
-                              : [...currentSources, option.id];
-                            updateFormData("waterSources", newSources);
-                          }}
-                          className={`w-full rounded-lg border-2 p-4 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
-                            formData.waterSources.includes(option.id)
-                              ? "border-[#3498DB] bg-blue-50"
-                              : "border-gray-200"
-                          }`}
-                        >
-                          <div className="flex items-center space-x-3">
-                            <div className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded border-2 border-gray-300">
-                              {formData.waterSources.includes(option.id) && (
-                                <svg
-                                  className="h-3 w-3 text-[#3498DB]"
-                                  fill="currentColor"
-                                  viewBox="0 0 20 20"
-                                >
-                                  <path
-                                    fillRule="evenodd"
-                                    d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                    clipRule="evenodd"
-                                  />
-                                </svg>
-                              )}
+                        <div key={option.id}>
+                          <button
+                            onClick={() => {
+                              const currentSources = formData.waterSources;
+                              const newSources = currentSources.includes(
+                                option.id
+                              )
+                                ? currentSources.filter(
+                                    source => source !== option.id
+                                  )
+                                : [...currentSources, option.id];
+                              updateFormData("waterSources", newSources);
+
+                              // Clear the "Other" field if "Other" is unchecked
+                              if (
+                                option.id === "other" &&
+                                currentSources.includes("other")
+                              ) {
+                                updateFormData("waterSourceOther", "");
+                              }
+                            }}
+                            className={`w-full rounded-lg border-2 p-4 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
+                              formData.waterSources.includes(option.id)
+                                ? "border-[#3498DB] bg-blue-50"
+                                : "border-gray-200"
+                            }`}
+                          >
+                            <div className="flex items-center space-x-3">
+                              <div className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded border-2 border-gray-300">
+                                {formData.waterSources.includes(option.id) && (
+                                  <svg
+                                    className="h-3 w-3 text-[#3498DB]"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                  >
+                                    <path
+                                      fillRule="evenodd"
+                                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                      clipRule="evenodd"
+                                    />
+                                  </svg>
+                                )}
+                              </div>
+                              <div className="text-base font-medium text-gray-900">
+                                {option.label}
+                              </div>
                             </div>
-                            <div className="text-base font-medium text-gray-900">
-                              {option.label}
-                            </div>
-                          </div>
-                        </button>
+                          </button>
+                          {option.id === "other" &&
+                            formData.waterSources.includes("other") && (
+                              <div className="ml-8 mt-3">
+                                <Input
+                                  type="text"
+                                  value={formData.waterSourceOther}
+                                  onChange={e =>
+                                    updateFormData(
+                                      "waterSourceOther",
+                                      e.target.value
+                                    )
+                                  }
+                                  className="h-12 w-full rounded-lg border-2 border-gray-200 bg-gray-50/50 px-4 text-base font-medium text-gray-900 placeholder:text-gray-500 focus:border-[#3498DB] focus:bg-white focus:ring-0"
+                                  placeholder="Please specify your water source..."
+                                />
+                              </div>
+                            )}
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -669,7 +696,10 @@ export default function OnboardingPage() {
                   <Button
                     onClick={handleNext}
                     disabled={
-                      formData.waterSources.length === 0 || !formData.pondDrying
+                      formData.waterSources.length === 0 ||
+                      !formData.pondDrying ||
+                      (formData.waterSources.includes("other") &&
+                        !formData.waterSourceOther.trim())
                     }
                     className="mt-6 h-14 w-full rounded-lg bg-[#FF7F50] text-base font-medium text-white hover:bg-[#E6723C] disabled:cursor-not-allowed disabled:opacity-50"
                   >
