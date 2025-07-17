@@ -1,16 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 export default function OnboardingPage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [analysisMessage, setAnalysisMessage] = useState(
+    "Analyzing your farm data..."
+  );
   const [formData, setFormData] = useState({
     farmName: "",
     farmLocation: "",
@@ -29,6 +33,29 @@ export default function OnboardingPage() {
   });
 
   const totalSteps = 7;
+
+  // Dynamic analysis messages
+  const analysisMessages = [
+    "Analyzing your farm data...",
+    "Evaluating biosecurity gaps...",
+    "Creating custom recommendations...",
+    "Almost done, finalizing your plan...",
+  ];
+
+  // Cycle through analysis messages
+  useEffect(() => {
+    if (currentStep === 5.5) {
+      let messageIndex = 0;
+      setAnalysisMessage(analysisMessages[0]);
+
+      const interval = setInterval(() => {
+        messageIndex = (messageIndex + 1) % analysisMessages.length;
+        setAnalysisMessage(analysisMessages[messageIndex]);
+      }, 750); // Change message every 750ms
+
+      return () => clearInterval(interval);
+    }
+  }, [currentStep, analysisMessages]);
 
   // Calculate biosecurity scores based on form data
   const calculateBiosecurityScores = () => {
@@ -108,7 +135,17 @@ export default function OnboardingPage() {
   };
 
   const handleNext = () => {
-    if (currentStep === totalSteps) {
+    if (currentStep === 5) {
+      // After Step 5, go to analysis screen
+      setCurrentStep(5.5);
+      // Simulate analysis time, then automatically go to "ready" screen
+      setTimeout(() => {
+        setCurrentStep(5.7);
+      }, 3000); // 3 second analysis simulation
+    } else if (currentStep === 5.7) {
+      // From "ready" screen, go to the report
+      setCurrentStep(6);
+    } else if (currentStep === totalSteps) {
       setIsLoading(true);
       // Simulate registration process
       setTimeout(() => {
@@ -136,16 +173,31 @@ export default function OnboardingPage() {
         <div className="mx-auto max-w-xl px-4 py-4 md:px-8">
           <div className="mb-2 flex items-center justify-between">
             <span className="text-sm font-medium text-gray-600">
-              Step {currentStep} of {totalSteps}
+              {currentStep === 5.5
+                ? "Analyzing..."
+                : currentStep === 5.7
+                  ? "Step 6 of 7: Plan Ready!"
+                  : `Step ${Math.floor(currentStep)} of ${totalSteps}`}
             </span>
             <span className="text-sm font-medium text-gray-600">
-              {Math.round((currentStep / totalSteps) * 100)}% Complete
+              {currentStep === 5.5
+                ? "Processing..."
+                : currentStep === 5.7
+                  ? "100% Complete"
+                  : `${Math.round((Math.floor(currentStep) / totalSteps) * 100)}% Complete`}
             </span>
           </div>
           <div className="h-3 w-full rounded-full bg-gray-200">
             <div
               className="h-3 rounded-full bg-gradient-to-r from-[#FF7F50] to-[#3498DB] transition-all duration-300"
-              style={{ width: `${(currentStep / totalSteps) * 100}%` }}
+              style={{
+                width:
+                  currentStep === 5.5
+                    ? "85%"
+                    : currentStep === 5.7
+                      ? "100%"
+                      : `${(Math.floor(currentStep) / totalSteps) * 100}%`,
+              }}
             ></div>
           </div>
         </div>
@@ -160,16 +212,19 @@ export default function OnboardingPage() {
               <span className="text-[#3498DB]">AI</span>
             </span>
           </Link>
-          {currentStep > 0 && currentStep < totalSteps && (
-            <Button
-              variant="ghost"
-              onClick={handleBack}
-              className="flex items-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-600 shadow-sm hover:bg-gray-50 hover:text-gray-700 md:px-4 md:py-2 md:text-base"
-            >
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back
-            </Button>
-          )}
+          {currentStep > 0 &&
+            currentStep < totalSteps &&
+            currentStep !== 5.5 &&
+            currentStep !== 5.7 && (
+              <Button
+                variant="ghost"
+                onClick={handleBack}
+                className="flex items-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-600 shadow-sm hover:bg-gray-50 hover:text-gray-700 md:px-4 md:py-2 md:text-base"
+              >
+                <ArrowLeft className="mr-2 h-4 w-4" />
+                Back
+              </Button>
+            )}
         </div>
       </header>
 
@@ -792,15 +847,15 @@ export default function OnboardingPage() {
                         Briefly describe the most common issue you faced
                         (optional)
                       </label>
-                      <Input
+                      <Textarea
                         id="diseaseDescription"
-                        type="text"
                         value={formData.diseaseDescription}
                         onChange={e =>
                           updateFormData("diseaseDescription", e.target.value)
                         }
-                        className="h-14 w-full rounded-lg border-2 border-gray-200 bg-gray-50/50 px-4 text-lg font-medium text-gray-900 placeholder:text-gray-500 focus:border-[#3498DB] focus:bg-white focus:ring-0"
-                        placeholder="e.g., White spot disease, sudden mortality..."
+                        rows={3}
+                        className="w-full resize-none rounded-lg border-2 border-gray-200 bg-gray-50/50 px-4 py-3 text-lg font-medium text-gray-900 placeholder:text-gray-500 focus:border-[#3498DB] focus:bg-white focus:ring-0"
+                        placeholder="e.g., White spot disease, sudden mortality, early morning deaths..."
                       />
                     </div>
                   )}
@@ -860,6 +915,183 @@ export default function OnboardingPage() {
                   >
                     Complete Assessment <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
+                </div>
+              </div>
+            )}
+
+            {/* Step 5.5: Analyzing Your Farm (Analysis in Progress) */}
+            {currentStep === 5.5 && (
+              <div className="space-y-8">
+                <div className="text-center">
+                  <h1 className="mb-3 text-2xl font-bold text-gray-900">
+                    LikAI is Crafting Your Personalized Plan!
+                  </h1>
+                  <p className="text-base text-gray-600">
+                    Our AI is hard at work, combining your farm's unique details
+                    with expert GAqP knowledge to create your custom action
+                    plan.
+                  </p>
+                </div>
+
+                <div className="flex flex-col items-center space-y-6">
+                  {/* Animated Loading Element */}
+                  <div className="relative">
+                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-r from-blue-100 to-orange-100">
+                      <div className="h-16 w-16 animate-spin rounded-full border-4 border-gray-200 border-t-[#3498DB]"></div>
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <span className="text-2xl">🦐</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Dynamic Progress Text */}
+                  <div className="space-y-3 text-center">
+                    <p className="text-lg font-medium text-gray-700">
+                      {analysisMessage}
+                    </p>
+                    <p className="text-sm text-gray-500">
+                      This might take a moment. We're making sure your plan is
+                      perfect for your farm!
+                    </p>
+                  </div>
+
+                  {/* Progress Indicators */}
+                  <div className="w-full max-w-md space-y-3">
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-sm text-gray-600">
+                        <span>✓ Farm details reviewed</span>
+                        <span className="text-green-600">Complete</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm text-gray-600">
+                        <span>⚡ Analyzing biosecurity gaps</span>
+                        <span className="text-[#3498DB]">In progress...</span>
+                      </div>
+                      <div className="flex items-center justify-between text-sm text-gray-500">
+                        <span>📋 Creating action plan</span>
+                        <span>Pending</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Encouraging Message */}
+                  <div className="rounded-lg bg-gradient-to-r from-blue-50 to-orange-50 p-4 text-center">
+                    <p className="text-sm font-medium text-gray-700">
+                      Soon, you'll have clear steps to a healthier, more
+                      profitable farm! 🌟
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Step 5.7: Your Plan is Ready! (Report Ready) */}
+            {currentStep === 5.7 && (
+              <div className="space-y-8">
+                <div className="text-center">
+                  <h1 className="mb-3 text-2xl font-bold text-gray-900">
+                    Your Personalized Plan is Ready!
+                  </h1>
+                  <p className="text-base text-gray-600">
+                    LikAI's AI has finished building your custom biosecurity
+                    action plan. It's tailored to your farm's unique needs to
+                    help you minimize risks and boost your yields.
+                  </p>
+                </div>
+
+                <div className="flex flex-col items-center space-y-6">
+                  {/* Celebratory Visual */}
+                  <div className="relative">
+                    <div className="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-r from-green-100 to-emerald-100 shadow-lg">
+                      <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-r from-green-500 to-emerald-500">
+                        <svg
+                          className="h-10 w-10 text-white"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    {/* Celebration sparkles */}
+                    <div className="absolute -right-2 -top-2 text-yellow-400">
+                      ✨
+                    </div>
+                    <div className="absolute -bottom-2 -left-2 text-yellow-400">
+                      ⭐
+                    </div>
+                    <div className="absolute -left-4 top-0 text-yellow-400">
+                      🎉
+                    </div>
+                  </div>
+
+                  {/* Success Message */}
+                  <div className="text-center">
+                    <h2 className="mb-2 text-lg font-bold text-green-800">
+                      Great News,{" "}
+                      {formData.farmName
+                        ? `Farmer ${formData.farmName.split(" ")[0] || formData.farmName}`
+                        : "Farmer"}
+                      !
+                    </h2>
+                    <p className="text-base text-gray-600">
+                      You're just one tap away from clear, actionable steps to a
+                      healthier, more profitable farm.
+                    </p>
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="w-full space-y-4">
+                    <Button
+                      onClick={handleNext}
+                      className="h-14 w-full rounded-lg bg-[#FF7F50] text-base font-medium text-white shadow-lg transition-all hover:bg-[#E6723C] hover:shadow-xl"
+                    >
+                      View My Personalized Report
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+
+                    <Button
+                      variant="outline"
+                      className="h-12 w-full rounded-lg border-2 border-gray-300 bg-white text-base font-medium text-gray-700 hover:border-[#3498DB] hover:bg-blue-50 hover:text-[#3498DB]"
+                      onClick={() => {
+                        // Handle PDF download logic here
+                        console.log("Download PDF report");
+                      }}
+                    >
+                      <svg
+                        className="mr-2 h-4 w-4"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                        />
+                      </svg>
+                      Download My Report (PDF)
+                    </Button>
+                  </div>
+
+                  {/* Benefit Text */}
+                  <div className="rounded-lg bg-gradient-to-r from-blue-50 to-indigo-50 p-4 text-center">
+                    <p className="text-sm font-medium text-gray-700">
+                      💡 Keep your plan handy, even offline, for reference in
+                      the field!
+                    </p>
+                  </div>
+
+                  {/* Small LikAI branding */}
+                  <div className="flex items-center space-x-2 text-sm text-gray-500">
+                    <span>Powered by</span>
+                    <span className="font-bold text-[#3498DB]">LikAI</span>
+                    <span>🤖</span>
+                  </div>
                 </div>
               </div>
             )}
