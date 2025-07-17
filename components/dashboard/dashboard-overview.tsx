@@ -9,7 +9,7 @@ import {
   MessageCircle,
   Shield,
   Target,
-  TrendingUp,
+  Wallet,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -92,7 +92,7 @@ export function DashboardOverview() {
       id: "feed-management",
       name: "Feed Management",
       description: "Quality & schedule",
-      emoji: "🌾",
+      emoji: "🥤",
       score: 85,
       level: "Good",
       rating: "4/5",
@@ -150,27 +150,6 @@ export function DashboardOverview() {
 
   // Dynamic quick stats derived from farm data
   const quickStats = [
-    {
-      title: "Overall Biosecurity Score",
-      value: `${Math.round(farmProfile.overallBiosecurityScore)}/100`,
-      change:
-        farmProfile.overallBiosecurityScore > 85
-          ? "Excellent status"
-          : "Good progress",
-      trend: "up",
-      color:
-        farmProfile.overallBiosecurityScore > 85
-          ? "text-green-600"
-          : "text-blue-600",
-      bgColor:
-        farmProfile.overallBiosecurityScore > 85 ? "bg-green-50" : "bg-blue-50",
-      borderColor:
-        farmProfile.overallBiosecurityScore > 85
-          ? "border-green-200"
-          : "border-blue-200",
-      icon: Shield,
-      href: "/risk",
-    },
     {
       title: "Plan Progress",
       value: `${Math.round((farmProfile.completedTasks / farmProfile.totalTasks) * 100)}%`,
@@ -244,7 +223,7 @@ export function DashboardOverview() {
             </Link>
           </Button>
           <Button size="sm" asChild>
-            <Link href="/assessment">Take Assessment</Link>
+            <Link href="/assessment">Update Farm Profile</Link>
           </Button>
         </div>
       </div>
@@ -283,7 +262,7 @@ export function DashboardOverview() {
       </Card>
 
       {/* Quick Stats Grid */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {quickStats.map((stat, index) => {
           const IconComponent = stat.icon;
           return (
@@ -445,7 +424,7 @@ export function DashboardOverview() {
                       </Button>
                     )}
                     <Button variant="outline" size="sm" asChild>
-                      <Link href={action.href}>View Details</Link>
+                      <Link href={action.href}>Get How-To Guide</Link>
                     </Button>
                   </div>
                 </div>
@@ -491,7 +470,7 @@ export function DashboardOverview() {
               {/* Financial Impact */}
               <div className="rounded-lg border border-blue-200 bg-blue-50 p-3">
                 <div className="mb-2 flex items-center space-x-2">
-                  <TrendingUp className="h-5 w-5 text-blue-600" />
+                  <Wallet className="h-5 w-5 text-blue-600" />
                   <h4 className="font-medium text-blue-800">
                     Financial Impact
                   </h4>
