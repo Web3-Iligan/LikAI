@@ -1,4 +1,4 @@
-import { ResourceOptimizer } from "@/components/resources/resource-optimizer";
+import ResourceOptimizer from "@/components/resources/resource-optimizer";
 
 export default function ResourcesPage() {
   return <ResourceOptimizer />;
