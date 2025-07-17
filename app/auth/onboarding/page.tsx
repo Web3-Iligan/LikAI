@@ -44,7 +44,6 @@ export default function OnboardingPage() {
   );
 
   // Complete form state object containing all collected farmer data
-  // Complete form state object containing all collected farmer data
   const [formData, setFormData] = useState({
     // Step 1: Basic farm information
     farmName: "",
@@ -73,7 +72,6 @@ export default function OnboardingPage() {
     budget: "",
   });
 
-  // Total number of main steps (excluding intermediate screens like 5.5, 5.7)
   // Total number of main steps (excluding intermediate screens like 5.5, 5.7)
   const totalSteps = 7;
 
