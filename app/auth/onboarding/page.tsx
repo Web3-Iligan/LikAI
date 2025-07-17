@@ -1021,7 +1021,20 @@ export default function OnboardingPage() {
                       </div>
                       <div className="flex items-center justify-between text-sm text-gray-600">
                         <span>⚡ Analyzing biosecurity gaps</span>
-                        <span className="text-[#3498DB]">In progress...</span>
+                        <div className="flex items-center space-x-1">
+                          <span className="text-[#3498DB]">In progress</span>
+                          <div className="flex space-x-0.5">
+                            <div className="h-1 w-1 animate-pulse rounded-full bg-[#3498DB]"></div>
+                            <div
+                              className="h-1 w-1 animate-pulse rounded-full bg-[#3498DB]"
+                              style={{ animationDelay: "0.2s" }}
+                            ></div>
+                            <div
+                              className="h-1 w-1 animate-pulse rounded-full bg-[#3498DB]"
+                              style={{ animationDelay: "0.4s" }}
+                            ></div>
+                          </div>
+                        </div>
                       </div>
                       <div className="flex items-center justify-between text-sm text-gray-500">
                         <span>📋 Creating action plan</span>
@@ -1089,9 +1102,32 @@ export default function OnboardingPage() {
                   <div className="text-center">
                     <h2 className="mb-2 text-lg font-bold text-green-800">
                       Great News,{" "}
-                      {formData.farmName
-                        ? `Farmer ${formData.farmName.split(" ")[0] || formData.farmName}`
-                        : "Farmer"}
+                      {(() => {
+                        if (formData.farmName) {
+                          // Extract first word from farm name as farmer's name
+                          const farmNameWords = formData.farmName
+                            .trim()
+                            .split(" ");
+                          const firstName = farmNameWords[0];
+                          // Check if it looks like a person's name (not containing words like "Farm", "Aqua", etc.)
+                          const farmWords = [
+                            "farm",
+                            "aqua",
+                            "shrimp",
+                            "pond",
+                            "fishing",
+                            "fishery",
+                          ];
+                          const isPersonName = !farmWords.some(word =>
+                            firstName.toLowerCase().includes(word.toLowerCase())
+                          );
+
+                          if (isPersonName && firstName.length > 1) {
+                            return `Farmer ${firstName}`;
+                          }
+                        }
+                        return "Farmer";
+                      })()}
                       !
                     </h2>
                     <p className="text-base text-gray-600">
@@ -1147,7 +1183,6 @@ export default function OnboardingPage() {
                   <div className="flex items-center space-x-2 text-sm text-gray-500">
                     <span>Powered by</span>
                     <span className="font-bold text-[#3498DB]">LikAI</span>
-                    <span>🤖</span>
                   </div>
                 </div>
               </div>
