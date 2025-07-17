@@ -10,35 +10,77 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
+/**
+ * OnboardingPage Component
+ *
+ * A comprehensive 7-step farm assessment onboarding flow for aquaculture farmers.
+ * Collects detailed farm information and generates personalized biosecurity reports.
+ *
+ * Flow Structure:
+ * - Step 0: Introduction and benefits overview
+ * - Step 1: Basic farm information (name, location)
+ * - Step 2: Farm specifications (species, system, size)
+ * - Step 3: Water sources and pond management
+ * - Step 4: Stock sourcing and farm access control
+ * - Step 5: Disease history and budget assessment
+ * - Step 5.5: Analysis loading screen with dynamic messages
+ * - Step 5.7: Ready screen with farmer greeting
+ * - Step 6: Biosecurity report with scores and recommendations
+ * - Step 7: Registration completion and dashboard redirect
+ */
 export default function OnboardingPage() {
+  // Navigation and routing
   const router = useRouter();
+
+  // Step management - supports fractional steps for intermediate screens (5.5, 5.7)
   const [currentStep, setCurrentStep] = useState(0);
+
+  // Loading states for async operations
   const [isLoading, setIsLoading] = useState(false);
+
+  // Dynamic message displayed during analysis phase (Step 5.5)
   const [analysisMessage, setAnalysisMessage] = useState(
     "Analyzing your farm data..."
   );
+
+  // Complete form state object containing all collected farmer data
+  // Complete form state object containing all collected farmer data
   const [formData, setFormData] = useState({
+    // Step 1: Basic farm information
     farmName: "",
     farmLocation: "",
+
+    // Step 2: Farm specifications
     shrimpSpecies: "",
-    shrimpSpeciesOther: "",
+    shrimpSpeciesOther: "", // For "Other" species not in predefined list
     farmingSystem: "",
     farmSize: "",
-    farmSizeUnit: "hectares",
-    waterSources: [] as string[],
-    waterSourceOther: "",
+    farmSizeUnit: "hectares", // Default unit, user can change to acres
+
+    // Step 3: Water and pond management
+    waterSources: [] as string[], // Array to support multiple water sources
+    waterSourceOther: "", // For "Other" water source specification
     pondDrying: "",
+
+    // Step 4: Stock sourcing and access control
     shrimpSource: "",
-    shrimpSourceOther: "",
+    shrimpSourceOther: "", // For "Other" shrimp source specification
     farmAccess: "",
+
+    // Step 5: Health and financial information
     diseaseHistory: "",
-    diseaseDescription: "",
+    diseaseDescription: "", // Additional details if farmer has disease history
     budget: "",
   });
 
+  // Total number of main steps (excluding intermediate screens like 5.5, 5.7)
+  // Total number of main steps (excluding intermediate screens like 5.5, 5.7)
   const totalSteps = 7;
 
-  // Dynamic analysis messages
+  /**
+   * Dynamic analysis messages shown during Step 5.5 loading screen
+   * These cycle through to give farmers feedback on what's happening
+   */
   const analysisMessages = [
     "Analyzing your farm data...",
     "Evaluating biosecurity gaps...",
@@ -46,7 +88,10 @@ export default function OnboardingPage() {
     "Almost done, finalizing your plan...",
   ];
 
-  // Cycle through analysis messages
+  /**
+   * Effect: Cycle through analysis messages during Step 5.5
+   * Creates a dynamic loading experience with rotating status messages
+   */
   useEffect(() => {
     if (currentStep === 5.5) {
       let messageIndex = 0;
@@ -55,13 +100,24 @@ export default function OnboardingPage() {
       const interval = setInterval(() => {
         messageIndex = (messageIndex + 1) % analysisMessages.length;
         setAnalysisMessage(analysisMessages[messageIndex]);
-      }, 750); // Change message every 750ms
+      }, 750); // Change message every 750ms for smooth progression
 
       return () => clearInterval(interval);
     }
   }, [currentStep, analysisMessages]);
 
-  // Calculate biosecurity scores based on form data
+  /**
+   * Calculate biosecurity scores based on farmer's responses
+   *
+   * Generates scores across 5 key areas:
+   * 1. Farm Setup Basics (species & system selection)
+   * 2. Pond & Water Care (water sources & pond management)
+   * 3. Healthy Stock Sourcing (quality of shrimp sources)
+   * 4. Farm Access Control (biosecurity protocols)
+   * 5. Disease Readiness (history & financial preparedness)
+   *
+   * Each area is scored out of 100 points based on best practice criteria
+   */
   const calculateBiosecurityScores = () => {
     const scores = {
       farmSetup: 0,
@@ -71,13 +127,15 @@ export default function OnboardingPage() {
       diseaseReadiness: 0,
     };
 
-    // Farm Setup Basics (species selection and farming system)
+    // Farm Setup Basics: Species selection and farming system intensity
+    // Premium species (vannamei, monodon) get higher scores
     if (
       formData.shrimpSpecies === "vannamei" ||
       formData.shrimpSpecies === "monodon"
     ) {
       scores.farmSetup += 50;
     }
+    // More intensive systems typically have better biosecurity controls
     if (
       formData.farmingSystem === "intensive" ||
       formData.farmingSystem === "semi-intensive"
@@ -85,59 +143,73 @@ export default function OnboardingPage() {
       scores.farmSetup += 50;
     }
 
-    // Pond & Water Care (water sources and pond drying)
+    // Pond & Water Care: Water source quality and pond drying practices
+    // Well water and seawater are generally safer than surface water
     if (
       formData.waterSources.includes("well") ||
       formData.waterSources.includes("sea")
     ) {
       scores.pondWaterCare += 40;
     }
+    // Pond drying is critical for disease prevention
     if (formData.pondDrying === "always") {
       scores.pondWaterCare += 60;
     } else if (formData.pondDrying === "sometimes") {
       scores.pondWaterCare += 30;
     }
 
-    // Healthy Stock Sourcing
+    // Healthy Stock Sourcing: Quality and reliability of shrimp sources
+    // BFAR-certified hatcheries are the gold standard for disease-free stock
     if (formData.shrimpSource === "bfar-hatchery") {
       scores.stockSourcing = 100;
     } else if (formData.shrimpSource === "own-hatchery") {
-      scores.stockSourcing = 80;
+      scores.stockSourcing = 80; // Good control but depends on management
     } else if (formData.shrimpSource === "local-hatchery") {
-      scores.stockSourcing = 60;
+      scores.stockSourcing = 60; // Variable quality, moderate risk
     } else {
-      scores.stockSourcing = 30;
+      scores.stockSourcing = 30; // Higher risk sources
     }
 
-    // Farm Access Control
+    // Farm Access Control: Protocols to prevent pathogen introduction
+    // Strict access control is crucial for biosecurity
     if (formData.farmAccess === "yes") {
-      scores.farmAccess = 100;
+      scores.farmAccess = 100; // Excellent - proper protocols in place
     } else if (formData.farmAccess === "partial") {
-      scores.farmAccess = 60;
+      scores.farmAccess = 60; // Moderate - some controls but gaps exist
     } else {
-      scores.farmAccess = 20;
+      scores.farmAccess = 20; // Poor - minimal access control
     }
 
-    // Disease Readiness (based on history and budget)
+    // Disease Readiness: Historical experience and financial preparedness
+    // Disease history indicates past challenges but also experience
     if (formData.diseaseHistory === "no") {
-      scores.diseaseReadiness += 40;
+      scores.diseaseReadiness += 40; // No history = lower risk
     } else if (formData.diseaseHistory === "once-twice") {
-      scores.diseaseReadiness += 20;
+      scores.diseaseReadiness += 20; // Some experience, moderate preparation
     }
-
+    // Financial capacity affects ability to implement biosecurity measures
     if (formData.budget === "sufficient") {
-      scores.diseaseReadiness += 60;
+      scores.diseaseReadiness += 60; // Can afford best practices
     } else if (formData.budget === "moderate") {
-      scores.diseaseReadiness += 40;
+      scores.diseaseReadiness += 40; // Some budget constraints
     } else if (formData.budget === "limited") {
-      scores.diseaseReadiness += 20;
+      scores.diseaseReadiness += 20; // Significant budget limitations
     } else {
-      scores.diseaseReadiness += 10;
+      scores.diseaseReadiness += 10; // Very constrained budget
     }
 
     return scores;
   };
 
+  /**
+   * Handle forward navigation through the onboarding steps
+   *
+   * Special logic for intermediate screens:
+   * - Step 5 → 5.5: Start analysis loading screen
+   * - Step 5.5 → 5.7: Auto-advance after 3 seconds to ready screen
+   * - Step 5.7 → 6: Show biosecurity report
+   * - Step 7: Complete registration and redirect to dashboard
+   */
   const handleNext = () => {
     if (currentStep === 5) {
       // After Step 5, go to analysis screen
@@ -150,6 +222,7 @@ export default function OnboardingPage() {
       // From "ready" screen, go to the report
       setCurrentStep(6);
     } else if (currentStep === totalSteps) {
+      // Final step - start registration process
       setIsLoading(true);
       // Simulate registration process
       setTimeout(() => {
@@ -158,24 +231,40 @@ export default function OnboardingPage() {
         window.location.href = "/dashboard";
       }, 3000);
     } else {
+      // Standard step progression
       setCurrentStep(prev => prev + 1);
     }
   };
 
+  /**
+   * Handle backward navigation through the onboarding steps
+   * Only available for main steps (not intermediate screens)
+   */
   const handleBack = () => {
     setCurrentStep(prev => prev - 1);
   };
 
+  /**
+   * Update form data for a specific field
+   * @param field - The field name to update
+   * @param value - The new value (can be string or array for multi-select fields)
+   */
   const updateFormData = (field: string, value: string | string[]) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-orange-100">
-      {/* Progress Bar */}
+      {/* 
+        Progress Bar Component
+        - Shows current step and completion percentage
+        - Handles special display for intermediate screens (5.5, 5.7)
+        - Dynamic width calculation based on progress
+      */}
       <div className="w-full border-b border-blue-200/50 bg-white/90 backdrop-blur-sm">
         <div className="mx-auto max-w-xl px-4 py-4 md:px-8">
           <div className="mb-2 flex items-center justify-between">
+            {/* Left side: Step indicator with special handling for analysis screens */}
             <span className="text-sm font-medium text-gray-600">
               {currentStep === 5.5
                 ? "Analyzing..."
@@ -183,6 +272,7 @@ export default function OnboardingPage() {
                   ? "Step 6 of 7: Plan Ready!"
                   : `Step ${Math.floor(currentStep)} of ${totalSteps}`}
             </span>
+            {/* Right side: Percentage completion */}
             <span className="text-sm font-medium text-gray-600">
               {currentStep === 5.5
                 ? "Processing..."
@@ -191,15 +281,16 @@ export default function OnboardingPage() {
                   : `${Math.round((Math.floor(currentStep) / totalSteps) * 100)}% Complete`}
             </span>
           </div>
+          {/* Progress bar with dynamic width and smooth transitions */}
           <div className="h-3 w-full rounded-full bg-gray-200">
             <div
               className="h-3 rounded-full bg-gradient-to-r from-[#FF7F50] to-[#3498DB] transition-all duration-300"
               style={{
                 width:
                   currentStep === 5.5
-                    ? "85%"
+                    ? "85%" // Show near-complete during analysis
                     : currentStep === 5.7
-                      ? "100%"
+                      ? "100%" // Full completion for ready screen
                       : `${(Math.floor(currentStep) / totalSteps) * 100}%`,
               }}
             ></div>
@@ -207,15 +298,25 @@ export default function OnboardingPage() {
         </div>
       </div>
 
-      {/* Header */}
+      {/* 
+        Header Component
+        - LikAI branding
+        - Conditional back button (hidden on certain steps)
+      */}
       <header className="px-4 py-4 md:px-8 md:py-6">
         <div className="mx-auto flex max-w-xl items-center justify-between">
+          {/* Logo/Brand */}
           <Link href="/" className="flex items-center space-x-3">
             <span className="text-xl font-bold md:text-2xl">
               <span className="text-[#FF7F50]">Lik</span>
               <span className="text-[#3498DB]">AI</span>
             </span>
           </Link>
+          {/* 
+            Conditional Back Button
+            - Only shown on main steps (not on intro, loading, or completion screens)
+            - Hidden during analysis (5.5) and ready (5.7) screens for flow control
+          */}
           {currentStep > 0 &&
             currentStep < totalSteps &&
             currentStep !== 5.5 &&
@@ -232,21 +333,33 @@ export default function OnboardingPage() {
         </div>
       </header>
 
-      {/* Main Content */}
+      {/* 
+        Main Content Container
+        - Responsive design with different max-widths for different steps
+        - Step 6 (report) uses wider layout for data visualization
+        - Decorative background elements for visual appeal
+      */}
       <div className="flex items-center justify-center px-4 pb-8 md:px-8 md:pb-16">
         <div
           className={`relative w-full overflow-hidden rounded-2xl border border-blue-200/30 bg-white shadow-2xl ${
             currentStep === 6
-              ? "max-w-4xl space-y-6 p-4 md:space-y-8 md:p-8"
-              : "max-w-xl space-y-6 p-6 md:p-10"
+              ? "max-w-4xl space-y-6 p-4 md:space-y-8 md:p-8" // Wider layout for report
+              : "max-w-xl space-y-6 p-6 md:p-10" // Standard layout for forms
           }`}
         >
-          {/* Background accent */}
+          {/* Decorative background accent elements */}
           <div className="absolute right-0 top-0 h-32 w-32 -translate-y-16 translate-x-16 rounded-full bg-gradient-to-br from-[#3498DB]/10 to-[#FF7F50]/10"></div>
           <div className="absolute bottom-0 left-0 h-24 w-24 -translate-x-12 translate-y-12 rounded-full bg-gradient-to-tr from-[#FF7F50]/10 to-[#3498DB]/10"></div>
 
+          {/* Content area with z-index to appear above background decorations */}
           <div className="relative z-10">
-            {/* Step 0: Introduction */}
+            {/* 
+              Step 0: Introduction & Value Proposition
+              - Landing screen that explains benefits of the assessment
+              - Includes social proof and clear value statements
+              - Primary CTA to start assessment
+              - Secondary CTA for existing users to log in
+            */}
             {currentStep === 0 && (
               <div className="space-y-7">
                 <div className="text-center">
@@ -351,7 +464,12 @@ export default function OnboardingPage() {
               </div>
             )}
 
-            {/* Step 1: Farm at a Glance */}
+            {/* 
+              Step 1: Basic Farm Information Collection
+              - Collects fundamental identifiers: farm name and location
+              - Form validation prevents progression without required fields
+              - Sets foundation for personalized experience throughout flow
+            */}
             {currentStep === 1 && (
               <div className="space-y-6">
                 <div className="text-center">
@@ -400,6 +518,7 @@ export default function OnboardingPage() {
                     />
                   </div>
 
+                  {/* Form validation: Continue button disabled until both required fields filled */}
                   <Button
                     onClick={handleNext}
                     disabled={!formData.farmName || !formData.farmLocation}
@@ -411,7 +530,13 @@ export default function OnboardingPage() {
               </div>
             )}
 
-            {/* Step 2: Farm Specifications */}
+            {/* 
+              Step 2: Farm Specifications Collection
+              - Shrimp species selection with conditional "Other" input field
+              - Farming system intensity (extensive to intensive)
+              - Farm size with flexible unit selection (hectares/acres)
+              - Includes validation and conditional rendering logic
+            */}
             {currentStep === 2 && (
               <div className="space-y-6">
                 <div className="text-center">
@@ -636,6 +761,12 @@ export default function OnboardingPage() {
                               </div>
                             </div>
                           </button>
+                          {/* 
+                            Conditional "Other" Text Input
+                            - Only renders when "other" option is selected
+                            - Allows farmers to specify custom water sources
+                            - Integrated into form validation logic
+                          */}
                           {option.id === "other" &&
                             formData.waterSources.includes("other") && (
                               <div className="ml-8 mt-3">
@@ -695,6 +826,13 @@ export default function OnboardingPage() {
                     </div>
                   </div>
 
+                  {/* 
+                    Complex Form Validation
+                    - Ensures water sources are selected
+                    - Requires pond drying method selection
+                    - Validates "Other" text input if "other" water source selected
+                    - Prevents progression until all required fields are completed
+                  */}
                   <Button
                     onClick={handleNext}
                     disabled={
@@ -978,7 +1116,14 @@ export default function OnboardingPage() {
               </div>
             )}
 
-            {/* Step 5.5: Analyzing Your Farm (Analysis in Progress) */}
+            {/* 
+              Step 5.5: Analysis Loading Screen
+              - Intermediate screen shown while "processing" farm data
+              - Features animated loading spinner with shrimp emoji
+              - Dynamic cycling messages to show analysis progress
+              - Visual progress indicators to maintain user engagement
+              - Auto-advances to Step 5.7 after 3 seconds
+            */}
             {currentStep === 5.5 && (
               <div className="space-y-8">
                 <div className="text-center">
@@ -1056,7 +1201,14 @@ export default function OnboardingPage() {
               </div>
             )}
 
-            {/* Step 5.7: Your Plan is Ready! (Report Ready) */}
+            {/* 
+              Step 5.7: Plan Ready Celebration Screen
+              - Congratulatory screen after analysis completion
+              - Features celebratory visuals (checkmark icon)
+              - Personalized farmer greeting using name if available
+              - Clear value proposition before showing the actual report
+              - CTA button to proceed to detailed biosecurity report
+            */}
             {currentStep === 5.7 && (
               <div className="space-y-8">
                 <div className="text-center">
@@ -1104,14 +1256,22 @@ export default function OnboardingPage() {
                   <div className="text-center">
                     <h2 className="mb-2 text-lg font-bold text-green-800">
                       Great News,{" "}
+                      {/* 
+                        Smart Farmer Name Extraction Logic
+                        - Attempts to extract a personal name from the farm name
+                        - Filters out business-related words to avoid "Farm Santos" becoming "Farmer Farm"
+                        - Fallback to generic "Farmer" if no suitable name found
+                        - Provides personalized experience without requiring separate name field
+                      */}
                       {(() => {
                         if (formData.farmName) {
-                          // Extract first word from farm name as farmer's name
+                          // Extract first word from farm name as potential farmer's name
                           const farmNameWords = formData.farmName
                             .trim()
                             .split(" ");
                           const firstName = farmNameWords[0];
-                          // Check if it looks like a person's name (not containing words like "Farm", "Aqua", etc.)
+
+                          // Filter out business-related terms that shouldn't be used as personal names
                           const farmWords = [
                             "farm",
                             "aqua",
@@ -1124,10 +1284,12 @@ export default function OnboardingPage() {
                             firstName.toLowerCase().includes(word.toLowerCase())
                           );
 
+                          // Use extracted name if it appears to be a person's name
                           if (isPersonName && firstName.length > 1) {
                             return `Farmer ${firstName}`;
                           }
                         }
+                        // Default fallback greeting
                         return "Farmer";
                       })()}
                       !
@@ -1166,7 +1328,15 @@ export default function OnboardingPage() {
               </div>
             )}
 
-            {/* Step 6: Biosecurity Report */}
+            {/* 
+              Step 6: Comprehensive Biosecurity Report
+              - Main deliverable: personalized farm assessment report
+              - Calculates and displays scores across 5 biosecurity areas
+              - Uses conditional logic to generate recommendations
+              - Features visual progress bars and color-coded scoring
+              - Provides actionable improvement suggestions
+              - Includes personalized farmer greeting and encouragement
+            */}
             {currentStep === 6 && (
               <div className="space-y-14">
                 <div className="text-center">
@@ -1769,7 +1939,14 @@ export default function OnboardingPage() {
               </div>
             )}
 
-            {/* Step 7: Final Completion */}
+            {/* 
+              Step 7: Registration & Completion
+              - Final step with multiple CTAs for user conversion
+              - PDF download option for offline report access
+              - Primary CTA redirects to /auth for account creation
+              - Upgrade pitch for Business Plan features
+              - Loading state during final registration process
+            */}
             {currentStep === 7 && (
               <div className="space-y-8 text-center">
                 <div className="space-y-6">
@@ -1882,3 +2059,27 @@ export default function OnboardingPage() {
     </div>
   );
 }
+
+/**
+ * Component Summary:
+ *
+ * This OnboardingPage component implements a comprehensive 7-step farm assessment
+ * flow designed specifically for aquaculture farmers in the Philippines. Key features:
+ *
+ * 1. Progressive data collection across multiple domains (farm specs, biosecurity, finances)
+ * 2. Dynamic form validation with conditional "Other" input fields
+ * 3. Intelligent scoring algorithm that calculates biosecurity readiness
+ * 4. Personalized report generation with actionable recommendations
+ * 5. Engaging UX with loading animations, progress tracking, and celebratory visuals
+ * 6. Mobile-responsive design optimized for field use
+ * 7. Farmer-friendly language and local context (Philippine locations, GAqP standards)
+ *
+ * The component serves as the primary conversion funnel, transforming visitors into
+ * registered users while delivering immediate value through the assessment report.
+ *
+ * Maintenance Notes:
+ * - Form validation logic is centralized in button disabled states
+ * - Scoring algorithm can be tuned by adjusting point values in calculateBiosecurityScores()
+ * - Step progression is controlled by handleNext() with special handling for intermediate screens
+ * - All farmer-facing text should remain in simple, accessible language
+ */
