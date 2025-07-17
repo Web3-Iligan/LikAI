@@ -8,8 +8,10 @@ import {
   DollarSign,
   Download,
   FileText,
+  Loader2,
   PlusCircle,
   Shield,
+  Waves,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -121,7 +123,7 @@ export default function ReportsPage() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-lg">
             <PlusCircle className="h-5 w-5 text-green-600" />
-            Generate New Report
+            Get Your Custom Report
           </CardTitle>
           <CardDescription>
             Select report type and timeframe to create a new report.
@@ -132,37 +134,39 @@ export default function ReportsPage() {
             <div>
               <label
                 htmlFor="report-type"
-                className="mb-1 block text-sm font-medium text-gray-700"
+                className="mb-2 flex items-center gap-2 text-sm font-medium text-gray-700"
               >
+                <FileText className="h-4 w-4 text-gray-600" />
                 Report Type
               </label>
               <Select value={reportType} onValueChange={setReportType}>
-                <SelectTrigger id="report-type" className="w-full">
-                  <SelectValue placeholder="Select a report type" />
+                <SelectTrigger id="report-type" className="w-full h-12">
+                  <SelectValue placeholder="Select Report Type..." />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Biosecurity">
+                  <SelectItem value="BFAR Compliance">
                     <div className="flex items-center gap-2">
-                      <Shield className="h-4 w-4 text-blue-600" /> Biosecurity
-                      Compliance
+                      <Shield className="h-4 w-4 text-blue-600" /> BFAR Compliance Report
                     </div>
                   </SelectItem>
-                  <SelectItem value="Production">
+                  <SelectItem value="Biosecurity Performance">
                     <div className="flex items-center gap-2">
-                      <BarChart3 className="h-4 w-4 text-purple-600" />{" "}
-                      Production Performance
+                      <Shield className="h-4 w-4 text-emerald-600" /> Biosecurity Performance Summary
                     </div>
                   </SelectItem>
-                  <SelectItem value="Financial">
+                  <SelectItem value="Pond Health">
                     <div className="flex items-center gap-2">
-                      <DollarSign className="h-4 w-4 text-green-600" />{" "}
-                      Financial Summary
+                      <Waves className="h-4 w-4 text-blue-600" /> Pond Health Trends
                     </div>
                   </SelectItem>
-                  <SelectItem value="Water Quality">
+                  <SelectItem value="Feed & Resource">
                     <div className="flex items-center gap-2">
-                      <CalendarDays className="h-4 w-4 text-orange-600" /> Water
-                      Quality Trends
+                      <DollarSign className="h-4 w-4 text-green-600" /> Feed & Resource Efficiency
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="Harvest Summary">
+                    <div className="flex items-center gap-2">
+                      <BarChart3 className="h-4 w-4 text-purple-600" /> Harvest Summary
                     </div>
                   </SelectItem>
                 </SelectContent>
@@ -171,20 +175,21 @@ export default function ReportsPage() {
             <div>
               <label
                 htmlFor="timeframe"
-                className="mb-1 block text-sm font-medium text-gray-700"
+                className="mb-2 flex items-center gap-2 text-sm font-medium text-gray-700"
               >
+                <CalendarDays className="h-4 w-4 text-gray-600" />
                 Timeframe
               </label>
               <Select value={timeframe} onValueChange={setTimeframe}>
-                <SelectTrigger id="timeframe" className="w-full">
-                  <SelectValue placeholder="Select a timeframe" />
+                <SelectTrigger id="timeframe" className="w-full h-12">
+                  <SelectValue placeholder="Select Timeframe..." />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Daily">Daily</SelectItem>
-                  <SelectItem value="Weekly">Weekly</SelectItem>
-                  <SelectItem value="Monthly">Monthly</SelectItem>
-                  <SelectItem value="Quarterly">Quarterly</SelectItem>
-                  <SelectItem value="Annually">Annually</SelectItem>
+                  <SelectItem value="Last Month">Last Month</SelectItem>
+                  <SelectItem value="Last Quarter">Last Quarter</SelectItem>
+                  <SelectItem value="Last 6 Months">Last 6 Months</SelectItem>
+                  <SelectItem value="Last Year">Last Year</SelectItem>
+                  <SelectItem value="Custom Range">Custom Range</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -192,7 +197,7 @@ export default function ReportsPage() {
           <Button
             onClick={handleGenerateReport}
             disabled={!reportType || !timeframe}
-            className="flex w-full items-center gap-2"
+            className="flex w-full items-center gap-2 h-12 text-base font-semibold"
           >
             <PlusCircle className="h-4 w-4" /> Generate Report
           </Button>
@@ -235,6 +240,9 @@ export default function ReportsPage() {
                               : "bg-red-100 text-red-800"
                         }`}
                       >
+                        {report.status === "Pending" && (
+                          <Loader2 className="mr-1 h-3 w-3 animate-spin inline" />
+                        )}
                         {report.status}
                       </span>
                     </TableCell>
@@ -252,8 +260,10 @@ export default function ReportsPage() {
               </TableBody>
             </Table>
           ) : (
-            <div className="py-10 text-center text-gray-500">
-              No reports generated yet.
+            <div className="py-12 text-center">
+              <FileText className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 mb-2">No reports yet!</h3>
+              <p className="text-gray-500">Generate your first report above to get started.</p>
             </div>
           )}
         </CardContent>

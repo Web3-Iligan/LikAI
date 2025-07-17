@@ -355,12 +355,6 @@ I'm here to provide **practical, actionable guidance** for your farm! 🦐`;
           <h1 className="text-2xl font-bold text-gray-900">LikAI Coach</h1>
           <Badge className="bg-green-100 text-green-800">Live</Badge>
         </div>
-        <Link href="/dashboard">
-          <Button variant="ghost" size="sm">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Dashboard
-          </Button>
-        </Link>
       </div>
 
       {/* Enhanced Chat Interface */}
