@@ -133,9 +133,17 @@ export default function OnboardingPage() {
       {/* Progress Bar */}
       <div className="w-full border-b border-blue-200/50 bg-white/90 backdrop-blur-sm">
         <div className="mx-auto max-w-xl px-4 py-4 md:px-8">
-          <div className="h-2 w-full rounded-full bg-gray-200">
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-sm font-medium text-gray-600">
+              Step {currentStep} of {totalSteps}
+            </span>
+            <span className="text-sm font-medium text-gray-600">
+              {Math.round((currentStep / totalSteps) * 100)}% Complete
+            </span>
+          </div>
+          <div className="h-3 w-full rounded-full bg-gray-200">
             <div
-              className="h-2 rounded-full bg-gradient-to-r from-[#FF7F50] to-[#3498DB] transition-all duration-300"
+              className="h-3 rounded-full bg-gradient-to-r from-[#FF7F50] to-[#3498DB] transition-all duration-300"
               style={{ width: `${(currentStep / totalSteps) * 100}%` }}
             ></div>
           </div>
@@ -155,7 +163,7 @@ export default function OnboardingPage() {
             <Button
               variant="ghost"
               onClick={handleBack}
-              className="text-sm text-[#3498DB] hover:bg-blue-50 hover:text-[#2980B9] md:text-base"
+              className="flex items-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-600 shadow-sm hover:bg-gray-50 hover:text-gray-700 md:px-4 md:py-2 md:text-base"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back
@@ -288,8 +296,11 @@ export default function OnboardingPage() {
               <div className="space-y-6">
                 <div className="text-center">
                   <h1 className="mb-3 text-2xl font-bold text-gray-900">
-                    Your Farm at a Glance
+                    Tell Us About Your Farm
                   </h1>
+                  <p className="text-base text-gray-600">
+                    Just a few quick details to create your personalized plan
+                  </p>
                 </div>
 
                 <div className="space-y-5">
@@ -305,7 +316,7 @@ export default function OnboardingPage() {
                       type="text"
                       value={formData.farmName}
                       onChange={e => updateFormData("farmName", e.target.value)}
-                      className="h-14 w-full rounded-none border-b-2 border-l-0 border-r-0 border-t-0 border-[#3498DB] bg-transparent px-4 text-lg focus:border-[#3498DB] focus:ring-0"
+                      className="h-14 w-full rounded-lg border-2 border-gray-200 bg-gray-50/50 px-4 text-lg font-medium text-gray-900 placeholder:text-gray-500 focus:border-[#3498DB] focus:bg-white focus:ring-0"
                       placeholder="e.g., Sunrise Aqua Farm"
                     />
                   </div>
@@ -324,7 +335,7 @@ export default function OnboardingPage() {
                       onChange={e =>
                         updateFormData("farmLocation", e.target.value)
                       }
-                      className="h-14 w-full rounded-none border-b-2 border-l-0 border-r-0 border-t-0 border-[#3498DB] bg-transparent px-4 text-lg focus:border-[#3498DB] focus:ring-0"
+                      className="h-14 w-full rounded-lg border-2 border-gray-200 bg-gray-50/50 px-4 text-lg font-medium text-gray-900 placeholder:text-gray-500 focus:border-[#3498DB] focus:bg-white focus:ring-0"
                       placeholder="e.g., Tagum City, Davao del Norte"
                     />
                   </div>
@@ -334,7 +345,7 @@ export default function OnboardingPage() {
                     disabled={!formData.farmName || !formData.farmLocation}
                     className="mt-6 h-14 w-full rounded-lg bg-[#FF7F50] text-base font-medium text-white hover:bg-[#E6723C] disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    Next <ArrowRight className="ml-2 h-4 w-4" />
+                    Continue <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </div>
               </div>
