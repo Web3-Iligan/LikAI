@@ -770,6 +770,28 @@ export default function OnboardingPage() {
 
                 {/* Enhanced Farm Health Status */}
                 <div className="space-y-4">
+                  {/* Quick Score Legend */}
+                  <div className="text-center">
+                    <div className="inline-flex items-center space-x-4 rounded-lg bg-gray-50 px-4 py-2 text-xs md:text-sm">
+                      <div className="flex items-center space-x-1">
+                        <div className="h-3 w-3 rounded-full bg-green-500"></div>
+                        <span className="text-gray-700">80%+ Excellent</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <div className="h-3 w-3 rounded-full bg-blue-500"></div>
+                        <span className="text-gray-700">60%+ Good</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <div className="h-3 w-3 rounded-full bg-yellow-500"></div>
+                        <span className="text-gray-700">40%+ Needs Work</span>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <div className="h-3 w-3 rounded-full bg-red-500"></div>
+                        <span className="text-gray-700">Under 40% Urgent</span>
+                      </div>
+                    </div>
+                  </div>
+
                   {(() => {
                     const scores = calculateBiosecurityScores();
 
@@ -875,7 +897,7 @@ export default function OnboardingPage() {
                                 {statusInfo.status} ({statusInfo.numericScore})
                               </div>
                               <p className="mt-1 text-xs font-medium text-gray-500 md:text-sm">
-                                {area.score}/100 points
+                                {area.score}% score
                               </p>
                             </div>
                           </div>{" "}
@@ -910,70 +932,65 @@ export default function OnboardingPage() {
                       strengths.push({
                         name: "Farm Setup",
                         icon: "⭐",
-                        detail: "Good species choice and farm design.",
+                        detail: "Good species choice and design.",
                       });
                     else
                       improvements.push({
                         name: "Farm Setup",
                         icon: "🔧",
-                        detail:
-                          "Better farm setup = healthier shrimp and higher profits.",
+                        detail: "Better setup = healthier shrimp.",
                       });
 
                     if (scores.stockSourcing >= 60)
                       strengths.push({
                         name: "Stock Sourcing",
                         icon: "⭐",
-                        detail: "You know how to pick quality baby shrimp.",
+                        detail: "You pick quality baby shrimp.",
                       });
                     else
                       improvements.push({
                         name: "Stock Sourcing",
                         icon: "🔧",
-                        detail:
-                          "Better baby shrimp = fewer diseases and more harvest.",
+                        detail: "Better babies = more harvest.",
                       });
 
                     if (scores.pondWaterCare >= 60)
                       strengths.push({
                         name: "Pond Care",
                         icon: "⭐",
-                        detail: "Your pond preparation protects your shrimp.",
+                        detail: "Your pond prep protects shrimp.",
                       });
                     else
                       improvements.push({
                         name: "Pond Care",
                         icon: "🔧",
-                        detail:
-                          "Clean, dry ponds prevent diseases and boost growth.",
+                        detail: "Clean ponds prevent diseases.",
                       });
 
                     if (scores.farmAccess >= 60)
                       strengths.push({
                         name: "Farm Security",
                         icon: "⭐",
-                        detail: "You control who enters your farm well.",
+                        detail: "You control farm access well.",
                       });
                     else
                       improvements.push({
                         name: "Farm Security",
                         icon: "🔧",
-                        detail:
-                          "Controlling access stops diseases from entering.",
+                        detail: "Control access = stop diseases.",
                       });
 
                     if (scores.diseaseReadiness >= 60)
                       strengths.push({
                         name: "Disease Prep",
                         icon: "⭐",
-                        detail: "You're ready to handle health problems.",
+                        detail: "You're ready for health issues.",
                       });
                     else
                       improvements.push({
                         name: "Disease Prep",
                         icon: "🔧",
-                        detail:
-                          "Being prepared saves your crops when problems hit.",
+                        detail: "Being prepared saves crops.",
                       });
 
                     return (
@@ -1065,12 +1082,12 @@ export default function OnboardingPage() {
                         title: "Clean & Dry Your Ponds",
                         priority: "Urgent Focus",
                         priorityColor: "bg-red-500 text-white",
-                        why: "Clean ponds prevent diseases and boost growth.",
+                        why: "Prevents diseases, boosts growth.",
                         what: [
-                          "Drain all water completely",
-                          "Remove mud and old feed",
-                          "Sun-dry until soil cracks",
-                          "Check soil smells fresh",
+                          "Drain all water",
+                          "Remove mud/feed",
+                          "Sun-dry until cracks",
+                          "Check fresh smell",
                         ],
                         tip: "💰 Use sunshine instead of chemicals. Simple and saves money!",
                         visualTip: "📸 See How",
@@ -1085,12 +1102,12 @@ export default function OnboardingPage() {
                         title: "Secure Your Farm Entrance",
                         priority: "Needs Work",
                         priorityColor: "bg-yellow-500 text-white",
-                        why: "Stop diseases from walking into your farm.",
+                        why: "Stops diseases from entering.",
                         what: [
                           "Put up simple fence",
-                          "Make one main entrance",
-                          "Set up footbath with lime",
-                          "Put up 'Private Farm' sign",
+                          "Make one entrance",
+                          "Set up lime footbath",
+                          "Add 'Private Farm' sign",
                         ],
                         tip: "💰 Bamboo and fishing net work great. Old basin = perfect footbath!",
                         visualTip: "� See How",
@@ -1105,10 +1122,10 @@ export default function OnboardingPage() {
                         title: "Get Better Baby Shrimp",
                         priority: "Important",
                         priorityColor: "bg-blue-500 text-white",
-                        why: "Quality babies grow into healthy adults.",
+                        why: "Healthy babies = healthy adults.",
                         what: [
-                          "Buy from BFAR-approved hatchery",
-                          "Check babies are active and same size",
+                          "Buy from BFAR hatchery",
+                          "Check active, same size",
                           "Ask for health certificate",
                           "Test small batch first",
                         ],
@@ -1125,12 +1142,12 @@ export default function OnboardingPage() {
                         title: "Prepare for Health Problems",
                         priority: "Good to Have",
                         priorityColor: "bg-green-500 text-white",
-                        why: "Be ready before problems happen.",
+                        why: "Ready before problems hit.",
                         what: [
-                          "Create emergency contact list",
-                          "Stock basic treatment supplies",
-                          "Learn to recognize disease symptoms",
-                          "Establish relationship with aqua vet",
+                          "Make emergency contact list",
+                          "Stock basic supplies",
+                          "Learn disease symptoms",
+                          "Find trusted aqua vet",
                         ],
                         tip: "Start with basics: water test kit, lime, salt, and emergency aeration. Knowledge is your best tool - learn the early warning signs.",
                         icon: "🛡️",
@@ -1244,22 +1261,25 @@ export default function OnboardingPage() {
                                 </div>
                               </div>
 
-                              {/* LikAI Tip */}
+                              {/* LikAI Tip with Prominent Visual Guide */}
                               <div className="rounded-lg border border-orange-200 bg-gradient-to-r from-orange-50 to-yellow-50 p-3">
-                                <div className="flex items-start space-x-2">
-                                  <div className="text-base">🎯</div>
-                                  <div className="flex-1">
-                                    <div className="mb-0.5 text-sm font-semibold text-orange-800">
-                                      LikAI's Smart Tip:
-                                    </div>
-                                    <div className="text-xs leading-relaxed text-orange-700 md:text-sm">
-                                      {item.tip}
+                                <div className="space-y-2">
+                                  <div className="flex items-start space-x-2">
+                                    <div className="text-base">🎯</div>
+                                    <div className="flex-1">
+                                      <div className="mb-0.5 text-sm font-semibold text-orange-800">
+                                        LikAI's Smart Tip:
+                                      </div>
+                                      <div className="text-xs leading-relaxed text-orange-700 md:text-sm">
+                                        {item.tip}
+                                      </div>
                                     </div>
                                   </div>
+                                  {/* Prominent Visual Guide Button */}
                                   <Button
-                                    variant="ghost"
+                                    variant="outline"
                                     size="sm"
-                                    className="h-6 rounded-full border border-orange-300 px-2 text-xs font-medium text-orange-600 hover:bg-orange-100 hover:text-orange-800"
+                                    className="flex h-8 w-full items-center justify-center gap-2 border-2 border-orange-400 bg-white text-sm font-semibold text-orange-700 hover:border-orange-500 hover:bg-orange-50"
                                     onClick={() => {
                                       // This would open a visual guide/tutorial
                                       console.log(
@@ -1267,7 +1287,8 @@ export default function OnboardingPage() {
                                       );
                                     }}
                                   >
-                                    📸 See
+                                    <span className="text-lg">📹</span>
+                                    Watch How-To Video
                                   </Button>
                                 </div>
                               </div>
@@ -1310,7 +1331,8 @@ export default function OnboardingPage() {
                       onClick={handleNext}
                       className="h-10 w-full transform rounded-lg bg-gradient-to-r from-[#FF7F50] to-[#E6723C] px-6 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:scale-105 hover:from-[#E6723C] hover:to-[#D35400] sm:w-auto md:h-12 md:px-8 md:text-base"
                     >
-                      Get Access <ArrowRight className="ml-2 h-4 w-4" />
+                      Get Free Access Now!{" "}
+                      <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
                 </div>
