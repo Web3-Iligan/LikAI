@@ -223,176 +223,245 @@ export default function LandingPage() {
                 </nav>
               </header>
 
-              {/* Dashboard Preview - Centered and Enlarged */}
-              <figure
-                className="relative w-full max-w-5xl px-2 sm:px-4 md:px-6 lg:px-0"
-                aria-labelledby="dashboard-caption"
+              {/* Dashboard Preview - From Auth Page */}
+              <aside
+                className="relative w-full max-w-3xl px-2 sm:px-4"
+                aria-label="Dashboard preview"
               >
-                {/* Decorative circles for dashboard preview - Behind dashboard */}
-                <div className="absolute -bottom-8 -left-8 -z-10 h-32 w-32 rounded-full bg-[#3498DB]/10 blur-xl"></div>
-                <div className="absolute -right-8 -top-8 -z-10 h-24 w-24 rounded-full bg-[#FF7F50]/10 blur-lg"></div>
-                <div className="mx-auto max-w-lg overflow-hidden rounded-xl border bg-white shadow-2xl sm:rounded-2xl lg:max-w-none">
-                  {/* Dashboard Header */}
-                  <div className="flex items-center justify-between border-b bg-gray-50 px-4 py-4 sm:px-6 sm:py-5">
-                    <div className="flex items-center space-x-2 sm:space-x-3">
-                      <div className="h-3 w-3 rounded-full bg-red-500 sm:h-3 sm:w-3"></div>
-                      <div className="h-3 w-3 rounded-full bg-orange-500 sm:h-3 sm:w-3"></div>
-                      <div className="h-3 w-3 rounded-full bg-green-500 sm:h-3 sm:w-3"></div>
-                    </div>
-                    <div className="text-sm text-gray-600 sm:text-base">
-                      Dashboard
-                    </div>
-                    <div className="rounded bg-green-100 px-3 py-1.5 text-sm font-medium text-green-700">
-                      Live
-                    </div>
-                  </div>
+                {/* Decorative Background Elements */}
+                <div
+                  className="absolute -right-6 -top-6 -z-10 h-28 w-28 rounded-full bg-[#FF7F50]/10 blur-lg"
+                  aria-hidden="true"
+                ></div>
+                <div
+                  className="absolute -bottom-8 -left-8 -z-10 h-32 w-32 rounded-full bg-[#3498DB]/10 blur-xl"
+                  aria-hidden="true"
+                ></div>
 
-                  {/* Dashboard Content */}
-                  <div className="p-4 sm:p-6 lg:p-8">
-                    {/* Single Column Layout on Mobile */}
-                    <div className="grid grid-cols-1 gap-4 sm:gap-6 lg:grid-cols-2 lg:gap-8">
-                      {/* AI-Generated Insights */}
-                      <div className="rounded-lg border bg-white p-4 sm:p-6 lg:p-8">
-                        <div className="mb-3 flex items-center sm:mb-5">
-                          <div className="mr-3 flex h-6 w-6 items-center justify-center rounded bg-orange-100 sm:mr-4 sm:h-8 sm:w-8">
-                            <span className="text-sm text-orange-600">⚡</span>
-                          </div>
-                          <div>
-                            <h3 className="text-sm font-semibold text-gray-900 sm:text-base lg:text-lg">
-                              AI-Generated Insights
-                            </h3>
-                            <p className="hidden text-sm text-gray-600 sm:block">
-                              Personalized recommendations
-                            </p>
-                          </div>
-                        </div>
+                {/* Dashboard Preview Card: Showcases app functionality */}
+                <figure className="relative z-10 rotate-1 transform rounded-2xl border border-gray-200/50 bg-white p-4 shadow-2xl transition-transform duration-300 hover:rotate-0">
+                  <figcaption className="sr-only">
+                    Preview of LikAI dashboard showing farm metrics and
+                    monitoring data
+                  </figcaption>
 
-                        {/* Insight Cards */}
-                        <div className="space-y-2 sm:space-y-3 lg:space-y-4">
-                          <div className="rounded border border-red-300 bg-red-50 p-3 sm:p-4 lg:p-5">
-                            <h4 className="mb-2 text-sm font-medium text-red-900 sm:text-base">
-                              Weather Impact Analysis
-                            </h4>
-                            <p className="text-sm leading-relaxed text-red-800 sm:text-base">
-                              Typhoon risk: 75% pond overflow. Dyke inspection
-                              could prevent up to ₱200k losses.
-                            </p>
-                          </div>
-
-                          <div className="rounded border border-green-200 bg-green-50 p-3 sm:p-4 lg:p-5">
-                            <h4 className="mb-2 text-sm font-medium text-green-900 sm:text-base">
-                              Cost Optimization
-                            </h4>
-                            <p className="text-sm leading-relaxed text-green-800 sm:text-base">
-                              Solar disinfection: up to 40% cost reduction, 85%
-                              effectiveness.
-                            </p>
-                          </div>
-                        </div>
-
-                        {/* Action Button */}
-                        <div className="mt-4 border-t pt-4 text-center sm:mt-5 sm:pt-5 lg:mt-6">
-                          <button className="text-sm font-medium text-[#3498DB] hover:text-[#2980B9] sm:text-base">
-                            Ask AI Coach
-                          </button>
-                        </div>
+                  {/* Mock Dashboard Content: Uses realistic but static data */}
+                  <div className="space-y-3">
+                    {/* Dashboard Header: Mimics browser window */}
+                    <div className="flex items-center justify-between border-b border-gray-100 pb-2">
+                      <h2 className="text-base font-semibold text-gray-900">
+                        Your Farm Dashboard
+                      </h2>
+                      {/* Browser-style window controls */}
+                      <div
+                        className="flex space-x-1"
+                        aria-label="Window controls"
+                      >
+                        <div
+                          className="h-2 w-2 rounded-full bg-red-400"
+                          aria-hidden="true"
+                        ></div>
+                        <div
+                          className="h-2 w-2 rounded-full bg-yellow-400"
+                          aria-hidden="true"
+                        ></div>
+                        <div
+                          className="h-2 w-2 rounded-full bg-green-400"
+                          aria-hidden="true"
+                        ></div>
                       </div>
+                    </div>
 
-                      {/* Farm Health Sentiment */}
-                      <div className="rounded-lg border bg-white p-4 sm:p-6 lg:p-8">
-                        <div className="mb-3 flex items-center sm:mb-5">
-                          <div className="mr-3 flex h-6 w-6 items-center justify-center rounded bg-blue-100 sm:mr-4 sm:h-8 sm:w-8">
-                            <span className="text-sm text-blue-600">🛡️</span>
-                          </div>
-                          <div>
-                            <h3 className="text-sm font-semibold text-gray-900 sm:text-base lg:text-lg">
-                              Farm Health
-                            </h3>
-                            <p className="hidden text-sm text-gray-600 sm:block">
-                              Overall assessment
-                            </p>
-                          </div>
-                        </div>
+                    {/* Overall Biosecurity Score: Main KPI display */}
+                    <div className="rounded-lg border-2 border-green-300 bg-gradient-to-br from-green-50 to-emerald-50 p-3 text-center">
+                      <div className="mb-1 text-xs font-medium text-gray-600">
+                        Overall Biosecurity Score
+                      </div>
+                      <div className="mb-1 text-2xl font-bold text-green-600">
+                        85%
+                      </div>
+                      <div className="text-xs font-medium text-green-700">
+                        Good • On track for success!
+                      </div>
+                    </div>
 
-                        {/* Circular Progress */}
-                        <div className="mb-4 flex flex-col items-center sm:mb-6 lg:mb-8">
-                          <div className="relative mb-3 h-20 w-20 sm:mb-4 sm:h-24 sm:w-24 lg:h-28 lg:w-28">
-                            <svg
-                              className="h-20 w-20 transform sm:h-24 sm:w-24 lg:h-28 lg:w-28"
-                              viewBox="0 0 36 36"
-                            >
-                              {/* Background circle */}
-                              <path
-                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                fill="none"
-                                stroke="#E5E7EB"
-                                strokeWidth="3"
-                              />
-                              {/* Progress circle */}
-                              <path
-                                d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                                fill="none"
-                                stroke="#F59E0B"
-                                strokeWidth="3"
-                                strokeDasharray="92, 8"
-                                strokeLinecap="round"
-                              />
-                            </svg>
-                            {/* Center content */}
-                            <div className="absolute inset-0 flex flex-col items-center justify-center">
-                              <span className="text-base font-bold text-gray-900 sm:text-lg lg:text-xl">
-                                92%
-                              </span>
+                    {/* Health Categories: Key assessment areas with progress bars */}
+                    <div className="space-y-2">
+                      {/* Category 1: Pond & Water Care */}
+                      <div className="rounded-md border border-green-200/50 bg-gradient-to-br from-green-50/80 to-green-50/40 p-2">
+                        <div className="mb-1 flex items-center justify-between">
+                          <div className="flex items-center space-x-1">
+                            {/* Category Icon */}
+                            <span className="text-xs">💧</span>
+                            <div>
+                              <div className="text-xs font-semibold text-gray-900">
+                                Pond & Water Care
+                              </div>
+                              <div className="text-xs text-gray-600">
+                                How well you prepare ponds
+                              </div>
                             </div>
                           </div>
-                          <p className="text-center text-sm font-medium text-orange-600 sm:text-base">
-                            Good
-                          </p>
-                        </div>
-
-                        {/* Status Items - Simplified for mobile */}
-                        <div className="space-y-2 text-sm sm:space-y-3 sm:text-base lg:space-y-4">
-                          <div className="flex items-center justify-between">
-                            <span className="text-gray-700">Water Quality</span>
-                            <span className="font-medium text-green-600">
-                              Excellent
-                            </span>
-                          </div>
-                          <div className="flex items-center justify-between">
-                            <span className="text-gray-700">Stock Health</span>
-                            <span className="font-medium text-orange-600">
+                          {/* Score Display */}
+                          <div className="text-right">
+                            <div className="text-xs font-medium text-green-700">
                               Good
-                            </span>
+                            </div>
+                            <div className="text-xs text-gray-500">92%</div>
                           </div>
-                          <div className="flex items-center justify-between lg:border-t lg:pt-3">
-                            <span className="text-gray-700">Current Cycle</span>
-                            <span className="font-medium text-blue-600">
-                              Day 45/70
-                            </span>
+                        </div>
+                        {/* Progress Bar */}
+                        <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200">
+                          <div
+                            className="h-full bg-green-500"
+                            style={{ width: "92%" }}
+                          ></div>
+                        </div>
+                      </div>
+
+                      {/* Category 2: Farm Access Control */}
+                      <div className="rounded-md border border-blue-200/50 bg-gradient-to-br from-blue-50/80 to-blue-50/40 p-2">
+                        <div className="mb-1 flex items-center justify-between">
+                          <div className="flex items-center space-x-1">
+                            <span className="text-xs">🚪</span>
+                            <div>
+                              <div className="text-xs font-semibold text-gray-900">
+                                Farm Access Control
+                              </div>
+                              <div className="text-xs text-gray-600">
+                                Who can enter your farm
+                              </div>
+                            </div>
                           </div>
+                          <div className="text-right">
+                            <div className="text-xs font-medium text-blue-700">
+                              Fair
+                            </div>
+                            <div className="text-xs text-gray-500">78%</div>
+                          </div>
+                        </div>
+                        <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200">
+                          <div
+                            className="h-full bg-blue-500"
+                            style={{ width: "78%" }}
+                          ></div>
+                        </div>
+                      </div>
+
+                      {/* Category 3: Stock Sourcing */}
+                      <div className="rounded-md border border-yellow-200/50 bg-gradient-to-br from-yellow-50/80 to-yellow-50/40 p-2">
+                        <div className="mb-1 flex items-center justify-between">
+                          <div className="flex items-center space-x-1">
+                            {/* Category Icon */}
+                            <span className="text-xs">🦐</span>
+                            <div>
+                              <div className="text-xs font-semibold text-gray-900">
+                                Stock Sourcing
+                              </div>
+                              <div className="text-xs text-gray-600">
+                                Baby shrimp quality
+                              </div>
+                            </div>
+                          </div>
+                          {/* Score Display */}
+                          <div className="text-right">
+                            <div className="text-xs font-medium text-yellow-700">
+                              Needs Work
+                            </div>
+                            <div className="text-xs text-gray-500">60%</div>
+                          </div>
+                        </div>
+                        {/* Progress Bar */}
+                        <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200">
+                          <div
+                            className="h-full bg-yellow-500"
+                            style={{ width: "60%" }}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Critical Alerts Section: Highlights important issues and updates */}
+                    <div className="space-y-1">
+                      <h3 className="text-xs font-semibold text-gray-900">
+                        Critical Alerts
+                      </h3>
+
+                      {/* Critical Alert: Needs attention */}
+                      <div className="flex items-center space-x-2 rounded-md border border-red-200 bg-red-50 p-1.5">
+                        {/* Warning Triangle Icon: Enhanced visual emphasis */}
+                        <div
+                          className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500"
+                          aria-hidden="true"
+                        >
+                          <svg
+                            className="h-3 w-3 text-white"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <div className="text-xs font-medium text-red-800">
+                            Improve shrimp source quality
+                          </div>
+                          <div className="text-xs text-red-600">
+                            Consider BFAR-certified hatchery
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Completed Task: Shows positive activity */}
+                      <div className="flex items-center space-x-2 rounded-md bg-gray-50 p-1.5">
+                        {/* Checkmark Icon: Indicates completion */}
+                        <div
+                          className="flex h-5 w-5 items-center justify-center rounded-full bg-[#3498DB]"
+                          aria-hidden="true"
+                        >
+                          <svg
+                            className="h-3 w-3 text-white"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                        <div className="flex-1">
+                          <div className="text-xs font-medium text-gray-900">
+                            Water quality check completed
+                          </div>
+                          {/* Timestamp: Shows recent activity */}
+                          <time
+                            className="text-xs text-gray-500"
+                            dateTime="2025-07-15T14:58:00"
+                          >
+                            2 minutes ago
+                          </time>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </figure>
 
-                {/* Floating notification */}
-                <div className="md:top-18 absolute -right-2 top-10 max-w-32 rounded-lg border bg-white p-3 shadow-lg sm:-right-3 sm:top-14 sm:max-w-36 sm:p-4 md:-right-4 md:max-w-44 lg:-right-6 lg:top-24 lg:max-w-52">
-                  <div className="mb-2 flex items-center space-x-1.5 sm:space-x-2 md:space-x-2.5">
-                    <div className="h-2 w-2 rounded-full bg-green-500 sm:h-2.5 sm:w-2.5"></div>
-                    <span className="text-sm font-medium text-gray-900 sm:text-base">
-                      Risk Decreased
-                    </span>
-                  </div>
-                  <p className="text-sm text-gray-600 sm:text-base">
-                    Water quality improved by up to 23%
-                  </p>
+                {/* Floating AI Badge: Emphasizes AI-powered features */}
+                <div
+                  className="absolute -bottom-4 -left-4 z-20 flex h-12 w-12 -rotate-12 transform items-center justify-center rounded-lg bg-gradient-to-br from-[#3498DB] to-[#2980B9] shadow-lg"
+                  aria-label="AI Assistant Badge"
+                >
+                  <span className="font-bold text-white" aria-hidden="true">
+                    AI
+                  </span>
                 </div>
-                <figcaption id="dashboard-caption" className="sr-only">
-                  Interactive dashboard preview showing AI-powered farm
-                  management insights
-                </figcaption>
-              </figure>
+              </aside>
             </div>
           </div>
         </section>
