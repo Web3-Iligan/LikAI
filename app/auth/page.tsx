@@ -118,6 +118,51 @@ export default function AuthPage() {
                     Terms of Service
                   </Link>
                 </p>
+
+                {/* Secondary CTA - Quick Assessment */}
+                <div className="relative">
+                  {/* Divider with text */}
+                  <div className="relative flex items-center">
+                    <div className="flex-grow border-t border-gray-200"></div>
+                    <span className="mx-4 flex-shrink text-sm text-gray-500">
+                      Want to explore first?
+                    </span>
+                    <div className="flex-grow border-t border-gray-200"></div>
+                  </div>
+
+                  {/* Assessment CTA Button */}
+                  <div className="mt-4">
+                    <Link href="/auth/onboarding">
+                      <Button
+                        variant="outline"
+                        className="flex h-14 w-full items-center justify-center space-x-3 rounded-xl border-2 border-[#FF7F50] bg-white text-base font-medium text-[#FF7F50] shadow-md transition-all duration-200 hover:bg-[#FF7F50] hover:text-white hover:shadow-lg"
+                        aria-label="Take a quick farm assessment without creating an account"
+                      >
+                        <div className="flex h-6 w-6 items-center justify-center">
+                          <svg
+                            className="h-5 w-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+                            />
+                          </svg>
+                        </div>
+                        <span>Take a Quick Farm Assessment</span>
+                      </Button>
+                    </Link>
+
+                    <p className="mt-2 text-center text-xs text-gray-400">
+                      ✨ Get instant insights • No account required • 5 minutes
+                    </p>
+                  </div>
+                </div>
               </div>
             </section>
 
