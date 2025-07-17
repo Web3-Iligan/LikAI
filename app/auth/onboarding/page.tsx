@@ -26,6 +26,7 @@ export default function OnboardingPage() {
     waterSources: [] as string[],
     pondDrying: "",
     shrimpSource: "",
+    shrimpSourceOther: "",
     farmAccess: "",
     diseaseHistory: "",
     diseaseDescription: "",
@@ -710,28 +711,49 @@ export default function OnboardingPage() {
                         { id: "own-hatchery", label: "Own hatchery" },
                         { id: "other", label: "Other" },
                       ].map(option => (
-                        <button
-                          key={option.id}
-                          onClick={() =>
-                            updateFormData("shrimpSource", option.id)
-                          }
-                          className={`w-full rounded-lg border-2 p-4 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
-                            formData.shrimpSource === option.id
-                              ? "border-[#3498DB] bg-blue-50"
-                              : "border-gray-200"
-                          }`}
-                        >
-                          <div className="flex items-center space-x-3">
-                            <div className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border-2 border-gray-300">
-                              {formData.shrimpSource === option.id && (
-                                <div className="h-3 w-3 rounded-full bg-[#3498DB]"></div>
-                              )}
+                        <div key={option.id}>
+                          <button
+                            onClick={() => {
+                              updateFormData("shrimpSource", option.id);
+                              if (option.id !== "other") {
+                                updateFormData("shrimpSourceOther", "");
+                              }
+                            }}
+                            className={`w-full rounded-lg border-2 p-4 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
+                              formData.shrimpSource === option.id
+                                ? "border-[#3498DB] bg-blue-50"
+                                : "border-gray-200"
+                            }`}
+                          >
+                            <div className="flex items-center space-x-3">
+                              <div className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border-2 border-gray-300">
+                                {formData.shrimpSource === option.id && (
+                                  <div className="h-3 w-3 rounded-full bg-[#3498DB]"></div>
+                                )}
+                              </div>
+                              <div className="text-base font-medium text-gray-900">
+                                {option.label}
+                              </div>
                             </div>
-                            <div className="text-base font-medium text-gray-900">
-                              {option.label}
-                            </div>
-                          </div>
-                        </button>
+                          </button>
+                          {option.id === "other" &&
+                            formData.shrimpSource === "other" && (
+                              <div className="ml-8 mt-3">
+                                <Input
+                                  type="text"
+                                  value={formData.shrimpSourceOther}
+                                  onChange={e =>
+                                    updateFormData(
+                                      "shrimpSourceOther",
+                                      e.target.value
+                                    )
+                                  }
+                                  className="h-12 w-full rounded-lg border-2 border-gray-200 bg-gray-50/50 px-4 text-base font-medium text-gray-900 placeholder:text-gray-500 focus:border-[#3498DB] focus:bg-white focus:ring-0"
+                                  placeholder="Please specify your shrimp source..."
+                                />
+                              </div>
+                            )}
+                        </div>
                       ))}
                     </div>
                   </div>
@@ -778,7 +800,12 @@ export default function OnboardingPage() {
 
                   <Button
                     onClick={handleNext}
-                    disabled={!formData.shrimpSource || !formData.farmAccess}
+                    disabled={
+                      !formData.shrimpSource ||
+                      !formData.farmAccess ||
+                      (formData.shrimpSource === "other" &&
+                        !formData.shrimpSourceOther.trim())
+                    }
                     className="mt-6 h-14 w-full rounded-lg bg-[#FF7F50] text-base font-medium text-white hover:bg-[#E6723C] disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     Continue <ArrowRight className="ml-2 h-4 w-4" />
