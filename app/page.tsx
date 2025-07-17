@@ -536,9 +536,9 @@ export default function LandingPage() {
 
             <ul className="mx-auto grid max-w-4xl list-none grid-cols-1 gap-6 px-2 sm:grid-cols-2 sm:gap-8 sm:px-0 md:grid-cols-2">
               <li>
-                <Card className="h-full border-0 shadow-lg">
+                <Card className="h-full border-0 bg-gradient-to-br from-blue-50/80 to-blue-50/40 shadow-lg transition-all duration-300 hover:from-blue-50 hover:to-blue-100/60">
                   <CardContent className="flex h-full min-h-[280px] flex-col justify-center p-8 text-center">
-                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100">
+                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-blue-200/50 bg-blue-100">
                       <Shield className="h-8 w-8 text-blue-600" />
                     </div>
                     <h3 className="mb-2 text-xl font-semibold">
@@ -555,9 +555,9 @@ export default function LandingPage() {
               </li>
 
               <li>
-                <Card className="h-full border-0 shadow-lg">
+                <Card className="h-full border-0 bg-gradient-to-br from-green-50/80 to-green-50/40 shadow-lg transition-all duration-300 hover:from-green-50 hover:to-green-100/60">
                   <CardContent className="flex h-full min-h-[280px] flex-col justify-center p-8 text-center">
-                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-green-200/50 bg-green-100">
                       <TrendingUp className="h-8 w-8 text-green-600" />
                     </div>
                     <h3 className="mb-2 text-xl font-semibold">
@@ -573,9 +573,9 @@ export default function LandingPage() {
               </li>
 
               <li>
-                <Card className="h-full border-0 shadow-lg">
+                <Card className="h-full border-0 bg-gradient-to-br from-cyan-50/80 to-cyan-50/40 shadow-lg transition-all duration-300 hover:from-cyan-50 hover:to-cyan-100/60">
                   <CardContent className="flex h-full min-h-[280px] flex-col justify-center p-8 text-center">
-                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#3498DB]/10">
+                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#3498DB]/20 bg-[#3498DB]/10">
                       <Target className="h-8 w-8 text-[#3498DB]" />
                     </div>
                     <h3 className="mb-2 text-xl font-semibold">
@@ -590,9 +590,9 @@ export default function LandingPage() {
               </li>
 
               <li>
-                <Card className="h-full border-0 shadow-lg">
+                <Card className="h-full border-0 bg-gradient-to-br from-orange-50/80 to-orange-50/40 shadow-lg transition-all duration-300 hover:from-orange-50 hover:to-orange-100/60">
                   <CardContent className="flex h-full min-h-[280px] flex-col justify-center p-8 text-center">
-                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-orange-100">
+                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full border-2 border-orange-200/50 bg-orange-100">
                       <svg
                         className="h-8 w-8 text-orange-600"
                         fill="none"
