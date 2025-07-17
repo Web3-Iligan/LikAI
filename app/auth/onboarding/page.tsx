@@ -3,7 +3,6 @@
 import { useState } from "react";
 
 import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
@@ -740,12 +739,12 @@ export default function OnboardingPage() {
 
             {/* Step 6: Biosecurity Report */}
             {currentStep === 6 && (
-              <div className="space-y-12">
+              <div className="space-y-14">
                 <div className="text-center">
-                  <h1 className="mb-4 text-2xl font-bold text-gray-900 md:mb-6 md:text-3xl">
+                  <h1 className="mb-4 text-3xl font-bold text-gray-900 md:mb-6 md:text-4xl">
                     🦐 Your Personalized Biosecurity Starter Plan!
                   </h1>
-                  <p className="mx-auto max-w-3xl text-base font-medium leading-relaxed text-gray-700 md:text-lg">
+                  <p className="mx-auto max-w-3xl text-base font-medium leading-7 text-gray-700 md:text-lg md:leading-8">
                     Great job,{" "}
                     {formData.farmName
                       ? `Farmer ${formData.farmName.split(" ")[0] || formData.farmName}`
@@ -902,7 +901,7 @@ export default function OnboardingPage() {
                             </div>
                           </div>{" "}
                           {/* Enhanced Visual Progress Bar */}
-                          <div className="relative h-4 w-full overflow-hidden rounded-full bg-gray-200 shadow-inner">
+                          <div className="relative h-5 w-full overflow-hidden rounded-full bg-gray-200 shadow-inner">
                             <div
                               className={`h-full transition-all duration-1000 ${statusInfo.color} relative shadow-sm`}
                               style={{ width: `${area.score}%` }}
@@ -1013,7 +1012,7 @@ export default function OnboardingPage() {
                                     {strength.icon}
                                   </span>
                                   <div>
-                                    <div className="mb-0.5 text-sm font-bold text-green-800 md:text-base">
+                                    <div className="mb-1 text-sm font-bold text-green-800 md:text-base">
                                       {strength.name}
                                     </div>
                                     <div className="text-xs text-green-700 md:text-sm">
@@ -1044,7 +1043,7 @@ export default function OnboardingPage() {
                                     {improvement.icon}
                                   </span>
                                   <div>
-                                    <div className="mb-0.5 text-sm font-bold text-orange-800 md:text-base">
+                                    <div className="mb-1 text-sm font-bold text-orange-800 md:text-base">
                                       {improvement.name}
                                     </div>
                                     <div className="text-xs text-orange-700 md:text-sm">
@@ -1230,7 +1229,7 @@ export default function OnboardingPage() {
                                   <div className="mb-0.5 text-sm font-semibold text-gray-900">
                                     Why it's important:
                                   </div>
-                                  <div className="text-xs leading-relaxed text-gray-700 md:text-sm">
+                                  <div className="text-xs leading-6 text-gray-700 md:text-sm">
                                     {item.why}
                                   </div>
                                 </div>
@@ -1243,7 +1242,7 @@ export default function OnboardingPage() {
                                   <div className="mb-1 text-sm font-semibold text-gray-900">
                                     What to do:
                                   </div>
-                                  <ul className="space-y-0.5">
+                                  <ul className="space-y-1.5">
                                     {item.what.map((step, stepIndex) => (
                                       <li
                                         key={stepIndex}
@@ -1262,8 +1261,8 @@ export default function OnboardingPage() {
                               </div>
 
                               {/* LikAI Tip with Prominent Visual Guide */}
-                              <div className="rounded-lg border border-orange-200 bg-gradient-to-r from-orange-50 to-yellow-50 p-3">
-                                <div className="space-y-2">
+                              <div className="rounded-lg border border-orange-200 bg-gradient-to-r from-orange-50 via-yellow-50 to-orange-50 p-3">
+                                <div className="space-y-3">
                                   <div className="flex items-start space-x-2">
                                     <div className="text-base">🎯</div>
                                     <div className="flex-1">
@@ -1279,7 +1278,7 @@ export default function OnboardingPage() {
                                   <Button
                                     variant="outline"
                                     size="sm"
-                                    className="flex h-8 w-full items-center justify-center gap-2 border-2 border-orange-400 bg-white text-sm font-semibold text-orange-700 hover:border-orange-500 hover:bg-orange-50"
+                                    className="flex h-10 w-full items-center justify-center gap-2 border-2 border-orange-500 bg-white text-sm font-bold text-orange-700 shadow-sm hover:border-orange-600 hover:bg-orange-50 hover:shadow-md md:h-12 md:text-base"
                                     onClick={() => {
                                       // This would open a visual guide/tutorial
                                       console.log(
@@ -1287,7 +1286,9 @@ export default function OnboardingPage() {
                                       );
                                     }}
                                   >
-                                    <span className="text-lg">📹</span>
+                                    <span className="text-xl md:text-2xl">
+                                      📹
+                                    </span>
                                     Watch How-To Video
                                   </Button>
                                 </div>
@@ -1297,7 +1298,7 @@ export default function OnboardingPage() {
                               <div className="flex flex-col space-y-1.5 pt-1.5 sm:flex-row sm:space-x-2 sm:space-y-0">
                                 <Button
                                   variant="outline"
-                                  className="h-8 flex-1 border-[#3498DB] text-xs font-medium text-[#3498DB] hover:bg-blue-50 md:text-sm"
+                                  className="h-8 flex-1 border-green-500 text-xs font-medium text-green-600 hover:bg-green-50 md:text-sm"
                                 >
                                   ✅ Mark Complete
                                 </Button>
@@ -1317,22 +1318,22 @@ export default function OnboardingPage() {
                 </div>
 
                 {/* Enhanced CTA Section */}
-                <div className="space-y-4 pt-4 text-center md:pt-6">
-                  <div className="rounded-xl border border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 p-4 md:p-6">
-                    <h4 className="mb-3 text-lg font-bold text-gray-900 md:text-xl">
+                <div className="space-y-6 pt-8 text-center md:pt-12">
+                  <div className="rounded-xl border border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 md:p-8">
+                    <h4 className="mb-4 text-xl font-bold text-gray-900 md:text-2xl">
                       🚀 Ready to transform your farm?
                     </h4>
-                    <p className="mx-auto mb-4 max-w-2xl text-sm text-gray-600 md:text-base">
+                    <p className="mx-auto mb-6 max-w-2xl text-base text-gray-600 md:text-lg">
                       Your personalized plan is ready! Let's take you to your
                       dashboard where you can track progress, get AI coaching,
                       and watch your farm thrive.
                     </p>
                     <Button
                       onClick={handleNext}
-                      className="h-10 w-full transform rounded-lg bg-gradient-to-r from-[#FF7F50] to-[#E6723C] px-6 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:scale-105 hover:from-[#E6723C] hover:to-[#D35400] sm:w-auto md:h-12 md:px-8 md:text-base"
+                      className="h-12 w-full transform rounded-lg bg-gradient-to-r from-[#FF7F50] to-[#E6723C] px-8 text-base font-bold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-[#E6723C] hover:to-[#D35400] hover:shadow-xl sm:w-auto md:h-14 md:px-10 md:text-lg"
                     >
-                      Get Free Access Now!{" "}
-                      <ArrowRight className="ml-2 h-4 w-4" />
+                      Download the Report{" "}
+                      <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
                   </div>
                 </div>
@@ -1341,58 +1342,99 @@ export default function OnboardingPage() {
 
             {/* Step 7: Final Completion */}
             {currentStep === 7 && (
-              <div className="space-y-6 text-center">
-                <h1 className="mb-4 text-2xl font-bold text-gray-900">
-                  You've completed your Starter Plan!
-                </h1>
+              <div className="space-y-8 text-center">
+                <div className="space-y-6">
+                  <h1 className="mb-4 text-3xl font-bold text-gray-900">
+                    🎉 You've Completed Your Starter Plan!
+                  </h1>
 
-                <div className="mb-6 flex justify-center">
-                  <div className="flex h-24 w-24 items-center justify-center rounded-xl border border-gray-200/50 bg-white shadow-lg">
-                    <Image
-                      src="/Likai-logo.svg"
-                      alt="LikAI Logo"
-                      width={48}
-                      height={48}
-                      className="h-12 w-12"
-                    />
-                  </div>
+                  <p className="mx-auto mb-10 max-w-2xl text-lg font-medium leading-7 text-gray-700">
+                    Great job,{" "}
+                    {formData.farmName
+                      ? `Farmer ${formData.farmName.split(" ")[0] || formData.farmName}`
+                      : "Farmer"}
+                    ! By following these steps, you're already making your farm
+                    much safer and more profitable. Now, take your next step
+                    towards a thriving farm!
+                  </p>
                 </div>
 
                 {!isLoading ? (
                   <>
-                    <div className="space-y-4">
-                      <p className="text-base text-gray-600">
-                        Keep up the great work,{" "}
-                        {formData.farmName
-                          ? `Farmer ${formData.farmName}`
-                          : "Farmer"}
-                        ! By following these steps, you're already making your
-                        farm much safer and more profitable.
-                      </p>
-                      <div className="rounded-lg bg-blue-50 p-4">
-                        <p className="text-base text-blue-800">
-                          <span className="font-semibold">
-                            Want to unlock your full farm potential?
-                          </span>{" "}
-                          Upgrade to our Business Plan for a Dynamic Plan that
-                          adapts to your farm every day, unlimited AI coaching,
-                          and smart investment guidance!
+                    {/* Primary Options */}
+                    <div className="space-y-7">
+                      {/* Option 1: Download Report */}
+                      <div className="rounded-2xl border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50 p-6">
+                        <h3 className="mb-3 flex items-center justify-center text-xl font-bold text-gray-900">
+                          <span className="mr-2 text-xl">📄</span>
+                          Download Your Personalized Report
+                        </h3>
+                        <p className="mb-4 text-sm leading-6 text-gray-600">
+                          Keep your plan handy, even offline. Perfect for
+                          reference while working on your farm.
                         </p>
+                        <Button
+                          variant="outline"
+                          className="h-12 w-full border-2 border-blue-500 text-base font-semibold text-blue-600 hover:border-blue-600 hover:bg-blue-50"
+                          onClick={() => {
+                            // This would trigger the PDF download
+                            console.log("Downloading PDF report...");
+                          }}
+                        >
+                          <svg
+                            className="mr-3 h-5 w-5"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                            />
+                          </svg>
+                          Download My Report (PDF)
+                        </Button>
+                      </div>
+
+                      {/* Option 2: Continue Journey */}
+                      <div className="rounded-2xl border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-yellow-50 p-6">
+                        <h3 className="mb-3 flex items-center justify-center text-xl font-bold text-gray-900">
+                          <span className="mr-2 text-xl">🚀</span>
+                          Continue Your Journey with LikAI
+                        </h3>
+                        <p className="mb-4 text-sm leading-6 text-gray-600">
+                          Access your plan anytime, track progress, and unlock
+                          more powerful AI tools!
+                        </p>
+                        <Button
+                          onClick={handleNext}
+                          className="h-14 w-full transform rounded-lg bg-gradient-to-r from-[#FF7F50] to-[#E6723C] text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-[#E6723C] hover:to-[#D35400] hover:shadow-xl"
+                        >
+                          Get Free Access Now!{" "}
+                          <ArrowRight className="ml-3 h-5 w-5" />
+                        </Button>
                       </div>
                     </div>
-                    <div className="space-y-3">
-                      <Button
-                        onClick={handleNext}
-                        className="h-14 w-full rounded-lg bg-[#FF7F50] text-base font-medium text-white hover:bg-[#E6723C]"
-                      >
-                        Go to Dashboard
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="h-12 w-full rounded-lg border-[#3498DB] text-[#3498DB] hover:bg-blue-50"
-                      >
-                        Learn More About Business Plan
-                      </Button>
+
+                    {/* Upgrade Pitch */}
+                    <div className="mt-10 rounded-xl border border-gray-200 bg-gradient-to-r from-gray-50 to-blue-50 p-6">
+                      <div className="space-y-4">
+                        <h4 className="text-lg font-bold text-gray-900">
+                          Ready to unlock your farm's full potential?
+                        </h4>
+                        <p className="text-sm leading-6 text-gray-600">
+                          Upgrade to our Business Plan: Dynamic plans, unlimited
+                          AI coaching, and smart investment guidance!
+                        </p>
+                        <Button
+                          variant="outline"
+                          className="h-10 w-full border-gray-300 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                        >
+                          Learn More About Business Plan
+                        </Button>
+                      </div>
                     </div>
                   </>
                 ) : (
