@@ -1,31 +1,20 @@
 "use client";
 
-import { useState } from "react";
-
 import {
   Activity,
-  AlertCircle,
   AlertTriangle,
-  ArrowRight,
-  BarChart3,
   CheckCircle,
-  ChevronRight,
+  Clock,
   DollarSign,
-  Droplets,
+  MessageCircle,
   Shield,
   Target,
   TrendingUp,
-  Zap,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
-import RiskTrendChart from "@/components/reports/risk-trend-chart";
-import TaskCompletionChart from "@/components/reports/task-completion-chart";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-// Import Link for navigation
 import {
   Card,
   CardContent,
@@ -33,139 +22,170 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 
 export function DashboardOverview() {
-  const [showImprovements, setShowImprovements] = useState(false);
-  const [farmProfile] = useState({
+  // Dynamic farm profile data - this would come from your backend/API
+  const [farmProfile, setFarmProfile] = useState({
     name: "Sunrise Shrimp Farm",
     type: "Intensive Shrimp Culture",
     species: "Litopenaeus vannamei",
     size: "5 hectares",
     location: "Bataan, Philippines",
     currentCycle: 3,
-    riskLevel: "medium" as const,
+    riskLevel: "low" as const,
     completedTasks: 12,
     totalTasks: 18,
     cycleDay: 45,
+    maxCycleDays: 70,
     expectedHarvest: "2024-02-15",
+    overallBiosecurityScore: 86,
   });
 
-  const [criticalAlerts] = useState([
+  // Dynamic GAqP category data - in a real app, this would come from your backend
+  const [gaqpCategories] = useState([
     {
-      id: 1,
-      type: "weather",
-      title: "Typhoon Alert - Immediate Action Required",
-      message:
-        "Heavy rains expected in 6 hours. Check pond dykes and drainage systems immediately.",
-      priority: "critical",
-      timestamp: "2 hours ago",
-      action: "View Emergency Protocol",
-      href: "/plan", // Link to the plan page
+      id: "pond-water",
+      name: "Pond & Water Care",
+      description: "How well you prepare your ponds",
+      emoji: "💧",
+      score: 92,
+      level: "Excellent",
+      rating: "5/5",
+      color: "green",
+      bgColor: "from-green-50/80 to-green-50/40",
+      borderColor: "border-green-200/50",
+      textColor: "text-green-700",
+      barColor: "bg-green-500",
+      href: "/plan?category=pond-water",
     },
     {
-      id: 2,
-      type: "neighbor",
-      title: "Disease Outbreak Nearby",
-      message:
-        "WSSV detected 2km away. Enhanced biosecurity protocols activated.",
-      priority: "high",
-      timestamp: "6 hours ago",
-      action: "Review Biosecurity Plan",
-      href: "/plan", // Link to the plan page
+      id: "access-control",
+      name: "Farm Access Control",
+      description: "Who can enter your farm",
+      emoji: "🚪",
+      score: 78,
+      level: "Good",
+      rating: "4/5",
+      color: "blue",
+      bgColor: "from-blue-50/80 to-blue-50/40",
+      borderColor: "border-blue-200/50",
+      textColor: "text-blue-700",
+      barColor: "bg-blue-500",
+      href: "/plan?category=access-control",
+    },
+    {
+      id: "stock-sourcing",
+      name: "Stock Sourcing",
+      description: "Baby shrimp quality",
+      emoji: "🦐",
+      score: 60,
+      level: "Needs Work",
+      rating: "2/5",
+      color: "yellow",
+      bgColor: "from-yellow-50/80 to-yellow-50/40",
+      borderColor: "border-yellow-200/50",
+      textColor: "text-yellow-700",
+      barColor: "bg-yellow-500",
+      href: "/plan?category=stock-sourcing",
+    },
+    {
+      id: "feed-management",
+      name: "Feed Management",
+      description: "Quality & schedule",
+      emoji: "🌾",
+      score: 85,
+      level: "Good",
+      rating: "4/5",
+      color: "green",
+      bgColor: "from-green-50/80 to-green-50/40",
+      borderColor: "border-green-200/50",
+      textColor: "text-green-700",
+      barColor: "bg-green-500",
+      href: "/plan?category=feed-management",
     },
   ]);
 
-  // Health assessment data
-  const healthMetrics = [
+  // Dynamic next actions and alerts
+  const [nextActions, setNextActions] = useState([
     {
-      label: "Water Quality",
-      status: "Excellent",
-      score: 98,
-      color: "text-green-600",
-      improvements: [],
+      id: 1,
+      priority: "critical",
+      status: "pending",
+      title: "Check water quality in Pond 3",
+      description:
+        "pH levels trending high (8.2). Test immediately and adjust to prevent stress on shrimp.",
+      estimatedTime: "15 minutes",
+      href: "/plan?task=water-quality-check",
+      completed: false,
     },
-    {
-      label: "Stock Health",
-      status: "Good",
-      score: 85,
-      color: "text-yellow-600",
-      improvements: [
-        "Increase feeding frequency during peak growth phase",
-        "Monitor dissolved oxygen levels more frequently",
-        "Consider probiotic supplementation",
-      ],
-    },
-    {
-      label: "Biosecurity Status",
-      status: "Excellent",
-      score: 95,
-      color: "text-green-600",
-      improvements: [],
-    },
-    {
-      label: "Equipment Status",
-      status: "Good",
-      score: 88,
-      color: "text-yellow-600",
-      improvements: [
-        "Schedule maintenance for aerator #3",
-        "Calibrate pH monitoring sensors",
-        "Replace backup generator filters",
-      ],
-    },
-  ];
+  ]);
 
-  const overallScore = Math.round(
-    healthMetrics.reduce((acc, metric) => acc + metric.score, 0) /
-      healthMetrics.length
-  );
-  const overallStatus =
-    overallScore >= 95
-      ? "Excellent"
-      : overallScore >= 85
-        ? "Good"
-        : overallScore >= 70
-          ? "Fair"
-          : "Poor";
-  const overallColor =
-    overallScore >= 95
-      ? "text-green-600"
-      : overallScore >= 85
-        ? "text-yellow-600"
-        : "text-orange-600";
-
-  const allImprovements = healthMetrics.filter(
-    metric => metric.improvements.length > 0
-  );
-
-  const [quickStats] = useState([
+  const [alerts] = useState([
     {
-      title: "Overall Risk Score",
-      value: "68/100",
-      change: "+5 from yesterday",
+      id: 1,
+      type: "warning",
+      title: "Temperature variance detected",
+      description: "Monitor Pond 2 closely today",
+      timestamp: "2 hours ago",
+      href: "/reports?alert=temperature",
+    },
+  ]);
+
+  // Simulated real-time updates
+  useEffect(() => {
+    const interval = setInterval(() => {
+      // Simulate random updates to show dynamic nature
+      setFarmProfile(prev => ({
+        ...prev,
+        cycleDay: prev.cycleDay + Math.random() > 0.95 ? 1 : 0, // Occasional day advancement
+        overallBiosecurityScore: Math.max(
+          75,
+          Math.min(95, prev.overallBiosecurityScore + (Math.random() - 0.5) * 2)
+        ),
+      }));
+    }, 30000); // Update every 30 seconds
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Dynamic quick stats derived from farm data
+  const quickStats = [
+    {
+      title: "Overall Biosecurity Score",
+      value: `${Math.round(farmProfile.overallBiosecurityScore)}/100`,
+      change:
+        farmProfile.overallBiosecurityScore > 85
+          ? "Excellent status"
+          : "Good progress",
       trend: "up",
-      color: "text-orange-600",
-      bgColor: "bg-orange-50",
-      borderColor: "border-orange-200",
+      color:
+        farmProfile.overallBiosecurityScore > 85
+          ? "text-green-600"
+          : "text-blue-600",
+      bgColor:
+        farmProfile.overallBiosecurityScore > 85 ? "bg-green-50" : "bg-blue-50",
+      borderColor:
+        farmProfile.overallBiosecurityScore > 85
+          ? "border-green-200"
+          : "border-blue-200",
       icon: Shield,
-      href: "/risk", // Link to risk page
+      href: "/risk",
     },
     {
       title: "Plan Progress",
-      value: "67%",
-      change: "12 of 18 tasks done",
+      value: `${Math.round((farmProfile.completedTasks / farmProfile.totalTasks) * 100)}%`,
+      change: `${farmProfile.completedTasks} of ${farmProfile.totalTasks} tasks done`,
       trend: "up",
       color: "text-blue-600",
       bgColor: "bg-blue-50",
       borderColor: "border-blue-200",
       icon: Target,
-      href: "/plan", // Link to plan page
+      href: "/plan",
     },
     {
       title: "Cycle Progress",
-      value: "Day 45",
-      change: "25 days to harvest",
+      value: `Day ${farmProfile.cycleDay}`,
+      change: `${farmProfile.maxCycleDays - farmProfile.cycleDay} days to harvest`,
       trend: "stable",
       color: "text-green-600",
       bgColor: "bg-green-50",
@@ -174,129 +194,102 @@ export function DashboardOverview() {
       href: "/plan",
     },
     {
-      title: "Cost Savings",
-      value: "₱45,000",
+      title: "Projected Savings",
+      value: "₱12,500",
       change: "This cycle",
       trend: "up",
       color: "text-purple-600",
       bgColor: "bg-purple-50",
       borderColor: "border-purple-200",
       icon: DollarSign,
-      href: "/resources", // Link to resources page
+      href: "/resources",
     },
-  ]);
-
-  const [recentActivities] = useState([
-    {
-      id: 1,
-      type: "task_completed",
-      title: "Footbath Protocol Implemented",
-      description: "Successfully set up visitor disinfection station",
-      timestamp: "2 hours ago",
-      icon: CheckCircle,
-      iconColor: "text-green-500",
-      href: "/plan",
-    },
-    {
-      id: 2,
-      type: "risk_update",
-      title: "Risk Assessment Updated",
-      description: "Weather risk increased due to approaching typhoon",
-      timestamp: "4 hours ago",
-      icon: AlertTriangle,
-      iconColor: "text-orange-500",
-      href: "/risk",
-    },
-    {
-      id: 3,
-      type: "ai_recommendation",
-      title: "New AI Recommendation",
-      description: "Suggested pond dyke inspection based on weather forecast",
-      timestamp: "6 hours ago",
-      icon: Zap,
-      iconColor: "text-blue-500",
-      href: "/coach",
-    },
-    {
-      id: 4,
-      type: "monitoring",
-      title: "Water Quality Check",
-      description: "All parameters within normal range",
-      timestamp: "8 hours ago",
-      icon: Droplets,
-      iconColor: "text-cyan-500",
-      href: "/reports",
-    },
-  ]);
-
-  const riskTrendData = [
-    { date: "Mon", value: 45 },
-    { date: "Tue", value: 52 },
-    { date: "Wed", value: 48 },
-    { date: "Thu", value: 61 },
-    { date: "Fri", value: 58 },
-    { date: "Sat", value: 65 },
-    { date: "Sun", value: 68 },
   ];
 
-  const taskCompletionData = [
-    { label: "2 Weeks Ago", value: 67 },
-    { label: "Last Week", value: 75 },
-    { label: "This Week", value: 80 },
-  ];
+  // Handle action completion
+  const handleCompleteAction = (actionId: number) => {
+    setNextActions(prev =>
+      prev.map(action =>
+        action.id === actionId
+          ? { ...action, status: "completed", completed: true }
+          : action
+      )
+    );
+
+    // Update completed tasks count
+    setFarmProfile(prev => ({
+      ...prev,
+      completedTasks: prev.completedTasks + 1,
+    }));
+  };
 
   return (
     <div className="space-y-6">
-      {/* Critical Alerts */}
-      {criticalAlerts.length > 0 && (
-        <div className="space-y-3">
-          {criticalAlerts.map(alert => (
-            <Alert
-              key={alert.id}
-              className={`border-l-4 ${
-                alert.priority === "critical"
-                  ? "border-red-200 border-l-red-500 bg-red-50"
-                  : "border-orange-200 border-l-orange-500 bg-orange-50"
-              }`}
-            >
-              <AlertTriangle className="h-4 w-4" />
-              <AlertTitle className="flex items-center justify-between">
-                {alert.title}
-                <Badge
-                  variant={
-                    alert.priority === "critical" ? "destructive" : "default"
-                  }
-                >
-                  {alert.priority.toUpperCase()}
-                </Badge>
-              </AlertTitle>
-              <AlertDescription className="mt-2">
-                <p className="mb-3">{alert.message}</p>
-                <div className="flex items-center justify-between">
-                  <span className="text-xs text-gray-500">
-                    {alert.timestamp}
-                  </span>
-                  <Link href={alert.href} passHref>
-                    <Button size="sm" variant="outline">
-                      {alert.action}
-                      <ArrowRight className="ml-2 h-3 w-3" />
-                    </Button>
-                  </Link>
-                </div>
-              </AlertDescription>
-            </Alert>
-          ))}
+      {/* Main Dashboard Header */}
+      <div className="flex flex-col space-y-2 md:flex-row md:items-center md:justify-between md:space-y-0">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">
+            Welcome back to {farmProfile.name}
+          </h1>
+          <p className="text-gray-600">
+            {farmProfile.type} • {farmProfile.species} • Day{" "}
+            {farmProfile.cycleDay} of {farmProfile.maxCycleDays}
+          </p>
         </div>
-      )}
+        <div className="flex items-center space-x-3">
+          <Button variant="outline" size="sm" asChild>
+            <Link href="/coach">
+              <MessageCircle className="mr-2 h-4 w-4" />
+              Ask AI Coach
+            </Link>
+          </Button>
+          <Button size="sm" asChild>
+            <Link href="/assessment">Take Assessment</Link>
+          </Button>
+        </div>
+      </div>
+
+      {/* Overall Biosecurity Score Card */}
+      <Card className="border-2 border-green-300 bg-gradient-to-br from-green-50 to-emerald-50">
+        <CardContent className="p-6 text-center">
+          <div className="mb-2 text-sm font-medium text-gray-600">
+            Overall Biosecurity Score
+          </div>
+          <div className="mb-2 text-4xl font-bold text-green-600">
+            {Math.round(farmProfile.overallBiosecurityScore)}%
+          </div>
+          <div className="mb-4 text-sm font-medium text-green-700">
+            {farmProfile.overallBiosecurityScore > 85
+              ? "Excellent! You're building a resilient farm."
+              : "Good progress! Keep improving your biosecurity."}
+          </div>
+
+          {/* Quick Status Grid */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="rounded-lg bg-white/60 p-3">
+              <div className="text-sm text-gray-600">Current Cycle</div>
+              <div className="text-lg font-semibold text-blue-600">
+                Day {farmProfile.cycleDay}/{farmProfile.maxCycleDays}
+              </div>
+            </div>
+            <div className="rounded-lg bg-white/60 p-3">
+              <div className="text-sm text-gray-600">Risk Level</div>
+              <div className="text-lg font-semibold capitalize text-green-600">
+                {farmProfile.riskLevel}
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Quick Stats Grid */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         {quickStats.map((stat, index) => {
           const IconComponent = stat.icon;
           return (
-            <Link key={index} href={stat.href} passHref>
+            <Link key={index} href={stat.href}>
               <Card
-                className={`${stat.borderColor} cursor-pointer border-l-4 transition-shadow hover:shadow-md`}
+                className={`${stat.borderColor} cursor-pointer border-l-4 transition-all hover:scale-[1.02] hover:shadow-md`}
               >
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
@@ -320,348 +313,200 @@ export function DashboardOverview() {
         })}
       </div>
 
-      {/* Main Content Sections (formerly tabs) */}
-      <div className="space-y-6">
-        {/* Risk Trend Analysis Graph - Full Width */}
+      {/* GAqP Categories Health Overview */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Shield className="h-5 w-5 text-green-600" />
+            Biosecurity Health Snapshot
+          </CardTitle>
+          <CardDescription>
+            Your GAqP (Good Aquaculture Practice) compliance across key areas
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4">
+            {gaqpCategories.map(category => (
+              <Link key={category.id} href={category.href} className="group">
+                <div
+                  className={`rounded-lg border ${category.borderColor} bg-gradient-to-br ${category.bgColor} p-4 transition-all hover:scale-[1.02] hover:shadow-md`}
+                >
+                  <div className="mb-3 flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <span className="text-2xl" aria-hidden="true">
+                        {category.emoji}
+                      </span>
+                      <div>
+                        <h3 className="font-semibold text-gray-900 group-hover:text-gray-700">
+                          {category.name}
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          {category.description}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div
+                        className={`text-sm font-medium ${category.textColor}`}
+                      >
+                        {category.level} ({category.rating})
+                      </div>
+                      <div className="text-xs text-gray-500">
+                        {category.score}% complete
+                      </div>
+                    </div>
+                  </div>
+                  <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
+                    <div
+                      className={`h-full ${category.barColor} transition-all duration-300`}
+                      style={{ width: `${category.score}%` }}
+                    ></div>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Next Actions and Alerts */}
+      <div className="grid gap-6 lg:grid-cols-2">
+        {/* Next Actions */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <BarChart3 className="h-5 w-5 text-purple-600" />
-              Risk Trend Analysis
+              <Target className="h-5 w-5 text-blue-600" />
+              Your Next Actions
             </CardTitle>
             <CardDescription>
-              7-day risk level progression with interactive insights
+              Priority tasks to keep your farm running smoothly
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <RiskTrendChart data={riskTrendData} />
-            <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-3">
-              <div className="rounded-lg border border-blue-200 bg-blue-50 p-3 text-center">
-                <p className="text-xl font-bold text-blue-600">
-                  {Math.max(...riskTrendData.map(d => d.value))}
-                </p>
-                <p className="text-sm text-blue-700">Peak Risk Level</p>
-              </div>
-              <div className="rounded-lg border border-green-200 bg-green-50 p-3 text-center">
-                <p className="text-xl font-bold text-green-600">
-                  {Math.min(...riskTrendData.map(d => d.value))}
-                </p>
-                <p className="text-sm text-green-700">Lowest Risk Level</p>
-              </div>
-              <div className="rounded-lg border border-purple-200 bg-purple-50 p-3 text-center">
-                <p className="text-xl font-bold text-purple-600">
-                  {riskTrendData[riskTrendData.length - 1]?.value >
-                  riskTrendData[0]?.value
-                    ? "+"
-                    : ""}
-                  {(
-                    riskTrendData[riskTrendData.length - 1]?.value -
-                      riskTrendData[0]?.value || 0
-                  ).toFixed(1)}
-                </p>
-                <p className="text-sm text-purple-700">7-Day Change</p>
-              </div>
+            <div className="space-y-4">
+              {nextActions.map(action => (
+                <div
+                  key={action.id}
+                  className={`rounded-lg border-l-4 p-4 ${
+                    action.priority === "critical"
+                      ? "border-red-500 bg-red-50"
+                      : action.priority === "high"
+                        ? "border-orange-500 bg-orange-50"
+                        : "border-blue-500 bg-blue-50"
+                  }`}
+                >
+                  <div className="mb-2 flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <span
+                        className={`rounded-full px-2 py-1 text-xs font-medium text-white ${
+                          action.priority === "critical"
+                            ? "bg-red-500"
+                            : action.priority === "high"
+                              ? "bg-orange-500"
+                              : "bg-blue-500"
+                        }`}
+                      >
+                        {action.priority.toUpperCase()}
+                      </span>
+                      <Clock className="h-4 w-4 text-gray-400" />
+                      <span className="text-xs text-gray-500">
+                        {action.estimatedTime}
+                      </span>
+                    </div>
+                    <span
+                      className={`rounded px-2 py-1 text-xs font-medium ${
+                        action.completed
+                          ? "bg-green-100 text-green-700"
+                          : action.status === "pending"
+                            ? "bg-orange-100 text-orange-700"
+                            : "bg-gray-100 text-gray-700"
+                      }`}
+                    >
+                      {action.completed ? "Completed" : action.status}
+                    </span>
+                  </div>
+
+                  <h4 className="mb-1 font-semibold text-gray-900">
+                    {action.title}
+                  </h4>
+                  <p className="mb-3 text-sm text-gray-700">
+                    {action.description}
+                  </p>
+
+                  <div className="flex space-x-2">
+                    {!action.completed && (
+                      <Button
+                        onClick={() => handleCompleteAction(action.id)}
+                        size="sm"
+                        className="flex-1"
+                      >
+                        <CheckCircle className="mr-2 h-4 w-4" />
+                        Mark Complete
+                      </Button>
+                    )}
+                    <Button variant="outline" size="sm" asChild>
+                      <Link href={action.href}>View Details</Link>
+                    </Button>
+                  </div>
+                </div>
+              ))}
             </div>
-            <Link href="/reports" passHref>
-              <Button
-                variant="outline"
-                className="mt-4 w-full bg-transparent"
-                size="sm"
-              >
-                View Full Reports
-              </Button>
-            </Link>
           </CardContent>
         </Card>
 
-        {/* Two Column Layout for other content */}
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-          {/* Farm Health Sentiment */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Activity className="h-5 w-5 text-blue-600" />
-                Farm Health Sentiment
-              </CardTitle>
-              <CardDescription>
-                Overall biosecurity and health assessment
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-6">
-              {/* ...existing code... */}
-              {/* Circular Progress */}
-              <div className="flex flex-col items-center justify-center py-6">
-                <div className="relative flex items-center justify-center">
-                  <svg
-                    className="h-36 w-36 -rotate-90 transform"
-                    viewBox="0 0 100 100"
-                  >
-                    {/* Background circle */}
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="42"
-                      stroke="#f3f4f6"
-                      strokeWidth="6"
-                      fill="none"
-                    />
-                    {/* Progress circle */}
-                    <circle
-                      cx="50"
-                      cy="50"
-                      r="42"
-                      stroke={
-                        overallScore >= 95
-                          ? "#10b981"
-                          : overallScore >= 85
-                            ? "#f59e0b"
-                            : "#ef4444"
-                      }
-                      strokeWidth="6"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeDasharray={`${overallScore * 2.64} ${100 * 2.64}`}
-                      className="transition-all duration-1000 ease-out"
-                    />
-                  </svg>
-                  <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <div
-                      className={`h-8 w-8 ${overallScore >= 95 ? "bg-green-500" : overallScore >= 85 ? "bg-yellow-500" : "bg-red-500"} mb-2 flex items-center justify-center rounded-full`}
-                    >
-                      {overallScore >= 95 ? (
-                        <svg
-                          className="h-4 w-4 text-white"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
-                      ) : (
-                        <svg
-                          className="h-4 w-4 text-white"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.732-.833-2.5 0L4.732 15.5c-.77.833.192 2.5 1.732 2.5z"
-                          />
-                        </svg>
-                      )}
-                    </div>
-                    <span className={`text-sm font-semibold ${overallColor}`}>
-                      {overallStatus}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="mt-4 text-center">
-                  <div className="mb-2 text-4xl font-bold text-gray-900">
-                    {overallScore}%
-                  </div>
-                  <div className="text-sm text-gray-600">
-                    of parameters within optimal range
-                  </div>
-                </div>
-              </div>
-
-              {/* Status Details */}
-              <div className="space-y-3 border-t pt-4">
-                {healthMetrics.map((metric, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between"
-                  >
-                    <span className="text-sm font-medium text-gray-600">
-                      {metric.label}
-                    </span>
-                    <div className="flex items-center gap-2">
-                      <span className={`text-sm font-medium ${metric.color}`}>
-                        {metric.status}
-                      </span>
-                      {metric.improvements.length > 0 && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="h-6 w-6 p-0 text-gray-400 hover:text-gray-600"
-                          onClick={() => setShowImprovements(!showImprovements)}
-                        >
-                          <ChevronRight className="h-3 w-3" />
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                ))}
-
-                <div className="flex items-center justify-between border-t pt-2">
-                  <span className="text-sm font-medium text-gray-600">
-                    Current Cycle
-                  </span>
-                  <span className="text-sm text-gray-800">
-                    Day {farmProfile.cycleDay} of 70
-                  </span>
-                </div>
-              </div>
-
-              {/* Improvement Areas */}
-              {showImprovements && allImprovements.length > 0 && (
-                <div className="mt-4 rounded-lg border border-yellow-200 bg-yellow-50 p-4">
-                  <div className="mb-3 flex items-center gap-2">
-                    <AlertCircle className="h-4 w-4 text-yellow-600" />
-                    <h4 className="text-sm font-semibold text-yellow-800">
-                      Areas for Improvement
-                    </h4>
-                  </div>
-                  <div className="space-y-3">
-                    {allImprovements.map((metric, index) => (
-                      <div key={index}>
-                        <h5 className="mb-1 text-sm font-medium text-yellow-800">
-                          {metric.label}
-                        </h5>
-                        <ul className="space-y-1">
-                          {metric.improvements.map((improvement, impIndex) => (
-                            <li
-                              key={impIndex}
-                              className="flex items-start gap-1 text-xs text-yellow-700"
-                            >
-                              <span className="mt-1.5 h-1 w-1 flex-shrink-0 rounded-full bg-yellow-600"></span>
-                              {improvement}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="mt-3 w-full border-yellow-300 text-yellow-700 hover:bg-yellow-100"
-                    asChild
-                  >
-                    <Link href="/plan">
-                      View Action Plan
-                      <ArrowRight className="ml-2 h-3 w-3" />
-                    </Link>
-                  </Button>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-
-          {/* Recent Activity */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Zap className="h-5 w-5 text-yellow-500" />
-                AI-Generated Insights
-              </CardTitle>
-              <CardDescription>
-                Personalized recommendations based on your farm data
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-3">
-                <div className="rounded-lg border border-blue-200 bg-blue-50 p-3">
-                  <h4 className="mb-1 text-sm font-medium text-blue-900">
-                    Weather Impact Analysis
-                  </h4>
-                  <p className="text-xs text-blue-800">
-                    Based on the approaching typhoon, your farm has a 75% risk
-                    of pond overflow. Prioritizing dyke inspection could prevent
-                    up to ₱200,000 in potential losses.
-                  </p>
-                </div>
-
-                <div className="rounded-lg border border-green-200 bg-green-50 p-3">
-                  <h4 className="mb-1 text-sm font-medium text-green-900">
-                    Cost Optimization Opportunity
-                  </h4>
-                  <p className="text-xs text-green-800">
-                    Implementing solar water disinfection could reduce your
-                    water treatment costs by 40% while maintaining 85%
-                    effectiveness compared to your current method.
-                  </p>
-                </div>
-
-                <div className="rounded-lg border border-orange-200 bg-orange-50 p-3">
-                  <h4 className="mb-1 text-sm font-medium text-orange-900">
-                    Biosecurity Gap Detected
-                  </h4>
-                  <p className="text-xs text-orange-800">
-                    Your visitor protocol compliance is at 60%. Enhancing this
-                    to 90% could reduce disease introduction risk by an
-                    additional 25%.
-                  </p>
-                </div>
-              </div>
-              <Link href="/coach" passHref>
-                <Button
-                  variant="outline"
-                  className="mt-4 w-full bg-transparent"
-                  size="sm"
-                >
-                  Ask AI Coach for more insights
-                </Button>
-              </Link>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Recent Activity - Full Width at Bottom */}
+        {/* Alerts and Updates */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <Activity className="h-5 w-5 text-green-600" />
-              Recent Activity
+              <AlertTriangle className="h-5 w-5 text-orange-600" />
+              Alerts & Updates
             </CardTitle>
             <CardDescription>
-              Latest updates and system activities
+              Important notifications and system updates
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {recentActivities.map(activity => {
-                const IconComponent = activity.icon;
-                return (
-                  <Link key={activity.id} href={activity.href} passHref>
-                    <div className="flex cursor-pointer items-start gap-3 rounded-lg border border-gray-200 p-4 transition-colors hover:bg-gray-50">
-                      <div className={`rounded-full bg-gray-100 p-2`}>
-                        <IconComponent
-                          className={`h-4 w-4 ${activity.iconColor}`}
-                        />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <p className="text-sm font-medium text-gray-900">
-                          {activity.title}
-                        </p>
-                        <p className="mt-1 text-xs text-gray-500">
-                          {activity.description}
-                        </p>
-                        <p className="mt-2 text-xs text-gray-400">
-                          {activity.timestamp}
-                        </p>
-                      </div>
+            <div className="space-y-4">
+              {alerts.map(alert => (
+                <Link key={alert.id} href={alert.href} className="group">
+                  <div className="flex items-start space-x-3 rounded-lg border border-yellow-300 bg-yellow-50 p-3 transition-colors group-hover:bg-yellow-100">
+                    <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-yellow-500">
+                      <span className="text-xs font-bold text-white">!</span>
                     </div>
-                  </Link>
-                );
-              })}
+                    <div className="min-w-0 flex-1">
+                      <h4 className="font-medium text-yellow-800 group-hover:text-yellow-900">
+                        {alert.title}
+                      </h4>
+                      <p className="mt-1 text-sm text-yellow-700">
+                        {alert.description}
+                      </p>
+                      <p className="mt-2 text-xs text-yellow-600">
+                        {alert.timestamp}
+                      </p>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+
+              {/* Financial Impact */}
+              <div className="rounded-lg border border-blue-200 bg-blue-50 p-3">
+                <div className="mb-2 flex items-center space-x-2">
+                  <TrendingUp className="h-5 w-5 text-blue-600" />
+                  <h4 className="font-medium text-blue-800">
+                    Financial Impact
+                  </h4>
+                </div>
+                <p className="mb-1 text-sm text-blue-700">
+                  Projected savings from improved biosecurity
+                </p>
+                <p className="text-xl font-bold text-blue-600">
+                  ₱12,500 this cycle
+                </p>
+                <p className="mt-1 text-xs text-blue-600">
+                  Based on reduced mortality and feed efficiency
+                </p>
+              </div>
             </div>
-            <Link href="/reports" passHref>
-              <Button
-                variant="outline"
-                className="mt-4 w-full bg-transparent"
-                size="sm"
-              >
-                View All Activities
-              </Button>
-            </Link>
           </CardContent>
         </Card>
       </div>
