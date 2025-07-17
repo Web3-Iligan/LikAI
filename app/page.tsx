@@ -202,7 +202,7 @@ export default function LandingPage() {
                   className="mb-6 flex flex-col gap-4 sm:mb-8 sm:flex-row sm:justify-center sm:gap-4"
                   aria-label="Primary call-to-action buttons"
                 >
-                  <Link href="/auth" className="w-full sm:w-auto">
+                  <Link href="/auth/onboarding/" className="w-full sm:w-auto">
                     <Button
                       size="lg"
                       className="w-full bg-orange-500 px-8 py-4 text-base font-semibold text-white hover:bg-orange-600 sm:w-auto sm:px-8"
@@ -1989,7 +1989,10 @@ export default function LandingPage() {
                   {/* CTA Buttons */}
                   <div className="px-4 pt-6 sm:px-0">
                     <div className="flex flex-col gap-4 sm:flex-row sm:gap-4">
-                      <Link href="/auth" className="w-full sm:w-auto">
+                      <Link
+                        href="/auth/onboarding"
+                        className="w-full sm:w-auto"
+                      >
                         <Button
                           size="lg"
                           className="w-full bg-orange-500 px-8 py-4 text-base font-semibold text-white hover:bg-orange-600 sm:w-auto sm:text-lg"

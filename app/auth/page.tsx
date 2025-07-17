@@ -81,7 +81,7 @@ export default function AuthPage() {
 
               {/* Auth Button */}
               <div className="relative z-10 space-y-6">
-                <Link href="/dashboard">
+                <Link href="/auth/onboarding">
                   <Button
                     className="flex h-16 w-full items-center justify-center space-x-4 rounded-xl bg-gradient-to-r from-[#3498DB] to-[#2980B9] text-lg font-medium text-white shadow-xl transition-all duration-200 hover:scale-[1.02] hover:from-[#2980B9] hover:to-[#1F618D] hover:shadow-2xl"
                     aria-describedby="signup-benefits"
