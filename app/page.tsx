@@ -534,10 +534,10 @@ export default function LandingPage() {
               </p>
             </header>
 
-            <ul className="mx-auto grid max-w-5xl list-none grid-cols-1 gap-6 px-2 sm:grid-cols-2 sm:gap-8 sm:px-0 md:grid-cols-3">
+            <ul className="mx-auto grid max-w-4xl list-none grid-cols-1 gap-6 px-2 sm:grid-cols-2 sm:gap-8 sm:px-0 md:grid-cols-2">
               <li>
-                <Card className="border-0 shadow-lg">
-                  <CardContent className="p-8 text-center">
+                <Card className="h-full border-0 shadow-lg">
+                  <CardContent className="flex h-full min-h-[280px] flex-col justify-center p-8 text-center">
                     <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-100">
                       <Shield className="h-8 w-8 text-blue-600" />
                     </div>
@@ -555,8 +555,8 @@ export default function LandingPage() {
               </li>
 
               <li>
-                <Card className="border-0 shadow-lg">
-                  <CardContent className="p-8 text-center">
+                <Card className="h-full border-0 shadow-lg">
+                  <CardContent className="flex h-full min-h-[280px] flex-col justify-center p-8 text-center">
                     <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
                       <TrendingUp className="h-8 w-8 text-green-600" />
                     </div>
@@ -573,8 +573,8 @@ export default function LandingPage() {
               </li>
 
               <li>
-                <Card className="border-0 shadow-lg">
-                  <CardContent className="p-8 text-center">
+                <Card className="h-full border-0 shadow-lg">
+                  <CardContent className="flex h-full min-h-[280px] flex-col justify-center p-8 text-center">
                     <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#3498DB]/10">
                       <Target className="h-8 w-8 text-[#3498DB]" />
                     </div>
@@ -584,6 +584,36 @@ export default function LandingPage() {
                     <p className="mb-4 text-gray-600">
                       Minimize costly resource waste and optimize allocation
                       automatically with AI-driven insights.
+                    </p>
+                  </CardContent>
+                </Card>
+              </li>
+
+              <li>
+                <Card className="h-full border-0 shadow-lg">
+                  <CardContent className="flex h-full min-h-[280px] flex-col justify-center p-8 text-center">
+                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-orange-100">
+                      <svg
+                        className="h-8 w-8 text-orange-600"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                        />
+                      </svg>
+                    </div>
+                    <h3 className="mb-2 text-xl font-semibold">
+                      Compliance & Market Access
+                    </h3>
+                    <p className="mb-4 text-gray-600">
+                      Achieve BFAR GAqP compliance effortlessly, unlocking new
+                      market opportunities and enhancing your farm's reputation.
                     </p>
                   </CardContent>
                 </Card>
