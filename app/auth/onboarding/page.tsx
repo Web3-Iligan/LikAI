@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 
 import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 
 export default function OnboardingPage() {
+  const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [analysisMessage, setAnalysisMessage] = useState(
@@ -1836,7 +1838,7 @@ export default function OnboardingPage() {
                           more powerful AI tools!
                         </p>
                         <Button
-                          onClick={handleNext}
+                          onClick={() => router.push("/auth")}
                           className="h-14 w-full transform rounded-lg bg-gradient-to-r from-[#FF7F50] to-[#E6723C] text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-[#E6723C] hover:to-[#D35400] hover:shadow-xl"
                         >
                           Get Free Access Now!{" "}
