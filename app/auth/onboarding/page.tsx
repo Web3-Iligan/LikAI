@@ -180,15 +180,14 @@ export default function OnboardingPage() {
           <div className="relative z-10">
             {/* Step 0: Introduction */}
             {currentStep === 0 && (
-              <div className="space-y-6">
+              <div className="space-y-7">
                 <div className="text-center">
                   <h1 className="mb-4 text-3xl font-bold text-gray-900">
                     Complete Your Initial Farm Assessment in 15 Minutes
                   </h1>
-                  <p className="mb-8 text-lg text-gray-600">
-                    Our AI quickly assesses your farm's basic operations,
-                    instantly highlighting key opportunities to reduce costs and
-                    boost yields.
+                  <p className="mb-9 text-lg text-gray-600">
+                    Get instant insights on your farm's operations and discover
+                    opportunities to reduce costs and boost yields.
                   </p>
                 </div>
 
@@ -208,7 +207,7 @@ export default function OnboardingPage() {
                       </svg>
                     </div>
                     <span className="text-base font-medium text-gray-700">
-                      Gain clarity on your current farm operations
+                      See your current farm operations clearly
                     </span>
                   </div>
                   <div className="flex items-center space-x-3">
@@ -226,7 +225,7 @@ export default function OnboardingPage() {
                       </svg>
                     </div>
                     <span className="text-base font-medium text-gray-700">
-                      Understand the habits that are holding you back
+                      Find what's limiting your farm's potential
                     </span>
                   </div>
                   <div className="flex items-center space-x-3">
@@ -244,13 +243,13 @@ export default function OnboardingPage() {
                       </svg>
                     </div>
                     <span className="text-base font-medium text-gray-700">
-                      Identify which aspects to work on next (and why)
+                      Get priority actions to improve next
                     </span>
                   </div>
                 </div>
 
                 <div className="text-center">
-                  <p className="mb-6 text-base text-gray-600">
+                  <p className="mb-7 text-base text-gray-600">
                     You'll also download a personalised report after completing
                     the assessment.
                   </p>
@@ -263,9 +262,23 @@ export default function OnboardingPage() {
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
 
-                  <p className="text-sm text-gray-500">
-                    100% Free • No Credit Card Required
-                  </p>
+                  <div className="space-y-3">
+                    <p className="text-sm text-gray-500">
+                      100% Free • No Credit Card Required
+                    </p>
+
+                    <div className="flex items-center justify-center">
+                      <span className="text-sm text-gray-400">
+                        Already have an account?
+                      </span>
+                      <Link
+                        href="/auth"
+                        className="ml-2 text-sm font-medium text-[#3498DB] hover:text-[#2980b9] hover:underline"
+                      >
+                        Log in here
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </div>
             )}
