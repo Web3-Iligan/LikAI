@@ -103,20 +103,8 @@ export default function AuthPage() {
                   className="text-center text-sm text-gray-500"
                   id="signup-benefits"
                 >
-                  By signing up, you agree to our{" "}
-                  <Link
-                    href="/privacy"
-                    className="text-[#3498DB] hover:underline"
-                  >
-                    Privacy Policy
-                  </Link>{" "}
-                  and{" "}
-                  <Link
-                    href="/terms"
-                    className="text-[#3498DB] hover:underline"
-                  >
-                    Terms of Service
-                  </Link>
+                  By signing up, you agree to our Privacy Policy and Terms of
+                  Service
                 </p>
 
                 {/* Secondary CTA - Quick Assessment */}
@@ -159,7 +147,7 @@ export default function AuthPage() {
                     </Link>
 
                     <p className="mt-2 text-center text-xs text-gray-400">
-                      ✨ Get instant insights • No account required • 5 minutes
+                      Get instant insights • No account required • 5 minutes
                     </p>
                   </div>
                 </div>
@@ -181,135 +169,148 @@ export default function AuthPage() {
                 aria-hidden="true"
               ></div>
 
-              <figure className="relative z-10 rotate-1 transform rounded-2xl border border-gray-200/50 bg-white p-6 shadow-2xl transition-transform duration-300 hover:rotate-0">
+              <figure className="relative z-10 rotate-1 transform rounded-2xl border border-gray-200/50 bg-white p-4 shadow-2xl transition-transform duration-300 hover:rotate-0">
                 <figcaption className="sr-only">
                   Preview of LikAI dashboard showing farm metrics and monitoring
                   data
                 </figcaption>{" "}
                 {/* Mock Dashboard Content */}
-                <div className="space-y-4">
+                <div className="space-y-3">
                   {/* Header */}
-                  <div className="flex items-center justify-between border-b border-gray-100 pb-4">
-                    <h2 className="text-lg font-semibold text-gray-900">
+                  <div className="flex items-center justify-between border-b border-gray-100 pb-2">
+                    <h2 className="text-base font-semibold text-gray-900">
                       Your Farm Dashboard
                     </h2>
                     <div
-                      className="flex space-x-2"
+                      className="flex space-x-1"
                       aria-label="Window controls"
                     >
                       <div
-                        className="h-3 w-3 rounded-full bg-red-400"
+                        className="h-2 w-2 rounded-full bg-red-400"
                         aria-hidden="true"
                       ></div>
                       <div
-                        className="h-3 w-3 rounded-full bg-yellow-400"
+                        className="h-2 w-2 rounded-full bg-yellow-400"
                         aria-hidden="true"
                       ></div>
                       <div
-                        className="h-3 w-3 rounded-full bg-green-400"
+                        className="h-2 w-2 rounded-full bg-green-400"
                         aria-hidden="true"
                       ></div>
                     </div>
                   </div>
-                  {/* Stats Cards */}
-                  <div
-                    className="grid grid-cols-3 gap-4"
-                    role="group"
-                    aria-label="Farm performance metrics"
-                  >
-                    <div className="rounded-lg border border-green-200/50 bg-gradient-to-br from-green-100/80 to-green-50/60 p-4">
-                      <div className="mb-2 text-sm text-gray-600">
-                        Cost Savings
-                      </div>
-                      <div
-                        className="text-2xl font-bold text-green-600"
-                        aria-label="45,000 Philippine pesos saved"
-                      >
-                        ₱45,000
-                      </div>
-                      <div className="mt-1 text-xs text-gray-500">
-                        This cycle
-                      </div>
+
+                  {/* Overall Biosecurity Score */}
+                  <div className="rounded-lg border-2 border-green-300 bg-gradient-to-br from-green-50 to-emerald-50 p-3 text-center">
+                    <div className="mb-1 text-xs font-medium text-gray-600">
+                      Overall Biosecurity Score
                     </div>
-                    <div className="rounded-lg border border-[#FF7F50]/20 bg-gradient-to-br from-[#FF7F50]/10 to-[#FF7F50]/5 p-4">
-                      <div className="mb-2 text-sm text-gray-600">
-                        Farm Health
-                      </div>
-                      <div
-                        className="text-2xl font-bold text-[#FF7F50]"
-                        aria-label="94 percent farm health score"
-                      >
-                        94%
-                      </div>
-                      <div className="mt-1 text-xs text-gray-500">Optimal</div>
+                    <div className="mb-1 text-2xl font-bold text-green-600">
+                      86%
                     </div>
-                    <div className="rounded-lg border border-orange-200/50 bg-gradient-to-br from-orange-100/80 to-orange-50/60 p-4">
-                      <div className="mb-2 text-sm text-gray-600">
-                        Overall Risk Score
-                      </div>
-                      <div
-                        className="text-2xl font-bold text-orange-600"
-                        aria-label="Risk score 68 out of 100"
-                      >
-                        68/100
-                      </div>
-                      <div className="mt-1 text-xs text-gray-500">
-                        +5 from yesterday
-                      </div>
-                    </div>
-                  </div>{" "}
-                  {/* Chart Area */}
-                  <div
-                    className="flex h-40 items-center justify-center rounded-lg bg-gray-50 p-6"
-                    role="img"
-                    aria-label="Farm performance chart showing varying metrics over 8 data points"
-                  >
-                    <div className="flex h-full w-full items-end justify-center space-x-2 rounded-lg bg-gradient-to-r from-[#3498DB]/20 via-[#FF7F50]/20 to-[#3498DB]/20">
-                      {[40, 65, 30, 80, 45, 90, 55, 75].map((height, i) => (
-                        <div
-                          key={i}
-                          className="rounded-t bg-gradient-to-t from-[#3498DB] to-[#FF7F50]"
-                          style={{ height: `${height}%`, width: "12px" }}
-                          aria-hidden="true"
-                        />
-                      ))}
+                    <div className="text-xs font-medium text-green-700">
+                      Excellent • Keep up the great work!
                     </div>
                   </div>
-                  {/* Activity List */}
-                  <div
-                    className="space-y-3"
-                    role="log"
-                    aria-label="Recent farm activities"
-                  >
-                    <h3 className="sr-only">Recent Activities</h3>
-                    <div className="flex items-center space-x-3 rounded-lg bg-gray-50 p-2">
-                      <div
-                        className="flex h-8 w-8 items-center justify-center rounded-full bg-[#3498DB]"
-                        aria-hidden="true"
-                      >
-                        <Image
-                          src="/Likai-logo.svg"
-                          alt="LikAI notification icon"
-                          width={16}
-                          height={16}
-                          className="h-4 w-4"
-                        />
-                      </div>
-                      <div className="flex-1">
-                        <div className="text-sm font-medium text-gray-900">
-                          Water quality check completed
+
+                  {/* Health Categories */}
+                  <div className="space-y-2">
+                    {/* Pond & Water Care */}
+                    <div className="rounded-md border border-green-200/50 bg-gradient-to-br from-green-50/80 to-green-50/40 p-2">
+                      <div className="mb-1 flex items-center justify-between">
+                        <div className="flex items-center space-x-1">
+                          <span className="text-xs">💧</span>
+                          <div>
+                            <div className="text-xs font-semibold text-gray-900">
+                              Pond & Water Care
+                            </div>
+                            <div className="text-xs text-gray-600">
+                              How well you prepare ponds
+                            </div>
+                          </div>
                         </div>
-                        <time
-                          className="text-xs text-gray-500"
-                          dateTime="2025-07-15T14:58:00"
-                        >
-                          2 minutes ago
-                        </time>
+                        <div className="text-right">
+                          <div className="text-xs font-medium text-green-700">
+                            Excellent
+                          </div>
+                          <div className="text-xs text-gray-500">100%</div>
+                        </div>
+                      </div>
+                      <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200">
+                        <div
+                          className="h-full bg-green-500"
+                          style={{ width: "100%" }}
+                        ></div>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-3 rounded-lg bg-gray-50 p-2">
+
+                    {/* Farm Access Control */}
+                    <div className="rounded-md border border-blue-200/50 bg-gradient-to-br from-blue-50/80 to-blue-50/40 p-2">
+                      <div className="mb-1 flex items-center justify-between">
+                        <div className="flex items-center space-x-1">
+                          <span className="text-xs">🚪</span>
+                          <div>
+                            <div className="text-xs font-semibold text-gray-900">
+                              Farm Access Control
+                            </div>
+                            <div className="text-xs text-gray-600">
+                              Who can enter your farm
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-xs font-medium text-blue-700">
+                            Good
+                          </div>
+                          <div className="text-xs text-gray-500">80%</div>
+                        </div>
+                      </div>
+                      <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200">
+                        <div
+                          className="h-full bg-blue-500"
+                          style={{ width: "80%" }}
+                        ></div>
+                      </div>
+                    </div>
+
+                    {/* Stock Sourcing */}
+                    <div className="rounded-md border border-yellow-200/50 bg-gradient-to-br from-yellow-50/80 to-yellow-50/40 p-2">
+                      <div className="mb-1 flex items-center justify-between">
+                        <div className="flex items-center space-x-1">
+                          <span className="text-xs">🦐</span>
+                          <div>
+                            <div className="text-xs font-semibold text-gray-900">
+                              Stock Sourcing
+                            </div>
+                            <div className="text-xs text-gray-600">
+                              Baby shrimp quality
+                            </div>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-xs font-medium text-yellow-700">
+                            Needs Work
+                          </div>
+                          <div className="text-xs text-gray-500">60%</div>
+                        </div>
+                      </div>
+                      <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200">
+                        <div
+                          className="h-full bg-yellow-500"
+                          style={{ width: "60%" }}
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Critical Alerts */}
+                  <div className="space-y-1">
+                    <h3 className="text-xs font-semibold text-gray-900">
+                      Critical Alerts
+                    </h3>
+                    <div className="flex items-center space-x-2 rounded-md border border-red-200 bg-red-50 p-1.5">
                       <div
-                        className="flex h-8 w-8 items-center justify-center rounded-full bg-[#FF7F50]"
+                        className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500"
                         aria-hidden="true"
                       >
                         <span
@@ -320,14 +321,40 @@ export default function AuthPage() {
                         </span>
                       </div>
                       <div className="flex-1">
-                        <div className="text-sm font-medium text-gray-900">
-                          Alert: Temperature variance detected
+                        <div className="text-xs font-medium text-red-800">
+                          Improve shrimp source quality
+                        </div>
+                        <div className="text-xs text-red-600">
+                          Consider BFAR-certified hatchery
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-2 rounded-md bg-gray-50 p-1.5">
+                      <div
+                        className="flex h-5 w-5 items-center justify-center rounded-full bg-[#3498DB]"
+                        aria-hidden="true"
+                      >
+                        <svg
+                          className="h-3 w-3 text-white"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-xs font-medium text-gray-900">
+                          Water quality check completed
                         </div>
                         <time
                           className="text-xs text-gray-500"
-                          dateTime="2025-07-15T14:45:00"
+                          dateTime="2025-07-15T14:58:00"
                         >
-                          15 minutes ago
+                          2 minutes ago
                         </time>
                       </div>
                     </div>
