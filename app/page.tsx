@@ -30,7 +30,7 @@ export default function LandingPage() {
   return (
     <div className="flex min-h-screen flex-col bg-white">
       {/* Header */}
-      <header className="sticky top-0 z-50 flex h-20 items-center border-b border-gray-100 bg-white px-8 sm:px-12 md:px-16 lg:px-8">
+      <header className="sticky top-0 z-50 flex h-20 items-center border-b border-gray-100 bg-white px-4 sm:px-6 md:px-8 lg:px-6">
         {/* Logo */}
         <h1 className="flex-1">
           <Link href="#" className="flex w-fit items-center space-x-3">
@@ -111,7 +111,7 @@ export default function LandingPage() {
           role="navigation"
           aria-label="Mobile navigation"
         >
-          <ul className="space-y-4 px-8 py-4 sm:px-12">
+          <ul className="space-y-4 px-4 py-4 sm:px-6">
             <li>
               <Link
                 href="#about"
@@ -171,7 +171,7 @@ export default function LandingPage() {
           aria-labelledby="hero-heading"
         >
           <div className="from-[#FF7F50]/3 absolute inset-0 bg-gradient-to-r to-transparent opacity-50"></div>
-          <div className="container relative z-10 mx-auto max-w-7xl px-8 py-16 sm:px-12 sm:py-20 md:px-16 md:py-24 lg:px-8 lg:py-32">
+          <div className="container relative z-10 mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 md:px-8 md:py-24 lg:px-6 lg:py-32">
             <div className="flex flex-col items-center gap-8 text-center sm:gap-12">
               {/* Content - Centered */}
               <header className="relative mx-auto max-w-4xl">
@@ -402,7 +402,7 @@ export default function LandingPage() {
           className="bg-gradient-to-br from-gray-50 to-blue-50/30 py-16 sm:py-20"
           aria-labelledby="savings-heading"
         >
-          <div className="container mx-auto max-w-7xl px-8 text-center sm:px-12 md:px-16 lg:px-8">
+          <div className="container mx-auto max-w-7xl px-4 text-center sm:px-6 md:px-8 lg:px-6">
             <header className="mb-12">
               <h2
                 id="savings-heading"
@@ -411,13 +411,13 @@ export default function LandingPage() {
                 <span className="text-[#FF7F50]">Significantly reduce</span>{" "}
                 your operational costs
               </h2>
-              <p className="mx-auto max-w-2xl px-4 text-base text-gray-600 sm:px-0 sm:text-lg">
+              <p className="mx-auto max-w-2xl px-2 text-base text-gray-600 sm:px-0 sm:text-lg">
                 Leverage AI precision to prevent costly losses. Gain real-time
                 control to help maximize your yields and profits.
               </p>
             </header>
 
-            <ul className="mx-auto grid max-w-5xl list-none grid-cols-1 gap-6 px-4 sm:grid-cols-2 sm:gap-8 sm:px-0 md:grid-cols-3">
+            <ul className="mx-auto grid max-w-5xl list-none grid-cols-1 gap-6 px-2 sm:grid-cols-2 sm:gap-8 sm:px-0 md:grid-cols-3">
               <li>
                 <Card className="border-0 shadow-lg">
                   <CardContent className="p-8 text-center">
@@ -480,7 +480,7 @@ export default function LandingPage() {
           className="bg-gradient-to-br from-white to-gray-50/50 py-16 sm:py-20"
           aria-labelledby="features-heading"
         >
-          <div className="container mx-auto max-w-7xl px-8 sm:px-12 md:px-16 lg:px-8">
+          <div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-6">
             <h2 id="features-heading" className="sr-only">
               Product Features
             </h2>
@@ -1245,7 +1245,7 @@ export default function LandingPage() {
           className="bg-gradient-to-br from-orange-50/30 to-blue-50/20 py-16 sm:py-20"
           aria-labelledby="pricing-heading"
         >
-          <div className="container mx-auto max-w-7xl px-8 sm:px-12 md:px-16 lg:px-8">
+          <div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-6">
             <header className="mb-12 text-center sm:mb-16">
               <h2
                 id="pricing-heading"
@@ -1253,7 +1253,7 @@ export default function LandingPage() {
               >
                 Plans and Pricing
               </h2>
-              <p className="mx-auto mb-8 max-w-2xl px-4 text-base text-gray-600 sm:px-0 sm:text-lg">
+              <p className="mx-auto mb-8 max-w-2xl px-2 text-base text-gray-600 sm:px-0 sm:text-lg">
                 Choose the plan that fits your farm's biosecurity needs. Upgrade
                 as your operation grows.
               </p>
@@ -1289,7 +1289,7 @@ export default function LandingPage() {
             </header>
 
             {/* Three Column Layout */}
-            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-4 sm:gap-8 sm:px-0 lg:grid-cols-3">
+            <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 px-2 sm:gap-8 sm:px-0 lg:grid-cols-3">
               {/* Free Plan */}
               <Card className="relative overflow-hidden rounded-2xl bg-white shadow-lg transition-all duration-300 hover:shadow-xl">
                 <CardContent className="p-8">
@@ -1509,7 +1509,7 @@ export default function LandingPage() {
           id="faq"
           className="bg-gradient-to-br from-gray-50/50 to-orange-50/20 py-16 sm:py-20"
         >
-          <div className="container mx-auto max-w-7xl px-8 sm:px-12 md:px-16 lg:px-8">
+          <div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-6">
             <div className="relative">
               {/* Background decoration */}
               <div className="absolute inset-0 -m-8 rounded-3xl bg-gradient-to-br from-gray-50/50 to-orange-50/30"></div>
@@ -1823,13 +1823,13 @@ export default function LandingPage() {
 
         {/* CTA Section - Analyze Your Farm */}
         <section className="bg-gradient-to-br from-blue-50/40 to-orange-50/20 py-16 sm:py-20">
-          <div className="container mx-auto max-w-7xl px-8 sm:px-12 md:px-16 lg:px-8">
+          <div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-6">
             <div className="mb-12 text-center sm:mb-16">
               <h2 className="mb-6 text-3xl font-bold text-gray-900 sm:text-4xl">
                 Complete Your Initial Farm Assessment{" "}
                 <span className="text-[#FF7F50]">in 15 Minutes</span>
               </h2>
-              <p className="mb-4 px-4 text-base text-gray-600 sm:px-0 sm:text-lg">
+              <p className="mb-4 px-2 text-base text-gray-600 sm:px-0 sm:text-lg">
                 Start your personalized biosecurity journey now
               </p>
               <p className="text-sm text-gray-500">
@@ -1837,7 +1837,7 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="mx-auto max-w-6xl px-4 sm:px-0">
+            <div className="mx-auto max-w-6xl px-2 sm:px-0">
               <div className="grid grid-cols-1 items-center gap-8 sm:gap-12 lg:grid-cols-2">
                 {/* Left side - Demo Preview */}
                 <div className="relative">
@@ -2041,7 +2041,7 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="bg-gray-900 py-8 text-white">
-        <div className="container mx-auto max-w-7xl px-8 sm:px-12 md:px-16 lg:px-8">
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6 md:px-8 lg:px-6">
           <div className="flex flex-col items-center justify-between gap-6 md:flex-row">
             {/* Logo and Description */}
             <div className="text-center md:text-left">
