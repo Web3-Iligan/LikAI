@@ -138,7 +138,7 @@ export default function AuthPage() {
                               strokeLinecap="round"
                               strokeLinejoin="round"
                               strokeWidth={2}
-                              d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
+                              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"
                             />
                           </svg>
                         </div>
@@ -206,10 +206,10 @@ export default function AuthPage() {
                       Overall Biosecurity Score
                     </div>
                     <div className="mb-1 text-2xl font-bold text-green-600">
-                      86%
+                      85%
                     </div>
                     <div className="text-xs font-medium text-green-700">
-                      Excellent • Keep up the great work!
+                      Good • On track for success!
                     </div>
                   </div>
 
@@ -231,15 +231,15 @@ export default function AuthPage() {
                         </div>
                         <div className="text-right">
                           <div className="text-xs font-medium text-green-700">
-                            Excellent
+                            Good
                           </div>
-                          <div className="text-xs text-gray-500">100%</div>
+                          <div className="text-xs text-gray-500">92%</div>
                         </div>
                       </div>
                       <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200">
                         <div
                           className="h-full bg-green-500"
-                          style={{ width: "100%" }}
+                          style={{ width: "92%" }}
                         ></div>
                       </div>
                     </div>
@@ -260,15 +260,15 @@ export default function AuthPage() {
                         </div>
                         <div className="text-right">
                           <div className="text-xs font-medium text-blue-700">
-                            Good
+                            Fair
                           </div>
-                          <div className="text-xs text-gray-500">80%</div>
+                          <div className="text-xs text-gray-500">78%</div>
                         </div>
                       </div>
                       <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200">
                         <div
                           className="h-full bg-blue-500"
-                          style={{ width: "80%" }}
+                          style={{ width: "78%" }}
                         ></div>
                       </div>
                     </div>
@@ -313,12 +313,17 @@ export default function AuthPage() {
                         className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500"
                         aria-hidden="true"
                       >
-                        <span
-                          className="text-xs font-bold text-white"
-                          aria-hidden="true"
+                        <svg
+                          className="h-3 w-3 text-white"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
                         >
-                          !
-                        </span>
+                          <path
+                            fillRule="evenodd"
+                            d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                            clipRule="evenodd"
+                          />
+                        </svg>
                       </div>
                       <div className="flex-1">
                         <div className="text-xs font-medium text-red-800">
