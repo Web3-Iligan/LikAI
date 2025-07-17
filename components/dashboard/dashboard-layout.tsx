@@ -4,7 +4,6 @@ import React from "react";
 
 // Import Badge component
 import {
-  BarChart3,
   Bell,
   BookOpen,
   ClipboardList,
@@ -15,7 +14,6 @@ import {
   ListChecks,
   Menu,
   Settings,
-  Shield,
   Zap,
 } from "lucide-react";
 import Image from "next/image";
@@ -27,7 +25,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Sheet, SheetContent } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTitle } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 
 // Import ScrollArea
@@ -69,13 +67,6 @@ const navigationItems: NavigationItem[] = [
     icon: Zap,
     badge: "New",
     badgeVariant: "default",
-  },
-  {
-    title: "Risk Assessment",
-    href: "/risk",
-    icon: Shield,
-    badge: "High",
-    badgeVariant: "destructive",
   },
   {
     title: "Resource Optimizer",
@@ -210,6 +201,7 @@ export function DashboardLayout({ children, pathname }: DashboardLayoutProps) {
       {/* Mobile Sidebar */}
       <Sheet open={sidebarOpen} onOpenChange={setSidebarOpen}>
         <SheetContent side="left" className="w-64 p-0">
+          <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
           <NavigationContent />
         </SheetContent>
       </Sheet>
