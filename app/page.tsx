@@ -245,9 +245,9 @@ export default function LandingPage() {
                     monitoring data
                   </figcaption>
 
-                  {/* Mock Dashboard Content: Uses realistic but static data */}
+                  {/* GAqP-Focused Dashboard Content */}
                   <div className="space-y-3">
-                    {/* Dashboard Header: Mimics browser window */}
+                    {/* Dashboard Header: Clear and direct */}
                     <div className="flex items-center justify-between border-b border-gray-100 pb-2">
                       <h2 className="text-base font-semibold text-gray-900">
                         Your Farm Dashboard
@@ -272,45 +272,67 @@ export default function LandingPage() {
                       </div>
                     </div>
 
-                    {/* Overall Biosecurity Score: Main KPI display */}
+                    {/* 1. Top Section: Overall Biosecurity Health & Progress */}
                     <div className="rounded-lg border-2 border-green-300 bg-gradient-to-br from-green-50 to-emerald-50 p-3 text-center">
                       <div className="mb-1 text-xs font-medium text-gray-600">
                         Overall Biosecurity Score
                       </div>
+                      {/* Large circular progress indicator concept */}
                       <div className="mb-1 text-2xl font-bold text-green-600">
-                        85%
+                        86%
                       </div>
-                      <div className="text-xs font-medium text-green-700">
-                        Good • On track for success!
+                      <div className="mb-2 text-xs font-medium text-green-700">
+                        Keep up the great work, Farmer! You're building a
+                        resilient farm.
+                      </div>
+
+                      {/* Quick Status Insights */}
+                      <div className="grid grid-cols-2 gap-2">
+                        <div className="rounded bg-white/60 p-1.5">
+                          <div className="text-xs text-gray-600">
+                            Current Cycle
+                          </div>
+                          <div className="text-xs font-semibold text-blue-600">
+                            Day 45/70
+                          </div>
+                        </div>
+                        <div className="rounded bg-white/60 p-1.5">
+                          <div className="text-xs text-gray-600">
+                            Risk Level
+                          </div>
+                          <div className="text-xs font-semibold text-green-600">
+                            Low
+                          </div>
+                        </div>
                       </div>
                     </div>
 
-                    {/* Health Categories: Key assessment areas with progress bars */}
+                    {/* 2. Mid Section: GAqP Aspect Health Overview (Living Health Report Card) */}
                     <div className="space-y-2">
-                      {/* Category 1: Pond & Water Care */}
+                      <h3 className="text-xs font-semibold text-gray-900">
+                        Your Biosecurity Health Snapshot
+                      </h3>
+
+                      {/* GAqP Category 1: Pond & Water Care */}
                       <div className="rounded-md border border-green-200/50 bg-gradient-to-br from-green-50/80 to-green-50/40 p-2">
                         <div className="mb-1 flex items-center justify-between">
                           <div className="flex items-center space-x-1">
-                            {/* Category Icon */}
                             <span className="text-xs">💧</span>
                             <div>
                               <div className="text-xs font-semibold text-gray-900">
                                 Pond & Water Care
                               </div>
                               <div className="text-xs text-gray-600">
-                                How well you prepare ponds
+                                How well you prepare your ponds
                               </div>
                             </div>
                           </div>
-                          {/* Score Display */}
                           <div className="text-right">
                             <div className="text-xs font-medium text-green-700">
-                              Good
+                              Excellent (5/5)
                             </div>
-                            <div className="text-xs text-gray-500">92%</div>
                           </div>
                         </div>
-                        {/* Progress Bar */}
                         <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200">
                           <div
                             className="h-full bg-green-500"
@@ -319,7 +341,7 @@ export default function LandingPage() {
                         </div>
                       </div>
 
-                      {/* Category 2: Farm Access Control */}
+                      {/* GAqP Category 2: Farm Access Control */}
                       <div className="rounded-md border border-blue-200/50 bg-gradient-to-br from-blue-50/80 to-blue-50/40 p-2">
                         <div className="mb-1 flex items-center justify-between">
                           <div className="flex items-center space-x-1">
@@ -335,9 +357,8 @@ export default function LandingPage() {
                           </div>
                           <div className="text-right">
                             <div className="text-xs font-medium text-blue-700">
-                              Fair
+                              Good (4/5)
                             </div>
-                            <div className="text-xs text-gray-500">78%</div>
                           </div>
                         </div>
                         <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200">
@@ -348,11 +369,10 @@ export default function LandingPage() {
                         </div>
                       </div>
 
-                      {/* Category 3: Stock Sourcing */}
+                      {/* GAqP Category 3: Stock Sourcing */}
                       <div className="rounded-md border border-yellow-200/50 bg-gradient-to-br from-yellow-50/80 to-yellow-50/40 p-2">
                         <div className="mb-1 flex items-center justify-between">
                           <div className="flex items-center space-x-1">
-                            {/* Category Icon */}
                             <span className="text-xs">🦐</span>
                             <div>
                               <div className="text-xs font-semibold text-gray-900">
@@ -363,15 +383,12 @@ export default function LandingPage() {
                               </div>
                             </div>
                           </div>
-                          {/* Score Display */}
                           <div className="text-right">
                             <div className="text-xs font-medium text-yellow-700">
-                              Needs Work
+                              Needs Work (2/5)
                             </div>
-                            <div className="text-xs text-gray-500">60%</div>
                           </div>
                         </div>
-                        {/* Progress Bar */}
                         <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200">
                           <div
                             className="h-full bg-yellow-500"
@@ -379,73 +396,103 @@ export default function LandingPage() {
                           ></div>
                         </div>
                       </div>
+
+                      {/* GAqP Category 4: Feed Management */}
+                      <div className="rounded-md border border-green-200/50 bg-gradient-to-br from-green-50/80 to-green-50/40 p-2">
+                        <div className="mb-1 flex items-center justify-between">
+                          <div className="flex items-center space-x-1">
+                            <span className="text-xs">🌾</span>
+                            <div>
+                              <div className="text-xs font-semibold text-gray-900">
+                                Feed Management
+                              </div>
+                              <div className="text-xs text-gray-600">
+                                Quality & schedule
+                              </div>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-xs font-medium text-green-700">
+                              Good (4/5)
+                            </div>
+                          </div>
+                        </div>
+                        <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200">
+                          <div
+                            className="h-full bg-green-500"
+                            style={{ width: "85%" }}
+                          ></div>
+                        </div>
+                      </div>
                     </div>
 
-                    {/* Critical Alerts Section: Highlights important issues and updates */}
-                    <div className="space-y-1">
+                    {/* 3. Bottom Section: Your Next Action & Critical Alerts */}
+                    <div className="space-y-2">
                       <h3 className="text-xs font-semibold text-gray-900">
-                        Critical Alerts
+                        Your Next Action
                       </h3>
 
-                      {/* Critical Alert: Needs attention */}
-                      <div className="flex items-center space-x-2 rounded-md border border-red-200 bg-red-50 p-1.5">
-                        {/* Warning Triangle Icon: Enhanced visual emphasis */}
+                      {/* Prominent "NEXT UP" Card */}
+                      <div className="rounded-md border-l-4 border-red-500 bg-red-50 p-2">
+                        <div className="mb-1 flex items-center justify-between">
+                          <div className="flex items-center space-x-1">
+                            <span className="rounded-full bg-red-500 px-1.5 py-0.5 text-xs font-medium text-white">
+                              CRITICAL
+                            </span>
+                            <span className="text-xs text-gray-600">
+                              Next Up
+                            </span>
+                          </div>
+                          <span className="rounded bg-orange-100 px-1.5 py-0.5 text-xs font-medium text-orange-700">
+                            In Progress
+                          </span>
+                        </div>
+
+                        <h4 className="mb-1 text-xs font-semibold text-gray-900">
+                          Check water quality in Pond 3
+                        </h4>
+                        <p className="mb-2 text-xs text-gray-700">
+                          pH levels trending high (8.2). Test immediately and
+                          adjust to prevent stress on shrimp.
+                        </p>
+
+                        <div className="flex space-x-1">
+                          <button className="flex-1 rounded bg-[#3498DB] px-2 py-1 text-xs font-medium text-white hover:bg-[#2980B9]">
+                            I Completed This Step
+                          </button>
+                          <button className="rounded border border-gray-300 px-2 py-1 text-xs font-medium text-gray-700 hover:bg-gray-50">
+                            Get Help
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Critical Alert */}
+                      <div className="flex items-center space-x-2 rounded-md border border-yellow-300 bg-yellow-50 p-1.5">
                         <div
-                          className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500"
+                          className="flex h-4 w-4 items-center justify-center rounded-full bg-yellow-500"
                           aria-hidden="true"
                         >
-                          <svg
-                            className="h-3 w-3 text-white"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
+                          <span className="text-xs font-bold text-white">
+                            !
+                          </span>
                         </div>
                         <div className="flex-1">
-                          <div className="text-xs font-medium text-red-800">
-                            Improve shrimp source quality
+                          <div className="text-xs font-medium text-yellow-800">
+                            Alert: Temperature variance detected
                           </div>
-                          <div className="text-xs text-red-600">
-                            Consider BFAR-certified hatchery
+                          <div className="text-xs text-yellow-700">
+                            Monitor Pond 2 closely today
                           </div>
                         </div>
                       </div>
 
-                      {/* Completed Task: Shows positive activity */}
-                      <div className="flex items-center space-x-2 rounded-md bg-gray-50 p-1.5">
-                        {/* Checkmark Icon: Indicates completion */}
-                        <div
-                          className="flex h-5 w-5 items-center justify-center rounded-full bg-[#3498DB]"
-                          aria-hidden="true"
-                        >
-                          <svg
-                            className="h-3 w-3 text-white"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
+                      {/* Financial Impact (Subtle Integration) */}
+                      <div className="rounded bg-blue-50 p-1.5">
+                        <div className="text-xs font-medium text-blue-800">
+                          Projected Savings from Improved Biosecurity
                         </div>
-                        <div className="flex-1">
-                          <div className="text-xs font-medium text-gray-900">
-                            Water quality check completed
-                          </div>
-                          {/* Timestamp: Shows recent activity */}
-                          <time
-                            className="text-xs text-gray-500"
-                            dateTime="2025-07-15T14:58:00"
-                          >
-                            2 minutes ago
-                          </time>
+                        <div className="text-xs font-bold text-blue-600">
+                          ₱12,500 this cycle
                         </div>
                       </div>
                     </div>
@@ -477,12 +524,13 @@ export default function LandingPage() {
                 id="savings-heading"
                 className="mb-4 text-3xl font-bold text-gray-900 sm:text-4xl"
               >
-                <span className="text-[#FF7F50]">Significantly reduce</span>{" "}
-                your operational costs
+                <span className="text-[#FF7F50]">Boost Farm Efficiency</span>{" "}
+                Through GAqP
               </h2>
               <p className="mx-auto max-w-2xl px-2 text-base text-gray-600 sm:px-0 sm:text-lg">
-                Leverage AI precision to prevent costly losses. Gain real-time
-                control to help maximize your yields and profits.
+                Likai's AI guides your farm to adopt precise GAqP, preventing
+                costly losses and maximizing resource efficiency to boost your
+                yields and profits.
               </p>
             </header>
 
@@ -494,12 +542,13 @@ export default function LandingPage() {
                       <Shield className="h-8 w-8 text-blue-600" />
                     </div>
                     <h3 className="mb-2 text-xl font-semibold">
-                      Risk Mitigation
+                      GAqP-Driven Risk Control
                     </h3>
                     <p className="mb-4 text-gray-600">
-                      Proactively help prevent costly disease outbreaks before
-                      they impact your profitability with AI-driven, predictive
-                      insights.
+                      Likai's AI guides your farm to implement robust GAqP,
+                      proactively minimizing costly disease outbreaks before
+                      they impact your profitability with intelligent,
+                      predictive insights.
                     </p>
                   </CardContent>
                 </Card>
