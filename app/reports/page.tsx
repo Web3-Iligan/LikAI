@@ -140,33 +140,38 @@ export default function ReportsPage() {
                 Report Type
               </label>
               <Select value={reportType} onValueChange={setReportType}>
-                <SelectTrigger id="report-type" className="w-full h-12">
+                <SelectTrigger id="report-type" className="h-12 w-full">
                   <SelectValue placeholder="Select Report Type..." />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="BFAR Compliance">
                     <div className="flex items-center gap-2">
-                      <Shield className="h-4 w-4 text-blue-600" /> BFAR Compliance Report
+                      <Shield className="h-4 w-4 text-blue-600" /> BFAR
+                      Compliance Report
                     </div>
                   </SelectItem>
                   <SelectItem value="Biosecurity Performance">
                     <div className="flex items-center gap-2">
-                      <Shield className="h-4 w-4 text-emerald-600" /> Biosecurity Performance Summary
+                      <Shield className="h-4 w-4 text-emerald-600" />{" "}
+                      Biosecurity Performance Summary
                     </div>
                   </SelectItem>
                   <SelectItem value="Pond Health">
                     <div className="flex items-center gap-2">
-                      <Waves className="h-4 w-4 text-blue-600" /> Pond Health Trends
+                      <Waves className="h-4 w-4 text-blue-600" /> Pond Health
+                      Trends
                     </div>
                   </SelectItem>
                   <SelectItem value="Feed & Resource">
                     <div className="flex items-center gap-2">
-                      <DollarSign className="h-4 w-4 text-green-600" /> Feed & Resource Efficiency
+                      <DollarSign className="h-4 w-4 text-green-600" /> Feed &
+                      Resource Efficiency
                     </div>
                   </SelectItem>
                   <SelectItem value="Harvest Summary">
                     <div className="flex items-center gap-2">
-                      <BarChart3 className="h-4 w-4 text-purple-600" /> Harvest Summary
+                      <BarChart3 className="h-4 w-4 text-purple-600" /> Harvest
+                      Summary
                     </div>
                   </SelectItem>
                 </SelectContent>
@@ -181,7 +186,7 @@ export default function ReportsPage() {
                 Timeframe
               </label>
               <Select value={timeframe} onValueChange={setTimeframe}>
-                <SelectTrigger id="timeframe" className="w-full h-12">
+                <SelectTrigger id="timeframe" className="h-12 w-full">
                   <SelectValue placeholder="Select Timeframe..." />
                 </SelectTrigger>
                 <SelectContent>
@@ -197,7 +202,7 @@ export default function ReportsPage() {
           <Button
             onClick={handleGenerateReport}
             disabled={!reportType || !timeframe}
-            className="flex w-full items-center gap-2 h-12 text-base font-semibold"
+            className="flex h-12 w-full items-center gap-2 text-base font-semibold"
           >
             <PlusCircle className="h-4 w-4" /> Generate Report
           </Button>
@@ -241,7 +246,7 @@ export default function ReportsPage() {
                         }`}
                       >
                         {report.status === "Pending" && (
-                          <Loader2 className="mr-1 h-3 w-3 animate-spin inline" />
+                          <Loader2 className="mr-1 inline h-3 w-3 animate-spin" />
                         )}
                         {report.status}
                       </span>
@@ -261,9 +266,13 @@ export default function ReportsPage() {
             </Table>
           ) : (
             <div className="py-12 text-center">
-              <FileText className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 mb-2">No reports yet!</h3>
-              <p className="text-gray-500">Generate your first report above to get started.</p>
+              <FileText className="mx-auto mb-4 h-12 w-12 text-gray-400" />
+              <h3 className="mb-2 text-lg font-medium text-gray-900">
+                No reports yet!
+              </h3>
+              <p className="text-gray-500">
+                Generate your first report above to get started.
+              </p>
             </div>
           )}
         </CardContent>
