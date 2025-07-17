@@ -1,3 +1,16 @@
+/**
+ * Authentication/Sign-up Page
+ *
+ * This page serves as the main entry point for user authentication and registration.
+ * Features:
+ * - Internet Identity (ICP) authentication
+ * - Secondary CTA for quick assessment without signup
+ * - Interactive dashboard preview showcasing app capabilities
+ * - Farmer-friendly UI with clear visual hierarchy
+ *
+ * Layout: Two-column design with auth form on left, dashboard preview on right
+ */
+
 "use client";
 
 import Image from "next/image";
@@ -7,6 +20,7 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 
 export default function AuthPage() {
+  // SEO and structured data for better search engine visibility
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "WebPage",
@@ -24,19 +38,24 @@ export default function AuthPage() {
 
   return (
     <React.Fragment>
+      {/* SEO: Structured data for search engines */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
+
+      {/* Main Container: Full screen with gradient background */}
       <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[#FF7F50]/5 via-white to-[#3498DB]/10">
-        {/* Background Effects - Similar to Hero Section */}
+        {/* Background Effects: Subtle gradient overlay for visual depth */}
         <div
           className="from-[#FF7F50]/3 absolute inset-0 bg-gradient-to-r to-transparent opacity-50"
           aria-hidden="true"
-        ></div>{" "}
-        {/* Header */}
+        ></div>
+
+        {/* Header: Simple navigation with logo */}
         <header className="relative z-50 border-b border-blue-200/50 bg-white/90 px-8 py-6 backdrop-blur-sm">
           <div className="mx-auto flex max-w-7xl items-center justify-between">
+            {/* Logo: Links back to homepage */}
             <Link
               href="/"
               className="flex items-center space-x-3"
@@ -49,24 +68,25 @@ export default function AuthPage() {
             </Link>
           </div>
         </header>
-        {/* Main Content */}
+
+        {/* Main Content: Two-column layout for desktop, single column for mobile */}
         <main
           className="relative z-10 flex min-h-[calc(100vh-120px)] items-center justify-center px-8"
           role="main"
         >
           <div className="grid w-full max-w-6xl grid-cols-1 items-center gap-12 lg:grid-cols-2">
-            {/* Left Side - Auth Form */}
+            {/* Left Column: Authentication Form */}
             <section
               className="relative mx-auto w-full max-w-lg space-y-8"
               aria-labelledby="signup-heading"
             >
-              {/* Backdrop blur effect similar to hero */}
+              {/* Backdrop: Subtle blur effect for form container */}
               <div
                 className="absolute inset-0 -z-10 -m-8 rounded-3xl bg-white/40 backdrop-blur-sm"
                 aria-hidden="true"
               ></div>
 
-              {/* Title */}
+              {/* Page Title and Subtitle */}
               <header className="relative z-10 text-left">
                 <h1
                   id="signup-heading"
@@ -79,13 +99,15 @@ export default function AuthPage() {
                 </p>
               </header>
 
-              {/* Auth Button */}
+              {/* Authentication Actions */}
               <div className="relative z-10 space-y-6">
+                {/* Primary CTA: Internet Identity Login */}
                 <Link href="/auth/onboarding">
                   <Button
                     className="flex h-16 w-full items-center justify-center space-x-4 rounded-xl bg-gradient-to-r from-[#3498DB] to-[#2980B9] text-lg font-medium text-white shadow-xl transition-all duration-200 hover:scale-[1.02] hover:from-[#2980B9] hover:to-[#1F618D] hover:shadow-2xl"
                     aria-describedby="signup-benefits"
                   >
+                    {/* ICP Logo */}
                     <div className="flex h-8 w-8 items-center justify-center">
                       <Image
                         src="/internet-computer-icp-logo.svg"
@@ -99,6 +121,7 @@ export default function AuthPage() {
                   </Button>
                 </Link>
 
+                {/* Privacy/Terms Notice: Non-clickable text */}
                 <p
                   className="text-center text-sm text-gray-500"
                   id="signup-benefits"
@@ -107,9 +130,9 @@ export default function AuthPage() {
                   Service
                 </p>
 
-                {/* Secondary CTA - Quick Assessment */}
+                {/* Secondary CTA Section: Quick Assessment Option */}
                 <div className="relative">
-                  {/* Divider with text */}
+                  {/* Visual Divider with explanatory text */}
                   <div className="relative flex items-center">
                     <div className="flex-grow border-t border-gray-200"></div>
                     <span className="mx-4 flex-shrink text-sm text-gray-500">
@@ -118,7 +141,7 @@ export default function AuthPage() {
                     <div className="flex-grow border-t border-gray-200"></div>
                   </div>
 
-                  {/* Assessment CTA Button */}
+                  {/* Quick Assessment Button */}
                   <div className="mt-4">
                     <Link href="/auth/onboarding">
                       <Button
@@ -126,6 +149,7 @@ export default function AuthPage() {
                         className="flex h-14 w-full items-center justify-center space-x-3 rounded-xl border-2 border-[#FF7F50] bg-white text-base font-medium text-[#FF7F50] shadow-md transition-all duration-200 hover:bg-[#FF7F50] hover:text-white hover:shadow-lg"
                         aria-label="Take a quick farm assessment without creating an account"
                       >
+                        {/* Magnifying Glass Icon: Represents assessment/analysis */}
                         <div className="flex h-6 w-6 items-center justify-center">
                           <svg
                             className="h-5 w-5"
@@ -146,6 +170,7 @@ export default function AuthPage() {
                       </Button>
                     </Link>
 
+                    {/* Assessment Benefits: Quick value proposition */}
                     <p className="mt-2 text-center text-xs text-gray-400">
                       Get instant insights • No account required • 5 minutes
                     </p>
@@ -154,12 +179,12 @@ export default function AuthPage() {
               </div>
             </section>
 
-            {/* Right Side - Dashboard Preview */}
+            {/* Right Column: Dashboard Preview (Desktop Only) */}
             <aside
               className="relative hidden lg:block"
               aria-label="Dashboard preview"
             >
-              {/* Decorative circles behind dashboard */}
+              {/* Decorative Background Elements */}
               <div
                 className="absolute -right-6 -top-6 -z-10 h-28 w-28 rounded-full bg-[#FF7F50]/10 blur-lg"
                 aria-hidden="true"
@@ -169,18 +194,21 @@ export default function AuthPage() {
                 aria-hidden="true"
               ></div>
 
+              {/* Dashboard Preview Card: Showcases app functionality */}
               <figure className="relative z-10 rotate-1 transform rounded-2xl border border-gray-200/50 bg-white p-4 shadow-2xl transition-transform duration-300 hover:rotate-0">
                 <figcaption className="sr-only">
                   Preview of LikAI dashboard showing farm metrics and monitoring
                   data
-                </figcaption>{" "}
-                {/* Mock Dashboard Content */}
+                </figcaption>
+
+                {/* Mock Dashboard Content: Uses realistic but static data */}
                 <div className="space-y-3">
-                  {/* Header */}
+                  {/* Dashboard Header: Mimics browser window */}
                   <div className="flex items-center justify-between border-b border-gray-100 pb-2">
                     <h2 className="text-base font-semibold text-gray-900">
                       Your Farm Dashboard
                     </h2>
+                    {/* Browser-style window controls */}
                     <div
                       className="flex space-x-1"
                       aria-label="Window controls"
@@ -200,7 +228,7 @@ export default function AuthPage() {
                     </div>
                   </div>
 
-                  {/* Overall Biosecurity Score */}
+                  {/* Overall Biosecurity Score: Main KPI display */}
                   <div className="rounded-lg border-2 border-green-300 bg-gradient-to-br from-green-50 to-emerald-50 p-3 text-center">
                     <div className="mb-1 text-xs font-medium text-gray-600">
                       Overall Biosecurity Score
@@ -213,12 +241,13 @@ export default function AuthPage() {
                     </div>
                   </div>
 
-                  {/* Health Categories */}
+                  {/* Health Categories: Key assessment areas with progress bars */}
                   <div className="space-y-2">
-                    {/* Pond & Water Care */}
+                    {/* Category 1: Pond & Water Care */}
                     <div className="rounded-md border border-green-200/50 bg-gradient-to-br from-green-50/80 to-green-50/40 p-2">
                       <div className="mb-1 flex items-center justify-between">
                         <div className="flex items-center space-x-1">
+                          {/* Category Icon */}
                           <span className="text-xs">💧</span>
                           <div>
                             <div className="text-xs font-semibold text-gray-900">
@@ -229,6 +258,7 @@ export default function AuthPage() {
                             </div>
                           </div>
                         </div>
+                        {/* Score Display */}
                         <div className="text-right">
                           <div className="text-xs font-medium text-green-700">
                             Good
@@ -236,6 +266,7 @@ export default function AuthPage() {
                           <div className="text-xs text-gray-500">92%</div>
                         </div>
                       </div>
+                      {/* Progress Bar */}
                       <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200">
                         <div
                           className="h-full bg-green-500"
@@ -244,7 +275,7 @@ export default function AuthPage() {
                       </div>
                     </div>
 
-                    {/* Farm Access Control */}
+                    {/* Category 2: Farm Access Control */}
                     <div className="rounded-md border border-blue-200/50 bg-gradient-to-br from-blue-50/80 to-blue-50/40 p-2">
                       <div className="mb-1 flex items-center justify-between">
                         <div className="flex items-center space-x-1">
@@ -273,10 +304,11 @@ export default function AuthPage() {
                       </div>
                     </div>
 
-                    {/* Stock Sourcing */}
+                    {/* Category 3: Stock Sourcing */}
                     <div className="rounded-md border border-yellow-200/50 bg-gradient-to-br from-yellow-50/80 to-yellow-50/40 p-2">
                       <div className="mb-1 flex items-center justify-between">
                         <div className="flex items-center space-x-1">
+                          {/* Category Icon */}
                           <span className="text-xs">🦐</span>
                           <div>
                             <div className="text-xs font-semibold text-gray-900">
@@ -287,6 +319,7 @@ export default function AuthPage() {
                             </div>
                           </div>
                         </div>
+                        {/* Score Display */}
                         <div className="text-right">
                           <div className="text-xs font-medium text-yellow-700">
                             Needs Work
@@ -294,6 +327,7 @@ export default function AuthPage() {
                           <div className="text-xs text-gray-500">60%</div>
                         </div>
                       </div>
+                      {/* Progress Bar */}
                       <div className="h-1.5 w-full overflow-hidden rounded-full bg-gray-200">
                         <div
                           className="h-full bg-yellow-500"
@@ -303,12 +337,15 @@ export default function AuthPage() {
                     </div>
                   </div>
 
-                  {/* Critical Alerts */}
+                  {/* Critical Alerts Section: Highlights important issues and updates */}
                   <div className="space-y-1">
                     <h3 className="text-xs font-semibold text-gray-900">
                       Critical Alerts
                     </h3>
+
+                    {/* Critical Alert: Needs attention */}
                     <div className="flex items-center space-x-2 rounded-md border border-red-200 bg-red-50 p-1.5">
+                      {/* Warning Triangle Icon: Enhanced visual emphasis */}
                       <div
                         className="flex h-5 w-5 items-center justify-center rounded-full bg-red-500"
                         aria-hidden="true"
@@ -334,7 +371,10 @@ export default function AuthPage() {
                         </div>
                       </div>
                     </div>
+
+                    {/* Completed Task: Shows positive activity */}
                     <div className="flex items-center space-x-2 rounded-md bg-gray-50 p-1.5">
+                      {/* Checkmark Icon: Indicates completion */}
                       <div
                         className="flex h-5 w-5 items-center justify-center rounded-full bg-[#3498DB]"
                         aria-hidden="true"
@@ -355,6 +395,7 @@ export default function AuthPage() {
                         <div className="text-xs font-medium text-gray-900">
                           Water quality check completed
                         </div>
+                        {/* Timestamp: Shows recent activity */}
                         <time
                           className="text-xs text-gray-500"
                           dateTime="2025-07-15T14:58:00"
@@ -367,7 +408,7 @@ export default function AuthPage() {
                 </div>
               </figure>
 
-              {/* Floating elements */}
+              {/* Floating AI Badge: Emphasizes AI-powered features */}
               <div
                 className="absolute -bottom-4 -left-4 z-20 flex h-12 w-12 -rotate-12 transform items-center justify-center rounded-lg bg-gradient-to-br from-[#3498DB] to-[#2980B9] shadow-lg"
                 aria-label="AI Assistant Badge"
