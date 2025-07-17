@@ -133,7 +133,7 @@ export default function OnboardingPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-100 via-blue-50 to-orange-100">
       {/* Progress Bar */}
       <div className="w-full border-b border-blue-200/50 bg-white/90 backdrop-blur-sm">
-        <div className="mx-auto max-w-xl px-8 py-4">
+        <div className="mx-auto max-w-xl px-4 py-4 md:px-8">
           <div className="h-2 w-full rounded-full bg-gray-200">
             <div
               className="h-2 rounded-full bg-gradient-to-r from-[#FF7F50] to-[#3498DB] transition-all duration-300"
@@ -144,10 +144,10 @@ export default function OnboardingPage() {
       </div>
 
       {/* Header */}
-      <header className="px-8 py-6">
+      <header className="px-4 py-4 md:px-8 md:py-6">
         <div className="mx-auto flex max-w-xl items-center justify-between">
           <Link href="/" className="flex items-center space-x-3">
-            <span className="text-2xl font-bold">
+            <span className="text-xl font-bold md:text-2xl">
               <span className="text-[#FF7F50]">Lik</span>
               <span className="text-[#3498DB]">AI</span>
             </span>
@@ -156,7 +156,7 @@ export default function OnboardingPage() {
             <Button
               variant="ghost"
               onClick={handleBack}
-              className="text-[#3498DB] hover:bg-blue-50 hover:text-[#2980B9]"
+              className="text-sm text-[#3498DB] hover:bg-blue-50 hover:text-[#2980B9] md:text-base"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
               Back
@@ -166,12 +166,12 @@ export default function OnboardingPage() {
       </header>
 
       {/* Main Content */}
-      <div className="flex items-center justify-center px-8 pb-16">
+      <div className="flex items-center justify-center px-4 pb-8 md:px-8 md:pb-16">
         <div
           className={`relative w-full overflow-hidden rounded-2xl border border-blue-200/30 bg-white shadow-2xl ${
             currentStep === 6
-              ? "max-w-6xl space-y-6 p-12"
-              : "max-w-xl space-y-6 p-10"
+              ? "max-w-6xl space-y-8 p-6 md:space-y-12 md:p-12"
+              : "max-w-xl space-y-6 p-6 md:p-10"
           }`}
         >
           {/* Background accent */}
@@ -740,129 +740,154 @@ export default function OnboardingPage() {
 
             {/* Step 6: Biosecurity Report */}
             {currentStep === 6 && (
-              <div className="space-y-16">
+              <div className="space-y-12">
                 <div className="text-center">
-                  <h1 className="mb-6 text-4xl font-bold text-gray-900">
-                    Your Personalized Biosecurity Starter Plan!
+                  <h1 className="mb-6 text-3xl font-bold text-gray-900 md:mb-8 md:text-5xl">
+                    🦐 Your Personalized Biosecurity Starter Plan!
                   </h1>
-                  <p className="text-2xl leading-relaxed text-gray-700 font-medium">
+                  <p className="mx-auto max-w-4xl text-lg font-medium leading-relaxed text-gray-700 md:text-2xl">
                     Great job,{" "}
                     {formData.farmName
-                      ? `Farmer ${formData.farmName}`
-                      : "Farmer"}
-                    ! Based on your quick assessment, Likai's AI has created
-                    your first personalized plan to help you start strong and
-                    keep your shrimp healthy.
+                      ? `Farmer ${formData.farmName.split(" ")[0] || formData.farmName}`
+                      : "Mang/Aling Farmer"}
+                    ! LikAI's AI has created your custom plan to help you grow
+                    healthier shrimp and protect your profits. Here's your
+                    farm's quick health report:
                   </p>
+                  {/* Add a subtle water ripple decoration */}
+                  <div className="mt-4 flex justify-center space-x-2 opacity-30 md:mt-6">
+                    <div className="h-2 w-2 animate-pulse rounded-full bg-blue-400"></div>
+                    <div
+                      className="h-3 w-3 animate-pulse rounded-full bg-blue-300"
+                      style={{ animationDelay: "0.2s" }}
+                    ></div>
+                    <div
+                      className="h-2 w-2 animate-pulse rounded-full bg-blue-400"
+                      style={{ animationDelay: "0.4s" }}
+                    ></div>
+                  </div>
                 </div>
 
-                {/* Farm Health Status - Simple Traffic Light System */}
-                <div className="border-b border-gray-200 pb-8 text-center bg-blue-50 rounded-2xl p-8 mb-8">
-                  <h2 className="mb-6 text-4xl font-bold text-gray-900">
-                    🎯 Your Farm's Health Report
-                  </h2>
-                  <p className="mb-4 text-2xl text-gray-700 font-medium">
-                    Quick Look at Your Farm's Strengths
-                  </p>
-                  <p className="mx-auto max-w-2xl text-lg text-gray-600">
-                    We checked your answers and here's what we found. Green is good, 
-                    yellow needs some work, red needs urgent attention.
-                  </p>
-                </div>
-
-                <div className="space-y-6">
+                {/* Enhanced Farm Health Status */}
+                <div className="space-y-8">
                   {(() => {
                     const scores = calculateBiosecurityScores();
-                    
+
                     const farmAreas = [
                       {
                         name: "Pond & Water Care",
                         score: scores.pondWaterCare,
                         icon: "💧",
-                        description: "How well you prepare your ponds"
+                        description: "How well you prepare your ponds",
                       },
                       {
-                        name: "Farm Access Control", 
+                        name: "Farm Access Control",
                         score: scores.farmAccess,
                         icon: "🚪",
-                        description: "Who can enter your farm"
+                        description: "Who can enter your farm",
                       },
                       {
                         name: "Healthy Stock Sourcing",
                         score: scores.stockSourcing,
-                        icon: "🦐", 
-                        description: "Where you get your baby shrimp"
+                        icon: "🦐",
+                        description: "Where you get your baby shrimp",
                       },
                       {
                         name: "Farm Setup Basics",
                         score: scores.farmSetup,
                         icon: "🏗️",
-                        description: "Your farm design and species choice"
+                        description: "Your farm design and species choice",
                       },
                       {
                         name: "Disease Readiness",
                         score: scores.diseaseReadiness,
                         icon: "🛡️",
-                        description: "How ready you are for health problems"
-                      }
+                        description: "How ready you are for health problems",
+                      },
                     ];
 
                     const getStatusInfo = (score: number) => {
-                      if (score > 80) return { 
-                        status: "Excellent", 
-                        color: "bg-green-500", 
-                        bgColor: "bg-green-50 border-green-200",
-                        textColor: "text-green-800"
-                      };
-                      if (score > 60) return { 
-                        status: "Good", 
-                        color: "bg-blue-500", 
-                        bgColor: "bg-blue-50 border-blue-200",
-                        textColor: "text-blue-800"
-                      };
-                      if (score > 40) return { 
-                        status: "Needs Work", 
-                        color: "bg-yellow-500", 
-                        bgColor: "bg-yellow-50 border-yellow-200",
-                        textColor: "text-yellow-800"
-                      };
-                      return { 
-                        status: "Urgent Focus", 
-                        color: "bg-red-500", 
-                        bgColor: "bg-red-50 border-red-200",
-                        textColor: "text-red-800"
+                      if (score > 80)
+                        return {
+                          status: "Excellent",
+                          numericScore: "5/5",
+                          color: "bg-green-500",
+                          bgColor: "bg-green-50 border-green-300",
+                          textColor: "text-green-800",
+                          shadowColor: "shadow-green-100",
+                        };
+                      if (score > 60)
+                        return {
+                          status: "Good",
+                          numericScore: "4/5",
+                          color: "bg-blue-500",
+                          bgColor: "bg-blue-50 border-blue-300",
+                          textColor: "text-blue-800",
+                          shadowColor: "shadow-blue-100",
+                        };
+                      if (score > 40)
+                        return {
+                          status: "Needs Work",
+                          numericScore: "3/5",
+                          color: "bg-yellow-500",
+                          bgColor: "bg-yellow-50 border-yellow-300",
+                          textColor: "text-yellow-800",
+                          shadowColor: "shadow-yellow-100",
+                        };
+                      return {
+                        status: "Urgent Focus",
+                        numericScore: "2/5",
+                        color: "bg-red-500",
+                        bgColor: "bg-red-50 border-red-300",
+                        textColor: "text-red-800",
+                        shadowColor: "shadow-red-100",
                       };
                     };
 
                     return farmAreas.map((area, index) => {
                       const statusInfo = getStatusInfo(area.score);
-                      
+
                       return (
-                        <div key={index} className={`rounded-2xl border-2 p-6 ${statusInfo.bgColor} transition-all hover:shadow-lg`}>
-                          <div className="flex items-center justify-between mb-4">
-                            <div className="flex items-center space-x-4">
-                              <div className="text-4xl">{area.icon}</div>
+                        <div
+                          key={index}
+                          className={`rounded-2xl border-2 p-6 md:p-8 ${statusInfo.bgColor} ${statusInfo.shadowColor} shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl`}
+                        >
+                          <div className="mb-6 flex flex-col items-start justify-between space-y-4 sm:flex-row sm:items-center sm:space-y-0">
+                            <div className="flex items-center space-x-4 md:space-x-6">
+                              <div className="flex-shrink-0 text-4xl md:text-5xl">
+                                {area.icon}
+                              </div>
                               <div>
-                                <h4 className={`text-2xl font-bold ${statusInfo.textColor}`}>
+                                <h4
+                                  className={`text-2xl font-bold md:text-3xl ${statusInfo.textColor} mb-2`}
+                                >
                                   {area.name}
                                 </h4>
-                                <p className="text-lg text-gray-600">{area.description}</p>
+                                <p className="text-lg text-gray-600 md:text-xl">
+                                  {area.description}
+                                </p>
                               </div>
                             </div>
-                            <div className="text-right">
-                              <div className={`text-2xl font-bold px-4 py-2 rounded-full ${statusInfo.bgColor} ${statusInfo.textColor} border-2`}>
-                                {statusInfo.status}
+                            <div className="w-full text-center sm:w-auto sm:text-right">
+                              <div
+                                className={`rounded-2xl px-4 py-2 text-xl font-bold md:px-6 md:py-3 md:text-2xl ${statusInfo.bgColor} ${statusInfo.textColor} border-2 shadow-md`}
+                              >
+                                {statusInfo.status} ({statusInfo.numericScore})
                               </div>
-                              <p className="text-lg text-gray-600 mt-1">{area.score}/100</p>
+                              <p className="mt-2 text-base font-medium text-gray-500 md:text-lg">
+                                {area.score}/100 points
+                              </p>
                             </div>
-                          </div>
-                          
-                          {/* Visual Progress Bar */}
-                          <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
-                            <div 
-                              className={`h-full transition-all duration-1000 ${statusInfo.color}`}
+                          </div>{" "}
+                          {/* Enhanced Visual Progress Bar */}
+                          <div className="relative h-6 w-full overflow-hidden rounded-full bg-gray-200 shadow-inner">
+                            <div
+                              className={`h-full transition-all duration-1000 ${statusInfo.color} relative shadow-sm`}
                               style={{ width: `${area.score}%` }}
-                            ></div>
+                            >
+                              {/* Subtle shine effect */}
+                              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                            </div>
                           </div>
                         </div>
                       );
@@ -870,9 +895,9 @@ export default function OnboardingPage() {
                   })()}
                 </div>
 
-                {/* What Your Snapshot Means */}
-                <div className="space-y-8 bg-gray-50 rounded-2xl p-8">
-                  <h3 className="text-center text-4xl font-bold text-gray-900 mb-8">
+                {/* Enhanced What This Means Section */}
+                <div className="space-y-10 rounded-3xl bg-gradient-to-br from-gray-50 to-blue-50 p-10 shadow-lg">
+                  <h3 className="mb-6 text-center text-4xl font-bold text-gray-900 md:mb-10 md:text-5xl">
                     📊 What This Means for Your Farm
                   </h3>
 
@@ -884,88 +909,97 @@ export default function OnboardingPage() {
                     if (scores.farmSetup >= 60)
                       strengths.push({
                         name: "Farm Setup",
-                        icon: "✅",
-                        detail: "Good species choice and farm design."
+                        icon: "⭐",
+                        detail: "Good species choice and farm design.",
                       });
                     else
                       improvements.push({
-                        name: "Farm Setup", 
-                        icon: "🎯",
-                        detail: "Better farm setup = healthier shrimp and higher profits."
+                        name: "Farm Setup",
+                        icon: "🔧",
+                        detail:
+                          "Better farm setup = healthier shrimp and higher profits.",
                       });
 
                     if (scores.stockSourcing >= 60)
                       strengths.push({
                         name: "Stock Sourcing",
-                        icon: "✅", 
-                        detail: "You know how to pick quality baby shrimp."
+                        icon: "⭐",
+                        detail: "You know how to pick quality baby shrimp.",
                       });
                     else
                       improvements.push({
                         name: "Stock Sourcing",
-                        icon: "🎯",
-                        detail: "Better baby shrimp = fewer diseases and more harvest."
+                        icon: "🔧",
+                        detail:
+                          "Better baby shrimp = fewer diseases and more harvest.",
                       });
 
                     if (scores.pondWaterCare >= 60)
                       strengths.push({
                         name: "Pond Care",
-                        icon: "✅",
-                        detail: "Your pond preparation protects your shrimp."
+                        icon: "⭐",
+                        detail: "Your pond preparation protects your shrimp.",
                       });
                     else
                       improvements.push({
-                        name: "Pond Care", 
-                        icon: "🎯",
-                        detail: "Clean, dry ponds prevent diseases and boost growth."
+                        name: "Pond Care",
+                        icon: "🔧",
+                        detail:
+                          "Clean, dry ponds prevent diseases and boost growth.",
                       });
 
                     if (scores.farmAccess >= 60)
                       strengths.push({
                         name: "Farm Security",
-                        icon: "✅",
-                        detail: "You control who enters your farm well."
+                        icon: "⭐",
+                        detail: "You control who enters your farm well.",
                       });
                     else
                       improvements.push({
                         name: "Farm Security",
-                        icon: "🎯", 
-                        detail: "Controlling access stops diseases from entering."
+                        icon: "🔧",
+                        detail:
+                          "Controlling access stops diseases from entering.",
                       });
 
                     if (scores.diseaseReadiness >= 60)
                       strengths.push({
                         name: "Disease Prep",
-                        icon: "✅",
-                        detail: "You're ready to handle health problems."
+                        icon: "⭐",
+                        detail: "You're ready to handle health problems.",
                       });
                     else
                       improvements.push({
                         name: "Disease Prep",
-                        icon: "🎯",
-                        detail: "Being prepared saves your crops when problems hit."
+                        icon: "🔧",
+                        detail:
+                          "Being prepared saves your crops when problems hit.",
                       });
 
                     return (
-                      <div className="grid max-w-6xl mx-auto gap-8 lg:grid-cols-2">
+                      <div className="mx-auto grid max-w-6xl gap-6 md:gap-10 lg:grid-cols-2">
                         {strengths.length > 0 && (
-                          <div className="rounded-2xl border-2 border-green-300 bg-green-50 p-8 shadow-lg">
-                            <h4 className="mb-6 flex items-center text-3xl font-bold text-green-800">
-                              <span className="mr-4 text-4xl">🌟</span>
+                          <div className="border-3 rounded-3xl border-green-400 bg-gradient-to-br from-green-50 to-emerald-50 p-6 shadow-xl md:p-10">
+                            <h4 className="mb-6 flex items-center text-3xl font-bold text-green-800 md:mb-8 md:text-4xl">
+                              <span className="mr-3 text-4xl md:mr-4 md:text-5xl">
+                                🌟
+                              </span>
                               What You're Doing Great!
                             </h4>
-                            <div className="space-y-4">
+                            <div className="space-y-4 md:space-y-6">
                               {strengths.map((strength, index) => (
                                 <div
                                   key={index}
-                                  className="flex items-center space-x-4 rounded-xl border-2 border-green-200 bg-white p-4 shadow-sm"
+                                  className="flex items-center space-x-4 rounded-2xl border-2 border-green-300 bg-white p-4 shadow-md transition-all hover:shadow-lg md:space-x-6 md:p-6"
                                 >
-                                  <span className="text-3xl">{strength.icon}</span>
+                                  <span className="flex-shrink-0 text-3xl md:text-4xl">
+                                    {strength.icon}
+                                  </span>
                                   <div>
-                                    <div className="text-xl font-bold text-green-800">
+                                    <div className="mb-1 text-xl font-bold text-green-800 md:text-2xl">
                                       {strength.name}
                                     </div>
-                                    <div className="text-lg text-green-700">
+                                    <div className="text-lg text-green-700 md:text-xl">
                                       {strength.detail}
                                     </div>
                                   </div>
@@ -976,23 +1010,27 @@ export default function OnboardingPage() {
                         )}
 
                         {improvements.length > 0 && (
-                          <div className="rounded-2xl border-2 border-orange-300 bg-orange-50 p-8 shadow-lg">
-                            <h4 className="mb-6 flex items-center text-3xl font-bold text-orange-800">
-                              <span className="mr-4 text-4xl">🚀</span>
+                          <div className="border-3 rounded-3xl border-orange-400 bg-gradient-to-br from-orange-50 to-yellow-50 p-6 shadow-xl md:p-10">
+                            <h4 className="mb-6 flex items-center text-3xl font-bold text-orange-800 md:mb-8 md:text-4xl">
+                              <span className="mr-3 text-4xl md:mr-4 md:text-5xl">
+                                🚀
+                              </span>
                               Where You Can Improve
                             </h4>
-                            <div className="space-y-4">
+                            <div className="space-y-4 md:space-y-6">
                               {improvements.map((improvement, index) => (
                                 <div
                                   key={index}
-                                  className="flex items-center space-x-4 rounded-xl border-2 border-orange-200 bg-white p-4 shadow-sm"
+                                  className="flex items-center space-x-4 rounded-2xl border-2 border-orange-300 bg-white p-4 shadow-md transition-all hover:shadow-lg md:space-x-6 md:p-6"
                                 >
-                                  <span className="text-3xl">{improvement.icon}</span>
+                                  <span className="flex-shrink-0 text-3xl md:text-4xl">
+                                    {improvement.icon}
+                                  </span>
                                   <div>
-                                    <div className="text-xl font-bold text-orange-800">
+                                    <div className="mb-1 text-xl font-bold text-orange-800 md:text-2xl">
                                       {improvement.name}
                                     </div>
-                                    <div className="text-lg text-orange-700">
+                                    <div className="text-lg text-orange-700 md:text-xl">
                                       {improvement.detail}
                                     </div>
                                   </div>
@@ -1007,15 +1045,14 @@ export default function OnboardingPage() {
                 </div>
 
                 {/* Enhanced Action Plan */}
-                <div className="space-y-8">
-                  <div className="border-b border-gray-200 pb-6 text-center">
-                    <h3 className="mb-4 text-3xl font-bold text-gray-900">
-                      🎯 Your First Steps: Personalized Action Plan
+                <div className="space-y-10 rounded-3xl border-2 border-blue-200 bg-white p-10 shadow-xl">
+                  <div className="text-center">
+                    <h3 className="mb-4 text-4xl font-bold text-gray-900 md:mb-6 md:text-5xl">
+                      🎯 Your Simple Action Plan
                     </h3>
-                    <p className="mx-auto max-w-2xl text-lg leading-relaxed text-gray-600">
-                      Likai's AI has prioritized these simple steps for you
-                      based on your snapshot. Follow them to make your farm
-                      safer and more profitable!
+                    <p className="mx-auto max-w-2xl text-xl font-medium text-gray-700 md:text-2xl">
+                      Follow these easy steps to improve your farm. Start with
+                      Step 1!
                     </p>
                   </div>
 
@@ -1025,37 +1062,39 @@ export default function OnboardingPage() {
 
                     if (scores.pondWaterCare < 60) {
                       actionItems.push({
-                        title: "Master Pond Preparation",
-                        priority: "High Priority",
-                        why: "A clean, dry pond bottom is your first defense against diseases and creates optimal growing conditions.",
+                        title: "Clean & Dry Your Ponds",
+                        priority: "Urgent Focus",
+                        priorityColor: "bg-red-500 text-white",
+                        why: "Clean ponds prevent diseases and boost growth.",
                         what: [
-                          "Drain completely and remove all organic matter",
-                          "Sun-dry until soil cracks (7-14 days minimum)",
-                          "Remove accumulated muck and debris",
-                          "Test soil pH before next cycle",
+                          "Drain all water completely",
+                          "Remove mud and old feed",
+                          "Sun-dry until soil cracks",
+                          "Check soil smells fresh",
                         ],
-                        tip: "Use sunshine and a simple rake. Consider agricultural lime for faster drying if soil is acidic. This simple step can reduce disease risk by up to 70%.",
+                        tip: "💰 Use sunshine instead of chemicals. Simple and saves money!",
+                        visualTip: "📸 See How",
                         icon: "☀️",
-                        difficulty: "Easy",
                         timeframe: "1-2 weeks",
-                        cost: "Low Cost",
+                        cost: "Almost Free!",
                       });
                     }
 
                     if (scores.farmAccess < 60) {
                       actionItems.push({
-                        title: "Secure Your Farm's Entry Points",
-                        priority: "High Priority",
-                        why: "Uncontrolled access is a major pathway for diseases and contamination to enter your farm.",
+                        title: "Secure Your Farm Entrance",
+                        priority: "Needs Work",
+                        priorityColor: "bg-yellow-500 text-white",
+                        why: "Stop diseases from walking into your farm.",
                         what: [
-                          "Install basic fence/barrier around pond area",
-                          "Set up footbath at main entrance",
-                          "Post clear signage for visitors",
-                          "Create designated entry/exit points",
+                          "Put up simple fence",
+                          "Make one main entrance",
+                          "Set up footbath with lime",
+                          "Put up 'Private Farm' sign",
                         ],
-                        tip: "Bamboo or recycled netting works for a basic fence. A basin with lime solution makes a great DIY footbath. Simple but effective!",
+                        tip: "💰 Bamboo and fishing net work great. Old basin = perfect footbath!",
+                        visualTip: "� See How",
                         icon: "🚪",
-                        difficulty: "Easy",
                         timeframe: "1 week",
                         cost: "Low Cost",
                       });
@@ -1063,28 +1102,30 @@ export default function OnboardingPage() {
 
                     if (scores.stockSourcing < 60) {
                       actionItems.push({
-                        title: "Upgrade Your Stock Source",
-                        priority: "Medium Priority",
-                        why: "Quality post-larvae are the foundation of a healthy crop and successful harvest.",
+                        title: "Get Better Baby Shrimp",
+                        priority: "Important",
+                        priorityColor: "bg-blue-500 text-white",
+                        why: "Quality babies grow into healthy adults.",
                         what: [
-                          "Source from BFAR-accredited hatcheries",
-                          "Always inspect PLs before stocking",
-                          "Request health certificates",
-                          "Quarantine new stock if possible",
+                          "Buy from BFAR-approved hatchery",
+                          "Check babies are active and same size",
+                          "Ask for health certificate",
+                          "Test small batch first",
                         ],
-                        tip: "Look for active, uniform-sized PLs. Ask for health certificates from your supplier. Quality PLs cost more upfront but save money long-term.",
+                        tip: "💰 Good babies cost more but give 2x harvest. Worth it!",
+                        visualTip: "📸 See How",
                         icon: "🦐",
-                        difficulty: "Medium",
                         timeframe: "Next stocking",
-                        cost: "Medium Cost",
+                        cost: "Worth It!",
                       });
                     }
 
                     if (scores.diseaseReadiness < 60) {
                       actionItems.push({
-                        title: "Build Your Disease Defense Kit",
-                        priority: "Medium Priority",
-                        why: "Early detection and quick response can save your entire crop when health issues arise.",
+                        title: "Prepare for Health Problems",
+                        priority: "Good to Have",
+                        priorityColor: "bg-green-500 text-white",
+                        why: "Be ready before problems happen.",
                         what: [
                           "Create emergency contact list",
                           "Stock basic treatment supplies",
@@ -1123,32 +1164,31 @@ export default function OnboardingPage() {
                         {actionItems.slice(0, 3).map((item, index) => (
                           <div
                             key={index}
-                            className="rounded-2xl border-2 border-blue-100 bg-gradient-to-br from-white to-blue-50 p-6 shadow-lg transition-all duration-300 hover:shadow-xl"
+                            className="rounded-2xl border-2 border-blue-100 bg-gradient-to-br from-white to-blue-50 p-4 shadow-lg transition-all duration-300 hover:shadow-xl md:p-6"
                           >
                             {/* Step Header */}
-                            <div className="mb-6 flex items-start justify-between">
-                              <div className="flex items-center space-x-4">
-                                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-[#FF7F50] to-[#E6723C] text-2xl font-bold text-white shadow-lg">
+                            <div className="mb-4 flex flex-col items-start justify-between space-y-3 sm:flex-row sm:space-y-0 md:mb-6">
+                              <div className="flex items-center space-x-3 md:space-x-4">
+                                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#FF7F50] to-[#E6723C] text-lg font-bold text-white shadow-lg md:h-16 md:w-16 md:text-2xl">
                                   {index + 1}
                                 </div>
                                 <div>
-                                  <h4 className="mb-2 text-2xl font-bold text-gray-900">
+                                  <h4 className="mb-2 text-xl font-bold text-gray-900 md:text-2xl">
                                     {item.title}
                                   </h4>
-                                  <div className="flex items-center space-x-3 text-sm">
+                                  <div className="flex flex-wrap items-center gap-2 text-sm">
                                     <span
                                       className={`rounded-full px-3 py-1 font-medium ${
-                                        item.priority === "High Priority"
+                                        item.priority === "Urgent Focus"
                                           ? "bg-red-100 text-red-800"
-                                          : item.priority === "Medium Priority"
+                                          : item.priority === "Needs Work"
                                             ? "bg-yellow-100 text-yellow-800"
-                                            : "bg-green-100 text-green-800"
+                                            : item.priority === "Good"
+                                              ? "bg-blue-100 text-blue-800"
+                                              : "bg-green-100 text-green-800"
                                       }`}
                                     >
                                       {item.priority}
-                                    </span>
-                                    <span className="rounded-full bg-gray-100 px-3 py-1 font-medium text-gray-700">
-                                      {item.difficulty}
                                     </span>
                                     <span className="rounded-full bg-gray-100 px-3 py-1 font-medium text-gray-700">
                                       {item.timeframe}
@@ -1159,7 +1199,9 @@ export default function OnboardingPage() {
                                   </div>
                                 </div>
                               </div>
-                              <div className="text-4xl">{item.icon}</div>
+                              <div className="text-3xl md:text-4xl">
+                                {item.icon}
+                              </div>
                             </div>
 
                             {/* Step Content */}
@@ -1206,28 +1248,41 @@ export default function OnboardingPage() {
                               <div className="rounded-lg border border-orange-200 bg-gradient-to-r from-orange-50 to-yellow-50 p-4">
                                 <div className="flex items-start space-x-3">
                                   <div className="text-xl">🎯</div>
-                                  <div>
+                                  <div className="flex-1">
                                     <div className="mb-1 font-semibold text-orange-800">
-                                      Likai's Smart Tip:
+                                      LikAI's Smart Tip:
                                     </div>
                                     <div className="leading-relaxed text-orange-700">
                                       {item.tip}
                                     </div>
                                   </div>
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="h-8 rounded-full border border-orange-300 px-3 text-xs font-medium text-orange-600 hover:bg-orange-100 hover:text-orange-800"
+                                    onClick={() => {
+                                      // This would open a visual guide/tutorial
+                                      console.log(
+                                        `Opening visual guide for: ${item.title}`
+                                      );
+                                    }}
+                                  >
+                                    📸 See How
+                                  </Button>
                                 </div>
                               </div>
 
                               {/* Action Buttons */}
-                              <div className="flex space-x-3 pt-2">
+                              <div className="flex flex-col space-y-2 pt-2 sm:flex-row sm:space-x-3 sm:space-y-0">
                                 <Button
                                   variant="outline"
-                                  className="h-12 flex-1 border-[#3498DB] font-medium text-[#3498DB] hover:bg-blue-50"
+                                  className="h-12 flex-1 border-[#3498DB] text-sm font-medium text-[#3498DB] hover:bg-blue-50 md:text-base"
                                 >
                                   ✅ Mark Complete
                                 </Button>
                                 <Button
                                   variant="ghost"
-                                  className="h-12 px-6 font-medium text-gray-600 hover:bg-gray-50"
+                                  className="h-12 px-6 text-sm font-medium text-gray-600 hover:bg-gray-50 md:text-base"
                                 >
                                   ❓ Get Help
                                 </Button>
@@ -1241,22 +1296,21 @@ export default function OnboardingPage() {
                 </div>
 
                 {/* Enhanced CTA Section */}
-                <div className="space-y-6 pt-8 text-center">
-                  <div className="rounded-2xl border border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 p-8">
-                    <h4 className="mb-4 text-2xl font-bold text-gray-900">
+                <div className="space-y-6 pt-6 text-center md:pt-8">
+                  <div className="rounded-2xl border border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 md:p-8">
+                    <h4 className="mb-4 text-xl font-bold text-gray-900 md:text-2xl">
                       🚀 Ready to transform your farm?
                     </h4>
-                    <p className="mx-auto mb-6 max-w-2xl text-lg text-gray-600">
+                    <p className="mx-auto mb-6 max-w-2xl text-base text-gray-600 md:text-lg">
                       Your personalized plan is ready! Let's take you to your
                       dashboard where you can track progress, get AI coaching,
                       and watch your farm thrive.
                     </p>
                     <Button
                       onClick={handleNext}
-                      className="h-16 transform rounded-xl bg-gradient-to-r from-[#FF7F50] to-[#E6723C] px-12 text-lg font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-[#E6723C] hover:to-[#D35400]"
+                      className="h-14 w-full transform rounded-xl bg-gradient-to-r from-[#FF7F50] to-[#E6723C] px-8 text-base font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-[#E6723C] hover:to-[#D35400] sm:w-auto md:h-16 md:px-12 md:text-lg"
                     >
-                      Get Access{" "}
-                      <ArrowRight className="ml-3 h-5 w-5" />
+                      Get Access <ArrowRight className="ml-3 h-5 w-5" />
                     </Button>
                   </div>
                 </div>
