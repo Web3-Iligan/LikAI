@@ -170,7 +170,7 @@ export default function OnboardingPage() {
         <div
           className={`relative w-full overflow-hidden rounded-2xl border border-blue-200/30 bg-white shadow-2xl ${
             currentStep === 6
-              ? "max-w-6xl space-y-8 p-6 md:space-y-12 md:p-12"
+              ? "max-w-4xl space-y-6 p-4 md:space-y-8 md:p-8"
               : "max-w-xl space-y-6 p-6 md:p-10"
           }`}
         >
@@ -742,10 +742,10 @@ export default function OnboardingPage() {
             {currentStep === 6 && (
               <div className="space-y-12">
                 <div className="text-center">
-                  <h1 className="mb-6 text-3xl font-bold text-gray-900 md:mb-8 md:text-5xl">
+                  <h1 className="mb-4 text-2xl font-bold text-gray-900 md:mb-6 md:text-3xl">
                     🦐 Your Personalized Biosecurity Starter Plan!
                   </h1>
-                  <p className="mx-auto max-w-4xl text-lg font-medium leading-relaxed text-gray-700 md:text-2xl">
+                  <p className="mx-auto max-w-3xl text-base font-medium leading-relaxed text-gray-700 md:text-lg">
                     Great job,{" "}
                     {formData.farmName
                       ? `Farmer ${formData.farmName.split(" ")[0] || formData.farmName}`
@@ -755,21 +755,21 @@ export default function OnboardingPage() {
                     farm's quick health report:
                   </p>
                   {/* Add a subtle water ripple decoration */}
-                  <div className="mt-4 flex justify-center space-x-2 opacity-30 md:mt-6">
-                    <div className="h-2 w-2 animate-pulse rounded-full bg-blue-400"></div>
+                  <div className="mt-3 flex justify-center space-x-2 opacity-30 md:mt-4">
+                    <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-blue-400"></div>
                     <div
-                      className="h-3 w-3 animate-pulse rounded-full bg-blue-300"
+                      className="h-2 w-2 animate-pulse rounded-full bg-blue-300"
                       style={{ animationDelay: "0.2s" }}
                     ></div>
                     <div
-                      className="h-2 w-2 animate-pulse rounded-full bg-blue-400"
+                      className="h-1.5 w-1.5 animate-pulse rounded-full bg-blue-400"
                       style={{ animationDelay: "0.4s" }}
                     ></div>
                   </div>
                 </div>
 
                 {/* Enhanced Farm Health Status */}
-                <div className="space-y-8">
+                <div className="space-y-4">
                   {(() => {
                     const scores = calculateBiosecurityScores();
 
@@ -850,37 +850,37 @@ export default function OnboardingPage() {
                       return (
                         <div
                           key={index}
-                          className={`rounded-2xl border-2 p-6 md:p-8 ${statusInfo.bgColor} ${statusInfo.shadowColor} shadow-lg transition-all hover:scale-[1.02] hover:shadow-xl`}
+                          className={`rounded-xl border-2 p-4 md:p-5 ${statusInfo.bgColor} ${statusInfo.shadowColor} shadow-md transition-all hover:scale-[1.01] hover:shadow-lg`}
                         >
-                          <div className="mb-6 flex flex-col items-start justify-between space-y-4 sm:flex-row sm:items-center sm:space-y-0">
-                            <div className="flex items-center space-x-4 md:space-x-6">
-                              <div className="flex-shrink-0 text-4xl md:text-5xl">
+                          <div className="mb-4 flex flex-col items-start justify-between space-y-3 sm:flex-row sm:items-center sm:space-y-0">
+                            <div className="flex items-center space-x-3 md:space-x-4">
+                              <div className="flex-shrink-0 text-2xl md:text-3xl">
                                 {area.icon}
                               </div>
                               <div>
                                 <h4
-                                  className={`text-2xl font-bold md:text-3xl ${statusInfo.textColor} mb-2`}
+                                  className={`text-lg font-bold md:text-xl ${statusInfo.textColor} mb-1`}
                                 >
                                   {area.name}
                                 </h4>
-                                <p className="text-lg text-gray-600 md:text-xl">
+                                <p className="text-sm text-gray-600 md:text-base">
                                   {area.description}
                                 </p>
                               </div>
                             </div>
                             <div className="w-full text-center sm:w-auto sm:text-right">
                               <div
-                                className={`rounded-2xl px-4 py-2 text-xl font-bold md:px-6 md:py-3 md:text-2xl ${statusInfo.bgColor} ${statusInfo.textColor} border-2 shadow-md`}
+                                className={`rounded-xl px-3 py-1.5 text-sm font-bold md:px-4 md:py-2 md:text-base ${statusInfo.bgColor} ${statusInfo.textColor} border-2 shadow-sm`}
                               >
                                 {statusInfo.status} ({statusInfo.numericScore})
                               </div>
-                              <p className="mt-2 text-base font-medium text-gray-500 md:text-lg">
+                              <p className="mt-1 text-xs font-medium text-gray-500 md:text-sm">
                                 {area.score}/100 points
                               </p>
                             </div>
                           </div>{" "}
                           {/* Enhanced Visual Progress Bar */}
-                          <div className="relative h-6 w-full overflow-hidden rounded-full bg-gray-200 shadow-inner">
+                          <div className="relative h-4 w-full overflow-hidden rounded-full bg-gray-200 shadow-inner">
                             <div
                               className={`h-full transition-all duration-1000 ${statusInfo.color} relative shadow-sm`}
                               style={{ width: `${area.score}%` }}
@@ -896,8 +896,8 @@ export default function OnboardingPage() {
                 </div>
 
                 {/* Enhanced What This Means Section */}
-                <div className="space-y-10 rounded-3xl bg-gradient-to-br from-gray-50 to-blue-50 p-10 shadow-lg">
-                  <h3 className="mb-6 text-center text-4xl font-bold text-gray-900 md:mb-10 md:text-5xl">
+                <div className="space-y-6 rounded-2xl bg-gradient-to-br from-gray-50 to-blue-50 p-6 shadow-lg">
+                  <h3 className="mb-4 text-center text-2xl font-bold text-gray-900 md:mb-6 md:text-3xl">
                     📊 What This Means for Your Farm
                   </h3>
 
@@ -977,29 +977,29 @@ export default function OnboardingPage() {
                       });
 
                     return (
-                      <div className="mx-auto grid max-w-6xl gap-6 md:gap-10 lg:grid-cols-2">
+                      <div className="mx-auto grid max-w-4xl gap-4 md:gap-6 lg:grid-cols-2">
                         {strengths.length > 0 && (
-                          <div className="border-3 rounded-3xl border-green-400 bg-gradient-to-br from-green-50 to-emerald-50 p-6 shadow-xl md:p-10">
-                            <h4 className="mb-6 flex items-center text-3xl font-bold text-green-800 md:mb-8 md:text-4xl">
-                              <span className="mr-3 text-4xl md:mr-4 md:text-5xl">
+                          <div className="rounded-2xl border-2 border-green-400 bg-gradient-to-br from-green-50 to-emerald-50 p-4 shadow-lg md:p-6">
+                            <h4 className="mb-4 flex items-center text-xl font-bold text-green-800 md:mb-6 md:text-2xl">
+                              <span className="mr-2 text-2xl md:mr-3 md:text-3xl">
                                 🌟
                               </span>
                               What You're Doing Great!
                             </h4>
-                            <div className="space-y-4 md:space-y-6">
+                            <div className="space-y-3 md:space-y-4">
                               {strengths.map((strength, index) => (
                                 <div
                                   key={index}
-                                  className="flex items-center space-x-4 rounded-2xl border-2 border-green-300 bg-white p-4 shadow-md transition-all hover:shadow-lg md:space-x-6 md:p-6"
+                                  className="flex items-center space-x-3 rounded-xl border-2 border-green-300 bg-white p-3 shadow-sm transition-all hover:shadow-md md:space-x-4 md:p-4"
                                 >
-                                  <span className="flex-shrink-0 text-3xl md:text-4xl">
+                                  <span className="flex-shrink-0 text-xl md:text-2xl">
                                     {strength.icon}
                                   </span>
                                   <div>
-                                    <div className="mb-1 text-xl font-bold text-green-800 md:text-2xl">
+                                    <div className="mb-0.5 text-sm font-bold text-green-800 md:text-base">
                                       {strength.name}
                                     </div>
-                                    <div className="text-lg text-green-700 md:text-xl">
+                                    <div className="text-xs text-green-700 md:text-sm">
                                       {strength.detail}
                                     </div>
                                   </div>
@@ -1010,27 +1010,27 @@ export default function OnboardingPage() {
                         )}
 
                         {improvements.length > 0 && (
-                          <div className="border-3 rounded-3xl border-orange-400 bg-gradient-to-br from-orange-50 to-yellow-50 p-6 shadow-xl md:p-10">
-                            <h4 className="mb-6 flex items-center text-3xl font-bold text-orange-800 md:mb-8 md:text-4xl">
-                              <span className="mr-3 text-4xl md:mr-4 md:text-5xl">
+                          <div className="rounded-2xl border-2 border-orange-400 bg-gradient-to-br from-orange-50 to-yellow-50 p-4 shadow-lg md:p-6">
+                            <h4 className="mb-4 flex items-center text-xl font-bold text-orange-800 md:mb-6 md:text-2xl">
+                              <span className="mr-2 text-2xl md:mr-3 md:text-3xl">
                                 🚀
                               </span>
                               Where You Can Improve
                             </h4>
-                            <div className="space-y-4 md:space-y-6">
+                            <div className="space-y-3 md:space-y-4">
                               {improvements.map((improvement, index) => (
                                 <div
                                   key={index}
-                                  className="flex items-center space-x-4 rounded-2xl border-2 border-orange-300 bg-white p-4 shadow-md transition-all hover:shadow-lg md:space-x-6 md:p-6"
+                                  className="flex items-center space-x-3 rounded-xl border-2 border-orange-300 bg-white p-3 shadow-sm transition-all hover:shadow-md md:space-x-4 md:p-4"
                                 >
-                                  <span className="flex-shrink-0 text-3xl md:text-4xl">
+                                  <span className="flex-shrink-0 text-xl md:text-2xl">
                                     {improvement.icon}
                                   </span>
                                   <div>
-                                    <div className="mb-1 text-xl font-bold text-orange-800 md:text-2xl">
+                                    <div className="mb-0.5 text-sm font-bold text-orange-800 md:text-base">
                                       {improvement.name}
                                     </div>
-                                    <div className="text-lg text-orange-700 md:text-xl">
+                                    <div className="text-xs text-orange-700 md:text-sm">
                                       {improvement.detail}
                                     </div>
                                   </div>
@@ -1045,12 +1045,12 @@ export default function OnboardingPage() {
                 </div>
 
                 {/* Enhanced Action Plan */}
-                <div className="space-y-10 rounded-3xl border-2 border-blue-200 bg-white p-10 shadow-xl">
+                <div className="space-y-6 rounded-2xl border-2 border-blue-200 bg-white p-6 shadow-lg">
                   <div className="text-center">
-                    <h3 className="mb-4 text-4xl font-bold text-gray-900 md:mb-6 md:text-5xl">
+                    <h3 className="mb-3 text-2xl font-bold text-gray-900 md:mb-4 md:text-3xl">
                       🎯 Your Simple Action Plan
                     </h3>
-                    <p className="mx-auto max-w-2xl text-xl font-medium text-gray-700 md:text-2xl">
+                    <p className="mx-auto max-w-2xl text-base font-medium text-gray-700 md:text-lg">
                       Follow these easy steps to improve your farm. Start with
                       Step 1!
                     </p>
@@ -1160,25 +1160,25 @@ export default function OnboardingPage() {
                     }
 
                     return (
-                      <div className="mx-auto max-w-4xl space-y-8">
+                      <div className="mx-auto max-w-3xl space-y-4">
                         {actionItems.slice(0, 3).map((item, index) => (
                           <div
                             key={index}
-                            className="rounded-2xl border-2 border-blue-100 bg-gradient-to-br from-white to-blue-50 p-4 shadow-lg transition-all duration-300 hover:shadow-xl md:p-6"
+                            className="rounded-xl border-2 border-blue-100 bg-gradient-to-br from-white to-blue-50 p-3 shadow-md transition-all duration-300 hover:shadow-lg md:p-4"
                           >
                             {/* Step Header */}
-                            <div className="mb-4 flex flex-col items-start justify-between space-y-3 sm:flex-row sm:space-y-0 md:mb-6">
-                              <div className="flex items-center space-x-3 md:space-x-4">
-                                <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#FF7F50] to-[#E6723C] text-lg font-bold text-white shadow-lg md:h-16 md:w-16 md:text-2xl">
+                            <div className="mb-3 flex flex-col items-start justify-between space-y-2 sm:flex-row sm:space-y-0 md:mb-4">
+                              <div className="flex items-center space-x-2 md:space-x-3">
+                                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#FF7F50] to-[#E6723C] text-sm font-bold text-white shadow-md md:h-10 md:w-10 md:text-base">
                                   {index + 1}
                                 </div>
                                 <div>
-                                  <h4 className="mb-2 text-xl font-bold text-gray-900 md:text-2xl">
+                                  <h4 className="mb-1 text-base font-bold text-gray-900 md:text-lg">
                                     {item.title}
                                   </h4>
-                                  <div className="flex flex-wrap items-center gap-2 text-sm">
+                                  <div className="flex flex-wrap items-center gap-1.5 text-xs">
                                     <span
-                                      className={`rounded-full px-3 py-1 font-medium ${
+                                      className={`rounded-full px-2 py-0.5 font-medium ${
                                         item.priority === "Urgent Focus"
                                           ? "bg-red-100 text-red-800"
                                           : item.priority === "Needs Work"
@@ -1190,52 +1190,52 @@ export default function OnboardingPage() {
                                     >
                                       {item.priority}
                                     </span>
-                                    <span className="rounded-full bg-gray-100 px-3 py-1 font-medium text-gray-700">
+                                    <span className="rounded-full bg-gray-100 px-2 py-0.5 font-medium text-gray-700">
                                       {item.timeframe}
                                     </span>
-                                    <span className="rounded-full bg-gray-100 px-3 py-1 font-medium text-gray-700">
+                                    <span className="rounded-full bg-gray-100 px-2 py-0.5 font-medium text-gray-700">
                                       {item.cost}
                                     </span>
                                   </div>
                                 </div>
                               </div>
-                              <div className="text-3xl md:text-4xl">
+                              <div className="text-xl md:text-2xl">
                                 {item.icon}
                               </div>
                             </div>
 
                             {/* Step Content */}
-                            <div className="space-y-4">
+                            <div className="space-y-2.5">
                               {/* Why Important */}
-                              <div className="flex items-start space-x-3 rounded-lg border border-blue-100 bg-white p-4">
-                                <div className="text-xl">💡</div>
+                              <div className="flex items-start space-x-2 rounded-lg border border-blue-100 bg-white p-3">
+                                <div className="text-base">💡</div>
                                 <div>
-                                  <div className="mb-1 font-semibold text-gray-900">
+                                  <div className="mb-0.5 text-sm font-semibold text-gray-900">
                                     Why it's important:
                                   </div>
-                                  <div className="leading-relaxed text-gray-700">
+                                  <div className="text-xs leading-relaxed text-gray-700 md:text-sm">
                                     {item.why}
                                   </div>
                                 </div>
                               </div>
 
                               {/* What to Do */}
-                              <div className="flex items-start space-x-3 rounded-lg border border-blue-100 bg-white p-4">
-                                <div className="text-xl">📋</div>
+                              <div className="flex items-start space-x-2 rounded-lg border border-blue-100 bg-white p-3">
+                                <div className="text-base">📋</div>
                                 <div className="flex-1">
-                                  <div className="mb-2 font-semibold text-gray-900">
+                                  <div className="mb-1 text-sm font-semibold text-gray-900">
                                     What to do:
                                   </div>
-                                  <ul className="space-y-1">
+                                  <ul className="space-y-0.5">
                                     {item.what.map((step, stepIndex) => (
                                       <li
                                         key={stepIndex}
-                                        className="flex items-start space-x-2"
+                                        className="flex items-start space-x-1.5"
                                       >
-                                        <span className="mt-1 text-[#3498DB]">
+                                        <span className="mt-0.5 text-xs text-[#3498DB]">
                                           •
                                         </span>
-                                        <span className="text-gray-700">
+                                        <span className="text-xs text-gray-700 md:text-sm">
                                           {step}
                                         </span>
                                       </li>
@@ -1244,22 +1244,22 @@ export default function OnboardingPage() {
                                 </div>
                               </div>
 
-                              {/* Likai Tip */}
-                              <div className="rounded-lg border border-orange-200 bg-gradient-to-r from-orange-50 to-yellow-50 p-4">
-                                <div className="flex items-start space-x-3">
-                                  <div className="text-xl">🎯</div>
+                              {/* LikAI Tip */}
+                              <div className="rounded-lg border border-orange-200 bg-gradient-to-r from-orange-50 to-yellow-50 p-3">
+                                <div className="flex items-start space-x-2">
+                                  <div className="text-base">🎯</div>
                                   <div className="flex-1">
-                                    <div className="mb-1 font-semibold text-orange-800">
+                                    <div className="mb-0.5 text-sm font-semibold text-orange-800">
                                       LikAI's Smart Tip:
                                     </div>
-                                    <div className="leading-relaxed text-orange-700">
+                                    <div className="text-xs leading-relaxed text-orange-700 md:text-sm">
                                       {item.tip}
                                     </div>
                                   </div>
                                   <Button
                                     variant="ghost"
                                     size="sm"
-                                    className="h-8 rounded-full border border-orange-300 px-3 text-xs font-medium text-orange-600 hover:bg-orange-100 hover:text-orange-800"
+                                    className="h-6 rounded-full border border-orange-300 px-2 text-xs font-medium text-orange-600 hover:bg-orange-100 hover:text-orange-800"
                                     onClick={() => {
                                       // This would open a visual guide/tutorial
                                       console.log(
@@ -1267,22 +1267,22 @@ export default function OnboardingPage() {
                                       );
                                     }}
                                   >
-                                    📸 See How
+                                    📸 See
                                   </Button>
                                 </div>
                               </div>
 
                               {/* Action Buttons */}
-                              <div className="flex flex-col space-y-2 pt-2 sm:flex-row sm:space-x-3 sm:space-y-0">
+                              <div className="flex flex-col space-y-1.5 pt-1.5 sm:flex-row sm:space-x-2 sm:space-y-0">
                                 <Button
                                   variant="outline"
-                                  className="h-12 flex-1 border-[#3498DB] text-sm font-medium text-[#3498DB] hover:bg-blue-50 md:text-base"
+                                  className="h-8 flex-1 border-[#3498DB] text-xs font-medium text-[#3498DB] hover:bg-blue-50 md:text-sm"
                                 >
                                   ✅ Mark Complete
                                 </Button>
                                 <Button
                                   variant="ghost"
-                                  className="h-12 px-6 text-sm font-medium text-gray-600 hover:bg-gray-50 md:text-base"
+                                  className="h-8 px-4 text-xs font-medium text-gray-600 hover:bg-gray-50 md:text-sm"
                                 >
                                   ❓ Get Help
                                 </Button>
@@ -1296,21 +1296,21 @@ export default function OnboardingPage() {
                 </div>
 
                 {/* Enhanced CTA Section */}
-                <div className="space-y-6 pt-6 text-center md:pt-8">
-                  <div className="rounded-2xl border border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 md:p-8">
-                    <h4 className="mb-4 text-xl font-bold text-gray-900 md:text-2xl">
+                <div className="space-y-4 pt-4 text-center md:pt-6">
+                  <div className="rounded-xl border border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 p-4 md:p-6">
+                    <h4 className="mb-3 text-lg font-bold text-gray-900 md:text-xl">
                       🚀 Ready to transform your farm?
                     </h4>
-                    <p className="mx-auto mb-6 max-w-2xl text-base text-gray-600 md:text-lg">
+                    <p className="mx-auto mb-4 max-w-2xl text-sm text-gray-600 md:text-base">
                       Your personalized plan is ready! Let's take you to your
                       dashboard where you can track progress, get AI coaching,
                       and watch your farm thrive.
                     </p>
                     <Button
                       onClick={handleNext}
-                      className="h-14 w-full transform rounded-xl bg-gradient-to-r from-[#FF7F50] to-[#E6723C] px-8 text-base font-semibold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-[#E6723C] hover:to-[#D35400] sm:w-auto md:h-16 md:px-12 md:text-lg"
+                      className="h-10 w-full transform rounded-lg bg-gradient-to-r from-[#FF7F50] to-[#E6723C] px-6 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:scale-105 hover:from-[#E6723C] hover:to-[#D35400] sm:w-auto md:h-12 md:px-8 md:text-base"
                     >
-                      Get Access <ArrowRight className="ml-3 h-5 w-5" />
+                      Get Access <ArrowRight className="ml-2 h-4 w-4" />
                     </Button>
                   </div>
                 </div>
