@@ -37,6 +37,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { X } from "lucide-react";
 
 // Types
 interface InvestmentInput {
@@ -77,6 +78,9 @@ export default function ResourceOptimizer() {
   const [investmentPlan, setInvestmentPlan] = useState<InvestmentPlan | null>(
     null
   );
+  const [showAddToPlanModal, setShowAddToPlanModal] = useState(false);
+  const [selectedUpgrades, setSelectedUpgrades] = useState<string[]>([]);
+  const [saveMessage, setSaveMessage] = useState<string | null>(null);
 
   // Budget options
   const budgetOptions = [
@@ -280,6 +284,42 @@ export default function ResourceOptimizer() {
     }).format(amount);
   };
 
+  // Save plan to localStorage (placeholder for real backend)
+  const handleSavePlan = () => {
+    const savedPlans = JSON.parse(
+      localStorage.getItem("savedInvestmentPlans") || "[]"
+    );
+    savedPlans.push({
+      input,
+      investmentPlan,
+      savedAt: new Date().toISOString(),
+    });
+    localStorage.setItem("savedInvestmentPlans", JSON.stringify(savedPlans));
+    setSaveMessage(
+      "Plan saved! You can view it in 'My Saved Investment Plans'."
+    );
+    setTimeout(() => setSaveMessage(null), 2500);
+  };
+
+  // Add to My GAqP Plan (placeholder: show modal/alert)
+  const handleAddToGAqPPlan = () => {
+    setShowAddToPlanModal(true);
+    setSelectedUpgrades(investmentPlan?.recommendations.map(r => r.id) || []);
+  };
+
+  const handleUpgradeToggle = (id: string, checked: boolean) => {
+    setSelectedUpgrades(prev =>
+      checked ? [...prev, id] : prev.filter(upg => upg !== id)
+    );
+  };
+
+  const handleConfirmAddToPlan = () => {
+    setShowAddToPlanModal(false);
+    alert(
+      `Added ${selectedUpgrades.length} upgrade(s) to your GAqP Plan! (Integrate with main checklist as needed)`
+    );
+  };
+
   if (viewState === "input") {
     return (
       <Card>
@@ -446,6 +486,23 @@ export default function ResourceOptimizer() {
 
     return (
       <div className="space-y-6">
+        {/* Top Action Bar */}
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex gap-2">
+            <Button variant="outline" onClick={resetForm} size="sm">
+              Adjust Inputs
+            </Button>
+            <Button variant="outline" onClick={handleSavePlan} size="sm">
+              Save This Plan
+            </Button>
+          </div>
+          {saveMessage && (
+            <span className="text-sm font-medium text-green-700">
+              {saveMessage}
+            </span>
+          )}
+        </div>
+
         {/* Header */}
         <Card>
           <CardHeader>
@@ -472,6 +529,114 @@ export default function ResourceOptimizer() {
 
           {investmentPlan.recommendations.map(recommendation => {
             const Icon = recommendation.icon;
+            // Enhanced card for Enhanced Disinfection Station
+            if (recommendation.id === "disinfection-station") {
+              return (
+                <Card
+                  key={recommendation.id}
+                  className="border-2 border-emerald-200 transition-shadow hover:shadow-md"
+                >
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-lg border border-emerald-200 bg-emerald-50 text-emerald-700">
+                        <Icon className="h-6 w-6" />
+                      </div>
+                      <div className="flex-1 space-y-3">
+                        <div>
+                          <h4 className="flex items-center gap-2 text-lg font-bold text-emerald-900">
+                            Enhanced Disinfection Station
+                            <Badge className="ml-2 border-emerald-200 bg-emerald-50 text-emerald-700">
+                              Farm Access Control
+                            </Badge>
+                          </h4>
+                        </div>
+                        <div className="flex gap-6">
+                          <div>
+                            <span className="text-sm text-gray-600">
+                              Estimated Cost
+                            </span>
+                            <p className="text-xl font-bold text-gray-900">
+                              {formatCurrency(recommendation.estimatedCost)}
+                            </p>
+                          </div>
+                          <div>
+                            <span className="text-sm text-gray-600">
+                              Projected ROI
+                            </span>
+                            <p className="text-xl font-bold text-green-600">
+                              {recommendation.projectedROI}%
+                            </p>
+                          </div>
+                        </div>
+                        <div className="border-l-4 border-emerald-400 bg-emerald-50 p-4">
+                          <div className="mb-1 font-semibold text-emerald-800">
+                            Why It's Important (GAqP Rationale):
+                          </div>
+                          <div className="text-sm text-gray-700">
+                            The GAqP manual requires disinfection points at all
+                            farm entrances. An effective disinfection station is
+                            a critical biosecurity barrier that kills pathogens
+                            on vehicles and equipment, preventing the
+                            introduction of devastating diseases that can wipe
+                            out your entire crop.
+                          </div>
+                        </div>
+                        <div className="rounded-lg border border-emerald-100 bg-emerald-50 p-3">
+                          <div className="mb-1 font-semibold text-emerald-800">
+                            Key Benefits & Possible Savings:
+                          </div>
+                          <ul className="list-disc space-y-1 pl-5 text-sm text-gray-700">
+                            <li>
+                              ✔️ Prevents Disease: Directly addresses the #1
+                              risk to your farm's success.
+                            </li>
+                            <li>
+                              ✔️ Reduces Treatment Costs: Avoids the need for
+                              expensive antibiotics and chemicals later.
+                            </li>
+                            <li>
+                              ✔️ Meets Certification Standards: A mandatory
+                              requirement for BFAR GAqP certification.
+                            </li>
+                          </ul>
+                        </div>
+                        <div className="text-sm font-medium text-gray-700">
+                          Projected Annual Savings:{" "}
+                          <span className="font-bold text-green-700">
+                            ~₱18,900
+                          </span>
+                        </div>
+                        <div className="flex items-start gap-2 rounded-lg border border-orange-200 bg-orange-50 p-3">
+                          <Lightbulb className="mt-0.5 h-4 w-4 flex-shrink-0 text-orange-600" />
+                          <div>
+                            <span className="text-xs font-semibold uppercase tracking-wide text-orange-800">
+                              LikAI Tip (Resource-Optimized)
+                            </span>
+                            <p className="mt-1 text-sm text-orange-700">
+                              {recommendation.likaiTip}
+                            </p>
+                          </div>
+                        </div>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="mt-3 border-blue-200 bg-blue-50 font-medium text-blue-700 hover:border-blue-300 hover:bg-blue-100"
+                          onClick={() =>
+                            (window.location.href =
+                              recommendation.knowledgeBaseLink)
+                          }
+                        >
+                          <FileText className="mr-2 h-4 w-4" />
+                          View How-To Guide
+                          <ArrowRight className="ml-1 h-3 w-3" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              );
+            }
+            // ...existing card for other recommendations...
             return (
               <Card
                 key={recommendation.id}
@@ -540,6 +705,10 @@ export default function ResourceOptimizer() {
                         variant="outline"
                         size="sm"
                         className="mt-3 border-blue-200 bg-blue-50 font-medium text-blue-700 hover:border-blue-300 hover:bg-blue-100"
+                        onClick={() =>
+                          (window.location.href =
+                            recommendation.knowledgeBaseLink)
+                        }
                       >
                         <FileText className="mr-2 h-4 w-4" />
                         View How-To Guide
@@ -587,11 +756,12 @@ export default function ResourceOptimizer() {
         {/* Action Buttons */}
         <div className="flex flex-col gap-3 sm:flex-row">
           <Button
-            className="flex-1 bg-orange-600 text-white hover:bg-orange-700"
+            className="flex-1 bg-green-700 text-white hover:bg-green-800"
             size="lg"
+            onClick={handleAddToGAqPPlan}
           >
             <CheckCircle className="mr-2 h-4 w-4" />
-            Implement This Plan
+            Add to My GAqP Plan
           </Button>
           <Button variant="outline" size="lg">
             <Download className="mr-2 h-4 w-4" />
@@ -601,6 +771,48 @@ export default function ResourceOptimizer() {
             Create New Plan
           </Button>
         </div>
+
+        {/* Add to Plan Modal (simple implementation) */}
+        {showAddToPlanModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+            <div className="relative w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+              <button
+                className="absolute right-2 top-2 text-gray-400 hover:text-gray-700"
+                onClick={() => setShowAddToPlanModal(false)}
+              >
+                <X className="h-5 w-5" />
+              </button>
+              <h3 className="mb-4 text-lg font-bold">
+                Select Upgrades to Add to Your GAqP Plan
+              </h3>
+              <div className="mb-4 space-y-3">
+                {investmentPlan.recommendations.map(rec => (
+                  <div key={rec.id} className="flex items-center gap-2">
+                    <Checkbox
+                      id={`add-upgrade-${rec.id}`}
+                      checked={selectedUpgrades.includes(rec.id)}
+                      onCheckedChange={checked =>
+                        handleUpgradeToggle(rec.id, checked as boolean)
+                      }
+                    />
+                    <label
+                      htmlFor={`add-upgrade-${rec.id}`}
+                      className="text-gray-800"
+                    >
+                      {rec.title}
+                    </label>
+                  </div>
+                ))}
+              </div>
+              <Button
+                className="w-full bg-green-700 text-white hover:bg-green-800"
+                onClick={handleConfirmAddToPlan}
+              >
+                Add Selected Upgrades
+              </Button>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
