@@ -167,7 +167,8 @@ export function DashboardOverview() {
       id: 1,
       type: "critical",
       title: "Pond Disinfection Overdue",
-      description: "Critical GAqP task: Complete pond disinfection checklist by tomorrow to maintain compliance standards.",
+      description:
+        "Critical GAqP task: Complete pond disinfection checklist by tomorrow to maintain compliance standards.",
       timestamp: "1 day overdue",
       href: "/plan?task=pond-disinfection",
       actionText: "Complete Now",
@@ -176,7 +177,8 @@ export function DashboardOverview() {
       id: 2,
       type: "positive",
       title: "Feed Management Module Completed",
-      description: "Congratulations! You've completed all core tasks in the Feed Management module. Your compliance score increased by 15%.",
+      description:
+        "Congratulations! You've completed all core tasks in the Feed Management module. Your compliance score increased by 15%.",
       timestamp: "2 hours ago",
       href: "/plan?module=feed-management&view=certificate",
       actionText: "View Certificate",
@@ -185,7 +187,8 @@ export function DashboardOverview() {
       id: 3,
       type: "opportunity",
       title: "Cost Savings Identified",
-      description: "Based on your feed optimization practices, you could save ₹12,000 monthly by implementing recommended feeding schedules.",
+      description:
+        "Based on your feed optimization practices, you could save ₹12,000 monthly by implementing recommended feeding schedules.",
       timestamp: "3 hours ago",
       href: "/plan?module=feed-management&view=savings",
       actionText: "View Details",
@@ -194,7 +197,8 @@ export function DashboardOverview() {
       id: 4,
       type: "info",
       title: "Phase 1 Nearing Completion",
-      description: "You're 85% through Phase 1 of your GAqP journey. Only 2 more tasks to complete this phase.",
+      description:
+        "You're 85% through Phase 1 of your GAqP journey. Only 2 more tasks to complete this phase.",
       timestamp: "1 day ago",
       href: "/progress",
       actionText: "View Progress",
@@ -474,7 +478,8 @@ export function DashboardOverview() {
             Action Hub
           </CardTitle>
           <CardDescription>
-            Priority tasks and progress summary for your GAqP certification journey
+            Priority tasks and progress summary for your GAqP certification
+            journey
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -602,7 +607,8 @@ export function DashboardOverview() {
               // Define card styling based on alert type
               const cardStyles = {
                 critical: {
-                  containerClass: "rounded-lg border-2 border-red-200 bg-white p-4 shadow-sm",
+                  containerClass:
+                    "rounded-lg border-2 border-red-200 bg-white p-4 shadow-sm",
                   iconBg: "bg-red-100 text-red-600",
                   icon: AlertTriangle,
                   buttonVariant: "default" as const,
@@ -612,7 +618,8 @@ export function DashboardOverview() {
                   timeClass: "text-gray-500",
                 },
                 warning: {
-                  containerClass: "rounded-lg border-2 border-orange-200 bg-white p-4 shadow-sm",
+                  containerClass:
+                    "rounded-lg border-2 border-orange-200 bg-white p-4 shadow-sm",
                   iconBg: "bg-orange-100 text-orange-600",
                   icon: CloudRain,
                   buttonVariant: "default" as const,
@@ -622,7 +629,8 @@ export function DashboardOverview() {
                   timeClass: "text-gray-500",
                 },
                 positive: {
-                  containerClass: "rounded-lg border-2 border-green-200 bg-white p-4 shadow-sm",
+                  containerClass:
+                    "rounded-lg border-2 border-green-200 bg-white p-4 shadow-sm",
                   iconBg: "bg-green-100 text-green-600",
                   icon: CheckCircle,
                   buttonVariant: "default" as const,
@@ -632,7 +640,8 @@ export function DashboardOverview() {
                   timeClass: "text-gray-500",
                 },
                 opportunity: {
-                  containerClass: "rounded-lg border-2 border-blue-200 bg-white p-4 shadow-sm",
+                  containerClass:
+                    "rounded-lg border-2 border-blue-200 bg-white p-4 shadow-sm",
                   iconBg: "bg-blue-100 text-blue-600",
                   icon: DollarSign,
                   buttonVariant: "default" as const,
@@ -642,7 +651,8 @@ export function DashboardOverview() {
                   timeClass: "text-gray-500",
                 },
                 info: {
-                  containerClass: "rounded-lg border-2 border-purple-200 bg-white p-4 shadow-sm",
+                  containerClass:
+                    "rounded-lg border-2 border-purple-200 bg-white p-4 shadow-sm",
                   iconBg: "bg-purple-100 text-purple-600",
                   icon: TrendingUp,
                   buttonVariant: "default" as const,
@@ -659,7 +669,9 @@ export function DashboardOverview() {
               return (
                 <div key={alert.id} className={style.containerClass}>
                   <div className="flex items-start space-x-3">
-                    <div className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${style.iconBg}`}>
+                    <div
+                      className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${style.iconBg}`}
+                    >
                       <IconComponent className="h-4 w-4" />
                     </div>
                     <div className="min-w-0 flex-1">
