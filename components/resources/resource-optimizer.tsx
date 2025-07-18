@@ -13,13 +13,13 @@ import {
   Loader2,
   Pencil,
   Shield,
+  Sparkles,
   Target,
   Timer,
   TrendingUp,
   UtensilsCrossed,
   Wallet,
   X,
-  Zap,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -129,7 +129,7 @@ export default function ResourceOptimizer() {
     {
       id: "infrastructure",
       label: "Infrastructure",
-      icon: Zap,
+      icon: Droplets,
       color: "text-cyan-600",
     },
   ];
@@ -207,7 +207,7 @@ export default function ResourceOptimizer() {
         benefit:
           "Protect your investment during power outages and severe weather events.",
         categoryColor: "bg-cyan-50 border-cyan-200 text-cyan-700",
-        icon: Zap,
+        icon: Droplets,
         knowledgeBaseLink: "/knowledge#emergency-response",
       },
     ];
@@ -501,12 +501,13 @@ export default function ResourceOptimizer() {
               Adjust Inputs
             </Button>
             <Button
-              onClick={handleSavePlan}
+              variant="outline"
+              onClick={resetForm}
               size="sm"
-              className="bg-orange-600 font-semibold text-white hover:bg-orange-700"
+              className="border-blue-400 text-blue-700 hover:bg-blue-50"
             >
-              <Bookmark className="mr-2 h-4 w-4" />
-              Save This Plan
+              <Sparkles className="mr-2 h-4 w-4" />
+              New Plan
             </Button>
           </div>
           {saveMessage && (
@@ -542,6 +543,21 @@ export default function ResourceOptimizer() {
 
           {investmentPlan.recommendations.map(recommendation => {
             const Icon = recommendation.icon;
+            const handleSaveRecommendation = () => {
+              const savedRecs = JSON.parse(
+                localStorage.getItem("savedRecommendations") || "[]"
+              );
+              savedRecs.push({
+                ...recommendation,
+                savedAt: new Date().toISOString(),
+              });
+              localStorage.setItem(
+                "savedRecommendations",
+                JSON.stringify(savedRecs)
+              );
+              setSaveMessage(`Saved '${recommendation.title}'!`);
+              setTimeout(() => setSaveMessage(null), 2000);
+            };
             // Enhanced card for Enhanced Disinfection Station
             if (recommendation.id === "disinfection-station") {
               return (
@@ -555,13 +571,23 @@ export default function ResourceOptimizer() {
                         <Icon className="h-6 w-6" />
                       </div>
                       <div className="flex-1 space-y-3">
-                        <div>
+                        <div className="flex items-center justify-between">
                           <h4 className="flex items-center gap-2 text-lg font-bold text-emerald-900">
                             Enhanced Disinfection Station
                             <Badge className="ml-2 border-emerald-200 bg-emerald-50 text-emerald-700">
                               Farm Access Control
                             </Badge>
                           </h4>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            aria-label="Save Recommendation"
+                            onClick={handleSaveRecommendation}
+                            className="p-0 text-orange-600 hover:bg-orange-100"
+                            style={{ minWidth: 44, minHeight: 44 }}
+                          >
+                            <Bookmark style={{ width: 36, height: 36 }} />
+                          </Button>
                         </div>
                         <div className="flex gap-6">
                           <div>
@@ -657,26 +683,32 @@ export default function ResourceOptimizer() {
               >
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
-                    {/* Icon */}
                     <div
                       className={`flex h-12 w-12 items-center justify-center rounded-lg border ${recommendation.categoryColor}`}
                     >
                       <Icon className="h-6 w-6" />
                     </div>
-
-                    {/* Content */}
                     <div className="flex-1 space-y-3">
-                      <div>
+                      <div className="flex items-center justify-between">
                         <h4 className="text-lg font-semibold text-gray-900">
                           {recommendation.title}
                         </h4>
-                        <Badge
-                          className={`mt-1 ${recommendation.categoryColor} border`}
+                        <Button
+                          variant="ghost"
+                          size="icon"
+                          aria-label="Save Recommendation"
+                          onClick={handleSaveRecommendation}
+                          className="p-0 text-orange-600 hover:bg-orange-100"
+                          style={{ minWidth: 44, minHeight: 44 }}
                         >
-                          {recommendation.category}
-                        </Badge>
+                          <Bookmark style={{ width: 36, height: 36 }} />
+                        </Button>
                       </div>
-
+                      <Badge
+                        className={`mt-1 ${recommendation.categoryColor} border`}
+                      >
+                        {recommendation.category}
+                      </Badge>
                       {/* LikAI Tip */}
                       <div className="flex items-start gap-2 rounded-lg border border-orange-200 bg-orange-50 p-3">
                         <Lightbulb className="mt-0.5 h-4 w-4 flex-shrink-0 text-orange-600" />
@@ -780,11 +812,7 @@ export default function ResourceOptimizer() {
             <Download className="mr-2 h-4 w-4" />
             Download Investment Report (PDF)
           </Button>
-          <Button variant="outline" onClick={resetForm} size="lg">
-            Create New Plan
-          </Button>
         </div>
-
         {/* Add to Plan Modal (simple implementation) */}
         {showAddToPlanModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">

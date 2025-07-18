@@ -498,16 +498,6 @@ export default function LandingPage() {
                     </div>
                   </div>
                 </figure>
-
-                {/* Floating AI Badge: Emphasizes AI-powered features */}
-                <div
-                  className="absolute -bottom-4 -left-4 z-20 flex h-12 w-12 -rotate-12 transform items-center justify-center rounded-lg bg-gradient-to-br from-[#3498DB] to-[#2980B9] shadow-lg"
-                  aria-label="AI Assistant Badge"
-                >
-                  <span className="font-bold text-white" aria-hidden="true">
-                    AI
-                  </span>
-                </div>
               </aside>
             </div>
           </div>
