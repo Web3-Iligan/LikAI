@@ -121,9 +121,56 @@ const getTaskHowToData = (taskId: string, taskCategory: string) => {
         {
           id: "step-4",
           title: "Compare to Standards",
-          description:
-            "Check if readings meet GAqP standards (DO > 5mg/L, pH 7.5-8.5).",
+          description: (
+            <span>
+              Check if readings meet GAqP standards (DO &gt; 5mg/L, pH 7.5-8.5).
+              <br />
+              <button
+                type="button"
+                className="ml-1 text-sm text-blue-600 underline hover:text-blue-800"
+                onClick={() =>
+                  window.dispatchEvent(
+                    new CustomEvent("open-ai-coach", {
+                      detail: {
+                        question:
+                          "My Dissolved Oxygen is below 5mg/L, what should I do?",
+                      },
+                    })
+                  )
+                }
+              >
+                What if my levels are low?
+              </button>
+            </span>
+          ),
           completed: false,
+          isInteractive: true,
+        },
+        // Add Save to Farm Records step
+        {
+          id: "step-5",
+          title: "Save to Farm Records",
+          description: (
+            <span>
+              Log your water quality readings in your farm records for GAqP
+              compliance.
+              <button
+                type="button"
+                className="ml-1 text-sm text-blue-600 underline hover:text-blue-800"
+                onClick={() =>
+                  window.dispatchEvent(
+                    new CustomEvent("open-farm-records", {
+                      detail: { section: "water-quality" },
+                    })
+                  )
+                }
+              >
+                Save to My Reports
+              </button>
+            </span>
+          ),
+          completed: false,
+          isRecord: true,
         },
       ],
       smartTip:
@@ -358,6 +405,17 @@ export function HowToGuideView({ task, onBack }: HowToGuideViewProps) {
   const progressPercentage =
     totalSteps > 0 ? Math.round((completedSteps / totalSteps) * 100) : 0;
 
+  // Contextual AI prompt examples for each task
+  const aiPromptExamples: { [key: string]: string } = {
+    "1": 'Ask about this task... (e.g., "Why is my water cloudy?" or "How do I calibrate my pH meter?")',
+    "5": 'Ask about this task... (e.g., "What kind of disinfectant is best for a footbath?")',
+    "4": 'Ask about this task... (e.g., "How do I repair a pond dyke?" or "What materials are best for sealing cracks?")',
+    default:
+      'Ask about this task... (e.g., "How do I comply with GAqP for this step?")',
+  };
+  const aiPromptPlaceholder =
+    aiPromptExamples[task.id] || aiPromptExamples.default;
+
   return (
     <div className="mx-auto max-w-4xl space-y-6 px-4 py-8">
       <Button
@@ -459,7 +517,10 @@ export function HowToGuideView({ task, onBack }: HowToGuideViewProps) {
                       checkedSteps[step.id] ? "text-gray-400" : "text-gray-600"
                     }`}
                   >
-                    {step.description}
+                    {/* Render interactive or normal description */}
+                    {typeof step.description === "string"
+                      ? step.description
+                      : step.description}
                   </p>
                 </div>
               </div>
@@ -590,7 +651,7 @@ export function HowToGuideView({ task, onBack }: HowToGuideViewProps) {
               <Input
                 value={inputMessage}
                 onChange={e => setInputMessage(e.target.value)}
-                placeholder="Ask about this task... (e.g., 'What kind of disinfectant is best for a footbath?')"
+                placeholder={aiPromptPlaceholder}
                 onKeyPress={e =>
                   e.key === "Enter" && handleSendMessage(inputMessage)
                 }
