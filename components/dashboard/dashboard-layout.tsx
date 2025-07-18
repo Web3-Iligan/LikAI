@@ -264,6 +264,19 @@ export function DashboardLayout({ children, pathname }: DashboardLayoutProps) {
           <div className="p-6">{children}</div>
         </main>
       </div>
+
+      {/* Floating AI Coach Button */}
+      <div className="fixed bottom-6 right-6 z-50">
+        <Link href="/coach">
+          <Button
+            size="lg"
+            className="h-14 w-14 rounded-full bg-gradient-to-r from-blue-500 to-indigo-600 shadow-lg transition-all duration-200 hover:scale-110 hover:shadow-xl"
+          >
+            <Zap className="h-6 w-6 text-white" />
+            <span className="sr-only">AI Coach</span>
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 }

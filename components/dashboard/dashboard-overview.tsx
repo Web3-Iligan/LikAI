@@ -437,188 +437,213 @@ export function DashboardOverview() {
         </CardContent>
       </Card>
 
-      {/* Next Actions and Alerts */}
-      <div className="grid gap-6 lg:grid-cols-2">
-        {/* Next Actions */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Target className="h-5 w-5 text-blue-600" />
-              Your Next Actions
-            </CardTitle>
-            <CardDescription>
-              Priority tasks to advance your GAqP certification journey
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {nextActions.slice(0, 2).map(action => (
-                <div
-                  key={action.id}
-                  className={`rounded-lg border-l-4 p-4 ${
-                    action.priority === "critical"
-                      ? "border-red-500 bg-red-50"
-                      : action.priority === "high"
-                        ? "border-orange-500 bg-orange-50"
-                        : "border-blue-500 bg-blue-50"
-                  }`}
-                >
-                  <div className="mb-2 flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <span
-                        className={`rounded-full px-2 py-1 text-xs font-medium text-white ${
-                          action.priority === "critical"
-                            ? "bg-red-500"
-                            : action.priority === "high"
-                              ? "bg-orange-500"
-                              : "bg-blue-500"
-                        }`}
-                      >
-                        {action.priority.toUpperCase()}
-                      </span>
-                      <Clock className="h-4 w-4 text-gray-400" />
-                      <span className="text-xs text-gray-500">
-                        {action.estimatedTime}
-                      </span>
-                    </div>
+      {/* Action Hub - Unified Next Actions & Progress */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Target className="h-5 w-5 text-blue-600" />
+            Your Next Actions
+          </CardTitle>
+          <CardDescription>
+            Priority tasks to advance your GAqP certification journey
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* Priority Actions */}
+          <div className="space-y-4">
+            {nextActions.slice(0, 2).map(action => (
+              <div
+                key={action.id}
+                className={`rounded-lg border-l-4 p-4 ${
+                  action.priority === "critical"
+                    ? "border-red-500 bg-red-50"
+                    : action.priority === "high"
+                      ? "border-orange-500 bg-orange-50"
+                      : "border-blue-500 bg-blue-50"
+                }`}
+              >
+                <div className="mb-2 flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
                     <span
-                      className={`rounded px-2 py-1 text-xs font-medium ${
-                        action.completed
-                          ? "bg-green-100 text-green-700"
-                          : action.status === "pending"
-                            ? "bg-orange-100 text-orange-700"
-                            : "bg-gray-100 text-gray-700"
+                      className={`rounded-full px-2 py-1 text-xs font-medium text-white ${
+                        action.priority === "critical"
+                          ? "bg-red-500"
+                          : action.priority === "high"
+                            ? "bg-orange-500"
+                            : "bg-blue-500"
                       }`}
                     >
-                      {action.completed ? "Completed" : action.status}
+                      {action.priority.toUpperCase()}
+                    </span>
+                    <Clock className="h-4 w-4 text-gray-400" />
+                    <span className="text-xs text-gray-500">
+                      {action.estimatedTime}
                     </span>
                   </div>
+                  <span
+                    className={`rounded px-2 py-1 text-xs font-medium ${
+                      action.completed
+                        ? "bg-green-100 text-green-700"
+                        : action.status === "pending"
+                          ? "bg-orange-100 text-orange-700"
+                          : "bg-gray-100 text-gray-700"
+                    }`}
+                  >
+                    {action.completed ? "Completed" : action.status}
+                  </span>
+                </div>
 
-                  <h4 className="mb-1 font-semibold text-gray-900">
-                    {action.title}
-                  </h4>
-                  <p className="mb-2 text-sm text-gray-700">
-                    {action.description}
-                  </p>
+                <h4 className="mb-1 font-semibold text-gray-900">
+                  {action.title}
+                </h4>
+                <p className="mb-2 text-sm text-gray-700">
+                  {action.description}
+                </p>
 
-                  {/* Module Context */}
-                  <p className="mb-3 text-xs text-gray-500">
-                    This action is part of your{" "}
-                    <span className="font-medium">{action.moduleName}</span>{" "}
-                    module
-                  </p>
+                {/* Module Context */}
+                <p className="mb-3 text-xs text-gray-500">
+                  This action is part of your{" "}
+                  <span className="font-medium">{action.moduleName}</span>{" "}
+                  module
+                </p>
 
-                  <div className="flex space-x-2">
-                    {!action.completed && (
-                      <Button
-                        onClick={() => handleCompleteAction(action.id)}
-                        size="sm"
-                        className="flex-1"
-                      >
-                        <CheckCircle className="mr-2 h-4 w-4" />
-                        Mark Complete
-                      </Button>
-                    )}
-                    <Button variant="outline" size="sm" asChild>
-                      <Link href={action.href}>Get How-To Guide</Link>
+                <div className="flex space-x-2">
+                  {!action.completed && (
+                    <Button
+                      onClick={() => handleCompleteAction(action.id)}
+                      size="sm"
+                      className="flex-1"
+                    >
+                      <CheckCircle className="mr-2 h-4 w-4" />
+                      Mark Complete
                     </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Journey Progress Summary */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Shield className="h-5 w-5 text-green-600" />
-              Your Journey Progress
-            </CardTitle>
-            <CardDescription>
-              Overall status of your GAqP certification journey
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {/* Overall Metrics */}
-              <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-                <div className="rounded-lg bg-blue-50 p-4 text-center">
-                  <div className="text-2xl font-bold text-blue-600">
-                    {overallProgress.totalSteps}
-                  </div>
-                  <div className="text-sm text-blue-700">Total GAqP Steps</div>
-                </div>
-                <div className="rounded-lg bg-green-50 p-4 text-center">
-                  <div className="flex items-center justify-center text-2xl font-bold text-green-600">
-                    <CheckCircle className="mr-1 h-5 w-5" />
-                    {overallProgress.completedSteps}
-                  </div>
-                  <div className="text-sm text-green-700">Completed Steps</div>
-                </div>
-                <div className="rounded-lg bg-red-50 p-4 text-center">
-                  <div className="flex items-center justify-center text-2xl font-bold text-red-600">
-                    <AlertTriangle className="mr-1 h-5 w-5" />
-                    {overallProgress.criticalSteps}
-                  </div>
-                  <div className="text-sm text-red-700">Critical Steps</div>
-                </div>
-                <div className="rounded-lg bg-gray-50 p-4 text-center">
-                  <div className="text-2xl font-bold text-gray-600">
-                    {overallProgress.pendingSteps}
-                  </div>
-                  <div className="text-sm text-gray-700">Pending Steps</div>
+                  )}
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href={action.href}>Get How-To Guide</Link>
+                  </Button>
                 </div>
               </div>
+            ))}
+          </div>
 
-              {/* Alerts */}
-              <div className="space-y-3">
-                <h4 className="font-medium text-gray-900">Recent Alerts</h4>
-                {alerts.map(alert => (
-                  <Link key={alert.id} href={alert.href} className="group">
-                    <div className="flex items-start space-x-3 rounded-lg border border-yellow-300 bg-yellow-50 p-3 transition-colors group-hover:bg-yellow-100">
-                      <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-yellow-500">
-                        <span className="text-xs font-bold text-white">!</span>
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <h5 className="font-medium text-yellow-800 group-hover:text-yellow-900">
-                          {alert.title}
-                        </h5>
-                        <p className="mt-1 text-sm text-yellow-700">
-                          {alert.description}
-                        </p>
-                        <p className="mt-2 text-xs text-yellow-600">
-                          {alert.timestamp}
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+          {/* Integrated Progress Metrics */}
+          <div className="border-t pt-4">
+            <h4 className="mb-3 text-sm font-semibold text-gray-700">
+              Journey Progress Summary
+            </h4>
+            <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+              <div className="rounded-lg bg-blue-50 p-3 text-center">
+                <div className="text-lg font-bold text-blue-600">
+                  {overallProgress.totalSteps}
+                </div>
+                <div className="text-xs text-blue-700">Total Steps</div>
+              </div>
+              <div className="rounded-lg bg-green-50 p-3 text-center">
+                <div className="flex items-center justify-center text-lg font-bold text-green-600">
+                  <CheckCircle className="mr-1 h-4 w-4" />
+                  {overallProgress.completedSteps}
+                </div>
+                <div className="text-xs text-green-700">Completed</div>
+              </div>
+              <div className="rounded-lg bg-red-50 p-3 text-center">
+                <div className="flex items-center justify-center text-lg font-bold text-red-600">
+                  <AlertTriangle className="mr-1 h-4 w-4" />
+                  {overallProgress.criticalSteps}
+                </div>
+                <div className="text-xs text-red-700">Critical</div>
+              </div>
+              <div className="rounded-lg bg-gray-50 p-3 text-center">
+                <div className="text-lg font-bold text-gray-600">
+                  {overallProgress.pendingSteps}
+                </div>
+                <div className="text-xs text-gray-700">Pending</div>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
-                {/* Financial Impact */}
-                <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
-                  <div className="mb-2 flex items-center space-x-2">
-                    <Wallet className="h-5 w-5 text-blue-600" />
-                    <h5 className="font-medium text-blue-800">
-                      Certification Benefits
-                    </h5>
+      {/* Alerts & Key Insights */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <AlertTriangle className="h-5 w-5 text-orange-600" />
+            Farm Updates & Opportunities
+          </CardTitle>
+          <CardDescription>
+            Critical alerts and key insights for your farm operations
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {/* Critical Alerts */}
+            {alerts.map(alert => (
+              <div
+                key={alert.id}
+                className="rounded-lg border-2 border-red-200 bg-red-50 p-4"
+              >
+                <div className="flex items-start space-x-3">
+                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-red-500">
+                    <AlertTriangle className="h-4 w-4 text-white" />
                   </div>
-                  <p className="mb-1 text-sm text-blue-700">
-                    Projected savings from GAqP compliance
+                  <div className="min-w-0 flex-1">
+                    <h4 className="font-semibold text-red-900">
+                      {alert.title}
+                    </h4>
+                    <p className="mt-1 text-sm text-red-800">
+                      {alert.description}
+                    </p>
+                    <p className="mt-2 text-xs text-red-700">
+                      {alert.timestamp}
+                    </p>
+                  </div>
+                  <Button size="sm" variant="destructive" asChild>
+                    <Link href={alert.href}>Action Now</Link>
+                  </Button>
+                </div>
+              </div>
+            ))}
+
+            {/* Savings Opportunity */}
+            <div className="rounded-lg border-2 border-green-200 bg-green-50 p-4">
+              <div className="flex items-start space-x-3">
+                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-500">
+                  <Wallet className="h-4 w-4 text-white" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <h4 className="font-semibold text-green-900">
+                    Your Savings Opportunity
+                  </h4>
+                  <p className="mt-1 text-sm text-green-800">
+                    Projected savings from GAqP compliance this cycle
                   </p>
-                  <p className="text-xl font-bold text-blue-600">
-                    ₱12,500 this cycle
+                  <p className="mt-2 text-2xl font-bold text-green-700">
+                    ₱12,500
                   </p>
-                  <p className="mt-1 text-xs text-blue-600">
+                  <p className="text-xs text-green-600">
                     Based on reduced mortality and feed efficiency
                   </p>
                 </div>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="border-green-300 text-green-700 hover:bg-green-100"
+                  asChild
+                >
+                  <Link href="/resources">View Details</Link>
+                </Button>
               </div>
             </div>
-          </CardContent>
-        </Card>
-      </div>
+
+            {/* View All Button */}
+            <div className="flex justify-center pt-2">
+              <Button variant="outline" size="sm" asChild>
+                <Link href="/reports">View All Alerts & Insights</Link>
+              </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 }
