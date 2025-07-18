@@ -9,15 +9,14 @@ import {
   Droplets,
   FileText,
   Filter,
+  HeartHandshake,
   Lightbulb,
-  Microscope,
   Play,
   Search,
   Shield,
+  Stethoscope,
   Tag,
   Tractor,
-  Truck,
-  UtensilsCrossed,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -67,52 +66,44 @@ export default function KnowledgeBasePage() {
 
   const categories: Category[] = [
     {
-      id: "pond-water",
-      name: "Pond & Water Care",
-      description: "Water quality management and pond maintenance",
-      icon: Droplets,
+      id: "farm-setup-basics",
+      name: "Farm Setup Basics",
+      description: "Essential foundation for your aquaculture operation",
+      icon: Tractor,
       color: "bg-blue-50 border-blue-200 text-blue-700",
       count: 8,
     },
     {
-      id: "biosecurity",
-      name: "Farm Access & Biosecurity",
-      description: "Disease prevention and farm security protocols",
-      icon: Shield,
-      color: "bg-emerald-50 border-emerald-200 text-emerald-700",
+      id: "pond-water-care",
+      name: "Pond & Water Care",
+      description: "Optimal water quality and pond management",
+      icon: Droplets,
+      color: "bg-green-50 border-green-200 text-green-700",
+      count: 10,
+    },
+    {
+      id: "healthy-stock-sourcing",
+      name: "Healthy Stock Sourcing",
+      description: "Quality fingerlings and stocking practices",
+      icon: HeartHandshake,
+      color: "bg-orange-50 border-orange-200 text-orange-700",
       count: 6,
     },
     {
-      id: "shrimp-health",
-      name: "Shrimp Health & Disease",
-      description: "Health monitoring and disease management",
-      icon: Microscope,
-      color: "bg-violet-50 border-violet-200 text-violet-700",
-      count: 5,
-    },
-    {
-      id: "feeds",
-      name: "Feeds & Feeding",
-      description: "Feeding schedules and nutrition management",
-      icon: UtensilsCrossed,
-      color: "bg-amber-50 border-amber-200 text-amber-700",
-      count: 4,
-    },
-    {
-      id: "farm-management",
-      name: "Farm Management Basics",
-      description: "Daily operations and best practices",
-      icon: Tractor,
-      color: "bg-cyan-50 border-cyan-200 text-cyan-700",
+      id: "farm-access-control",
+      name: "Farm Access Control",
+      description: "Biosecurity protocols and visitor management",
+      icon: Shield,
+      color: "bg-purple-50 border-purple-200 text-purple-700",
       count: 7,
     },
     {
-      id: "harvest",
-      name: "Harvest & Transport",
-      description: "Harvesting techniques and transportation",
-      icon: Truck,
-      color: "bg-rose-50 border-rose-200 text-rose-700",
-      count: 3,
+      id: "disease-readiness",
+      name: "Disease Readiness",
+      description: "Prevention, monitoring, and response protocols",
+      icon: Stethoscope,
+      color: "bg-red-50 border-red-200 text-red-700",
+      count: 9,
     },
   ];
 
@@ -131,15 +122,15 @@ export default function KnowledgeBasePage() {
       description: "Essential biosecurity practices for healthy shrimp",
       duration: "Quick ref",
       type: "quickref",
-      category: "Shrimp Health & Disease",
+      category: "Disease Readiness",
     },
     {
-      id: "feeding-schedule",
-      title: "Optimal Feeding Schedule Setup",
-      description: "How to create efficient feeding routines",
-      duration: "3 min read",
+      id: "stock-sourcing",
+      title: "Healthy Stock Sourcing Guide",
+      description: "How to select and source quality fingerlings",
+      duration: "6 min read",
       type: "guide",
-      category: "Feeds & Feeding",
+      category: "Healthy Stock Sourcing",
     },
     {
       id: "pond-preparation",
@@ -147,7 +138,7 @@ export default function KnowledgeBasePage() {
       description: "Complete preparation guide with video walkthrough",
       duration: "8 min video",
       type: "video",
-      category: "Farm Management Basics",
+      category: "Farm Setup Basics",
     },
   ];
 
@@ -200,7 +191,7 @@ export default function KnowledgeBasePage() {
       title: "Essential Biosecurity Protocols for Shrimp Farms",
       description:
         "Key practices to prevent disease introduction and spread on your farm.",
-      category: "Farm Access & Biosecurity",
+      category: "Farm Access Control",
       tags: ["disease prevention", "farm management", "protocols"],
       duration: "6 min read",
       type: "guide",
@@ -254,8 +245,8 @@ export default function KnowledgeBasePage() {
       title: "Cost-Effective Feed Management Strategies",
       description:
         "Optimize feeding practices to reduce costs and improve FCR.",
-      category: "Feeds & Feeding",
-      tags: ["feed", "cost saving", "FCR"],
+      category: "Pond & Water Care",
+      tags: ["feed", "cost saving", "FCR", "water quality"],
       duration: "4 min read",
       type: "guide",
       content: `
@@ -295,7 +286,7 @@ export default function KnowledgeBasePage() {
       title: "Recognizing Early Signs of Disease in Shrimp",
       description:
         "Visual and behavioral indicators of common shrimp diseases.",
-      category: "Shrimp Health & Disease",
+      category: "Disease Readiness",
       tags: ["disease detection", "shrimp health", "symptoms"],
       duration: "Quick ref",
       type: "quickref",
@@ -335,7 +326,7 @@ export default function KnowledgeBasePage() {
       title: "Implementing a Visitor Disinfection Station",
       description:
         "Step-by-step guide to setting up an effective footbath and vehicle disinfection point.",
-      category: "Farm Access & Biosecurity",
+      category: "Farm Access Control",
       tags: ["access control", "disinfection", "footbath"],
       duration: "7 min read",
       type: "guide",
@@ -383,7 +374,7 @@ export default function KnowledgeBasePage() {
       title: "Emergency Response Plan for Typhoon Season",
       description:
         "Prepare your farm for extreme weather events to minimize damage and losses.",
-      category: "Farm Management Basics",
+      category: "Farm Setup Basics",
       tags: ["weather", "emergency", "typhoon", "disaster preparedness"],
       duration: "10 min read",
       type: "guide",
@@ -416,6 +407,53 @@ export default function KnowledgeBasePage() {
           <li><strong>Repair & Recovery:</strong> Begin repairs to infrastructure and restore normal operations.</li>
         </ul>
         <p class="text-sm text-gray-600 italic">Having a well-rehearsed emergency plan can significantly reduce the impact of natural disasters on your farm. Regularly review and update your plan.</p>
+      `,
+    },
+    {
+      id: "7",
+      title: "Selecting Quality Post-Larvae (PLs)",
+      description:
+        "Essential guidelines for sourcing healthy, disease-free shrimp stock.",
+      category: "Healthy Stock Sourcing",
+      tags: ["PLs", "stock quality", "disease-free", "sourcing"],
+      duration: "5 min read",
+      type: "guide",
+      content: `
+        <h3 class="text-xl font-semibold mb-3 flex items-center gap-2"><HeartHandshake class="h-5 w-5 text-orange-600" /> Quality Stock Selection</h3>
+        <p class="mb-4">Sourcing healthy, high-quality post-larvae (PLs) is crucial for successful shrimp farming. Quality stock reduces disease risks and improves survival rates.</p>
+
+        <h4 class="text-lg font-semibold mb-2">1. Choose Certified Suppliers</h4>
+        <ul class="list-disc list-inside ml-4 mb-4">
+          <li>Select suppliers with BFAR certification or equivalent quality standards</li>
+          <li>Verify the supplier's health management protocols</li>
+          <li>Request health certificates and SPF (Specific Pathogen Free) documentation</li>
+          <li>Visit the hatchery to assess facilities and practices</li>
+        </ul>
+
+        <h4 class="text-lg font-semibold mb-2">2. Visual Quality Assessment</h4>
+        <ul class="list-disc list-inside ml-4 mb-4">
+          <li><strong>Active Swimming:</strong> PLs should be actively swimming and responsive</li>
+          <li><strong>Clear Body:</strong> Transparent body with visible internal organs</li>
+          <li><strong>Normal Color:</strong> No unusual discoloration or spots</li>
+          <li><strong>Full Gut:</strong> Visible gut contents indicating active feeding</li>
+          <li><strong>Complete Appendages:</strong> All antennae, eyes, and swimmerets intact</li>
+        </ul>
+
+        <h4 class="text-lg font-semibold mb-2">3. Size and Age Considerations</h4>
+        <ul class="list-disc list-inside ml-4 mb-4">
+          <li>Stock PL12-PL15 age for optimal adaptation to pond conditions</li>
+          <li>Ensure uniform size distribution (8-12mm)</li>
+          <li>Avoid stressed or smaller PLs that may indicate poor rearing conditions</li>
+        </ul>
+
+        <h4 class="text-lg font-semibold mb-2">4. Transportation and Acclimation</h4>
+        <ul class="list-disc list-inside ml-4 mb-4">
+          <li>Transport during cooler hours to reduce stress</li>
+          <li>Gradually acclimate PLs to pond water temperature and salinity</li>
+          <li>Use proper oxygen levels during transport</li>
+          <li>Stock immediately after proper acclimation</li>
+        </ul>
+        <p class="text-sm text-gray-600 italic">For specific supplier recommendations in your area, consult your local BFAR office or AI Coach.</p>
       `,
     },
   ];
@@ -453,16 +491,14 @@ export default function KnowledgeBasePage() {
     const colorMap: { [key: string]: string } = {
       "bg-blue-50 border-blue-200 text-blue-700":
         "bg-blue-100 text-blue-800 border-blue-300",
-      "bg-emerald-50 border-emerald-200 text-emerald-700":
-        "bg-emerald-100 text-emerald-800 border-emerald-300",
-      "bg-violet-50 border-violet-200 text-violet-700":
-        "bg-violet-100 text-violet-800 border-violet-300",
-      "bg-amber-50 border-amber-200 text-amber-700":
-        "bg-amber-100 text-amber-800 border-amber-300",
-      "bg-cyan-50 border-cyan-200 text-cyan-700":
-        "bg-cyan-100 text-cyan-800 border-cyan-300",
-      "bg-rose-50 border-rose-200 text-rose-700":
-        "bg-rose-100 text-rose-800 border-rose-300",
+      "bg-green-50 border-green-200 text-green-700":
+        "bg-green-100 text-green-800 border-green-300",
+      "bg-orange-50 border-orange-200 text-orange-700":
+        "bg-orange-100 text-orange-800 border-orange-300",
+      "bg-purple-50 border-purple-200 text-purple-700":
+        "bg-purple-100 text-purple-800 border-purple-300",
+      "bg-red-50 border-red-200 text-red-700":
+        "bg-red-100 text-red-800 border-red-300",
     };
 
     return (
