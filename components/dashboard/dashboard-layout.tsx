@@ -6,7 +6,6 @@ import React from "react";
 import {
   Bell,
   BookOpen,
-  ClipboardList,
   DollarSign,
   FileText,
   LayoutDashboard,
@@ -47,11 +46,6 @@ const navigationItems: NavigationItem[] = [
     title: "My Journey",
     href: "/dashboard",
     icon: LayoutDashboard,
-  },
-  {
-    title: "Farm Check-up",
-    href: "/assessment",
-    icon: ClipboardList,
   },
   {
     title: "My GAqP Plan",
