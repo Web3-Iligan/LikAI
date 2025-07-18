@@ -2,6 +2,7 @@
 
 import {
   ArrowRight,
+  Bookmark,
   Calculator,
   CheckCircle,
   Clock,
@@ -10,12 +11,14 @@ import {
   FileText,
   Lightbulb,
   Loader2,
+  Pencil,
   Shield,
   Target,
   Timer,
   TrendingUp,
   UtensilsCrossed,
   Wallet,
+  X,
   Zap,
 } from "lucide-react";
 import { useState } from "react";
@@ -37,7 +40,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { X } from "lucide-react";
 
 // Types
 interface InvestmentInput {
@@ -489,10 +491,21 @@ export default function ResourceOptimizer() {
         {/* Top Action Bar */}
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex gap-2">
-            <Button variant="outline" onClick={resetForm} size="sm">
+            <Button
+              variant="outline"
+              onClick={resetForm}
+              size="sm"
+              className="border-orange-600 text-orange-700 hover:bg-orange-50"
+            >
+              <Pencil className="mr-2 h-4 w-4" />
               Adjust Inputs
             </Button>
-            <Button variant="outline" onClick={handleSavePlan} size="sm">
+            <Button
+              onClick={handleSavePlan}
+              size="sm"
+              className="bg-orange-600 font-semibold text-white hover:bg-orange-700"
+            >
+              <Bookmark className="mr-2 h-4 w-4" />
               Save This Plan
             </Button>
           </div>
