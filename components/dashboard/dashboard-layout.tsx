@@ -51,8 +51,8 @@ const navigationItems: NavigationItem[] = [
     title: "My GAqP Plan",
     href: "/plan",
     icon: ListChecks,
-    badge: "3",
-    badgeVariant: "destructive",
+    // badge: "3",
+    // badgeVariant: "destructive",
   },
   {
     title: "Budget Guide",

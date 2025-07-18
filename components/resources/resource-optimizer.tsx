@@ -386,13 +386,13 @@ export default function ResourceOptimizer() {
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-xl font-bold lg:text-2xl">
-            <Calculator className="h-6 w-6 text-orange-600" />
-            Plan Your Farm Upgrades: Smart Investment
+            ✅ Unlock Key Benefits with a Smart Investment Plan
           </CardTitle>
           <CardDescription className="text-base">
-            Tell us your budget and timeline, and LikAI's AI will suggest the
-            best biosecurity upgrades for your farm, showing you how much you
-            can save!
+            Get a personalized plan showing which upgrades offer the most
+            powerful benefits. We'll focus on investments that prevent costly
+            diseases, improve efficiency, and help you meet BFAR certification
+            standards.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
