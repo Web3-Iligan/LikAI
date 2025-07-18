@@ -602,8 +602,17 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                       {module.description}
                     </p>
                     {module.id !== "all" && (
-                      <div className="mt-3 flex items-center gap-3">
-                        <div className="h-2 flex-1 overflow-hidden rounded-full bg-gray-200">
+                      <div className="mt-3 space-y-2">
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-gray-600">
+                            {moduleProgress.completed} of {moduleProgress.total}{" "}
+                            steps
+                          </span>
+                          <span className="font-semibold text-gray-700">
+                            {moduleProgress.percentage}%
+                          </span>
+                        </div>
+                        <div className="h-2 overflow-hidden rounded-full bg-gray-200">
                           <div
                             className={`h-full transition-all duration-300 ${
                               isSelected
@@ -623,9 +632,37 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                             style={{ width: `${moduleProgress.percentage}%` }}
                           />
                         </div>
-                        <span className="text-sm font-semibold text-gray-700">
-                          {moduleProgress.percentage}%
-                        </span>
+                      </div>
+                    )}
+                    {module.id === "all" && (
+                      <div className="mt-3 space-y-2">
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-gray-600">
+                            {
+                              currentTasks.filter(t => t.status === "completed")
+                                .length
+                            }{" "}
+                            of {currentTasks.length} steps
+                          </span>
+                          <span className="font-semibold text-gray-700">
+                            {Math.round(
+                              (currentTasks.filter(
+                                t => t.status === "completed"
+                              ).length /
+                                currentTasks.length) *
+                                100
+                            )}
+                            %
+                          </span>
+                        </div>
+                        <div className="h-2 overflow-hidden rounded-full bg-gray-200">
+                          <div
+                            className="h-full bg-gradient-to-r from-blue-500 via-cyan-500 to-green-500 transition-all duration-300"
+                            style={{
+                              width: `${Math.round((currentTasks.filter(t => t.status === "completed").length / currentTasks.length) * 100)}%`,
+                            }}
+                          />
+                        </div>
                       </div>
                     )}
                   </div>
