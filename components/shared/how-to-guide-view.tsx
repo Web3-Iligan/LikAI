@@ -190,7 +190,7 @@ export function HowToGuideView({ task, onBack }: HowToGuideViewProps) {
         onClick={onBack}
         className="flex items-center gap-2 bg-transparent"
       >
-        <ArrowLeft className="h-4 w-4" /> Back to Dynamic Plan
+        <ArrowLeft className="h-4 w-4" /> Back to My GAqP Plan
       </Button>
 
       <Card>

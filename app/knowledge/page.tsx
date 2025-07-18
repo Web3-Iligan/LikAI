@@ -192,7 +192,7 @@ export default function KnowledgeBasePage() {
   <li>Keep detailed records of your readings to identify trends and potential issues early.</li>
   <li>Adjust feeding rates and aeration based on water quality results.</li>
 </ul>
-<p class="text-sm text-gray-600 italic">For more detailed guidance, consult your LikAI Coach or refer to the "Water Management" section in your Dynamic Plan.</p>
+<p class="text-sm text-gray-600 italic">For more detailed guidance, consult your LikAI Coach or refer to the "Water Management" section in your My GAqP Plan.</p>
 `,
     },
     {
@@ -246,7 +246,7 @@ export default function KnowledgeBasePage() {
           <li>Provide handwashing stations and enforce personal hygiene.</li>
           <li>Conduct regular biosecurity training for all farm personnel.</li>
         </ul>
-        <p class="text-sm text-gray-600 italic">For tailored recommendations, check your Dynamic Plan or consult the AI Coach.</p>
+        <p class="text-sm text-gray-600 italic">For tailored recommendations, check your My GAqP Plan or consult the AI Coach.</p>
       `,
     },
     {

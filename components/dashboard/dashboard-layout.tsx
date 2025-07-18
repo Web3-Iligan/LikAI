@@ -45,17 +45,17 @@ interface DashboardLayoutProps {
 
 const navigationItems: NavigationItem[] = [
   {
-    title: "Dashboard",
+    title: "My Journey",
     href: "/dashboard",
     icon: LayoutDashboard,
   },
   {
-    title: "Farm Assessment",
+    title: "Farm Check-up",
     href: "/assessment",
     icon: ClipboardList,
   },
   {
-    title: "Dynamic Plan",
+    title: "My GAqP Plan",
     href: "/plan",
     icon: ListChecks,
     badge: "3",
@@ -69,17 +69,17 @@ const navigationItems: NavigationItem[] = [
     badgeVariant: "default",
   },
   {
-    title: "Resource Optimizer",
+    title: "Budget Guide",
     href: "/resources",
     icon: DollarSign,
   },
   {
-    title: "Knowledge Base",
+    title: "Learning Center",
     href: "/knowledge",
     icon: BookOpen,
   },
   {
-    title: "Reports",
+    title: "My Reports",
     href: "/reports",
     icon: FileText,
   },

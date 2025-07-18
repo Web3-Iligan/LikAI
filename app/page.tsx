@@ -1532,7 +1532,7 @@ export default function LandingPage() {
                     <div className="flex items-start space-x-3">
                       <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#FF7F50]" />
                       <span className="text-sm text-gray-700">
-                        Dynamic, adaptive biosecurity plans
+                        Adaptive biosecurity plans (GAqP)
                       </span>
                     </div>
                     <div className="flex items-start space-x-3">
@@ -1743,7 +1743,7 @@ export default function LandingPage() {
                             <div className="border-t border-gray-100 px-4 pb-4">
                               <p className="pt-3 text-sm leading-relaxed text-gray-600">
                                 The AI provides instant recommendations, and our
-                                dynamic action plans can help optimize your
+                                GAqP action plans can help optimize your
                                 operations from day one.
                               </p>
                             </div>

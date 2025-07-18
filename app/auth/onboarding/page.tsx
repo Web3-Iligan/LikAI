@@ -2029,7 +2029,7 @@ export default function OnboardingPage() {
                           Ready to unlock your farm's full potential?
                         </h4>
                         <p className="text-sm leading-6 text-gray-600">
-                          Upgrade to our Business Plan: Dynamic plans, unlimited
+                          Upgrade to our Business Plan: My GAqP Plans, unlimited
                           AI coaching, and smart investment guidance!
                         </p>
                         <Button

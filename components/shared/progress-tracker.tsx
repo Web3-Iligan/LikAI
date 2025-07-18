@@ -37,7 +37,7 @@ export function ProgressTracker({ farmProfile }: ProgressTrackerProps) {
           Plan Progress Overview
         </CardTitle>
         <CardDescription>
-          Track completion of your dynamic biosecurity & GAqP action plan tasks
+          Track completion of your GAqP action plan tasks
         </CardDescription>
       </CardHeader>
 
