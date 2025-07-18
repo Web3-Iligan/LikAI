@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "canisters/api"
+]
+resolver = "2"
