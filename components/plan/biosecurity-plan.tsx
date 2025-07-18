@@ -9,8 +9,6 @@ import {
   AlertTriangle,
   Building,
   CheckCircle,
-  ChevronDown,
-  ChevronRight,
   Clock,
   Droplets,
   Filter,
@@ -155,64 +153,6 @@ const biosecurityPhases = [
   },
 ];
 
-// Related guides data for each aspect
-const relatedGuides = {
-  "Pond & Water Care": [
-    { title: "Daily Water Quality Testing", type: "video", duration: "5 min" },
-    { title: "Pond Aeration Best Practices", type: "guide", duration: "8 min" },
-    { title: "pH Management Guide", type: "quick-ref", duration: "3 min" },
-  ],
-  "Farm Access Control": [
-    {
-      title: "Setting Up Disinfection Stations",
-      type: "video",
-      duration: "6 min",
-    },
-    { title: "Visitor Protocol Checklist", type: "guide", duration: "4 min" },
-    { title: "Quarantine Procedures", type: "quick-ref", duration: "5 min" },
-  ],
-  "Stock Sourcing": [
-    {
-      title: "BFAR-Accredited Hatchery List",
-      type: "quick-ref",
-      duration: "2 min",
-    },
-    {
-      title: "Post-Larval Acclimation Process",
-      type: "video",
-      duration: "10 min",
-    },
-    { title: "Health Inspection Checklist", type: "guide", duration: "7 min" },
-  ],
-  "Feed Management": [
-    { title: "Feed Storage Best Practices", type: "guide", duration: "6 min" },
-    {
-      title: "Feeding Schedule Optimization",
-      type: "video",
-      duration: "8 min",
-    },
-    { title: "Feed Quality Inspection", type: "quick-ref", duration: "4 min" },
-  ],
-  "Infrastructure & Equipment": [
-    { title: "Equipment Calibration Guide", type: "guide", duration: "10 min" },
-    {
-      title: "Pond Infrastructure Inspection",
-      type: "video",
-      duration: "12 min",
-    },
-    {
-      title: "Maintenance Schedule Template",
-      type: "quick-ref",
-      duration: "3 min",
-    },
-  ],
-  "Waste Management": [
-    { title: "Sludge Removal Procedures", type: "video", duration: "9 min" },
-    { title: "Composting Guidelines", type: "guide", duration: "8 min" },
-    { title: "Environmental Compliance", type: "quick-ref", duration: "5 min" },
-  ],
-};
-
 interface BiosecurityTask {
   id: string;
   title: string;
@@ -243,10 +183,8 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
 
   // Module selection state
   const [selectedModule, setSelectedModule] = useState<string>("all");
-  const [showRelatedGuides, setShowRelatedGuides] = useState(false);
 
-  // Phase state - Auto-expand current phase
-  const [expandedPhase, setExpandedPhase] = useState<number | null>(null);
+  // View mode state
   const [viewMode, setViewMode] = useState<"phases" | "all">("phases");
 
   // Pagination state
@@ -358,7 +296,6 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
     const moduleParam = searchParams.get("module");
     if (moduleParam && gaqpModules.some(m => m.id === moduleParam)) {
       setSelectedModule(moduleParam);
-      setShowRelatedGuides(true);
     }
 
     // Legacy support for aspect parameter
@@ -375,7 +312,6 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
       };
       const mappedModule = moduleMapping[aspectParam] || "all";
       setSelectedModule(mappedModule);
-      setShowRelatedGuides(true);
     }
 
     const storedPlan = localStorage.getItem("aiGeneratedPlan");
@@ -600,12 +536,12 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
           </div>
         </div>
 
-        {/* Module Selector */}
+        {/* Focus Your Plan - Vertical Module Navigator */}
         <div className="mb-8">
-          <h2 className="mb-4 text-lg font-semibold text-gray-800">
-            🎯 Select Module to Focus On:
+          <h2 className="mb-4 text-2xl font-bold text-gray-900">
+            🎯 Focus Your Plan
           </h2>
-          <div className="flex gap-3 overflow-x-auto pb-2">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {gaqpModules.map(module => {
               const isSelected = selectedModule === module.id;
               const moduleProgress = getModuleProgress(module.id);
@@ -614,52 +550,60 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                 <button
                   key={module.id}
                   onClick={() => setSelectedModule(module.id)}
-                  className={`flex min-w-0 flex-shrink-0 items-center gap-4 rounded-xl border-2 p-4 transition-all duration-200 ${
+                  className={`group flex items-center gap-4 rounded-xl border-2 p-4 text-left transition-all duration-200 hover:scale-105 ${
                     isSelected
                       ? module.color === "blue"
-                        ? "border-blue-400 bg-blue-50 shadow-lg"
+                        ? "border-blue-400 bg-blue-50 shadow-lg ring-2 ring-blue-200"
                         : module.color === "cyan"
-                          ? "border-cyan-400 bg-cyan-50 shadow-lg"
+                          ? "border-cyan-400 bg-cyan-50 shadow-lg ring-2 ring-cyan-200"
                           : module.color === "green"
-                            ? "border-green-400 bg-green-50 shadow-lg"
+                            ? "border-green-400 bg-green-50 shadow-lg ring-2 ring-green-200"
                             : module.color === "purple"
-                              ? "border-purple-400 bg-purple-50 shadow-lg"
+                              ? "border-purple-400 bg-purple-50 shadow-lg ring-2 ring-purple-200"
                               : module.color === "orange"
-                                ? "border-orange-400 bg-orange-50 shadow-lg"
-                                : "border-gray-400 bg-gray-50 shadow-lg"
+                                ? "border-orange-400 bg-orange-50 shadow-lg ring-2 ring-orange-200"
+                                : "border-gray-400 bg-gray-50 shadow-lg ring-2 ring-gray-200"
                       : "border-gray-200 bg-white hover:border-gray-300 hover:shadow-md"
                   }`}
                 >
                   <div
-                    className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full ${
+                    className={`flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full transition-all duration-200 ${
                       isSelected
                         ? module.color === "blue"
-                          ? "bg-blue-500 text-white"
+                          ? "bg-blue-500 text-white shadow-lg"
                           : module.color === "cyan"
-                            ? "bg-cyan-500 text-white"
+                            ? "bg-cyan-500 text-white shadow-lg"
                             : module.color === "green"
-                              ? "bg-green-500 text-white"
+                              ? "bg-green-500 text-white shadow-lg"
                               : module.color === "purple"
-                                ? "bg-purple-500 text-white"
+                                ? "bg-purple-500 text-white shadow-lg"
                                 : module.color === "orange"
-                                  ? "bg-orange-500 text-white"
-                                  : "bg-gray-500 text-white"
-                        : "bg-gray-100 text-gray-600"
+                                  ? "bg-orange-500 text-white shadow-lg"
+                                  : "bg-gray-500 text-white shadow-lg"
+                        : "bg-gray-100 text-gray-600 group-hover:bg-gray-200"
                     }`}
                   >
-                    <module.icon className="h-6 w-6" />
+                    <module.icon className="h-7 w-7" />
                   </div>
-                  <div className="min-w-0 flex-1 text-left">
-                    <h3
-                      className={`font-semibold ${
-                        isSelected ? "text-gray-900" : "text-gray-700"
-                      }`}
-                    >
-                      {module.name}
-                    </h3>
+                  <div className="min-w-0 flex-1">
+                    <div className="flex items-center gap-2">
+                      <h3
+                        className={`text-lg font-semibold ${
+                          isSelected ? "text-gray-900" : "text-gray-700"
+                        }`}
+                      >
+                        {module.name}
+                      </h3>
+                      {isSelected && (
+                        <CheckCircle className="h-5 w-5 text-green-500" />
+                      )}
+                    </div>
+                    <p className="mt-1 text-sm text-gray-600">
+                      {module.description}
+                    </p>
                     {module.id !== "all" && (
-                      <div className="mt-1 flex items-center gap-2">
-                        <div className="h-2 w-16 overflow-hidden rounded-full bg-gray-200">
+                      <div className="mt-3 flex items-center gap-3">
+                        <div className="h-2 flex-1 overflow-hidden rounded-full bg-gray-200">
                           <div
                             className={`h-full transition-all duration-300 ${
                               isSelected
@@ -679,157 +623,22 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                             style={{ width: `${moduleProgress.percentage}%` }}
                           />
                         </div>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-sm font-semibold text-gray-700">
                           {moduleProgress.percentage}%
                         </span>
                       </div>
                     )}
                   </div>
-                  {isSelected && (
-                    <div className="flex-shrink-0">
-                      <CheckCircle className="h-5 w-5 text-green-500" />
-                    </div>
-                  )}
                 </button>
               );
             })}
           </div>
-          <div className="mt-2 text-sm text-gray-500">
-            💡 <strong>Tip:</strong> Click on any module above to see only the
-            tasks for that area. This helps you focus on one aspect at a time!
+          <div className="mt-4 text-sm text-gray-500">
+            💡 <strong>Tip:</strong> Select a module to focus on specific tasks,
+            or choose "All Modules" to see your complete journey.
           </div>
         </div>
       </div>
-
-      {/* Current Challenge / Selected Module Overview */}
-      {currentModule && currentModule.id !== "all" && (
-        <div className="mb-8">
-          <div
-            className={`rounded-xl border-2 bg-gradient-to-r p-6 shadow-lg ${
-              currentModule.color === "blue"
-                ? "border-blue-400 from-blue-50 to-blue-100"
-                : currentModule.color === "cyan"
-                  ? "border-cyan-400 from-cyan-50 to-cyan-100"
-                  : currentModule.color === "green"
-                    ? "border-green-400 from-green-50 to-green-100"
-                    : currentModule.color === "purple"
-                      ? "border-purple-400 from-purple-50 to-purple-100"
-                      : "border-orange-400 from-orange-50 to-orange-100"
-            }`}
-          >
-            <div className="flex items-center gap-6">
-              <div
-                className={`flex h-20 w-20 items-center justify-center rounded-full text-3xl font-bold text-white shadow-lg ${
-                  currentModule.color === "blue"
-                    ? "bg-blue-500"
-                    : currentModule.color === "cyan"
-                      ? "bg-cyan-500"
-                      : currentModule.color === "green"
-                        ? "bg-green-500"
-                        : currentModule.color === "purple"
-                          ? "bg-purple-500"
-                          : "bg-orange-500"
-                }`}
-              >
-                <currentModule.icon className="h-10 w-10" />
-              </div>
-              <div className="flex-1">
-                <div className="mb-2 flex items-center gap-3">
-                  <h2 className="text-2xl font-bold text-gray-900">
-                    Current Focus: {currentModule.name}
-                  </h2>
-                  <Badge
-                    className={`px-3 py-1 text-sm font-medium ${
-                      currentModule.color === "blue"
-                        ? "bg-blue-100 text-blue-800"
-                        : currentModule.color === "cyan"
-                          ? "bg-cyan-100 text-cyan-800"
-                          : currentModule.color === "green"
-                            ? "bg-green-100 text-green-800"
-                            : currentModule.color === "purple"
-                              ? "bg-purple-100 text-purple-800"
-                              : "bg-orange-100 text-orange-800"
-                    }`}
-                  >
-                    🎯 Selected
-                  </Badge>
-                </div>
-                <p className="mb-3 text-lg text-gray-700">
-                  {currentModule.description}
-                </p>
-                <div className="flex items-center gap-4">
-                  <div className="text-sm font-medium text-gray-600">
-                    {getModuleProgress(currentModule.id).completed} of{" "}
-                    {getModuleProgress(currentModule.id).total} steps completed
-                  </div>
-                  <div className="flex-1">
-                    <Progress
-                      value={getModuleProgress(currentModule.id).percentage}
-                      className={`h-3 ${
-                        currentModule.color === "blue"
-                          ? "[&>div]:bg-blue-500"
-                          : currentModule.color === "cyan"
-                            ? "[&>div]:bg-cyan-500"
-                            : currentModule.color === "green"
-                              ? "[&>div]:bg-green-500"
-                              : currentModule.color === "purple"
-                                ? "[&>div]:bg-purple-500"
-                                : "[&>div]:bg-orange-500"
-                      }`}
-                    />
-                  </div>
-                  <div
-                    className={`text-lg font-bold ${
-                      currentModule.color === "blue"
-                        ? "text-blue-600"
-                        : currentModule.color === "cyan"
-                          ? "text-cyan-600"
-                          : currentModule.color === "green"
-                            ? "text-green-600"
-                            : currentModule.color === "purple"
-                              ? "text-purple-600"
-                              : "text-orange-600"
-                    }`}
-                  >
-                    {getModuleProgress(currentModule.id).percentage}%
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              className={`mt-4 rounded-lg p-4 ${
-                currentModule.color === "blue"
-                  ? "bg-blue-100"
-                  : currentModule.color === "cyan"
-                    ? "bg-cyan-100"
-                    : currentModule.color === "green"
-                      ? "bg-green-100"
-                      : currentModule.color === "purple"
-                        ? "bg-purple-100"
-                        : "bg-orange-100"
-              }`}
-            >
-              <p
-                className={`text-center ${
-                  currentModule.color === "blue"
-                    ? "text-blue-800"
-                    : currentModule.color === "cyan"
-                      ? "text-cyan-800"
-                      : currentModule.color === "green"
-                        ? "text-green-800"
-                        : currentModule.color === "purple"
-                          ? "text-purple-800"
-                          : "text-orange-800"
-                }`}
-              >
-                💪 <strong>Stay focused!</strong> You're working on{" "}
-                {currentModule.name.toLowerCase()}. Each step brings you closer
-                to a fully secure and GAqP compliant farm!
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
 
       {/* Your Next Action */}
       {(currentStepForModule ||
@@ -912,13 +721,13 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
         </div>
       )}
 
-      {/* All Steps in This Challenge */}
+      {/* Steps in Selected Module */}
       <div className="mb-8">
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-2xl font-bold text-gray-900">
             {selectedModule === "all"
-              ? "All Steps in Your Journey"
-              : `All Steps in ${currentModule?.name}`}
+              ? "Steps in Your Complete Journey"
+              : `Steps in ${currentModule?.name}`}
           </h2>
           <div className="flex items-center gap-4">
             <div className="text-sm text-gray-600">
@@ -961,7 +770,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                 className="text-sm"
               >
                 <MapPin className="mr-2 h-4 w-4" />
-                Journey View
+                Organized View
               </Button>
               <Button
                 variant={viewMode === "all" ? "default" : "ghost"}
@@ -970,7 +779,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                 className="text-sm"
               >
                 <Filter className="mr-2 h-4 w-4" />
-                List View
+                Simple List
               </Button>
             </div>
           </div>
@@ -1008,202 +817,78 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
 
         {filteredTasks.length > 0 &&
           (viewMode === "phases" ? (
-            /* Phase-based Journey View */
-            <div className="space-y-6">
-              {biosecurityPhases.map(phase => {
-                const phaseProgress = getPhaseProgress(phase.id);
-                const phaseTasks = getTasksForPhase(phase.id);
-                const isCurrentPhase = phase.id === currentPhase.id;
-                const isCompleted = phaseProgress.percentage === 100;
-                const isExpanded = expandedPhase === phase.id || isCurrentPhase;
-                const currentStepInPhase = getCurrentStepInPhase(phase.id);
+            selectedModule === "all" ? (
+              /* Module-grouped View for All Modules */
+              <div className="space-y-8">
+                {gaqpModules.slice(1).map(module => {
+                  // Skip "all" module
+                  const moduleTasks = currentTasks.filter(task =>
+                    module.categories.includes(task.category)
+                  );
+                  if (moduleTasks.length === 0) return null;
 
-                // Filter phase tasks if a specific module is selected
-                const filteredPhaseTasks =
-                  selectedModule === "all"
-                    ? phaseTasks
-                    : phaseTasks.filter(task => {
-                        const module = gaqpModules.find(
-                          m => m.id === selectedModule
-                        );
-                        return module?.categories.includes(task.category);
-                      });
+                  const moduleProgress = getModuleProgress(module.id);
+                  const nextTaskInModule = moduleTasks.find(
+                    task => task.status !== "completed"
+                  );
 
-                // Skip phase if no tasks match the filter
-                if (filteredPhaseTasks.length === 0) return null;
-
-                return (
-                  <div
-                    key={phase.id}
-                    className={`rounded-xl border-2 bg-white shadow-lg transition-all duration-300 ${
-                      isCurrentPhase
-                        ? "border-blue-400 bg-blue-50/40 shadow-blue-100/50"
-                        : isCompleted
-                          ? "border-green-400 bg-green-50/40 shadow-green-100/50"
-                          : "border-gray-200 hover:border-gray-300"
-                    }`}
-                  >
-                    {/* Enhanced Phase Header */}
+                  return (
                     <div
-                      className="cursor-pointer p-6"
-                      onClick={() =>
-                        setExpandedPhase(isExpanded ? null : phase.id)
-                      }
+                      key={module.id}
+                      className="rounded-xl border-2 border-gray-200 bg-white shadow-lg"
                     >
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-6">
-                          {/* Large Phase Status Icon */}
-                          <div
-                            className={`relative flex h-16 w-16 items-center justify-center rounded-full text-2xl font-bold shadow-lg ${
-                              isCompleted
-                                ? phase.color === "blue"
-                                  ? "border-blue-300 bg-blue-500 text-white"
-                                  : phase.color === "cyan"
-                                    ? "border-cyan-300 bg-cyan-500 text-white"
-                                    : phase.color === "green"
-                                      ? "border-green-300 bg-green-500 text-white"
-                                      : "border-purple-300 bg-purple-500 text-white"
-                                : isCurrentPhase
-                                  ? phase.color === "blue"
-                                    ? "border-4 border-blue-400 bg-white text-blue-600"
-                                    : phase.color === "cyan"
-                                      ? "border-4 border-cyan-400 bg-white text-cyan-600"
-                                      : phase.color === "green"
-                                        ? "border-4 border-green-400 bg-white text-green-600"
-                                        : "border-4 border-purple-400 bg-white text-purple-600"
-                                  : "border-2 border-gray-300 bg-gray-100 text-gray-500"
-                            }`}
-                          >
-                            {isCompleted ? "✓" : phase.id}
-
-                            {/* Pulse animation for current phase */}
-                            {isCurrentPhase && (
-                              <div
-                                className={`absolute inset-0 animate-ping rounded-full opacity-30 ${
-                                  phase.color === "blue"
-                                    ? "bg-blue-400"
-                                    : phase.color === "cyan"
-                                      ? "bg-cyan-400"
-                                      : phase.color === "green"
-                                        ? "bg-green-400"
-                                        : "bg-purple-400"
-                                }`}
-                              ></div>
-                            )}
-                          </div>
-
-                          <div className="flex-1">
-                            <div className="mb-3 flex items-center gap-3">
-                              <h3 className="text-2xl font-bold text-gray-900">
-                                {phase.name}
-                              </h3>
-                              {isCurrentPhase && (
-                                <Badge
-                                  className={`px-3 py-1 text-sm font-medium ${
-                                    phase.color === "blue"
-                                      ? "border-blue-200 bg-blue-100 text-blue-800"
-                                      : phase.color === "cyan"
-                                        ? "border-cyan-200 bg-cyan-100 text-cyan-800"
-                                        : phase.color === "green"
-                                          ? "border-green-200 bg-green-100 text-green-800"
-                                          : "border-purple-200 bg-purple-100 text-purple-800"
-                                  }`}
-                                >
-                                  🎯 Current Module
-                                </Badge>
-                              )}
-                              {isCompleted && (
-                                <Badge className="border-green-200 bg-green-100 px-3 py-1 text-sm font-medium text-green-800">
-                                  ✅ Completed
-                                </Badge>
-                              )}
-                            </div>
-                            <p className="mb-2 text-lg text-gray-600">
-                              {phase.description}
-                            </p>
-                            <div className="text-sm text-gray-500">
-                              {selectedModule === "all"
-                                ? `${phaseProgress.completed} of ${phaseProgress.total} steps completed`
-                                : `${filteredPhaseTasks.filter(t => t.status === "completed").length} of ${filteredPhaseTasks.length} filtered steps completed`}{" "}
-                              • {phaseProgress.percentage}% progress
-                            </div>
-                          </div>
-                        </div>
-
+                      {/* Module Header */}
+                      <div className="border-b border-gray-100 p-6">
                         <div className="flex items-center gap-4">
-                          {/* Progress Ring/Circle */}
-                          <div className="relative h-20 w-20">
-                            <svg
-                              className="h-20 w-20 -rotate-90 transform"
-                              viewBox="0 0 100 100"
-                            >
-                              <circle
-                                cx="50"
-                                cy="50"
-                                r="45"
-                                stroke="currentColor"
-                                strokeWidth="8"
-                                fill="transparent"
-                                className="text-gray-200"
+                          <div
+                            className={`flex h-12 w-12 items-center justify-center rounded-full ${
+                              module.color === "blue"
+                                ? "bg-blue-500"
+                                : module.color === "cyan"
+                                  ? "bg-cyan-500"
+                                  : module.color === "green"
+                                    ? "bg-green-500"
+                                    : module.color === "purple"
+                                      ? "bg-purple-500"
+                                      : "bg-orange-500"
+                            } text-white`}
+                          >
+                            <module.icon className="h-6 w-6" />
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="text-xl font-bold text-gray-900">
+                              {module.name}
+                            </h3>
+                            <p className="text-sm text-gray-600">
+                              {module.description}
+                            </p>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-sm font-medium text-gray-600">
+                              {moduleProgress.completed} of{" "}
+                              {moduleProgress.total} completed
+                            </div>
+                            <div className="mt-1 flex items-center gap-2">
+                              <Progress
+                                value={moduleProgress.percentage}
+                                className="h-2 w-20"
                               />
-                              <circle
-                                cx="50"
-                                cy="50"
-                                r="45"
-                                stroke="currentColor"
-                                strokeWidth="8"
-                                fill="transparent"
-                                strokeDasharray={`${2 * Math.PI * 45}`}
-                                strokeDashoffset={`${2 * Math.PI * 45 * (1 - phaseProgress.percentage / 100)}`}
-                                className={`transition-all duration-500 ${
-                                  isCompleted
-                                    ? "text-green-500"
-                                    : isCurrentPhase
-                                      ? phase.color === "blue"
-                                        ? "text-blue-500"
-                                        : phase.color === "cyan"
-                                          ? "text-cyan-500"
-                                          : phase.color === "green"
-                                            ? "text-green-500"
-                                            : "text-purple-500"
-                                      : "text-gray-400"
-                                }`}
-                                strokeLinecap="round"
-                              />
-                            </svg>
-                            <div className="absolute inset-0 flex items-center justify-center">
-                              <span className="text-lg font-bold text-gray-700">
-                                {phaseProgress.percentage}%
+                              <span className="text-xs text-gray-500">
+                                {moduleProgress.percentage}%
                               </span>
                             </div>
                           </div>
-
-                          {/* Expand/Collapse Icon */}
-                          <div className="text-gray-400">
-                            {isExpanded ? (
-                              <ChevronDown className="h-6 w-6" />
-                            ) : (
-                              <ChevronRight className="h-6 w-6" />
-                            )}
-                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    {/* Phase Tasks - Only show filtered tasks */}
-                    {isExpanded && (
-                      <div className="border-t bg-gray-50/50 p-6">
-                        <h4 className="mb-4 text-lg font-semibold text-gray-900">
-                          {selectedModule === "all"
-                            ? "All Steps in This Module"
-                            : `${currentModule?.name} Steps in This Module`}
-                        </h4>
+                      {/* Module Tasks */}
+                      <div className="p-6">
                         <div className="space-y-3">
-                          {filteredPhaseTasks.map((task, index) => {
+                          {moduleTasks.map((task, index) => {
                             const isCompleted = task.status === "completed";
                             const isCritical = task.priority === "critical";
                             const isNextAction =
-                              currentStepInPhase?.id === task.id;
+                              nextTaskInModule?.id === task.id;
 
                             return (
                               <div
@@ -1212,11 +897,10 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                                   isNextAction
                                     ? "border-2 border-blue-300 bg-blue-50/50 shadow-sm"
                                     : isCritical && !isCompleted
-                                      ? "border border-red-200 bg-red-50 hover:bg-red-50/80"
-                                      : "border bg-white hover:bg-gray-50"
+                                      ? "border border-red-200 bg-red-50"
+                                      : "border bg-gray-50 hover:bg-gray-100"
                                 }`}
                               >
-                                {/* Step Status Icon */}
                                 <div
                                   className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold ${
                                     isCompleted
@@ -1234,8 +918,6 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                                       ? "!"
                                       : index + 1}
                                 </div>
-
-                                {/* Task Info */}
                                 <div className="min-w-0 flex-1">
                                   <div className="mb-1 flex items-center gap-2">
                                     <h5 className="font-semibold text-gray-900">
@@ -1257,7 +939,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                                     </Badge>
                                     {isNextAction && (
                                       <Badge className="bg-blue-100 text-xs text-blue-800">
-                                        👆 DO THIS NEXT
+                                        👆 NEXT UP
                                       </Badge>
                                     )}
                                   </div>
@@ -1269,13 +951,9 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                                       <Clock className="h-3 w-3" />
                                       {task.timeframe}
                                     </span>
-                                    <span className="flex items-center gap-1">
-                                      💰 {task.estimatedCost}
-                                    </span>
+                                    <span>💰 {task.estimatedCost}</span>
                                   </div>
                                 </div>
-
-                                {/* Action Buttons */}
                                 <div className="flex items-center gap-2">
                                   {!isCompleted && (
                                     <Button
@@ -1302,20 +980,120 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                           })}
                         </div>
                       </div>
-                    )}
+                    </div>
+                  );
+                })}
+              </div>
+            ) : (
+              /* Simple task list for specific module */
+              <div className="space-y-6">
+                <div className="rounded-xl border-2 border-gray-200 bg-white shadow-lg">
+                  <div className="p-6">
+                    <div className="space-y-3">
+                      {filteredTasks.map((task, index) => {
+                        const isCompleted = task.status === "completed";
+                        const isCritical = task.priority === "critical";
+                        const isNextAction =
+                          currentStepForModule?.id === task.id;
+
+                        return (
+                          <div
+                            key={task.id}
+                            className={`flex items-center gap-4 rounded-lg p-4 transition-all duration-200 ${
+                              isNextAction
+                                ? "border-2 border-blue-300 bg-blue-50/50 shadow-sm"
+                                : isCritical && !isCompleted
+                                  ? "border border-red-200 bg-red-50"
+                                  : "border bg-gray-50 hover:bg-gray-100"
+                            }`}
+                          >
+                            <div
+                              className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold ${
+                                isCompleted
+                                  ? "bg-green-500 text-white"
+                                  : isCritical
+                                    ? "bg-red-500 text-white"
+                                    : task.priority === "high"
+                                      ? "bg-orange-400 text-white"
+                                      : "bg-gray-300 text-gray-700"
+                              }`}
+                            >
+                              {isCompleted ? "✓" : isCritical ? "!" : index + 1}
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <div className="mb-1 flex items-center gap-2">
+                                <h5 className="font-semibold text-gray-900">
+                                  {task.title}
+                                </h5>
+                                <Badge
+                                  variant={
+                                    isCritical
+                                      ? "destructive"
+                                      : task.priority === "high"
+                                        ? "default"
+                                        : "secondary"
+                                  }
+                                  className="text-xs"
+                                >
+                                  {task.priority === "critical"
+                                    ? "🚨 URGENT"
+                                    : task.priority.toUpperCase()}
+                                </Badge>
+                                {isNextAction && (
+                                  <Badge className="bg-blue-100 text-xs text-blue-800">
+                                    👆 NEXT UP
+                                  </Badge>
+                                )}
+                              </div>
+                              <p className="mb-2 text-sm text-gray-600">
+                                {task.description}
+                              </p>
+                              <div className="flex items-center gap-4 text-xs text-gray-500">
+                                <span className="flex items-center gap-1">
+                                  <Clock className="h-3 w-3" />
+                                  {task.timeframe}
+                                </span>
+                                <span>💰 {task.estimatedCost}</span>
+                              </div>
+                            </div>
+                            <div className="flex items-center gap-2">
+                              {!isCompleted && (
+                                <Button
+                                  size="sm"
+                                  className="bg-green-600 text-white hover:bg-green-700"
+                                  onClick={() => toggleTaskStatus(task.id)}
+                                >
+                                  ✅ Done
+                                </Button>
+                              )}
+                              <Button
+                                variant="outline"
+                                size="sm"
+                                className="border-blue-200 text-blue-600 hover:text-blue-700"
+                                onClick={() => setSelectedTaskForGuide(task)}
+                              >
+                                📖 How-To
+                              </Button>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              </div>
+            )
           ) : (
-            /* List View */
+            /* Simple List View */
             <div className="overflow-hidden rounded-lg border bg-white shadow-sm">
               <div className="divide-y">
                 {currentPageTasks.map((task, index) => {
                   const stepNumber = startIndex + index + 1;
                   const isCompleted = task.status === "completed";
                   const isCritical = task.priority === "critical";
-                  const isNextAction = currentStep?.id === task.id;
+                  const isNextAction =
+                    (currentStepForModule || overallCurrentStep)?.id ===
+                    task.id;
 
                   return (
                     <div
@@ -1328,7 +1106,6 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                             : ""
                       }`}
                     >
-                      {/* Step Number/Status */}
                       <div
                         className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold ${
                           isCompleted
@@ -1342,8 +1119,6 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                       >
                         {isCompleted ? "✓" : isCritical ? "!" : stepNumber}
                       </div>
-
-                      {/* Task Info */}
                       <div className="min-w-0 flex-1">
                         <div className="mb-1 flex items-center gap-2">
                           <h3 className="truncate font-semibold text-gray-900">
@@ -1380,8 +1155,6 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                           <span>💰 {task.estimatedCost}</span>
                         </div>
                       </div>
-
-                      {/* Action Buttons */}
                       <div className="flex items-center gap-2">
                         {!isCompleted && (
                           <Button
@@ -1473,86 +1246,6 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
           ))}
       </div>
 
-      {/* Related Guides Section */}
-      {selectedModule !== "all" && currentModule && showRelatedGuides && (
-        <div className="mb-8">
-          <div className="rounded-lg border bg-white p-6 shadow-sm">
-            <div className="mb-4 flex items-center justify-between">
-              <h2 className="text-lg font-semibold text-gray-900">
-                📚 Need More Info? Related Guides for {currentModule.name}
-              </h2>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setShowRelatedGuides(!showRelatedGuides)}
-                className="text-gray-500"
-              >
-                {showRelatedGuides ? "Hide" : "Show"}
-              </Button>
-            </div>
-
-            <div className="grid gap-3 md:grid-cols-3">
-              {/* Map module to legacy guides for backward compatibility */}
-              {(currentModule.id === "pond-water"
-                ? relatedGuides["Pond & Water Care"]
-                : currentModule.id === "access-control"
-                  ? relatedGuides["Farm Access Control"]
-                  : currentModule.id === "stock-sourcing"
-                    ? relatedGuides["Stock Sourcing"]
-                    : currentModule.id === "disease-readiness"
-                      ? relatedGuides["Feed Management"]
-                      : currentModule.id === "farm-setup"
-                        ? relatedGuides["Infrastructure & Equipment"]
-                        : []
-              )?.map((guide, index) => (
-                <div
-                  key={index}
-                  className="cursor-pointer rounded-lg border bg-gray-50 p-4 transition-colors hover:bg-gray-100"
-                >
-                  <div className="flex items-start gap-3">
-                    <div
-                      className={`rounded-full p-2 ${
-                        guide.type === "video"
-                          ? "bg-red-100 text-red-600"
-                          : guide.type === "guide"
-                            ? "bg-blue-100 text-blue-600"
-                            : "bg-green-100 text-green-600"
-                      }`}
-                    >
-                      {guide.type === "video"
-                        ? "🎥"
-                        : guide.type === "guide"
-                          ? "📖"
-                          : "⚡"}
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="mb-1 font-medium text-gray-900">
-                        {guide.title}
-                      </h3>
-                      <div className="flex items-center gap-2 text-xs text-gray-500">
-                        <Badge variant="outline" className="text-xs">
-                          {guide.type}
-                        </Badge>
-                        <span>{guide.duration}</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-4 text-center">
-              <Button
-                variant="outline"
-                className="border-blue-200 text-blue-600 hover:bg-blue-50"
-              >
-                📚 View All Guides for {currentModule.name}
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Journey Complete Message - Show when all phases are complete */}
       {!currentStep && (
         <div className="mb-8">
@@ -1602,100 +1295,13 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
           <div className="text-right">
             <div className="text-3xl font-bold text-blue-600">
               {Math.round(
-                (biosecurityPhases.filter(
-                  phase => getPhaseProgress(phase.id).percentage === 100
-                ).length /
-                  biosecurityPhases.length) *
+                (currentTasks.filter(t => t.status === "completed").length /
+                  currentTasks.length) *
                   100
               )}
               %
             </div>
-            <div className="text-sm text-gray-600">Journey Complete</div>
-          </div>
-        </div>
-
-        {/* Visual Timeline of All Modules */}
-        <div className="mb-8">
-          <h3 className="mb-4 text-lg font-semibold text-gray-800">
-            Module Timeline
-          </h3>
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute left-8 top-8 h-full w-0.5 bg-gray-200"></div>
-
-            <div className="space-y-6">
-              {biosecurityPhases.map(phase => {
-                const progress = getPhaseProgress(phase.id);
-                const isCompleted = progress.percentage === 100;
-                const isCurrent = phase.id === currentPhase.id;
-                const isUpcoming = phase.id > currentPhase.id;
-
-                return (
-                  <div
-                    key={phase.id}
-                    className="relative flex items-center gap-6"
-                  >
-                    {/* Timeline Dot */}
-                    <div
-                      className={`relative z-10 flex h-16 w-16 items-center justify-center rounded-full border-4 text-xl font-bold shadow-lg ${
-                        isCompleted
-                          ? "border-green-300 bg-green-500 text-white"
-                          : isCurrent
-                            ? "animate-pulse border-blue-300 bg-blue-500 text-white"
-                            : "border-gray-300 bg-gray-100 text-gray-500"
-                      }`}
-                    >
-                      {isCompleted ? "✓" : phase.id}
-                    </div>
-
-                    {/* Module Info */}
-                    <div className="min-w-0 flex-1">
-                      <div className="mb-2 flex items-center gap-3">
-                        <h4 className="text-lg font-bold text-gray-900">
-                          {phase.name}
-                        </h4>
-                        {isCompleted && (
-                          <Badge className="bg-green-100 text-green-800">
-                            ✅ Complete
-                          </Badge>
-                        )}
-                        {isCurrent && (
-                          <Badge className="bg-blue-100 text-blue-800">
-                            🎯 Current
-                          </Badge>
-                        )}
-                        {isUpcoming && (
-                          <Badge variant="outline" className="text-gray-600">
-                            📅 Upcoming
-                          </Badge>
-                        )}
-                      </div>
-                      <p className="mb-3 text-gray-600">{phase.description}</p>
-                      <div className="flex items-center gap-4">
-                        <div className="flex-1">
-                          <Progress
-                            value={progress.percentage}
-                            className={`h-2 ${
-                              isCompleted
-                                ? "[&>div]:bg-green-500"
-                                : isCurrent
-                                  ? "[&>div]:bg-blue-500"
-                                  : "[&>div]:bg-gray-300"
-                            }`}
-                          />
-                        </div>
-                        <div className="text-sm font-medium text-gray-700">
-                          {progress.percentage}%
-                        </div>
-                      </div>
-                      <div className="mt-1 text-sm text-gray-500">
-                        {progress.completed} of {progress.total} steps completed
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+            <div className="text-sm text-gray-600">Overall Complete</div>
           </div>
         </div>
 
@@ -1703,13 +1309,17 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
         <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
           <div className="rounded-xl border border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100 p-6 text-center">
             <div className="mb-2 text-3xl font-bold text-blue-600">
-              {currentPhase.id}
+              {
+                biosecurityPhases.filter(
+                  phase => getPhaseProgress(phase.id).percentage === 100
+                ).length
+              }
             </div>
             <div className="text-sm font-medium text-blue-700">
-              Current Module
+              Phases Complete
             </div>
             <div className="mt-1 text-xs text-blue-600">
-              {currentPhase.name}
+              of {biosecurityPhases.length} total
             </div>
           </div>
 
@@ -1717,28 +1327,25 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
             <div className="mb-2 flex items-center justify-center gap-1">
               <CheckCircle className="h-6 w-6 text-green-600" />
               <span className="text-3xl font-bold text-green-600">
-                {
-                  biosecurityPhases.filter(
-                    phase => getPhaseProgress(phase.id).percentage === 100
-                  ).length
-                }
+                {currentTasks.filter(t => t.status === "completed").length}
               </span>
             </div>
             <div className="text-sm font-medium text-green-700">
-              Modules Complete
+              Tasks Complete
+            </div>
+            <div className="mt-1 text-xs text-green-600">
+              of {currentTasks.length} total
             </div>
           </div>
 
           <div className="rounded-xl border border-purple-200 bg-gradient-to-br from-purple-50 to-purple-100 p-6 text-center">
             <div className="mb-2 text-3xl font-bold text-purple-600">
-              {currentTasks.filter(t => t.status === "completed").length}
+              {currentTasks.filter(t => t.status === "pending").length}
             </div>
             <div className="text-sm font-medium text-purple-700">
-              Tasks Complete
+              Tasks Remaining
             </div>
-            <div className="mt-1 text-xs text-purple-600">
-              of {currentTasks.length} total
-            </div>
+            <div className="mt-1 text-xs text-purple-600">in your journey</div>
           </div>
 
           <div className="rounded-xl border border-orange-200 bg-gradient-to-br from-orange-50 to-orange-100 p-6 text-center">
@@ -1753,15 +1360,14 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
               </span>
             </div>
             <div className="text-sm font-medium text-orange-700">
-              Critical Remaining
+              Critical Tasks
             </div>
+            <div className="mt-1 text-xs text-orange-600">need attention</div>
           </div>
         </div>
 
         {/* Journey Milestone Achievement */}
-        {biosecurityPhases.filter(
-          phase => getPhaseProgress(phase.id).percentage === 100
-        ).length > 0 && (
+        {currentTasks.filter(t => t.status === "completed").length > 0 && (
           <div className="mt-6 rounded-xl border border-green-200 bg-gradient-to-r from-green-50 via-blue-50 to-green-50 p-6">
             <div className="flex items-center gap-4">
               <div className="rounded-full bg-green-500 p-3">
@@ -1769,34 +1375,28 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
               </div>
               <div className="flex-1">
                 <h4 className="text-lg font-bold text-gray-900">
-                  🎉 Milestone Achieved!
+                  🎉 Great Progress!
                 </h4>
                 <p className="text-gray-600">
                   You've completed{" "}
                   <span className="font-semibold text-green-600">
-                    {
-                      biosecurityPhases.filter(
-                        phase => getPhaseProgress(phase.id).percentage === 100
-                      ).length
-                    }{" "}
-                    module(s)
+                    {currentTasks.filter(t => t.status === "completed").length}{" "}
+                    tasks
                   </span>{" "}
-                  of your GAqP journey. Your farm security is getting stronger
+                  on your GAqP journey. Your farm security is getting stronger
                   with every step!
                 </p>
               </div>
               <div className="text-right">
                 <div className="text-2xl font-bold text-green-600">
                   {Math.round(
-                    (biosecurityPhases.filter(
-                      phase => getPhaseProgress(phase.id).percentage === 100
-                    ).length /
-                      biosecurityPhases.length) *
+                    (currentTasks.filter(t => t.status === "completed").length /
+                      currentTasks.length) *
                       100
                   )}
                   %
                 </div>
-                <div className="text-sm text-gray-600">Journey Progress</div>
+                <div className="text-sm text-gray-600">Complete</div>
               </div>
             </div>
           </div>
