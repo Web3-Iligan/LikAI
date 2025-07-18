@@ -6,6 +6,8 @@ import {
   Award,
   CheckCircle,
   Clock,
+  CloudRain,
+  DollarSign,
   Droplets,
   HeartHandshake,
   MapPin,
@@ -15,7 +17,6 @@ import {
   Target,
   Tractor,
   TrendingUp,
-  Wallet,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -137,13 +138,13 @@ export function DashboardOverview() {
       id: 1,
       priority: "critical",
       status: "pending",
-      title: "Check water quality in Pond 3",
+      title: "Complete pond disinfection checklist",
       description:
-        "pH levels trending high (8.2). Test immediately and adjust to prevent stress on shrimp.",
-      estimatedTime: "15 minutes",
+        "Your pond preparation checklist is incomplete. Proper disinfection is critical for GAqP compliance and preventing disease outbreaks.",
+      estimatedTime: "45 minutes",
       moduleId: "pond-water-care",
       moduleName: "Pond & Water Care",
-      href: "/plan?task=water-quality-check",
+      href: "/plan?task=pond-disinfection",
       completed: false,
     },
     {
@@ -152,7 +153,7 @@ export function DashboardOverview() {
       status: "pending",
       title: "Update visitor log protocols",
       description:
-        "Implement new biosecurity checklist for all farm visitors and delivery personnel.",
+        "Implement new biosecurity checklist for all farm visitors and delivery personnel to meet GAqP access control standards.",
       estimatedTime: "30 minutes",
       moduleId: "farm-access-control",
       moduleName: "Farm Access Control",
@@ -164,11 +165,39 @@ export function DashboardOverview() {
   const [alerts] = useState([
     {
       id: 1,
-      type: "warning",
-      title: "Temperature variance detected",
-      description: "Monitor Pond 2 closely today",
+      type: "critical",
+      title: "Pond Disinfection Overdue",
+      description: "Critical GAqP task: Complete pond disinfection checklist by tomorrow to maintain compliance standards.",
+      timestamp: "1 day overdue",
+      href: "/plan?task=pond-disinfection",
+      actionText: "Complete Now",
+    },
+    {
+      id: 2,
+      type: "positive",
+      title: "Feed Management Module Completed",
+      description: "Congratulations! You've completed all core tasks in the Feed Management module. Your compliance score increased by 15%.",
       timestamp: "2 hours ago",
-      href: "/reports?alert=temperature",
+      href: "/plan?module=feed-management&view=certificate",
+      actionText: "View Certificate",
+    },
+    {
+      id: 3,
+      type: "opportunity",
+      title: "Cost Savings Identified",
+      description: "Based on your feed optimization practices, you could save ₹12,000 monthly by implementing recommended feeding schedules.",
+      timestamp: "3 hours ago",
+      href: "/plan?module=feed-management&view=savings",
+      actionText: "View Details",
+    },
+    {
+      id: 4,
+      type: "info",
+      title: "Phase 1 Nearing Completion",
+      description: "You're 85% through Phase 1 of your GAqP journey. Only 2 more tasks to complete this phase.",
+      timestamp: "1 day ago",
+      href: "/progress",
+      actionText: "View Progress",
     },
   ]);
 
@@ -442,10 +471,10 @@ export function DashboardOverview() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Target className="h-5 w-5 text-blue-600" />
-            Your Next Actions
+            Action Hub
           </CardTitle>
           <CardDescription>
-            Priority tasks to advance your GAqP certification journey
+            Priority tasks and progress summary for your GAqP certification journey
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -454,25 +483,28 @@ export function DashboardOverview() {
             {nextActions.slice(0, 2).map(action => (
               <div
                 key={action.id}
-                className={`rounded-lg border-l-4 p-4 ${
+                className={`rounded-lg border-2 p-4 ${
                   action.priority === "critical"
-                    ? "border-red-500 bg-red-50"
+                    ? "border-red-200 bg-red-50/50"
                     : action.priority === "high"
-                      ? "border-orange-500 bg-orange-50"
-                      : "border-blue-500 bg-blue-50"
+                      ? "border-orange-200 bg-orange-50/50"
+                      : "border-blue-200 bg-blue-50/50"
                 }`}
               >
                 <div className="mb-2 flex items-center justify-between">
                   <div className="flex items-center space-x-2">
                     <span
-                      className={`rounded-full px-2 py-1 text-xs font-medium text-white ${
+                      className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
                         action.priority === "critical"
-                          ? "bg-red-500"
+                          ? "bg-red-100 text-red-800"
                           : action.priority === "high"
-                            ? "bg-orange-500"
-                            : "bg-blue-500"
+                            ? "bg-orange-100 text-orange-800"
+                            : "bg-blue-100 text-blue-800"
                       }`}
                     >
+                      {action.priority === "critical" && (
+                        <AlertTriangle className="mr-1 h-3 w-3" />
+                      )}
                       {action.priority.toUpperCase()}
                     </span>
                     <Clock className="h-4 w-4 text-gray-400" />
@@ -480,17 +512,6 @@ export function DashboardOverview() {
                       {action.estimatedTime}
                     </span>
                   </div>
-                  <span
-                    className={`rounded px-2 py-1 text-xs font-medium ${
-                      action.completed
-                        ? "bg-green-100 text-green-700"
-                        : action.status === "pending"
-                          ? "bg-orange-100 text-orange-700"
-                          : "bg-gray-100 text-gray-700"
-                    }`}
-                  >
-                    {action.completed ? "Completed" : action.status}
-                  </span>
                 </div>
 
                 <h4 className="mb-1 font-semibold text-gray-900">
@@ -563,82 +584,112 @@ export function DashboardOverview() {
         </CardContent>
       </Card>
 
-      {/* Alerts & Key Insights */}
+      {/* Journey Updates */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <AlertTriangle className="h-5 w-5 text-orange-600" />
-            Farm Updates & Opportunities
+            <Activity className="h-5 w-5 text-blue-600" />
+            Your Journey Updates
           </CardTitle>
           <CardDescription>
-            Critical alerts and key insights for your farm operations
+            Recent progress, achievements, and important GAqP compliance updates
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
-            {/* Critical Alerts */}
-            {alerts.map(alert => (
-              <div
-                key={alert.id}
-                className="rounded-lg border-2 border-red-200 bg-red-50 p-4"
-              >
-                <div className="flex items-start space-x-3">
-                  <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-red-500">
-                    <AlertTriangle className="h-4 w-4 text-white" />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <h4 className="font-semibold text-red-900">
-                      {alert.title}
-                    </h4>
-                    <p className="mt-1 text-sm text-red-800">
-                      {alert.description}
-                    </p>
-                    <p className="mt-2 text-xs text-red-700">
-                      {alert.timestamp}
-                    </p>
-                  </div>
-                  <Button size="sm" variant="destructive" asChild>
-                    <Link href={alert.href}>Action Now</Link>
-                  </Button>
-                </div>
-              </div>
-            ))}
+            {/* Dynamic Alerts */}
+            {alerts.map(alert => {
+              // Define card styling based on alert type
+              const cardStyles = {
+                critical: {
+                  containerClass: "rounded-lg border-2 border-red-200 bg-white p-4 shadow-sm",
+                  iconBg: "bg-red-100 text-red-600",
+                  icon: AlertTriangle,
+                  buttonVariant: "default" as const,
+                  buttonClass: "bg-red-600 text-white hover:bg-red-700",
+                  titleClass: "text-gray-900",
+                  descClass: "text-gray-700",
+                  timeClass: "text-gray-500",
+                },
+                warning: {
+                  containerClass: "rounded-lg border-2 border-orange-200 bg-white p-4 shadow-sm",
+                  iconBg: "bg-orange-100 text-orange-600",
+                  icon: CloudRain,
+                  buttonVariant: "default" as const,
+                  buttonClass: "bg-orange-600 text-white hover:bg-orange-700",
+                  titleClass: "text-gray-900",
+                  descClass: "text-gray-700",
+                  timeClass: "text-gray-500",
+                },
+                positive: {
+                  containerClass: "rounded-lg border-2 border-green-200 bg-white p-4 shadow-sm",
+                  iconBg: "bg-green-100 text-green-600",
+                  icon: CheckCircle,
+                  buttonVariant: "default" as const,
+                  buttonClass: "bg-green-600 text-white hover:bg-green-700",
+                  titleClass: "text-gray-900",
+                  descClass: "text-gray-700",
+                  timeClass: "text-gray-500",
+                },
+                opportunity: {
+                  containerClass: "rounded-lg border-2 border-blue-200 bg-white p-4 shadow-sm",
+                  iconBg: "bg-blue-100 text-blue-600",
+                  icon: DollarSign,
+                  buttonVariant: "default" as const,
+                  buttonClass: "bg-blue-600 text-white hover:bg-blue-700",
+                  titleClass: "text-gray-900",
+                  descClass: "text-gray-700",
+                  timeClass: "text-gray-500",
+                },
+                info: {
+                  containerClass: "rounded-lg border-2 border-purple-200 bg-white p-4 shadow-sm",
+                  iconBg: "bg-purple-100 text-purple-600",
+                  icon: TrendingUp,
+                  buttonVariant: "default" as const,
+                  buttonClass: "bg-purple-600 text-white hover:bg-purple-700",
+                  titleClass: "text-gray-900",
+                  descClass: "text-gray-700",
+                  timeClass: "text-gray-500",
+                },
+              };
 
-            {/* Savings Opportunity */}
-            <div className="rounded-lg border-2 border-green-200 bg-green-50 p-4">
-              <div className="flex items-start space-x-3">
-                <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-green-500">
-                  <Wallet className="h-4 w-4 text-white" />
+              const style = cardStyles[alert.type as keyof typeof cardStyles];
+              const IconComponent = style.icon;
+
+              return (
+                <div key={alert.id} className={style.containerClass}>
+                  <div className="flex items-start space-x-3">
+                    <div className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${style.iconBg}`}>
+                      <IconComponent className="h-4 w-4" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <h4 className={`font-semibold ${style.titleClass}`}>
+                        {alert.title}
+                      </h4>
+                      <p className={`mt-1 text-sm ${style.descClass}`}>
+                        {alert.description}
+                      </p>
+                      <p className={`mt-2 text-xs ${style.timeClass}`}>
+                        {alert.timestamp}
+                      </p>
+                    </div>
+                    <Button
+                      size="sm"
+                      variant={style.buttonVariant}
+                      className={style.buttonClass}
+                      asChild
+                    >
+                      <Link href={alert.href}>{alert.actionText}</Link>
+                    </Button>
+                  </div>
                 </div>
-                <div className="min-w-0 flex-1">
-                  <h4 className="font-semibold text-green-900">
-                    Your Savings Opportunity
-                  </h4>
-                  <p className="mt-1 text-sm text-green-800">
-                    Projected savings from GAqP compliance this cycle
-                  </p>
-                  <p className="mt-2 text-2xl font-bold text-green-700">
-                    ₱12,500
-                  </p>
-                  <p className="text-xs text-green-600">
-                    Based on reduced mortality and feed efficiency
-                  </p>
-                </div>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  className="border-green-300 text-green-700 hover:bg-green-100"
-                  asChild
-                >
-                  <Link href="/resources">View Details</Link>
-                </Button>
-              </div>
-            </div>
+              );
+            })}
 
             {/* View All Button */}
             <div className="flex justify-center pt-2">
               <Button variant="outline" size="sm" asChild>
-                <Link href="/reports">View All Alerts & Insights</Link>
+                <Link href="/reports">View All Updates</Link>
               </Button>
             </div>
           </div>
