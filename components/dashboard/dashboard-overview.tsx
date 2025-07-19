@@ -488,16 +488,51 @@ export function DashboardOverview() {
             {nextActions.slice(0, 2).map(action => (
               <div
                 key={action.id}
-                className={`rounded-lg border-2 p-4 ${
+                className={`group relative flex cursor-pointer items-start rounded-lg border-2 p-4 transition-all duration-150 ${
                   action.priority === "critical"
                     ? "border-red-200 bg-red-50/50"
                     : action.priority === "high"
                       ? "border-orange-200 bg-orange-50/50"
                       : "border-blue-200 bg-blue-50/50"
-                }`}
+                } ${action.completed ? "opacity-60" : "hover:scale-[1.01] hover:shadow-lg"} `}
+                onClick={e => {
+                  // Only navigate if NOT clicking the checkbox
+                  if (
+                    (e.target as HTMLElement).closest('input[type="checkbox"]')
+                  )
+                    return;
+                  window.location.href = action.href;
+                }}
+                tabIndex={0}
+                role="button"
+                aria-label={`Open how-to guide for ${action.title}`}
+                onKeyDown={e => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    window.location.href = action.href;
+                  }
+                }}
               >
-                <div className="mb-2 flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
+                {/* Large Checkbox */}
+                <div className="flex flex-col items-center justify-center pr-4 pt-1">
+                  <input
+                    type="checkbox"
+                    checked={!!action.completed}
+                    onChange={e => {
+                      e.stopPropagation();
+                      handleCompleteAction(action.id);
+                    }}
+                    className="h-7 w-7 cursor-pointer rounded-lg border-2 border-green-400 accent-green-700 shadow-sm transition-all duration-150 focus:ring-2 focus:ring-green-500"
+                    aria-label={
+                      action.completed
+                        ? "Task completed"
+                        : "Mark task as complete"
+                    }
+                    tabIndex={0}
+                  />
+                </div>
+                {/* Card Content */}
+                <div className="flex-1">
+                  <div className="mb-2 flex items-center space-x-2">
                     <span
                       className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
                         action.priority === "critical"
@@ -517,36 +552,22 @@ export function DashboardOverview() {
                       {action.estimatedTime}
                     </span>
                   </div>
-                </div>
-
-                <h4 className="mb-1 font-semibold text-gray-900">
-                  {action.title}
-                </h4>
-                <p className="mb-2 text-sm text-gray-700">
-                  {action.description}
-                </p>
-
-                {/* Module Context */}
-                <p className="mb-3 text-xs text-gray-500">
-                  This action is part of your{" "}
-                  <span className="font-medium">{action.moduleName}</span>{" "}
-                  module
-                </p>
-
-                <div className="flex space-x-2">
-                  {!action.completed && (
-                    <Button
-                      onClick={() => handleCompleteAction(action.id)}
-                      size="sm"
-                      className="flex-1 bg-green-800 text-white hover:bg-green-600"
-                    >
-                      <CheckCircle className="mr-2 h-4 w-4" />
-                      Mark Complete
-                    </Button>
-                  )}
-                  <Button variant="outline" size="sm" asChild>
-                    <Link href={action.href}>Get How-To Guide</Link>
-                  </Button>
+                  <h4 className="mb-1 font-semibold text-gray-900 group-hover:text-blue-800">
+                    {action.title}
+                  </h4>
+                  <p className="mb-2 text-sm text-gray-700 group-hover:text-blue-700">
+                    {action.description}
+                  </p>
+                  {/* Module Context */}
+                  <p className="mb-3 text-xs text-gray-500">
+                    This action is part of your{" "}
+                    <span className="font-medium">{action.moduleName}</span>{" "}
+                    module
+                  </p>
+                  {/* Subtle How-To Guide hint */}
+                  <span className="text-xs font-medium text-blue-600 underline underline-offset-2 group-hover:text-blue-800">
+                    Tap anywhere for How-To Guide
+                  </span>
                 </div>
               </div>
             ))}
