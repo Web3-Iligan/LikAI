@@ -6,8 +6,6 @@ import {
   Award,
   CheckCircle,
   Clock,
-  CloudRain,
-  DollarSign,
   Droplets,
   HeartHandshake,
   MapPin,
@@ -324,7 +322,7 @@ export function DashboardOverview() {
               </Link>
             </Button>
             <Button size="sm" asChild>
-              <Link href="/assessment">Update Farm Profile</Link>
+              <Link href="">Update Farm Profile</Link>
             </Button>
           </div>
         </div>
@@ -610,121 +608,164 @@ export function DashboardOverview() {
         </CardContent>
       </Card>
 
-      {/* Journey Updates */}
+      {/* Journey Updates - Minimal, Clean Layout */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Activity className="h-5 w-5 text-blue-600" />
-            Your Journey Updates
-          </CardTitle>
+          <CardTitle>Your Journey Updates</CardTitle>
           <CardDescription>
             Recent progress, achievements, and important GAqP compliance updates
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            {/* Dynamic Alerts */}
-            {alerts.map(alert => {
-              // Define card styling based on alert type
-              const cardStyles = {
-                critical: {
-                  containerClass:
-                    "rounded-lg border-2 border-red-200 bg-white p-4 shadow-sm",
-                  iconBg: "bg-red-100 text-red-600",
-                  icon: AlertTriangle,
-                  buttonVariant: "default" as const,
-                  buttonClass: "bg-red-600 text-white hover:bg-red-700",
-                  titleClass: "text-gray-900",
-                  descClass: "text-gray-700",
-                  timeClass: "text-gray-500",
-                },
-                warning: {
-                  containerClass:
-                    "rounded-lg border-2 border-orange-200 bg-white p-4 shadow-sm",
-                  iconBg: "bg-orange-100 text-orange-600",
-                  icon: CloudRain,
-                  buttonVariant: "default" as const,
-                  buttonClass: "bg-orange-600 text-white hover:bg-orange-700",
-                  titleClass: "text-gray-900",
-                  descClass: "text-gray-700",
-                  timeClass: "text-gray-500",
-                },
-                positive: {
-                  containerClass:
-                    "rounded-lg border-2 border-green-200 bg-white p-4 shadow-sm",
-                  iconBg: "bg-green-100 text-green-600",
-                  icon: CheckCircle,
-                  buttonVariant: "default" as const,
-                  buttonClass: "bg-green-600 text-white hover:bg-green-700",
-                  titleClass: "text-gray-900",
-                  descClass: "text-gray-700",
-                  timeClass: "text-gray-500",
-                },
-                opportunity: {
-                  containerClass:
-                    "rounded-lg border-2 border-blue-200 bg-white p-4 shadow-sm",
-                  iconBg: "bg-blue-100 text-blue-600",
-                  icon: DollarSign,
-                  buttonVariant: "default" as const,
-                  buttonClass: "bg-blue-600 text-white hover:bg-blue-700",
-                  titleClass: "text-gray-900",
-                  descClass: "text-gray-700",
-                  timeClass: "text-gray-500",
-                },
-                info: {
-                  containerClass:
-                    "rounded-lg border-2 border-purple-200 bg-white p-4 shadow-sm",
-                  iconBg: "bg-purple-100 text-purple-600",
-                  icon: TrendingUp,
-                  buttonVariant: "default" as const,
-                  buttonClass: "bg-purple-600 text-white hover:bg-purple-700",
-                  titleClass: "text-gray-900",
-                  descClass: "text-gray-700",
-                  timeClass: "text-gray-500",
-                },
-              };
-
-              const style = cardStyles[alert.type as keyof typeof cardStyles];
-              const IconComponent = style.icon;
-
-              return (
-                <div key={alert.id} className={style.containerClass}>
-                  <div className="flex items-start space-x-3">
-                    <div
-                      className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${style.iconBg}`}
-                    >
-                      <IconComponent className="h-4 w-4" />
+          {/* Personal Greeting */}
+          <div className="mb-6 text-lg font-semibold text-gray-800">
+            Good evening, Juan!
+          </div>
+          {/* Urgent Actions */}
+          <div className="mb-6">
+            <div className="mb-3 text-base font-bold text-red-700">
+              Urgent Actions
+            </div>
+            {alerts
+              .filter(a => a.type === "critical")
+              .map(alert => (
+                <div
+                  key={alert.id}
+                  className="mb-3 flex items-center rounded-lg bg-red-50/60 p-4 shadow-sm"
+                >
+                  <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-red-100">
+                    <AlertTriangle className="h-5 w-5 text-red-600" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-base font-bold text-gray-900">
+                      {alert.title}
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <h4 className={`font-semibold ${style.titleClass}`}>
-                        {alert.title}
-                      </h4>
-                      <p className={`mt-1 text-sm ${style.descClass}`}>
-                        {alert.description}
-                      </p>
-                      <p className={`mt-2 text-xs ${style.timeClass}`}>
-                        {alert.timestamp}
-                      </p>
+                    <div className="text-sm text-gray-700">
+                      This task is {alert.timestamp}!
                     </div>
-                    <Button
-                      size="sm"
-                      variant={style.buttonVariant}
-                      className={style.buttonClass}
-                      asChild
-                    >
-                      <Link href={alert.href}>{alert.actionText}</Link>
-                    </Button>
+                    <div className="mt-1 text-xs text-gray-500">
+                      {alert.description}
+                    </div>
+                  </div>
+                  <Button
+                    size="sm"
+                    className="ml-4 bg-red-600 text-white hover:bg-red-700"
+                    asChild
+                  >
+                    <Link href={alert.href}>{alert.actionText}</Link>
+                  </Button>
+                </div>
+              ))}
+          </div>
+          {/* Achievements */}
+          <div className="mb-6">
+            <div className="mb-3 text-base font-bold text-green-700">
+              Your Achievements
+            </div>
+            {alerts
+              .filter(a => a.type === "positive")
+              .map(alert => (
+                <div
+                  key={alert.id}
+                  className="mb-3 flex items-center rounded-lg bg-green-50/60 p-4 shadow-sm"
+                >
+                  <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
+                    <CheckCircle className="h-5 w-5 text-green-600" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-base font-bold text-gray-900">
+                      {alert.title}
+                    </div>
+                    <div className="text-sm text-gray-700">
+                      {alert.description}
+                    </div>
+                    <div className="mt-1 text-xs text-gray-500">
+                      {alert.timestamp}
+                    </div>
+                  </div>
+                  <Button
+                    size="sm"
+                    className="ml-4 bg-green-600 text-white hover:bg-green-700"
+                    asChild
+                  >
+                    <Link href={alert.href}>{alert.actionText}</Link>
+                  </Button>
+                </div>
+              ))}
+            {/* Big, bold savings card */}
+            {alerts
+              .filter(a => a.type === "opportunity")
+              .map(alert => (
+                <div
+                  key={alert.id}
+                  className="mb-3 flex items-center rounded-lg bg-blue-50/60 p-4 shadow-sm"
+                >
+                  <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
+                    <TrendingUp className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-base font-bold text-gray-900">
+                      {alert.title}
+                    </div>
+                    <div className="text-2xl font-extrabold leading-tight text-blue-700">
+                      ₱12,000
+                    </div>
+                    <div className="text-sm text-gray-700">
+                      {alert.description}
+                    </div>
+                    <div className="mt-1 text-xs text-gray-500">
+                      {alert.timestamp}
+                    </div>
+                  </div>
+                  <Button
+                    size="sm"
+                    className="ml-4 bg-blue-600 text-white hover:bg-blue-700"
+                    asChild
+                  >
+                    <Link href={alert.href}>{alert.actionText}</Link>
+                  </Button>
+                </div>
+              ))}
+          </div>
+          {/* LikAI's Advice */}
+          <div className="mb-3 text-base font-bold text-indigo-700">
+            LikAI's Advice
+          </div>
+          {alerts
+            .filter(a => a.type === "info")
+            .map(alert => (
+              <div
+                key={alert.id}
+                className="mb-3 flex items-center rounded-lg bg-indigo-50/60 p-4 shadow-sm"
+              >
+                <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100">
+                  <Stethoscope className="h-5 w-5 text-indigo-600" />
+                </div>
+                <div className="flex-1">
+                  <div className="text-base font-bold text-gray-900">
+                    {alert.title}
+                  </div>
+                  <div className="text-sm text-gray-700">
+                    {alert.description}
+                  </div>
+                  <div className="mt-1 text-xs text-gray-500">
+                    {alert.timestamp}
                   </div>
                 </div>
-              );
-            })}
-
-            {/* View All Button */}
-            <div className="flex justify-center pt-2">
-              <Button variant="outline" size="sm" asChild>
-                <Link href="/reports">View All Updates</Link>
-              </Button>
-            </div>
+                <Button
+                  size="sm"
+                  className="ml-4 bg-indigo-600 text-white hover:bg-indigo-700"
+                  asChild
+                >
+                  <Link href={alert.href}>{alert.actionText}</Link>
+                </Button>
+              </div>
+            ))}
+          {/* View All Button */}
+          <div className="flex justify-center pt-2">
+            <Button variant="outline" size="sm" asChild>
+              <Link href="/reports">View All Updates</Link>
+            </Button>
           </div>
         </CardContent>
       </Card>
