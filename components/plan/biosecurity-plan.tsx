@@ -487,12 +487,12 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
         {/* Overall Progress Bar */}
         <div className="mb-6">
           <div className="mb-3 flex items-center justify-between">
-            <h1 className="text-4xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-gray-900">
               Your GAqP Journey
             </h1>
             {hasUrgentTasks && (
-              <Badge variant="destructive" className="px-4 py-2 text-base">
-                <AlertTriangle className="mr-2 h-5 w-5" />
+              <Badge variant="destructive" className="px-3 py-1.5 text-sm">
+                <AlertTriangle className="mr-2 h-4 w-4" />
                 Urgent Actions Required
               </Badge>
             )}
@@ -519,8 +519,9 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                   biosecurityPhases.length) *
                   100
               )}
-              className="h-6 [&>div]:bg-gradient-to-r [&>div]:from-blue-500 [&>div]:via-cyan-500 [&>div]:to-green-500"
+              className="h-3 [&>div]:bg-gradient-to-r [&>div]:from-blue-500 [&>div]:via-cyan-500 [&>div]:to-green-500"
             />
+            {/* Reduced height from h-6 to h-3 for a slimmer progress bar */}
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="text-sm font-bold text-white drop-shadow-sm">
                 {Math.round(
