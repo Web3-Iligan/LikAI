@@ -14,7 +14,6 @@ import {
   Filter,
   Heart,
   Lock,
-  MapPin,
   Shield,
   Tractor,
   Truck,
@@ -190,6 +189,9 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const tasksPerPage = 6;
+
+  // Filter menu state
+  const [showFilterMenu, setShowFilterMenu] = useState(false);
 
   // Default tasks if no AI plan is generated
   const defaultTasks: BiosecurityTask[] = [
@@ -542,6 +544,10 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
           <h2 className="mb-4 text-2xl font-bold text-gray-900">
             🎯 Focus Your Plan
           </h2>
+          <div className="mb-8 mt-2 text-sm text-gray-500">
+            💡 <strong>Tip:</strong> Select a module to focus on specific tasks,
+            or choose "All Modules" to see your complete journey.
+          </div>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {gaqpModules.map(module => {
               const isSelected = selectedModule === module.id;
@@ -671,155 +677,151 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
               );
             })}
           </div>
-          <div className="mt-4 text-sm text-gray-500">
-            💡 <strong>Tip:</strong> Select a module to focus on specific tasks,
-            or choose "All Modules" to see your complete journey.
-          </div>
         </div>
       </div>
 
       {/* Your Next Action */}
       {(currentStepForModule ||
-        (selectedModule === "all" && overallCurrentStep)) && (
-        <div className="mb-8">
-          <div className="rounded-xl border-2 border-green-400 bg-gradient-to-r from-green-50 to-emerald-50 p-6 shadow-lg">
-            <div className="mb-4 flex items-center gap-2">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-500 text-xl font-bold text-white shadow-md">
-                →
+        (selectedModule === "all" && overallCurrentStep)) &&
+        (() => {
+          const task = currentStepForModule || overallCurrentStep;
+          const isUrgent = task?.priority === "critical";
+          return (
+            <div
+              className={`mb-8 flex flex-col gap-4 rounded-xl border-2 p-6 shadow-lg transition-all duration-200 ${
+                isUrgent
+                  ? "border-red-400 bg-red-50/80"
+                  : "border-blue-200 bg-gradient-to-r from-green-50 to-emerald-50"
+              }`}
+            >
+              <div className="mb-2 flex items-center gap-3">
+                <div
+                  className={`flex h-12 w-12 items-center justify-center rounded-full text-xl font-bold shadow-md ${
+                    isUrgent
+                      ? "bg-red-500 text-white"
+                      : "bg-green-500 text-white"
+                  }`}
+                >
+                  {isUrgent ? <AlertTriangle className="h-7 w-7" /> : "→"}
+                </div>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-xl font-bold text-gray-900">
+                      {isUrgent ? "Urgent Action" : "Next Action"}
+                    </h2>
+                    {selectedModule !== "all" && (
+                      <span className="text-base font-normal text-gray-600">
+                        {" in "}
+                        {currentModule?.name}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="mt-1 text-lg font-semibold text-gray-900">
+                    {task?.title}
+                  </h3>
+                </div>
               </div>
-              <h2 className="text-2xl font-bold text-gray-900">
-                Your Next Action
-                {selectedModule !== "all" && (
-                  <span className="text-lg font-normal text-gray-600">
-                    {" "}
-                    in {currentModule?.name}
+              <p className="mb-2 text-gray-700">{task?.description}</p>
+              {isUrgent && (
+                <div className="mb-2 flex items-center gap-2 rounded-lg bg-red-50 p-3">
+                  <AlertTriangle className="h-5 w-5 text-red-500" />
+                  <span className="font-medium text-red-700">
+                    Urgent: Immediate action needed to protect your farm.
                   </span>
-                )}
-              </h2>
-              {(currentStepForModule || overallCurrentStep)?.priority ===
-                "critical" && (
-                <Badge variant="destructive" className="text-sm">
-                  🚨 URGENT
-                </Badge>
-              )}
-            </div>
-
-            <div className="mb-4 rounded-lg border-2 border-green-200 bg-white p-6">
-              <h3 className="mb-2 text-xl font-bold text-gray-900">
-                {(currentStepForModule || overallCurrentStep)?.title}
-              </h3>
-              <p className="mb-3 text-gray-700">
-                {(currentStepForModule || overallCurrentStep)?.description}
-              </p>
-              {(currentStepForModule || overallCurrentStep)?.priority ===
-                "critical" && (
-                <div className="mb-4 rounded-lg bg-red-50 p-3">
-                  <p className="font-medium text-red-700">
-                    🚨 Critical - This task needs immediate attention to protect
-                    your farm!
-                  </p>
                 </div>
               )}
-              <div className="flex items-center gap-3 text-sm text-gray-600">
-                <span>
-                  💰{" "}
-                  {(currentStepForModule || overallCurrentStep)?.estimatedCost}
-                </span>
-                <span>
-                  ⏱️ {(currentStepForModule || overallCurrentStep)?.timeframe}
-                </span>
+              <div className="mb-2 flex items-center gap-3 text-sm text-gray-600">
+                <span>💰 {task?.estimatedCost}</span>
+                <span>⏱️ {task?.timeframe}</span>
               </div>
-            </div>
-
-            <div className="flex gap-4">
               <Button
+                variant={isUrgent ? "destructive" : "default"}
                 size="lg"
-                className="bg-green-600 px-8 py-3 text-lg font-semibold text-white hover:bg-green-700"
-                onClick={() =>
-                  toggleTaskStatus(
-                    (currentStepForModule || overallCurrentStep)?.id || ""
-                  )
+                className={
+                  isUrgent
+                    ? "border-red-400 bg-red-600 text-white hover:bg-red-700"
+                    : "bg-green-600 text-white hover:bg-green-700"
                 }
-              >
-                ✅ Complete This Action
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-green-200 px-6 py-3 text-green-700 hover:bg-green-50"
                 onClick={() => {
-                  const task = currentStepForModule || overallCurrentStep;
                   if (task) setSelectedTaskForGuide(task);
                 }}
               >
-                📖 Get Step-by-Step Guide
+                {isUrgent
+                  ? "⚠️ View Step-by-Step Guide"
+                  : "📖 Get Step-by-Step Guide"}
               </Button>
             </div>
-          </div>
-        </div>
-      )}
+          );
+        })()}
 
       {/* Steps in Selected Module */}
       <div className="mb-8">
-        <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-900">
-            {selectedModule === "all"
-              ? "Steps in Your Complete Journey"
-              : `Steps in ${currentModule?.name}`}
-          </h2>
-          <div className="flex items-center gap-4">
-            <div className="text-sm text-gray-600">
-              <span className="font-semibold text-gray-900">
-                {filteredTasks.length}
-              </span>{" "}
-              tasks
-              {filteredTasks.filter(t => t.status === "completed").length >
-                0 && (
-                <>
-                  {" • "}
-                  <span className="font-semibold text-green-600">
-                    {filteredTasks.filter(t => t.status === "completed").length}
-                  </span>{" "}
-                  completed
-                </>
-              )}
-              {filteredTasks.filter(
-                t => t.priority === "critical" && t.status !== "completed"
-              ).length > 0 && (
-                <>
-                  {" • "}
-                  <span className="font-semibold text-red-600">
-                    {
-                      filteredTasks.filter(
-                        t =>
-                          t.priority === "critical" && t.status !== "completed"
-                      ).length
-                    }
-                  </span>{" "}
-                  urgent
-                </>
+        <div className="mb-6">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-gray-900">Task History</h2>
+            <div className="relative">
+              <Button
+                variant="outline"
+                size="sm"
+                className="flex items-center gap-1 border-gray-300 text-sm"
+                onClick={() => setShowFilterMenu(v => !v)}
+              >
+                <Filter className="h-4 w-4" />
+                Filter <span className="ml-1">▼</span>
+              </Button>
+              {showFilterMenu && (
+                <div className="absolute right-0 z-10 mt-2 w-48 rounded-md border border-gray-200 bg-white shadow-lg">
+                  <button
+                    className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-100 ${viewMode === "all" ? "font-bold text-blue-600" : "text-gray-800"}`}
+                    onClick={() => {
+                      setViewMode("all");
+                      setShowFilterMenu(false);
+                    }}
+                  >
+                    Show All Tasks
+                  </button>
+                  <button
+                    className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-100 ${viewMode === "phases" ? "font-bold text-blue-600" : "text-gray-800"}`}
+                    onClick={() => {
+                      setViewMode("phases");
+                      setShowFilterMenu(false);
+                    }}
+                  >
+                    Group by Module
+                  </button>
+                </div>
               )}
             </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant={viewMode === "phases" ? "default" : "ghost"}
-                size="sm"
-                onClick={() => setViewMode("phases")}
-                className="text-sm"
-              >
-                <MapPin className="mr-2 h-4 w-4" />
-                Organized View
-              </Button>
-              <Button
-                variant={viewMode === "all" ? "default" : "ghost"}
-                size="sm"
-                onClick={() => setViewMode("all")}
-                className="text-sm"
-              >
-                <Filter className="mr-2 h-4 w-4" />
-                Simple List
-              </Button>
-            </div>
+          </div>
+          <div className="mt-1 text-sm text-gray-600">
+            <span className="font-semibold text-gray-900">
+              {filteredTasks.length}
+            </span>{" "}
+            tasks
+            {filteredTasks.filter(t => t.status === "completed").length > 0 && (
+              <>
+                {" • "}
+                <span className="font-semibold text-green-600">
+                  {filteredTasks.filter(t => t.status === "completed").length}
+                </span>{" "}
+                completed
+              </>
+            )}
+            {filteredTasks.filter(
+              t => t.priority === "critical" && t.status !== "completed"
+            ).length > 0 && (
+              <>
+                {" • "}
+                <span className="font-semibold text-red-600">
+                  {
+                    filteredTasks.filter(
+                      t => t.priority === "critical" && t.status !== "completed"
+                    ).length
+                  }
+                </span>{" "}
+                urgent
+              </>
+            )}
           </div>
         </div>
 
@@ -1323,123 +1325,6 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
           </div>
         </div>
       )}
-
-      {/* Your Journey Progress */}
-      <div className="rounded-xl border bg-white p-6 shadow-lg">
-        <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-900">
-            � Your Journey Progress
-          </h2>
-          <div className="text-right">
-            <div className="text-3xl font-bold text-blue-600">
-              {Math.round(
-                (currentTasks.filter(t => t.status === "completed").length /
-                  currentTasks.length) *
-                  100
-              )}
-              %
-            </div>
-            <div className="text-sm text-gray-600">Overall Complete</div>
-          </div>
-        </div>
-
-        {/* Key Metrics Dashboard */}
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-          <div className="rounded-xl border border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100 p-6 text-center">
-            <div className="mb-2 text-3xl font-bold text-blue-600">
-              {
-                biosecurityPhases.filter(
-                  phase => getPhaseProgress(phase.id).percentage === 100
-                ).length
-              }
-            </div>
-            <div className="text-sm font-medium text-blue-700">
-              Phases Complete
-            </div>
-            <div className="mt-1 text-xs text-blue-600">
-              of {biosecurityPhases.length} total
-            </div>
-          </div>
-
-          <div className="rounded-xl border border-green-200 bg-gradient-to-br from-green-50 to-green-100 p-6 text-center">
-            <div className="mb-2 flex items-center justify-center gap-1">
-              <CheckCircle className="h-6 w-6 text-green-600" />
-              <span className="text-3xl font-bold text-green-600">
-                {currentTasks.filter(t => t.status === "completed").length}
-              </span>
-            </div>
-            <div className="text-sm font-medium text-green-700">
-              Tasks Complete
-            </div>
-            <div className="mt-1 text-xs text-green-600">
-              of {currentTasks.length} total
-            </div>
-          </div>
-
-          <div className="rounded-xl border border-purple-200 bg-gradient-to-br from-purple-50 to-purple-100 p-6 text-center">
-            <div className="mb-2 text-3xl font-bold text-purple-600">
-              {currentTasks.filter(t => t.status === "pending").length}
-            </div>
-            <div className="text-sm font-medium text-purple-700">
-              Tasks Remaining
-            </div>
-            <div className="mt-1 text-xs text-purple-600">in your journey</div>
-          </div>
-
-          <div className="rounded-xl border border-orange-200 bg-gradient-to-br from-orange-50 to-orange-100 p-6 text-center">
-            <div className="mb-2 flex items-center justify-center gap-1">
-              <AlertTriangle className="h-6 w-6 text-orange-600" />
-              <span className="text-3xl font-bold text-orange-600">
-                {
-                  currentTasks.filter(
-                    t => t.priority === "critical" && t.status !== "completed"
-                  ).length
-                }
-              </span>
-            </div>
-            <div className="text-sm font-medium text-orange-700">
-              Critical Tasks
-            </div>
-            <div className="mt-1 text-xs text-orange-600">need attention</div>
-          </div>
-        </div>
-
-        {/* Journey Milestone Achievement */}
-        {currentTasks.filter(t => t.status === "completed").length > 0 && (
-          <div className="mt-6 rounded-xl border border-green-200 bg-gradient-to-r from-green-50 via-blue-50 to-green-50 p-6">
-            <div className="flex items-center gap-4">
-              <div className="rounded-full bg-green-500 p-3">
-                <CheckCircle className="h-8 w-8 text-white" />
-              </div>
-              <div className="flex-1">
-                <h4 className="text-lg font-bold text-gray-900">
-                  🎉 Great Progress!
-                </h4>
-                <p className="text-gray-600">
-                  You've completed{" "}
-                  <span className="font-semibold text-green-600">
-                    {currentTasks.filter(t => t.status === "completed").length}{" "}
-                    tasks
-                  </span>{" "}
-                  on your GAqP journey. Your farm security is getting stronger
-                  with every step!
-                </p>
-              </div>
-              <div className="text-right">
-                <div className="text-2xl font-bold text-green-600">
-                  {Math.round(
-                    (currentTasks.filter(t => t.status === "completed").length /
-                      currentTasks.length) *
-                      100
-                  )}
-                  %
-                </div>
-                <div className="text-sm text-gray-600">Complete</div>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
     </div>
   );
 }
