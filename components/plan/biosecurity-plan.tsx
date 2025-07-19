@@ -742,12 +742,12 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
 
               <div className="flex gap-4">
                 <Button
-                  variant={isUrgent ? "destructive" : "outline"}
+                  variant={isUrgent ? "destructive" : "default"}
                   size="lg"
                   className={
                     isUrgent
                       ? "border-red-400 bg-red-600 text-white hover:bg-red-700"
-                      : "border-green-200 px-6 py-3 text-green-700 hover:bg-green-50"
+                      : "bg-green-600 text-white hover:bg-green-700"
                   }
                   onClick={() => {
                     if (task) setSelectedTaskForGuide(task);
