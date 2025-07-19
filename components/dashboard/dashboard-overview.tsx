@@ -389,7 +389,7 @@ export function DashboardOverview() {
         })}
       </div>
 
-      {/* GAqP Journey Modules */}
+      {/* GAqP Journey Modules - Consistent Color Rules & Next Task Link */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -403,65 +403,118 @@ export function DashboardOverview() {
         <CardContent>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {gaqpModules.map(module => {
-              const IconComponent = module.icon;
+              // Consistent color logic
+              let bgColor = "from-blue-50/80 to-blue-100/40";
+              let borderColor = "border-blue-200";
+              let textColor = "text-blue-700";
+              let barColor = "bg-blue-500";
+              let showNextTask = false;
+              // Green: 100% complete
+              if (module.progress === 100) {
+                bgColor = "from-green-50/80 to-green-100/40";
+                borderColor = "border-green-200";
+                textColor = "text-green-700";
+                barColor = "bg-green-500";
+              } else if (module.progress < 20) {
+                // Red: very low progress
+                bgColor = "from-red-50/80 to-red-100/40";
+                borderColor = "border-red-200";
+                textColor = "text-red-700";
+                barColor = "bg-red-500";
+                showNextTask = true;
+              }
+              // Find the next action for this module
+              const nextAction = nextActions.find(
+                a => a.moduleId === module.id && !a.completed
+              );
               return (
-                <Link key={module.id} href={module.href} className="group">
-                  <div
-                    className={`relative rounded-xl border-2 ${module.borderColor} bg-gradient-to-br ${module.bgColor} p-6 transition-all duration-200 hover:scale-[1.02] hover:shadow-lg`}
-                  >
-                    {/* Status Badge */}
-                    <div className="absolute right-3 top-3">
-                      {module.status === "complete" ? (
-                        <div className="rounded-full bg-green-100 p-1">
-                          <CheckCircle className="h-4 w-4 text-green-600" />
+                <div key={module.id} className="group relative">
+                  <Link href={module.href} className="block">
+                    <div
+                      className={`relative rounded-xl border-2 ${borderColor} bg-gradient-to-br ${bgColor} p-6 transition-all duration-200 hover:scale-[1.02] hover:shadow-lg`}
+                    >
+                      {/* Status Badge */}
+                      <div className="absolute right-3 top-3 z-10 flex items-center">
+                        {module.progress === 100 ? (
+                          <div className="rounded-full bg-green-100 p-1">
+                            <CheckCircle className="h-4 w-4 text-green-600" />
+                          </div>
+                        ) : module.progress < 20 ? (
+                          <div className="rounded-full bg-red-100 px-2 py-1">
+                            <span className="whitespace-nowrap text-xs font-medium text-red-600">
+                              Needs Attention
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="rounded-full bg-blue-100 px-2 py-1">
+                            <span className="whitespace-nowrap text-xs font-medium text-blue-600">
+                              In Progress
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Module Icon and Text, now with extra top padding to avoid badge overlap */}
+                      <div className="mb-4 flex items-center space-x-3 pt-6">
+                        <div className={`rounded-lg bg-white/80 p-3`}>
+                          <module.icon className={`h-6 w-6 ${textColor}`} />
                         </div>
-                      ) : (
-                        <div className="rounded-full bg-gray-100 px-2 py-1">
-                          <span className="text-xs font-medium text-gray-600">
-                            In Progress
-                          </span>
+                        <div>
+                          <h3 className="font-semibold text-gray-900 group-hover:text-gray-700">
+                            {module.name}
+                          </h3>
+                          <p className="text-sm text-gray-600 group-hover:text-gray-500">
+                            {module.description}
+                          </p>
                         </div>
+                      </div>
+
+                      {/* Progress Info */}
+                      <div className="mb-3 flex items-center justify-between">
+                        <div className="text-sm text-gray-600">
+                          {module.completedSteps} of {module.totalSteps} steps
+                        </div>
+                        <div className={`text-sm font-semibold ${textColor}`}>
+                          {module.progress}%
+                        </div>
+                      </div>
+
+                      {/* Progress Bar */}
+                      <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
+                        <div
+                          className={`h-full ${barColor} transition-all duration-500`}
+                          style={{ width: `${module.progress}%` }}
+                        ></div>
+                      </div>
+                      {/* Next Task Link for low progress */}
+                      {showNextTask && nextAction && (
+                        <button
+                          type="button"
+                          className="mt-4 w-full rounded-md bg-red-600 py-2 text-sm font-semibold text-white shadow transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
+                          onClick={e => {
+                            e.preventDefault();
+                            const el = document.getElementById(
+                              `action-hub-task-${nextAction.id}`
+                            );
+                            if (el) {
+                              el.scrollIntoView({
+                                behavior: "smooth",
+                                block: "center",
+                              });
+                              el.classList.add("ring-4", "ring-red-400");
+                              setTimeout(() => {
+                                el.classList.remove("ring-4", "ring-red-400");
+                              }, 2000);
+                            }
+                          }}
+                        >
+                          Start Next Task
+                        </button>
                       )}
+                      {/* End Next Task Link */}
                     </div>
-
-                    {/* Module Icon */}
-                    <div className="mb-4 flex items-center space-x-3">
-                      <div className={`rounded-lg p-3 ${module.bgColor}`}>
-                        <IconComponent
-                          className={`h-6 w-6 ${module.textColor}`}
-                        />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900 group-hover:text-gray-700">
-                          {module.name}
-                        </h3>
-                        <p className="text-sm text-gray-600 group-hover:text-gray-500">
-                          {module.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Progress Info */}
-                    <div className="mb-3 flex items-center justify-between">
-                      <div className="text-sm text-gray-600">
-                        {module.completedSteps} of {module.totalSteps} steps
-                      </div>
-                      <div
-                        className={`text-sm font-semibold ${module.textColor}`}
-                      >
-                        {module.progress}%
-                      </div>
-                    </div>
-
-                    {/* Progress Bar */}
-                    <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
-                      <div
-                        className={`h-full ${module.barColor} transition-all duration-500`}
-                        style={{ width: `${module.progress}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
               );
             })}
           </div>
@@ -486,6 +539,7 @@ export function DashboardOverview() {
             {nextActions.slice(0, 2).map(action => (
               <div
                 key={action.id}
+                id={`action-hub-task-${action.id}`}
                 className={`group relative flex cursor-pointer items-start rounded-lg border-2 p-4 transition-all duration-150 ${
                   action.priority === "critical"
                     ? "border-red-200 bg-red-50/50"
