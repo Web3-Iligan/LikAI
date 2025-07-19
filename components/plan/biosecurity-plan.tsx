@@ -544,6 +544,10 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
           <h2 className="mb-4 text-2xl font-bold text-gray-900">
             🎯 Focus Your Plan
           </h2>
+          <div className="mb-8 mt-2 text-sm text-gray-500">
+            💡 <strong>Tip:</strong> Select a module to focus on specific tasks,
+            or choose "All Modules" to see your complete journey.
+          </div>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {gaqpModules.map(module => {
               const isSelected = selectedModule === module.id;
@@ -673,10 +677,6 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
               );
             })}
           </div>
-          <div className="mt-4 text-sm text-gray-500">
-            💡 <strong>Tip:</strong> Select a module to focus on specific tasks,
-            or choose "All Modules" to see your complete journey.
-          </div>
         </div>
       </div>
 
@@ -688,13 +688,13 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
           const isUrgent = task?.priority === "critical";
           return (
             <div
-              className={`mb-8 rounded-xl border-2 p-6 shadow-lg transition-all duration-200 ${
+              className={`mb-8 flex flex-col gap-4 rounded-xl border-2 p-6 shadow-lg transition-all duration-200 ${
                 isUrgent
                   ? "border-red-400 bg-red-50/80"
                   : "border-blue-200 bg-gradient-to-r from-green-50 to-emerald-50"
               }`}
             >
-              <div className="mb-4 flex items-center gap-3">
+              <div className="mb-2 flex items-center gap-3">
                 <div
                   className={`flex h-12 w-12 items-center justify-center rounded-full text-xl font-bold shadow-md ${
                     isUrgent
@@ -704,60 +704,52 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                 >
                   {isUrgent ? <AlertTriangle className="h-7 w-7" /> : "→"}
                 </div>
-                <h2 className="text-2xl font-bold text-gray-900">
-                  {isUrgent ? "Urgent Action" : "Your Next Action"}
-                  {selectedModule !== "all" && (
-                    <span className="text-lg font-normal text-gray-600">
-                      {" in "}
-                      {currentModule?.name}
-                    </span>
-                  )}
-                </h2>
-              </div>
-
-              <div
-                className={`mb-4 rounded-lg border-2 p-6 ${
-                  isUrgent
-                    ? "border-red-200 bg-white/90"
-                    : "border-green-200 bg-white"
-                }`}
-              >
-                <h3 className="mb-2 text-xl font-bold text-gray-900">
-                  {task?.title}
-                </h3>
-                <p className="mb-3 text-gray-700">{task?.description}</p>
-                {isUrgent && (
-                  <div className="mb-4 flex items-center gap-2 rounded-lg bg-red-50 p-3">
-                    <AlertTriangle className="h-5 w-5 text-red-500" />
-                    <span className="font-medium text-red-700">
-                      Urgent: Immediate action needed to protect your farm.
-                    </span>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h2 className="text-xl font-bold text-gray-900">
+                      {isUrgent ? "Urgent Action" : "Next Action"}
+                    </h2>
+                    {selectedModule !== "all" && (
+                      <span className="text-base font-normal text-gray-600">
+                        {" in "}
+                        {currentModule?.name}
+                      </span>
+                    )}
                   </div>
-                )}
-                <div className="flex items-center gap-3 text-sm text-gray-600">
-                  <span>💰 {task?.estimatedCost}</span>
-                  <span>⏱️ {task?.timeframe}</span>
+                  <h3 className="mt-1 text-lg font-semibold text-gray-900">
+                    {task?.title}
+                  </h3>
                 </div>
               </div>
-
-              <div className="flex gap-4">
-                <Button
-                  variant={isUrgent ? "destructive" : "default"}
-                  size="lg"
-                  className={
-                    isUrgent
-                      ? "border-red-400 bg-red-600 text-white hover:bg-red-700"
-                      : "bg-green-600 text-white hover:bg-green-700"
-                  }
-                  onClick={() => {
-                    if (task) setSelectedTaskForGuide(task);
-                  }}
-                >
-                  {isUrgent
-                    ? "⚠️ View Step-by-Step Guide"
-                    : "📖 Get Step-by-Step Guide"}
-                </Button>
+              <p className="mb-2 text-gray-700">{task?.description}</p>
+              {isUrgent && (
+                <div className="mb-2 flex items-center gap-2 rounded-lg bg-red-50 p-3">
+                  <AlertTriangle className="h-5 w-5 text-red-500" />
+                  <span className="font-medium text-red-700">
+                    Urgent: Immediate action needed to protect your farm.
+                  </span>
+                </div>
+              )}
+              <div className="mb-2 flex items-center gap-3 text-sm text-gray-600">
+                <span>💰 {task?.estimatedCost}</span>
+                <span>⏱️ {task?.timeframe}</span>
               </div>
+              <Button
+                variant={isUrgent ? "destructive" : "default"}
+                size="lg"
+                className={
+                  isUrgent
+                    ? "border-red-400 bg-red-600 text-white hover:bg-red-700"
+                    : "bg-green-600 text-white hover:bg-green-700"
+                }
+                onClick={() => {
+                  if (task) setSelectedTaskForGuide(task);
+                }}
+              >
+                {isUrgent
+                  ? "⚠️ View Step-by-Step Guide"
+                  : "📖 Get Step-by-Step Guide"}
+              </Button>
             </div>
           );
         })()}
