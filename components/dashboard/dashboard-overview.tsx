@@ -538,7 +538,7 @@ export function DashboardOverview() {
                     <Button
                       onClick={() => handleCompleteAction(action.id)}
                       size="sm"
-                      className="flex-1"
+                      className="flex-1 bg-green-800 text-white hover:bg-green-600"
                     >
                       <CheckCircle className="mr-2 h-4 w-4" />
                       Mark Complete
