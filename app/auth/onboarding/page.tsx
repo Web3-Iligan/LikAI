@@ -557,12 +557,12 @@ export default function OnboardingPage() {
                         {
                           id: "vannamei",
                           label:
-                            "Penaeus vannamei (Pacific White Shrimp / Suati)",
+                            "Suati (Pacific White Shrimp)",
                         },
                         {
                           id: "monodon",
                           label:
-                            "Penaeus monodon (Giant Black Tiger Shrimp / Sugpo)",
+                            "Sugpo (Giant Black Tiger Shrimp)",
                         },
                         {
                           id: "other",
