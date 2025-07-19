@@ -682,84 +682,85 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
 
       {/* Your Next Action */}
       {(currentStepForModule ||
-        (selectedModule === "all" && overallCurrentStep)) && (
-        <div className="mb-8">
-          <div className="rounded-xl border-2 border-green-400 bg-gradient-to-r from-green-50 to-emerald-50 p-6 shadow-lg">
-            <div className="mb-4 flex items-center gap-2">
-              <div className="flex h-12 w-12 items-center justify-center rounded-full bg-green-500 text-xl font-bold text-white shadow-md">
-                →
-              </div>
-              <h2 className="text-2xl font-bold text-gray-900">
-                Your Next Action
-                {selectedModule !== "all" && (
-                  <span className="text-lg font-normal text-gray-600">
-                    {" "}
-                    in {currentModule?.name}
-                  </span>
-                )}
-              </h2>
-              {(currentStepForModule || overallCurrentStep)?.priority ===
-                "critical" && (
-                <Badge variant="destructive" className="text-sm">
-                  🚨 URGENT
-                </Badge>
-              )}
-            </div>
-
-            <div className="mb-4 rounded-lg border-2 border-green-200 bg-white p-6">
-              <h3 className="mb-2 text-xl font-bold text-gray-900">
-                {(currentStepForModule || overallCurrentStep)?.title}
-              </h3>
-              <p className="mb-3 text-gray-700">
-                {(currentStepForModule || overallCurrentStep)?.description}
-              </p>
-              {(currentStepForModule || overallCurrentStep)?.priority ===
-                "critical" && (
-                <div className="mb-4 rounded-lg bg-red-50 p-3">
-                  <p className="font-medium text-red-700">
-                    🚨 Critical - This task needs immediate attention to protect
-                    your farm!
-                  </p>
+        (selectedModule === "all" && overallCurrentStep)) &&
+        (() => {
+          const task = currentStepForModule || overallCurrentStep;
+          const isUrgent = task?.priority === "critical";
+          return (
+            <div
+              className={`mb-8 rounded-xl border-2 p-6 shadow-lg transition-all duration-200 ${
+                isUrgent
+                  ? "border-red-400 bg-red-50/80"
+                  : "border-blue-200 bg-gradient-to-r from-green-50 to-emerald-50"
+              }`}
+            >
+              <div className="mb-4 flex items-center gap-3">
+                <div
+                  className={`flex h-12 w-12 items-center justify-center rounded-full text-xl font-bold shadow-md ${
+                    isUrgent
+                      ? "bg-red-500 text-white"
+                      : "bg-green-500 text-white"
+                  }`}
+                >
+                  {isUrgent ? <AlertTriangle className="h-7 w-7" /> : "→"}
                 </div>
-              )}
-              <div className="flex items-center gap-3 text-sm text-gray-600">
-                <span>
-                  💰{" "}
-                  {(currentStepForModule || overallCurrentStep)?.estimatedCost}
-                </span>
-                <span>
-                  ⏱️ {(currentStepForModule || overallCurrentStep)?.timeframe}
-                </span>
+                <h2 className="text-2xl font-bold text-gray-900">
+                  {isUrgent ? "Urgent Action" : "Your Next Action"}
+                  {selectedModule !== "all" && (
+                    <span className="text-lg font-normal text-gray-600">
+                      {" in "}
+                      {currentModule?.name}
+                    </span>
+                  )}
+                </h2>
+              </div>
+
+              <div
+                className={`mb-4 rounded-lg border-2 p-6 ${
+                  isUrgent
+                    ? "border-red-200 bg-white/90"
+                    : "border-green-200 bg-white"
+                }`}
+              >
+                <h3 className="mb-2 text-xl font-bold text-gray-900">
+                  {task?.title}
+                </h3>
+                <p className="mb-3 text-gray-700">{task?.description}</p>
+                {isUrgent && (
+                  <div className="mb-4 flex items-center gap-2 rounded-lg bg-red-50 p-3">
+                    <AlertTriangle className="h-5 w-5 text-red-500" />
+                    <span className="font-medium text-red-700">
+                      Urgent: Immediate action needed to protect your farm.
+                    </span>
+                  </div>
+                )}
+                <div className="flex items-center gap-3 text-sm text-gray-600">
+                  <span>💰 {task?.estimatedCost}</span>
+                  <span>⏱️ {task?.timeframe}</span>
+                </div>
+              </div>
+
+              <div className="flex gap-4">
+                <Button
+                  variant={isUrgent ? "destructive" : "outline"}
+                  size="lg"
+                  className={
+                    isUrgent
+                      ? "border-red-400 bg-red-600 text-white hover:bg-red-700"
+                      : "border-green-200 px-6 py-3 text-green-700 hover:bg-green-50"
+                  }
+                  onClick={() => {
+                    if (task) setSelectedTaskForGuide(task);
+                  }}
+                >
+                  {isUrgent
+                    ? "⚠️ View Step-by-Step Guide"
+                    : "📖 Get Step-by-Step Guide"}
+                </Button>
               </div>
             </div>
-
-            <div className="flex gap-4">
-              <Button
-                size="lg"
-                className="bg-green-600 px-8 py-3 text-lg font-semibold text-white hover:bg-green-700"
-                onClick={() =>
-                  toggleTaskStatus(
-                    (currentStepForModule || overallCurrentStep)?.id || ""
-                  )
-                }
-              >
-                ✅ Complete This Action
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-green-200 px-6 py-3 text-green-700 hover:bg-green-50"
-                onClick={() => {
-                  const task = currentStepForModule || overallCurrentStep;
-                  if (task) setSelectedTaskForGuide(task);
-                }}
-              >
-                📖 Get Step-by-Step Guide
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
+          );
+        })()}
 
       {/* Steps in Selected Module */}
       <div className="mb-8">
