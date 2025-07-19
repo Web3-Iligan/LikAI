@@ -6,8 +6,6 @@ import {
   Award,
   CheckCircle,
   Clock,
-  CloudRain,
-  DollarSign,
   Droplets,
   HeartHandshake,
   MapPin,
@@ -324,7 +322,7 @@ export function DashboardOverview() {
               </Link>
             </Button>
             <Button size="sm" asChild>
-              <Link href="/assessment">Update Farm Profile</Link>
+              <Link href="">Update Farm Profile</Link>
             </Button>
           </div>
         </div>
@@ -391,7 +389,7 @@ export function DashboardOverview() {
         })}
       </div>
 
-      {/* GAqP Journey Modules */}
+      {/* GAqP Journey Modules - Consistent Color Rules & Next Task Link */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -405,65 +403,118 @@ export function DashboardOverview() {
         <CardContent>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {gaqpModules.map(module => {
-              const IconComponent = module.icon;
+              // Consistent color logic
+              let bgColor = "from-blue-50/80 to-blue-100/40";
+              let borderColor = "border-blue-200";
+              let textColor = "text-blue-700";
+              let barColor = "bg-blue-500";
+              let showNextTask = false;
+              // Green: 100% complete
+              if (module.progress === 100) {
+                bgColor = "from-green-50/80 to-green-100/40";
+                borderColor = "border-green-200";
+                textColor = "text-green-700";
+                barColor = "bg-green-500";
+              } else if (module.progress < 20) {
+                // Red: very low progress
+                bgColor = "from-red-50/80 to-red-100/40";
+                borderColor = "border-red-200";
+                textColor = "text-red-700";
+                barColor = "bg-red-500";
+                showNextTask = true;
+              }
+              // Find the next action for this module
+              const nextAction = nextActions.find(
+                a => a.moduleId === module.id && !a.completed
+              );
               return (
-                <Link key={module.id} href={module.href} className="group">
-                  <div
-                    className={`relative rounded-xl border-2 ${module.borderColor} bg-gradient-to-br ${module.bgColor} p-6 transition-all duration-200 hover:scale-[1.02] hover:shadow-lg`}
-                  >
-                    {/* Status Badge */}
-                    <div className="absolute right-3 top-3">
-                      {module.status === "complete" ? (
-                        <div className="rounded-full bg-green-100 p-1">
-                          <CheckCircle className="h-4 w-4 text-green-600" />
+                <div key={module.id} className="group relative">
+                  <Link href={module.href} className="block">
+                    <div
+                      className={`relative rounded-xl border-2 ${borderColor} bg-gradient-to-br ${bgColor} p-6 transition-all duration-200 hover:scale-[1.02] hover:shadow-lg`}
+                    >
+                      {/* Status Badge */}
+                      <div className="absolute right-3 top-3 z-10 flex items-center">
+                        {module.progress === 100 ? (
+                          <div className="rounded-full bg-green-100 p-1">
+                            <CheckCircle className="h-4 w-4 text-green-600" />
+                          </div>
+                        ) : module.progress < 20 ? (
+                          <div className="rounded-full bg-red-100 px-2 py-1">
+                            <span className="whitespace-nowrap text-xs font-medium text-red-600">
+                              Needs Attention
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="rounded-full bg-blue-100 px-2 py-1">
+                            <span className="whitespace-nowrap text-xs font-medium text-blue-600">
+                              In Progress
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Module Icon and Text, now with extra top padding to avoid badge overlap */}
+                      <div className="mb-4 flex items-center space-x-3 pt-6">
+                        <div className={`rounded-lg bg-white/80 p-3`}>
+                          <module.icon className={`h-6 w-6 ${textColor}`} />
                         </div>
-                      ) : (
-                        <div className="rounded-full bg-gray-100 px-2 py-1">
-                          <span className="text-xs font-medium text-gray-600">
-                            In Progress
-                          </span>
+                        <div>
+                          <h3 className="font-semibold text-gray-900 group-hover:text-gray-700">
+                            {module.name}
+                          </h3>
+                          <p className="text-sm text-gray-600 group-hover:text-gray-500">
+                            {module.description}
+                          </p>
                         </div>
+                      </div>
+
+                      {/* Progress Info */}
+                      <div className="mb-3 flex items-center justify-between">
+                        <div className="text-sm text-gray-600">
+                          {module.completedSteps} of {module.totalSteps} steps
+                        </div>
+                        <div className={`text-sm font-semibold ${textColor}`}>
+                          {module.progress}%
+                        </div>
+                      </div>
+
+                      {/* Progress Bar */}
+                      <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
+                        <div
+                          className={`h-full ${barColor} transition-all duration-500`}
+                          style={{ width: `${module.progress}%` }}
+                        ></div>
+                      </div>
+                      {/* Next Task Link for low progress */}
+                      {showNextTask && nextAction && (
+                        <button
+                          type="button"
+                          className="mt-4 w-full rounded-md bg-red-600 py-2 text-sm font-semibold text-white shadow transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
+                          onClick={e => {
+                            e.preventDefault();
+                            const el = document.getElementById(
+                              `action-hub-task-${nextAction.id}`
+                            );
+                            if (el) {
+                              el.scrollIntoView({
+                                behavior: "smooth",
+                                block: "center",
+                              });
+                              el.classList.add("ring-4", "ring-red-400");
+                              setTimeout(() => {
+                                el.classList.remove("ring-4", "ring-red-400");
+                              }, 2000);
+                            }
+                          }}
+                        >
+                          Start Next Task
+                        </button>
                       )}
+                      {/* End Next Task Link */}
                     </div>
-
-                    {/* Module Icon */}
-                    <div className="mb-4 flex items-center space-x-3">
-                      <div className={`rounded-lg p-3 ${module.bgColor}`}>
-                        <IconComponent
-                          className={`h-6 w-6 ${module.textColor}`}
-                        />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900 group-hover:text-gray-700">
-                          {module.name}
-                        </h3>
-                        <p className="text-sm text-gray-600 group-hover:text-gray-500">
-                          {module.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Progress Info */}
-                    <div className="mb-3 flex items-center justify-between">
-                      <div className="text-sm text-gray-600">
-                        {module.completedSteps} of {module.totalSteps} steps
-                      </div>
-                      <div
-                        className={`text-sm font-semibold ${module.textColor}`}
-                      >
-                        {module.progress}%
-                      </div>
-                    </div>
-
-                    {/* Progress Bar */}
-                    <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
-                      <div
-                        className={`h-full ${module.barColor} transition-all duration-500`}
-                        style={{ width: `${module.progress}%` }}
-                      ></div>
-                    </div>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
               );
             })}
           </div>
@@ -488,16 +539,52 @@ export function DashboardOverview() {
             {nextActions.slice(0, 2).map(action => (
               <div
                 key={action.id}
-                className={`rounded-lg border-2 p-4 ${
+                id={`action-hub-task-${action.id}`}
+                className={`group relative flex cursor-pointer items-start rounded-lg border-2 p-4 transition-all duration-150 ${
                   action.priority === "critical"
                     ? "border-red-200 bg-red-50/50"
                     : action.priority === "high"
                       ? "border-orange-200 bg-orange-50/50"
                       : "border-blue-200 bg-blue-50/50"
-                }`}
+                } ${action.completed ? "opacity-60" : "hover:scale-[1.01] hover:shadow-lg"} `}
+                onClick={e => {
+                  // Only navigate if NOT clicking the checkbox
+                  if (
+                    (e.target as HTMLElement).closest('input[type="checkbox"]')
+                  )
+                    return;
+                  window.location.href = action.href;
+                }}
+                tabIndex={0}
+                role="button"
+                aria-label={`Open how-to guide for ${action.title}`}
+                onKeyDown={e => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    window.location.href = action.href;
+                  }
+                }}
               >
-                <div className="mb-2 flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
+                {/* Large Checkbox */}
+                <div className="flex flex-col items-center justify-center pr-4 pt-1">
+                  <input
+                    type="checkbox"
+                    checked={!!action.completed}
+                    onChange={e => {
+                      e.stopPropagation();
+                      handleCompleteAction(action.id);
+                    }}
+                    className="h-7 w-7 cursor-pointer rounded-lg border-2 border-green-400 accent-green-700 shadow-sm transition-all duration-150 focus:ring-2 focus:ring-green-500"
+                    aria-label={
+                      action.completed
+                        ? "Task completed"
+                        : "Mark task as complete"
+                    }
+                    tabIndex={0}
+                  />
+                </div>
+                {/* Card Content */}
+                <div className="flex-1">
+                  <div className="mb-2 flex items-center space-x-2">
                     <span
                       className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
                         action.priority === "critical"
@@ -517,36 +604,22 @@ export function DashboardOverview() {
                       {action.estimatedTime}
                     </span>
                   </div>
-                </div>
-
-                <h4 className="mb-1 font-semibold text-gray-900">
-                  {action.title}
-                </h4>
-                <p className="mb-2 text-sm text-gray-700">
-                  {action.description}
-                </p>
-
-                {/* Module Context */}
-                <p className="mb-3 text-xs text-gray-500">
-                  This action is part of your{" "}
-                  <span className="font-medium">{action.moduleName}</span>{" "}
-                  module
-                </p>
-
-                <div className="flex space-x-2">
-                  {!action.completed && (
-                    <Button
-                      onClick={() => handleCompleteAction(action.id)}
-                      size="sm"
-                      className="flex-1"
-                    >
-                      <CheckCircle className="mr-2 h-4 w-4" />
-                      Mark Complete
-                    </Button>
-                  )}
-                  <Button variant="outline" size="sm" asChild>
-                    <Link href={action.href}>Get How-To Guide</Link>
-                  </Button>
+                  <h4 className="mb-1 font-semibold text-gray-900 group-hover:text-blue-800">
+                    {action.title}
+                  </h4>
+                  <p className="mb-2 text-sm text-gray-700 group-hover:text-blue-700">
+                    {action.description}
+                  </p>
+                  {/* Module Context */}
+                  <p className="mb-3 text-xs text-gray-500">
+                    This action is part of your{" "}
+                    <span className="font-medium">{action.moduleName}</span>{" "}
+                    module
+                  </p>
+                  {/* Subtle How-To Guide hint */}
+                  <span className="text-xs font-medium text-blue-600 underline underline-offset-2 group-hover:text-blue-800">
+                    Tap anywhere for How-To Guide
+                  </span>
                 </div>
               </div>
             ))}
@@ -589,121 +662,164 @@ export function DashboardOverview() {
         </CardContent>
       </Card>
 
-      {/* Journey Updates */}
+      {/* Journey Updates - Minimal, Clean Layout */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Activity className="h-5 w-5 text-blue-600" />
-            Your Journey Updates
-          </CardTitle>
+          <CardTitle>Your Journey Updates</CardTitle>
           <CardDescription>
             Recent progress, achievements, and important GAqP compliance updates
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="space-y-4">
-            {/* Dynamic Alerts */}
-            {alerts.map(alert => {
-              // Define card styling based on alert type
-              const cardStyles = {
-                critical: {
-                  containerClass:
-                    "rounded-lg border-2 border-red-200 bg-white p-4 shadow-sm",
-                  iconBg: "bg-red-100 text-red-600",
-                  icon: AlertTriangle,
-                  buttonVariant: "default" as const,
-                  buttonClass: "bg-red-600 text-white hover:bg-red-700",
-                  titleClass: "text-gray-900",
-                  descClass: "text-gray-700",
-                  timeClass: "text-gray-500",
-                },
-                warning: {
-                  containerClass:
-                    "rounded-lg border-2 border-orange-200 bg-white p-4 shadow-sm",
-                  iconBg: "bg-orange-100 text-orange-600",
-                  icon: CloudRain,
-                  buttonVariant: "default" as const,
-                  buttonClass: "bg-orange-600 text-white hover:bg-orange-700",
-                  titleClass: "text-gray-900",
-                  descClass: "text-gray-700",
-                  timeClass: "text-gray-500",
-                },
-                positive: {
-                  containerClass:
-                    "rounded-lg border-2 border-green-200 bg-white p-4 shadow-sm",
-                  iconBg: "bg-green-100 text-green-600",
-                  icon: CheckCircle,
-                  buttonVariant: "default" as const,
-                  buttonClass: "bg-green-600 text-white hover:bg-green-700",
-                  titleClass: "text-gray-900",
-                  descClass: "text-gray-700",
-                  timeClass: "text-gray-500",
-                },
-                opportunity: {
-                  containerClass:
-                    "rounded-lg border-2 border-blue-200 bg-white p-4 shadow-sm",
-                  iconBg: "bg-blue-100 text-blue-600",
-                  icon: DollarSign,
-                  buttonVariant: "default" as const,
-                  buttonClass: "bg-blue-600 text-white hover:bg-blue-700",
-                  titleClass: "text-gray-900",
-                  descClass: "text-gray-700",
-                  timeClass: "text-gray-500",
-                },
-                info: {
-                  containerClass:
-                    "rounded-lg border-2 border-purple-200 bg-white p-4 shadow-sm",
-                  iconBg: "bg-purple-100 text-purple-600",
-                  icon: TrendingUp,
-                  buttonVariant: "default" as const,
-                  buttonClass: "bg-purple-600 text-white hover:bg-purple-700",
-                  titleClass: "text-gray-900",
-                  descClass: "text-gray-700",
-                  timeClass: "text-gray-500",
-                },
-              };
-
-              const style = cardStyles[alert.type as keyof typeof cardStyles];
-              const IconComponent = style.icon;
-
-              return (
-                <div key={alert.id} className={style.containerClass}>
-                  <div className="flex items-start space-x-3">
-                    <div
-                      className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${style.iconBg}`}
-                    >
-                      <IconComponent className="h-4 w-4" />
+          {/* Personal Greeting */}
+          <div className="mb-6 text-lg font-semibold text-gray-800">
+            Good evening, Juan!
+          </div>
+          {/* Urgent Actions */}
+          <div className="mb-6">
+            <div className="mb-3 text-base font-bold text-red-700">
+              Urgent Actions
+            </div>
+            {alerts
+              .filter(a => a.type === "critical")
+              .map(alert => (
+                <div
+                  key={alert.id}
+                  className="mb-3 flex items-center rounded-lg bg-red-50/60 p-4 shadow-sm"
+                >
+                  <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-red-100">
+                    <AlertTriangle className="h-5 w-5 text-red-600" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-base font-bold text-gray-900">
+                      {alert.title}
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <h4 className={`font-semibold ${style.titleClass}`}>
-                        {alert.title}
-                      </h4>
-                      <p className={`mt-1 text-sm ${style.descClass}`}>
-                        {alert.description}
-                      </p>
-                      <p className={`mt-2 text-xs ${style.timeClass}`}>
-                        {alert.timestamp}
-                      </p>
+                    <div className="text-sm text-gray-700">
+                      This task is {alert.timestamp}!
                     </div>
-                    <Button
-                      size="sm"
-                      variant={style.buttonVariant}
-                      className={style.buttonClass}
-                      asChild
-                    >
-                      <Link href={alert.href}>{alert.actionText}</Link>
-                    </Button>
+                    <div className="mt-1 text-xs text-gray-500">
+                      {alert.description}
+                    </div>
+                  </div>
+                  <Button
+                    size="sm"
+                    className="ml-4 bg-red-600 text-white hover:bg-red-700"
+                    asChild
+                  >
+                    <Link href={alert.href}>{alert.actionText}</Link>
+                  </Button>
+                </div>
+              ))}
+          </div>
+          {/* Achievements */}
+          <div className="mb-6">
+            <div className="mb-3 text-base font-bold text-green-700">
+              Your Achievements
+            </div>
+            {alerts
+              .filter(a => a.type === "positive")
+              .map(alert => (
+                <div
+                  key={alert.id}
+                  className="mb-3 flex items-center rounded-lg bg-green-50/60 p-4 shadow-sm"
+                >
+                  <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
+                    <CheckCircle className="h-5 w-5 text-green-600" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-base font-bold text-gray-900">
+                      {alert.title}
+                    </div>
+                    <div className="text-sm text-gray-700">
+                      {alert.description}
+                    </div>
+                    <div className="mt-1 text-xs text-gray-500">
+                      {alert.timestamp}
+                    </div>
+                  </div>
+                  <Button
+                    size="sm"
+                    className="ml-4 bg-green-600 text-white hover:bg-green-700"
+                    asChild
+                  >
+                    <Link href={alert.href}>{alert.actionText}</Link>
+                  </Button>
+                </div>
+              ))}
+            {/* Big, bold savings card */}
+            {alerts
+              .filter(a => a.type === "opportunity")
+              .map(alert => (
+                <div
+                  key={alert.id}
+                  className="mb-3 flex items-center rounded-lg bg-blue-50/60 p-4 shadow-sm"
+                >
+                  <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
+                    <TrendingUp className="h-5 w-5 text-blue-600" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="text-base font-bold text-gray-900">
+                      {alert.title}
+                    </div>
+                    <div className="text-2xl font-extrabold leading-tight text-blue-700">
+                      ₱12,000
+                    </div>
+                    <div className="text-sm text-gray-700">
+                      {alert.description}
+                    </div>
+                    <div className="mt-1 text-xs text-gray-500">
+                      {alert.timestamp}
+                    </div>
+                  </div>
+                  <Button
+                    size="sm"
+                    className="ml-4 bg-blue-600 text-white hover:bg-blue-700"
+                    asChild
+                  >
+                    <Link href={alert.href}>{alert.actionText}</Link>
+                  </Button>
+                </div>
+              ))}
+          </div>
+          {/* LikAI's Advice */}
+          <div className="mb-3 text-base font-bold text-indigo-700">
+            LikAI's Advice
+          </div>
+          {alerts
+            .filter(a => a.type === "info")
+            .map(alert => (
+              <div
+                key={alert.id}
+                className="mb-3 flex items-center rounded-lg bg-indigo-50/60 p-4 shadow-sm"
+              >
+                <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100">
+                  <Stethoscope className="h-5 w-5 text-indigo-600" />
+                </div>
+                <div className="flex-1">
+                  <div className="text-base font-bold text-gray-900">
+                    {alert.title}
+                  </div>
+                  <div className="text-sm text-gray-700">
+                    {alert.description}
+                  </div>
+                  <div className="mt-1 text-xs text-gray-500">
+                    {alert.timestamp}
                   </div>
                 </div>
-              );
-            })}
-
-            {/* View All Button */}
-            <div className="flex justify-center pt-2">
-              <Button variant="outline" size="sm" asChild>
-                <Link href="/reports">View All Updates</Link>
-              </Button>
-            </div>
+                <Button
+                  size="sm"
+                  className="ml-4 bg-indigo-600 text-white hover:bg-indigo-700"
+                  asChild
+                >
+                  <Link href={alert.href}>{alert.actionText}</Link>
+                </Button>
+              </div>
+            ))}
+          {/* View All Button */}
+          <div className="flex justify-center pt-2">
+            <Button variant="outline" size="sm" asChild>
+              <Link href="/reports">View All Updates</Link>
+            </Button>
           </div>
         </CardContent>
       </Card>
