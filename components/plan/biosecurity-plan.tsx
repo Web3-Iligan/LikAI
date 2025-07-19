@@ -14,7 +14,6 @@ import {
   Filter,
   Heart,
   Lock,
-  MapPin,
   Shield,
   Tractor,
   Truck,
@@ -190,6 +189,9 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const tasksPerPage = 6;
+
+  // Filter menu state
+  const [showFilterMenu, setShowFilterMenu] = useState(false);
 
   // Default tasks if no AI plan is generated
   const defaultTasks: BiosecurityTask[] = [
@@ -761,65 +763,72 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
 
       {/* Steps in Selected Module */}
       <div className="mb-8">
-        <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-2xl font-bold text-gray-900">
-            {selectedModule === "all"
-              ? "Steps in Your Complete Journey"
-              : `Steps in ${currentModule?.name}`}
-          </h2>
-          <div className="flex items-center gap-4">
-            <div className="text-sm text-gray-600">
-              <span className="font-semibold text-gray-900">
-                {filteredTasks.length}
-              </span>{" "}
-              tasks
-              {filteredTasks.filter(t => t.status === "completed").length >
-                0 && (
-                <>
-                  {" • "}
-                  <span className="font-semibold text-green-600">
-                    {filteredTasks.filter(t => t.status === "completed").length}
-                  </span>{" "}
-                  completed
-                </>
-              )}
-              {filteredTasks.filter(
-                t => t.priority === "critical" && t.status !== "completed"
-              ).length > 0 && (
-                <>
-                  {" • "}
-                  <span className="font-semibold text-red-600">
-                    {
-                      filteredTasks.filter(
-                        t =>
-                          t.priority === "critical" && t.status !== "completed"
-                      ).length
-                    }
-                  </span>{" "}
-                  urgent
-                </>
+        <div className="mb-6">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-gray-900">Task History</h2>
+            <div className="relative">
+              <Button
+                variant="outline"
+                size="sm"
+                className="flex items-center gap-1 border-gray-300 text-sm"
+                onClick={() => setShowFilterMenu(v => !v)}
+              >
+                <Filter className="h-4 w-4" />
+                Filter <span className="ml-1">▼</span>
+              </Button>
+              {showFilterMenu && (
+                <div className="absolute right-0 z-10 mt-2 w-48 rounded-md border border-gray-200 bg-white shadow-lg">
+                  <button
+                    className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-100 ${viewMode === "all" ? "font-bold text-blue-600" : "text-gray-800"}`}
+                    onClick={() => {
+                      setViewMode("all");
+                      setShowFilterMenu(false);
+                    }}
+                  >
+                    Show All Tasks
+                  </button>
+                  <button
+                    className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-100 ${viewMode === "phases" ? "font-bold text-blue-600" : "text-gray-800"}`}
+                    onClick={() => {
+                      setViewMode("phases");
+                      setShowFilterMenu(false);
+                    }}
+                  >
+                    Group by Module
+                  </button>
+                </div>
               )}
             </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant={viewMode === "phases" ? "default" : "ghost"}
-                size="sm"
-                onClick={() => setViewMode("phases")}
-                className="text-sm"
-              >
-                <MapPin className="mr-2 h-4 w-4" />
-                Organized View
-              </Button>
-              <Button
-                variant={viewMode === "all" ? "default" : "ghost"}
-                size="sm"
-                onClick={() => setViewMode("all")}
-                className="text-sm"
-              >
-                <Filter className="mr-2 h-4 w-4" />
-                Simple List
-              </Button>
-            </div>
+          </div>
+          <div className="mt-1 text-sm text-gray-600">
+            <span className="font-semibold text-gray-900">
+              {filteredTasks.length}
+            </span>{" "}
+            tasks
+            {filteredTasks.filter(t => t.status === "completed").length > 0 && (
+              <>
+                {" • "}
+                <span className="font-semibold text-green-600">
+                  {filteredTasks.filter(t => t.status === "completed").length}
+                </span>{" "}
+                completed
+              </>
+            )}
+            {filteredTasks.filter(
+              t => t.priority === "critical" && t.status !== "completed"
+            ).length > 0 && (
+              <>
+                {" • "}
+                <span className="font-semibold text-red-600">
+                  {
+                    filteredTasks.filter(
+                      t => t.priority === "critical" && t.status !== "completed"
+                    ).length
+                  }
+                </span>{" "}
+                urgent
+              </>
+            )}
           </div>
         </div>
 
