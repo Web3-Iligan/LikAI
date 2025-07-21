@@ -1,4 +1,4 @@
-import { ProgressTracker } from "@/components/shared/progress-tracker";
+import { ProgressTracker } from "@/features/shared/progress-tracker";
 
 // Dummy farm profile for demonstration
 const farmProfile = {
