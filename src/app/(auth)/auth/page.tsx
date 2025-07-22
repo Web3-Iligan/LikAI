@@ -143,7 +143,7 @@ export default function AuthPage() {
 
                   {/* Quick Assessment Button */}
                   <div className="mt-4">
-                    <Link href="/auth/onboarding">
+                    <Link href="/onboarding">
                       <Button
                         variant="outline"
                         className="flex h-14 w-full items-center justify-center space-x-3 rounded-xl border-2 border-[#FF7F50] bg-white text-base font-medium text-[#FF7F50] shadow-md transition-all duration-200 hover:bg-[#FF7F50] hover:text-white hover:shadow-lg"
