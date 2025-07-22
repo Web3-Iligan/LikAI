@@ -998,10 +998,10 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                                   {!isCompleted && (
                                     <Button
                                       size="sm"
-                                      className="bg-green-600 text-white hover:bg-green-700"
+                                      className="flex items-center gap-2 rounded-lg bg-green-500 px-5 py-2 font-semibold text-white shadow hover:bg-green-600"
                                       onClick={() => toggleTaskStatus(task.id)}
                                     >
-                                      ✅ Done
+                                      Done
                                     </Button>
                                   )}
                                   <Button
@@ -1100,10 +1100,10 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                               {!isCompleted && (
                                 <Button
                                   size="sm"
-                                  className="bg-green-600 text-white hover:bg-green-700"
+                                  className="flex items-center gap-2 rounded-lg bg-green-500 px-5 py-2 font-semibold text-white shadow hover:bg-green-600"
                                   onClick={() => toggleTaskStatus(task.id)}
                                 >
-                                  ✅ Done
+                                  Done
                                 </Button>
                               )}
                               <Button
@@ -1199,10 +1199,10 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                         {!isCompleted && (
                           <Button
                             size="sm"
-                            className="bg-green-600 text-white hover:bg-green-700"
+                            className="flex items-center gap-2 rounded-lg bg-green-500 px-5 py-2 font-semibold text-white shadow hover:bg-green-600"
                             onClick={() => toggleTaskStatus(task.id)}
                           >
-                            ✅ Done
+                            Done
                           </Button>
                         )}
                         <Button
