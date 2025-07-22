@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/card";
 
 export function DashboardOverview() {
+  console.log(localStorage.getItem("userPrincipal"))
   // Dynamic farm profile data - this would come from your backend/API
   const [farmProfile, setFarmProfile] = useState({
     name: "Sunrise Shrimp Farm",

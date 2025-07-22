@@ -1,5 +1,5 @@
 [workspace]
 members = [
-    "canisters/api"
+    "src/dev_backend"
 ]
 resolver = "2"

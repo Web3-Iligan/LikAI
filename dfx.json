@@ -1,9 +1,17 @@
 {
   "canisters": {
-    "canisters_backend": {
-      "candid": "canisters/canisters_backend.did",
-      "package": "canisters_backend",
+    "dev_backend": {
+      "candid": "src/dev_backend/dev_backend.did",
+      "package": "dev_backend",
       "type": "rust"
+    },
+    "frontend": {
+      "type": "assets",
+      "dependencies": ["dev_backend"],
+      "source": ["out"],
+      "frontend": {
+        "entrypoint": "out/index.html"
+      }
     }
   },
   "defaults": {
