@@ -1,8 +1,0 @@
-/home/zxayler/LikAI/target/debug/deps/shlex-83c7e0da01d13271.d: /home/zxayler/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/shlex-1.3.0/src/lib.rs /home/zxayler/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/shlex-1.3.0/src/bytes.rs
-
-/home/zxayler/LikAI/target/debug/deps/libshlex-83c7e0da01d13271.rlib: /home/zxayler/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/shlex-1.3.0/src/lib.rs /home/zxayler/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/shlex-1.3.0/src/bytes.rs
-
-/home/zxayler/LikAI/target/debug/deps/libshlex-83c7e0da01d13271.rmeta: /home/zxayler/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/shlex-1.3.0/src/lib.rs /home/zxayler/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/shlex-1.3.0/src/bytes.rs
-
-/home/zxayler/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/shlex-1.3.0/src/lib.rs:
-/home/zxayler/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/shlex-1.3.0/src/bytes.rs:
