@@ -184,15 +184,15 @@ const TaskListItem = ({
     <div
       className={cn(
         "border-l-4 p-4 transition-colors",
-        isCompleted && "bg-green-50",
+        isCompleted && "border-l-gray-200 bg-gray-50",
         !isCompleted && isCritical && "border-l-red-500 bg-red-50",
         !isCompleted &&
           task.priority === "high" &&
-          "border-l-orange-500 bg-orange-50",
+          "border-l-orange-400 bg-white",
         !isCompleted &&
           task.priority !== "high" &&
           !isCritical &&
-          "border-l-blue-500 bg-blue-50"
+          "border-l-gray-200 bg-white"
       )}
     >
       <div className="flex items-start gap-4">
@@ -203,8 +203,9 @@ const TaskListItem = ({
             onCheckedChange={() => onComplete(task.id)}
             className={cn(
               "h-5 w-5 rounded-full border-2",
-              isCompleted ? "border-green-500 bg-green-500" : "border-gray-300",
-              "transition-colors hover:border-green-600"
+              isCompleted ? "border-gray-400 bg-gray-400" : "border-gray-300",
+              isCritical && !isCompleted && "border-red-500",
+              "transition-colors hover:border-gray-400"
             )}
           />
         </div>
@@ -214,29 +215,41 @@ const TaskListItem = ({
           <div className="flex items-center gap-2">
             <h3
               className={cn(
-                "font-semibold text-gray-900",
-                isCompleted && "text-gray-500 line-through"
+                "font-semibold",
+                isCompleted && "text-gray-500 line-through",
+                isCritical && !isCompleted && "text-red-700",
+                !isCompleted && !isCritical && "text-gray-900"
               )}
             >
               {task.title}
             </h3>
             {isCritical && !isCompleted && (
-              <Badge variant="destructive" className="text-xs">
+              <Badge
+                variant="destructive"
+                className="bg-red-500 text-xs hover:bg-red-600"
+              >
                 URGENT
               </Badge>
             )}
           </div>
           <p
             className={cn(
-              "mt-1 text-sm text-gray-600",
-              isCompleted && "text-gray-400 line-through"
+              "mt-1 text-sm",
+              isCompleted && "text-gray-400 line-through",
+              isCritical && !isCompleted && "text-red-600",
+              !isCompleted && !isCritical && "text-gray-600"
             )}
           >
             {task.description}
           </p>
           <div className="mt-2 flex items-center gap-4 text-xs text-gray-500">
             <span className="flex items-center gap-1">
-              <Clock className="h-3 w-3" />
+              <Clock
+                className={cn(
+                  "h-3 w-3",
+                  isCritical && !isCompleted && "text-red-500"
+                )}
+              />
               {task.timeframe}
             </span>
             <span>💰 {task.estimatedCost}</span>
@@ -248,7 +261,10 @@ const TaskListItem = ({
           <Button
             variant="outline"
             size="sm"
-            className="border-blue-200 text-blue-600 hover:bg-blue-50"
+            className={cn(
+              "border text-blue-600 hover:bg-blue-50",
+              isCritical && !isCompleted ? "border-red-200" : "border-blue-200"
+            )}
             onClick={() => onViewGuide(task)}
           >
             View Guide
