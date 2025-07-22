@@ -1,0 +1,31 @@
+{
+  "rustc": 11410426090777951712,
+  "features": "[\"alloc\", \"async-await\", \"async-await-macro\", \"channel\", \"futures-channel\", \"futures-io\", \"futures-macro\", \"futures-sink\", \"io\", \"memchr\", \"sink\", \"slab\", \"std\"]",
+  "declared_features": "[\"alloc\", \"async-await\", \"async-await-macro\", \"bilock\", \"cfg-target-has-atomic\", \"channel\", \"compat\", \"default\", \"futures-channel\", \"futures-io\", \"futures-macro\", \"futures-sink\", \"futures_01\", \"io\", \"io-compat\", \"memchr\", \"portable-atomic\", \"sink\", \"slab\", \"std\", \"tokio-io\", \"unstable\", \"write-all-vectored\"]",
+  "target": 1788798584831431502,
+  "profile": 13318305459243126790,
+  "path": 899883981906161490,
+  "deps": [
+    [5103565458935487, "futures_io", false, 4356767333031290731],
+    [1615478164327904835, "pin_utils", false, 11071184785840380669],
+    [1811549171721445101, "futures_channel", false, 10210444818643171867],
+    [1906322745568073236, "pin_project_lite", false, 10316954666729855910],
+    [5451793922601807560, "slab", false, 3770646092315106917],
+    [7013762810557009322, "futures_sink", false, 16407215463143224581],
+    [7620660491849607393, "futures_core", false, 6678828202424377265],
+    [10565019901765856648, "futures_macro", false, 12662429442299650146],
+    [15932120279885307830, "memchr", false, 18225497953615167140],
+    [16240732885093539806, "futures_task", false, 8642890119666779170]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "debug/.fingerprint/futures-util-483cf22157ef372f/dep-lib-futures_util",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 2069994364910194474,
+  "compile_kind": 0
+}

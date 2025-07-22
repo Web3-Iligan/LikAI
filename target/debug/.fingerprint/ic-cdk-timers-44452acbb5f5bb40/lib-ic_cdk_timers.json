@@ -1,0 +1,27 @@
+{
+  "rustc": 11410426090777951712,
+  "features": "[]",
+  "declared_features": "[]",
+  "target": 15148333481424427701,
+  "profile": 2241668132362809309,
+  "path": 8338018300173613051,
+  "deps": [
+    [2706460456408817945, "futures", false, 8359083400527169868],
+    [6145524563046927322, "ic0", false, 1178723977798145245],
+    [6997951260445117383, "slotmap", false, 14462304185131174827],
+    [9689903380558560274, "serde", false, 13905006064190485791],
+    [10889494155287625682, "serde_bytes", false, 12999009200461149165],
+    [14815996009086544744, "ic_cdk", false, 6382422789442545821]
+  ],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "debug/.fingerprint/ic-cdk-timers-44452acbb5f5bb40/dep-lib-ic_cdk_timers",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 2069994364910194474,
+  "compile_kind": 0
+}

@@ -1,0 +1,20 @@
+{
+  "rustc": 11410426090777951712,
+  "features": "[\"default\", \"utf8\"]",
+  "declared_features": "[\"core\", \"default\", \"utf8\"]",
+  "target": 10225663410500332907,
+  "profile": 8954424932545832044,
+  "path": 11503661555187474896,
+  "deps": [[17716308468579268865, "utf8parse", false, 8609515309140920954]],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "wasm32-unknown-unknown/release/.fingerprint/anstyle-parse-f1f78b529554e8c6/dep-lib-anstyle_parse",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 2069994364910194474,
+  "compile_kind": 14682669768258224367
+}

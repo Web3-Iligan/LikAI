@@ -1,0 +1,20 @@
+{
+  "rustc": 11410426090777951712,
+  "features": "[\"default\", \"std\"]",
+  "declared_features": "[\"default\", \"std\"]",
+  "target": 6165884447290141869,
+  "profile": 8954424932545832044,
+  "path": 12953137561326107975,
+  "deps": [],
+  "local": [
+    {
+      "CheckDepInfo": {
+        "dep_info": "wasm32-unknown-unknown/release/.fingerprint/anstyle-30bd6c878907b182/dep-lib-anstyle",
+        "checksum": false
+      }
+    }
+  ],
+  "rustflags": [],
+  "config": 2069994364910194474,
+  "compile_kind": 14682669768258224367
+}

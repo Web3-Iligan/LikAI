@@ -1,0 +1,5 @@
+type FarmStatus = variant { INACTIVE; ACTIVE };
+service : {
+  login : (principal) -> (text) query;
+  register : (principal, FarmStatus) -> ();
+}
