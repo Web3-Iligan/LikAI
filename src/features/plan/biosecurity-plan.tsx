@@ -816,7 +816,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
         </div>
 
         {/* Focus Your Plan - Module Selection */}
-        <div className="space-y-8">
+        <div>
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-2xl font-bold text-gray-900">
@@ -852,7 +852,6 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
             {gaqpModules.map(module => {
               const isSelected = selectedModule === module.id;
               const moduleProgress = getModuleProgress(module.id);
-
               return (
                 <button
                   key={module.id}
@@ -902,51 +901,51 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
             })}
           </div>
         </div>
-      </div>
 
-      {/* Task List Section */}
-      <div className="space-y-8">
-        {/* Active Tasks View */}
-        {taskViewMode === "active" && (
-          <TodaysActionPlan
-            tasks={categorizedTasks}
-            onComplete={toggleTaskStatus}
-            onViewGuide={setSelectedTaskForGuide}
-          />
-        )}
-
-        {/* Completed Tasks View */}
-        {taskViewMode === "history" && (
-          <div className="space-y-6">
-            <TaskSection
-              title="✅ Completed Tasks"
-              tasks={categorizedTasks.completed}
+        {/* Task List Section with increased top margin */}
+        <div className="mt-24 space-y-8">
+          {/* Active Tasks View */}
+          {taskViewMode === "active" && (
+            <TodaysActionPlan
+              tasks={categorizedTasks}
               onComplete={toggleTaskStatus}
               onViewGuide={setSelectedTaskForGuide}
-              className="border-l-2 border-green-500 pl-4"
             />
-          </div>
-        )}
+          )}
 
-        {/* Empty State */}
-        {((taskViewMode === "active" && getActiveTasksCount() === 0) ||
-          (taskViewMode === "history" && getCompletedTasksCount() === 0)) && (
-          <div className="rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 p-8 text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
-              <CheckCircle className="h-8 w-8 text-green-500" />
+          {/* Completed Tasks View */}
+          {taskViewMode === "history" && (
+            <div className="space-y-6">
+              <TaskSection
+                title="✅ Completed Tasks"
+                tasks={categorizedTasks.completed}
+                onComplete={toggleTaskStatus}
+                onViewGuide={setSelectedTaskForGuide}
+                className="border-l-2 border-green-500 pl-4"
+              />
             </div>
-            <h3 className="mb-2 text-lg font-semibold text-gray-900">
-              {taskViewMode === "active"
-                ? "All Caught Up! 🎉"
-                : "No History Yet"}
-            </h3>
-            <p className="text-gray-600">
-              {taskViewMode === "active"
-                ? "You've completed all your tasks for now."
-                : "Complete some tasks to see them here."}
-            </p>
-          </div>
-        )}
+          )}
+
+          {/* Empty State */}
+          {((taskViewMode === "active" && getActiveTasksCount() === 0) ||
+            (taskViewMode === "history" && getCompletedTasksCount() === 0)) && (
+            <div className="rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 p-8 text-center">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
+                <CheckCircle className="h-8 w-8 text-green-500" />
+              </div>
+              <h3 className="mb-2 text-lg font-semibold text-gray-900">
+                {taskViewMode === "active"
+                  ? "All Caught Up! 🎉"
+                  : "No History Yet"}
+              </h3>
+              <p className="text-gray-600">
+                {taskViewMode === "active"
+                  ? "You've completed all your tasks for now."
+                  : "Complete some tasks to see them here."}
+              </p>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Journey Complete Message */}
