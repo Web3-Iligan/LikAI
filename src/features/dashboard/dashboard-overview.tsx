@@ -672,151 +672,130 @@ export function DashboardOverview() {
         </CardHeader>
         <CardContent>
           {/* Personal Greeting */}
-          <div className="mb-6 text-lg font-semibold text-gray-800">
+          <div className="mb-6 text-lg font-semibold text-gray-900">
             Good evening, Juan!
           </div>
+
           {/* Urgent Actions */}
-          <div className="mb-6">
-            <div className="mb-3 text-base font-bold text-red-700">
+          <div className="mb-8">
+            <h3 className="mb-4 text-base font-semibold text-red-600">
               Urgent Actions
-            </div>
+            </h3>
             {alerts
               .filter(a => a.type === "critical")
               .map(alert => (
                 <div
                   key={alert.id}
-                  className="mb-3 flex items-center rounded-lg bg-red-50/60 p-4 shadow-sm"
+                  className="group relative mb-4 flex items-start gap-3 rounded-lg bg-red-50 p-4"
                 >
-                  <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-red-100">
+                  <div className="flex-shrink-0">
                     <AlertTriangle className="h-5 w-5 text-red-600" />
                   </div>
-                  <div className="flex-1">
-                    <div className="text-base font-bold text-gray-900">
-                      {alert.title}
+                  <div className="flex-1 space-y-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-medium text-gray-900">
+                        {alert.title}
+                      </h4>
+                      <span className="text-sm text-gray-600">
+                        This task is {alert.timestamp}
+                      </span>
                     </div>
-                    <div className="text-sm text-gray-700">
-                      This task is {alert.timestamp}!
-                    </div>
-                    <div className="mt-1 text-xs text-gray-500">
-                      {alert.description}
-                    </div>
+                    <p className="text-sm text-gray-600">{alert.description}</p>
                   </div>
-                  <Button
-                    size="sm"
-                    className="ml-4 bg-red-600 text-white hover:bg-red-700"
-                    asChild
-                  >
-                    <Link href={alert.href}>{alert.actionText}</Link>
-                  </Button>
                 </div>
               ))}
           </div>
+
           {/* Achievements */}
-          <div className="mb-6">
-            <div className="mb-3 text-base font-bold text-green-700">
+          <div className="mb-8">
+            <h3 className="mb-4 text-base font-semibold text-green-700">
               Your Achievements
-            </div>
+            </h3>
             {alerts
               .filter(a => a.type === "positive")
               .map(alert => (
                 <div
                   key={alert.id}
-                  className="mb-3 flex items-center rounded-lg bg-green-50/60 p-4 shadow-sm"
+                  className="group relative mb-4 flex items-start gap-3 rounded-lg bg-green-50 p-4"
                 >
-                  <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-green-100">
+                  <div className="flex-shrink-0">
                     <CheckCircle className="h-5 w-5 text-green-600" />
                   </div>
-                  <div className="flex-1">
-                    <div className="text-base font-bold text-gray-900">
-                      {alert.title}
+                  <div className="flex-1 space-y-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-medium text-gray-900">
+                        {alert.title}
+                      </h4>
+                      <span className="text-sm text-gray-600">
+                        {alert.timestamp}
+                      </span>
                     </div>
-                    <div className="text-sm text-gray-700">
-                      {alert.description}
-                    </div>
-                    <div className="mt-1 text-xs text-gray-500">
-                      {alert.timestamp}
-                    </div>
+                    <p className="text-sm text-gray-600">{alert.description}</p>
                   </div>
-                  <Button
-                    size="sm"
-                    className="ml-4 bg-green-600 text-white hover:bg-green-700"
-                    asChild
-                  >
-                    <Link href={alert.href}>{alert.actionText}</Link>
-                  </Button>
                 </div>
               ))}
-            {/* Big, bold savings card */}
+
+            {/* Cost Savings Card */}
             {alerts
               .filter(a => a.type === "opportunity")
               .map(alert => (
                 <div
                   key={alert.id}
-                  className="mb-3 flex items-center rounded-lg bg-blue-50/60 p-4 shadow-sm"
+                  className="group relative mb-4 flex items-start gap-3 rounded-lg bg-blue-50 p-4"
                 >
-                  <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-blue-100">
+                  <div className="flex-shrink-0">
                     <TrendingUp className="h-5 w-5 text-blue-600" />
                   </div>
-                  <div className="flex-1">
-                    <div className="text-base font-bold text-gray-900">
-                      {alert.title}
+                  <div className="flex-1 space-y-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-medium text-gray-900">
+                        {alert.title}
+                      </h4>
+                      <span className="text-sm text-gray-600">
+                        {alert.timestamp}
+                      </span>
                     </div>
-                    <div className="text-2xl font-extrabold leading-tight text-blue-700">
+                    <div className="text-2xl font-bold text-blue-600">
                       ₱12,000
                     </div>
-                    <div className="text-sm text-gray-700">
-                      {alert.description}
-                    </div>
-                    <div className="mt-1 text-xs text-gray-500">
-                      {alert.timestamp}
-                    </div>
+                    <p className="text-sm text-gray-600">{alert.description}</p>
                   </div>
-                  <Button
-                    size="sm"
-                    className="ml-4 bg-blue-600 text-white hover:bg-blue-700"
-                    asChild
-                  >
-                    <Link href={alert.href}>{alert.actionText}</Link>
-                  </Button>
                 </div>
               ))}
           </div>
+
           {/* LikAI's Advice */}
-          <div className="mb-3 text-base font-bold text-indigo-700">
-            LikAI's Advice
-          </div>
-          {alerts
-            .filter(a => a.type === "info")
-            .map(alert => (
-              <div
-                key={alert.id}
-                className="mb-3 flex items-center rounded-lg bg-indigo-50/60 p-4 shadow-sm"
-              >
-                <div className="mr-4 flex h-10 w-10 items-center justify-center rounded-full bg-indigo-100">
-                  <Stethoscope className="h-5 w-5 text-indigo-600" />
-                </div>
-                <div className="flex-1">
-                  <div className="text-base font-bold text-gray-900">
-                    {alert.title}
-                  </div>
-                  <div className="text-sm text-gray-700">
-                    {alert.description}
-                  </div>
-                  <div className="mt-1 text-xs text-gray-500">
-                    {alert.timestamp}
-                  </div>
-                </div>
-                <Button
-                  size="sm"
-                  className="ml-4 bg-indigo-600 text-white hover:bg-indigo-700"
-                  asChild
+          <div className="mb-8">
+            <h3 className="mb-4 text-base font-semibold text-indigo-700">
+              LikAI's Advice
+            </h3>
+            {alerts
+              .filter(a => a.type === "info")
+              .map(alert => (
+                <div
+                  key={alert.id}
+                  className="group relative mb-4 flex items-start gap-3 rounded-lg bg-indigo-50 p-4"
                 >
-                  <Link href={alert.href}>{alert.actionText}</Link>
-                </Button>
-              </div>
-            ))}
+                  <div className="flex-shrink-0">
+                    <Stethoscope className="h-5 w-5 text-indigo-600" />
+                  </div>
+                  <div className="flex-1 space-y-1">
+                    <div className="flex items-center justify-between">
+                      <h4 className="font-medium text-gray-900">
+                        {alert.title}
+                      </h4>
+                      <span className="text-sm text-gray-600">
+                        {alert.timestamp}
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-600">{alert.description}</p>
+                  </div>
+                </div>
+              ))}
+          </div>
+
           {/* View All Button */}
-          <div className="flex justify-center pt-2">
+          <div className="flex justify-center">
             <Button variant="outline" size="sm" asChild>
               <Link href="/reports">View All Updates</Link>
             </Button>
