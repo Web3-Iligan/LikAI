@@ -22,7 +22,6 @@ import {
   Zap,
 } from "lucide-react";
 
-import { HowToGuideView } from "@/components/shared/how-to-guide-view";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -34,6 +33,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { Progress } from "@/components/ui/progress";
+import { HowToGuideView } from "@/features/shared/how-to-guide-view";
 
 // Helper to map categories to Lucide icons
 const categoryIcons: { [key: string]: any } = {
