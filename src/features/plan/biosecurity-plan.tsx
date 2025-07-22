@@ -4,17 +4,15 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import {
-  Activity,
-  AlertCircle,
   AlertTriangle,
   Building,
   CheckCircle,
   Clock,
   Droplets,
   Filter,
-  Heart,
-  Lock,
+  HeartHandshake,
   Shield,
+  Stethoscope,
   Tractor,
   Truck,
   Users,
@@ -45,7 +43,7 @@ const categoryIcons: { [key: string]: any } = {
   "Pond Management": Droplets,
   "Equipment Management": Wrench,
   "Waste Management": AlertTriangle,
-  "Animal Health": Activity,
+  "Animal Health": HeartHandshake,
 };
 
 // GAqP Module structure for the seamless journey
@@ -73,39 +71,39 @@ const gaqpModules = [
     name: "Farm Setup Basics",
     icon: Tractor,
     color: "blue",
-    description: "Establish basic farm infrastructure and security foundations",
+    description: "Essential foundation for your aquaculture operation",
     categories: ["Infrastructure", "Access Control"],
   },
   {
     id: "pond-water",
     name: "Pond & Water Care",
     icon: Droplets,
-    color: "cyan",
-    description: "Maintain optimal water conditions for healthy shrimp",
+    color: "green",
+    description: "Optimal water quality and pond management",
     categories: ["Water Management", "Pond Management"],
   },
   {
     id: "stock-sourcing",
     name: "Healthy Stock Sourcing",
-    icon: Heart,
-    color: "green",
-    description: "Source and manage healthy shrimp stock",
+    icon: HeartHandshake,
+    color: "orange",
+    description: "Quality fingerlings and stocking practices",
     categories: ["Animal Health"],
   },
   {
     id: "access-control",
     name: "Farm Access Control",
-    icon: Lock,
+    icon: Shield,
     color: "purple",
-    description: "Control farm access and implement biosecurity protocols",
+    description: "Biosecurity protocols and visitor management",
     categories: ["Human Resources", "Access Control"],
   },
   {
     id: "disease-readiness",
     name: "Disease Readiness",
-    icon: AlertCircle,
-    color: "orange",
-    description: "Prepare for and prevent disease outbreaks",
+    icon: Stethoscope,
+    color: "red",
+    description: "Prevention, monitoring, and response protocols",
     categories: ["Equipment Management", "Waste Management", "Feed Management"],
   },
 ];
@@ -573,25 +571,27 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                       : "border-gray-200 bg-white hover:border-gray-300 hover:shadow-md"
                   }`}
                 >
-                  <div
-                    className={`flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full transition-all duration-200 ${
-                      isSelected
-                        ? module.color === "blue"
-                          ? "bg-blue-500 text-white shadow-lg"
-                          : module.color === "cyan"
-                            ? "bg-cyan-500 text-white shadow-lg"
-                            : module.color === "green"
-                              ? "bg-green-500 text-white shadow-lg"
-                              : module.color === "purple"
-                                ? "bg-purple-500 text-white shadow-lg"
-                                : module.color === "orange"
-                                  ? "bg-orange-500 text-white shadow-lg"
-                                  : "bg-gray-500 text-white shadow-lg"
-                        : "bg-gray-100 text-gray-600 group-hover:bg-gray-200"
-                    }`}
-                  >
-                    <module.icon className="h-7 w-7" />
-                  </div>
+                  {module.id !== "all" && (
+                    <div
+                      className={`flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full transition-all duration-200 ${
+                        isSelected
+                          ? module.color === "blue"
+                            ? "bg-blue-500 text-white shadow-lg"
+                            : module.color === "cyan"
+                              ? "bg-cyan-500 text-white shadow-lg"
+                              : module.color === "green"
+                                ? "bg-green-500 text-white shadow-lg"
+                                : module.color === "purple"
+                                  ? "bg-purple-500 text-white shadow-lg"
+                                  : module.color === "orange"
+                                    ? "bg-orange-500 text-white shadow-lg"
+                                    : "bg-gray-500 text-white shadow-lg"
+                          : "bg-gray-100 text-gray-600 group-hover:bg-gray-200"
+                      }`}
+                    >
+                      <module.icon className="h-7 w-7" />
+                    </div>
+                  )}
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
                       <h3
@@ -998,10 +998,10 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                                   {!isCompleted && (
                                     <Button
                                       size="sm"
-                                      className="bg-green-600 text-white hover:bg-green-700"
+                                      className="flex items-center gap-2 rounded-lg bg-green-500 px-5 py-2 font-semibold text-white shadow hover:bg-green-600"
                                       onClick={() => toggleTaskStatus(task.id)}
                                     >
-                                      ✅ Done
+                                      Done
                                     </Button>
                                   )}
                                   <Button
@@ -1100,10 +1100,10 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                               {!isCompleted && (
                                 <Button
                                   size="sm"
-                                  className="bg-green-600 text-white hover:bg-green-700"
+                                  className="flex items-center gap-2 rounded-lg bg-green-500 px-5 py-2 font-semibold text-white shadow hover:bg-green-600"
                                   onClick={() => toggleTaskStatus(task.id)}
                                 >
-                                  ✅ Done
+                                  Done
                                 </Button>
                               )}
                               <Button
@@ -1199,10 +1199,10 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                         {!isCompleted && (
                           <Button
                             size="sm"
-                            className="bg-green-600 text-white hover:bg-green-700"
+                            className="flex items-center gap-2 rounded-lg bg-green-500 px-5 py-2 font-semibold text-white shadow hover:bg-green-600"
                             onClick={() => toggleTaskStatus(task.id)}
                           >
-                            ✅ Done
+                            Done
                           </Button>
                         )}
                         <Button

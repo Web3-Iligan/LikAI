@@ -1,5 +1,7 @@
 # LikAI: The Adaptive Biosecurity Coach
 
+![LikAI Cover](public/cover-photo.png)
+
 LikAI is an AI-driven biosecurity coach designed for small and medium-sized shrimp farmers. It transforms complex GAqP (Good Aquaculture Practices) into personalized, adaptive, and affordable action plans, empowering farmers to build resilient operations and secure profitable harvests.
 
 <br>
