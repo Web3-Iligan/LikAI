@@ -58,6 +58,12 @@ const gaqpModules = [
       "Equipment Management",
       "Waste Management",
     ],
+    status: "in-progress" as const,
+    progress: 0,
+    bgColor: "from-gray-50/80 to-gray-100/40",
+    borderColor: "border-gray-200",
+    textColor: "text-gray-700",
+    barColor: "bg-gray-500",
   },
   {
     id: "farm-setup",
@@ -66,6 +72,12 @@ const gaqpModules = [
     color: "blue",
     description: "Essential foundation for your aquaculture operation",
     categories: ["Infrastructure", "Access Control"],
+    status: "in-progress" as const,
+    progress: 0,
+    bgColor: "from-blue-50/80 to-blue-100/40",
+    borderColor: "border-blue-200",
+    textColor: "text-blue-700",
+    barColor: "bg-blue-500",
   },
   {
     id: "pond-water",
@@ -74,6 +86,12 @@ const gaqpModules = [
     color: "green",
     description: "Optimal water quality and pond management",
     categories: ["Water Management", "Pond Management"],
+    status: "in-progress" as const,
+    progress: 0,
+    bgColor: "from-green-50/80 to-green-100/40",
+    borderColor: "border-green-200",
+    textColor: "text-green-700",
+    barColor: "bg-green-500",
   },
   {
     id: "stock-sourcing",
@@ -82,6 +100,12 @@ const gaqpModules = [
     color: "orange",
     description: "Quality fingerlings and stocking practices",
     categories: ["Animal Health"],
+    status: "in-progress" as const,
+    progress: 0,
+    bgColor: "from-orange-50/80 to-orange-100/40",
+    borderColor: "border-orange-200",
+    textColor: "text-orange-700",
+    barColor: "bg-orange-500",
   },
   {
     id: "access-control",
@@ -90,6 +114,12 @@ const gaqpModules = [
     color: "purple",
     description: "Biosecurity protocols and visitor management",
     categories: ["Human Resources", "Access Control"],
+    status: "in-progress" as const,
+    progress: 0,
+    bgColor: "from-purple-50/80 to-purple-100/40",
+    borderColor: "border-purple-200",
+    textColor: "text-purple-700",
+    barColor: "bg-purple-500",
   },
   {
     id: "disease-readiness",
@@ -98,6 +128,12 @@ const gaqpModules = [
     color: "red",
     description: "Prevention, monitoring, and response protocols",
     categories: ["Equipment Management", "Waste Management", "Feed Management"],
+    status: "in-progress" as const,
+    progress: 0,
+    bgColor: "from-red-50/80 to-red-100/40",
+    borderColor: "border-red-200",
+    textColor: "text-red-700",
+    barColor: "bg-red-500",
   },
 ];
 
@@ -184,7 +220,7 @@ const TaskListItem = ({
     <div
       className={cn(
         "border-l-4 p-4 transition-colors",
-        isCompleted && "border-l-gray-200 bg-gray-50",
+        isCompleted && "border-l-green-500 bg-green-50",
         !isCompleted && isCritical && "border-l-red-500 bg-red-50",
         !isCompleted &&
           task.priority === "high" &&
@@ -198,16 +234,21 @@ const TaskListItem = ({
       <div className="flex items-start gap-4">
         {/* Checkbox */}
         <div className="flex-shrink-0 pt-1">
-          <Checkbox
-            checked={isCompleted}
-            onCheckedChange={() => onComplete(task.id)}
-            className={cn(
-              "h-5 w-5 rounded-full border-2",
-              isCompleted ? "border-gray-400 bg-gray-400" : "border-gray-300",
-              isCritical && !isCompleted && "border-red-500",
-              "transition-colors hover:border-gray-400"
-            )}
-          />
+          {isCompleted ? (
+            <div className="flex h-5 w-5 items-center justify-center rounded-full bg-green-500 text-white">
+              <CheckCircle className="h-4 w-4" />
+            </div>
+          ) : (
+            <Checkbox
+              checked={false}
+              onCheckedChange={() => onComplete(task.id)}
+              className={cn(
+                "h-5 w-5 rounded-full border-2",
+                isCritical ? "border-red-500" : "border-gray-300",
+                "transition-colors hover:border-gray-400"
+              )}
+            />
+          )}
         </div>
 
         {/* Content */}
@@ -216,12 +257,15 @@ const TaskListItem = ({
             <h3
               className={cn(
                 "font-semibold",
-                isCompleted && "text-gray-500 line-through",
-                isCritical && !isCompleted && "text-red-700",
+                isCompleted && "text-green-700",
+                !isCompleted && isCritical && "text-red-700",
                 !isCompleted && !isCritical && "text-gray-900"
               )}
             >
               {task.title}
+              {isCompleted && (
+                <span className="ml-2 text-sm text-green-600">(Completed)</span>
+              )}
             </h3>
             {isCritical && !isCompleted && (
               <Badge
@@ -235,24 +279,26 @@ const TaskListItem = ({
           <p
             className={cn(
               "mt-1 text-sm",
-              isCompleted && "text-gray-400 line-through",
-              isCritical && !isCompleted && "text-red-600",
+              isCompleted && "text-green-600",
+              !isCompleted && isCritical && "text-red-600",
               !isCompleted && !isCritical && "text-gray-600"
             )}
           >
             {task.description}
           </p>
-          <div className="mt-2 flex items-center gap-4 text-xs text-gray-500">
-            <span className="flex items-center gap-1">
-              <Clock
-                className={cn(
-                  "h-3 w-3",
-                  isCritical && !isCompleted && "text-red-500"
-                )}
-              />
-              {task.timeframe}
+          <div className="mt-2 flex items-center gap-4 text-xs">
+            <span
+              className={cn(
+                "flex items-center gap-1",
+                isCompleted ? "text-green-500" : "text-gray-500"
+              )}
+            >
+              <Clock className="h-3 w-3" />
+              {isCompleted ? `Completed ${task.timeframe}` : task.timeframe}
             </span>
-            <span>💰 {task.estimatedCost}</span>
+            <span className={isCompleted ? "text-green-500" : "text-gray-500"}>
+              💰 {task.estimatedCost}
+            </span>
           </div>
         </div>
 
@@ -263,7 +309,11 @@ const TaskListItem = ({
             size="sm"
             className={cn(
               "border text-blue-600 hover:bg-blue-50",
-              isCritical && !isCompleted ? "border-red-200" : "border-blue-200"
+              isCompleted
+                ? "border-green-200"
+                : isCritical
+                  ? "border-red-200"
+                  : "border-blue-200"
             )}
             onClick={() => onViewGuide(task)}
           >
@@ -872,46 +922,45 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                 <button
                   key={module.id}
                   onClick={() => setSelectedModule(module.id)}
-                  className={`flex items-center gap-4 rounded-xl border-2 p-4 text-left ${
+                  className={cn(
+                    "relative rounded-xl border-2 p-4",
                     isSelected
-                      ? `border-${module.color}-400 bg-${module.color}-50`
+                      ? `${module.borderColor} bg-gradient-to-br ${module.bgColor}`
                       : "border-gray-200 bg-white"
-                  }`}
+                  )}
                 >
+                  <div className="mb-4 flex items-center space-x-3">
+                    <div className="rounded-lg bg-white/80 p-3">
+                      <module.icon className={`h-6 w-6 ${module.textColor}`} />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-gray-900">
+                        {module.name}
+                      </h3>
+                      <p className="text-sm text-gray-600">
+                        {module.description}
+                      </p>
+                    </div>
+                  </div>
                   {module.id !== "all" && (
-                    <div
-                      className={`flex h-12 w-12 items-center justify-center rounded-full bg-${module.color}-500 text-white`}
-                    >
-                      <module.icon className="h-6 w-6" />
+                    <div className="mt-2">
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-gray-600">
+                          {moduleProgress.completed} of {moduleProgress.total}{" "}
+                          steps
+                        </span>
+                        <span className={module.textColor}>
+                          {moduleProgress.percentage}%
+                        </span>
+                      </div>
+                      <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
+                        <div
+                          className={module.barColor}
+                          style={{ width: `${moduleProgress.percentage}%` }}
+                        />
+                      </div>
                     </div>
                   )}
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900">
-                      {module.name}
-                    </h3>
-                    <p className="mt-1 text-sm text-gray-600">
-                      {module.description}
-                    </p>
-                    {module.id !== "all" && (
-                      <div className="mt-2">
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-600">
-                            {moduleProgress.completed} of {moduleProgress.total}{" "}
-                            steps
-                          </span>
-                          <span className="font-medium text-gray-700">
-                            {moduleProgress.percentage}%
-                          </span>
-                        </div>
-                        <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
-                          <div
-                            className={`h-full bg-${module.color}-500`}
-                            style={{ width: `${moduleProgress.percentage}%` }}
-                          />
-                        </div>
-                      </div>
-                    )}
-                  </div>
                 </button>
               );
             })}
