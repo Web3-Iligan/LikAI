@@ -1,3 +1,4 @@
+"use client";
 import { BiosecurityPlan } from "@/features/plan/biosecurity-plan";
 import { Suspense } from "react";
 
