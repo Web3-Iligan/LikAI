@@ -556,13 +556,11 @@ export default function OnboardingPage() {
                       {[
                         {
                           id: "vannamei",
-                          label:
-                            "Suati (Pacific White Shrimp)",
+                          label: "Suati (Pacific White Shrimp)",
                         },
                         {
                           id: "monodon",
-                          label:
-                            "Sugpo (Giant Black Tiger Shrimp)",
+                          label: "Sugpo (Giant Black Tiger Shrimp)",
                         },
                         {
                           id: "other",
@@ -1871,23 +1869,6 @@ export default function OnboardingPage() {
                                       </div>
                                     </div>
                                   </div>
-                                  {/* Prominent Visual Guide Button */}
-                                  <Button
-                                    variant="outline"
-                                    size="sm"
-                                    className="flex h-10 w-full items-center justify-center gap-2 border-2 border-orange-500 bg-white text-sm font-bold text-orange-700 shadow-sm hover:border-orange-600 hover:bg-orange-50 hover:shadow-md md:h-12 md:text-base"
-                                    onClick={() => {
-                                      // This would open a visual guide/tutorial
-                                      console.log(
-                                        `Opening visual guide for: ${item.title}`
-                                      );
-                                    }}
-                                  >
-                                    <span className="text-xl md:text-2xl">
-                                      📹
-                                    </span>
-                                    Watch How-To Video
-                                  </Button>
                                 </div>
                               </div>
 
