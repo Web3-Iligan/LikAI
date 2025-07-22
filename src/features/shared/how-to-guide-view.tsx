@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 
 import {
-  AlertCircle,
   ArrowLeft,
   Bot,
   CheckCircle,
@@ -457,20 +456,20 @@ export function HowToGuideView({ task, onBack }: HowToGuideViewProps) {
         </CardHeader>
       </Card>
 
-      {/* 2. Why It's Important */}
-      <Card className="border-l-4 border-l-amber-400">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2 text-lg">
-            <AlertCircle className="h-5 w-5 text-amber-500" />
-            Why It's Important
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <p className="leading-relaxed text-gray-700">
-            {taskData.whyImportant}
-          </p>
-        </CardContent>
-      </Card>
+      {/* Why It's Important Section */}
+      <div className="rounded-xl border border-orange-100 bg-gradient-to-br from-orange-50/80 to-amber-50/80 p-6">
+        <div className="flex items-center gap-2 text-orange-900">
+          <Clock className="h-5 w-5" />
+          <h2 className="text-lg font-semibold">Why It's Important</h2>
+        </div>
+        <p className="mt-2 text-orange-800">
+          Water quality is the foundation of healthy shrimp culture. Poor
+          dissolved oxygen levels can lead to stress, disease susceptibility,
+          and massive die-offs. The GAqP manual emphasizes that maintaining
+          proper water parameters is your first line of defense against
+          production losses.
+        </p>
+      </div>
 
       {/* 3. What to Do - Checklist */}
       <Card>

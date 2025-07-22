@@ -22,16 +22,9 @@ import {
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
-import { Progress } from "@/components/ui/progress";
+import { Checkbox } from "@/components/ui/checkbox";
 import { HowToGuideView } from "@/features/shared/how-to-guide-view";
+import { cn } from "@/lib/utils";
 
 // Helper to map categories to Lucide icons
 const categoryIcons: { [key: string]: any } = {
@@ -167,6 +160,194 @@ interface BiosecurityPlanProps {
   farmProfile: any;
 }
 
+interface TaskCategories {
+  overdue: BiosecurityTask[];
+  today: BiosecurityTask[];
+  upcoming: BiosecurityTask[];
+  completed: BiosecurityTask[];
+}
+
+// Task List Item Component
+const TaskListItem = ({
+  task,
+  onComplete,
+  onViewGuide,
+}: {
+  task: BiosecurityTask;
+  onComplete: (taskId: string) => void;
+  onViewGuide: (task: BiosecurityTask) => void;
+}) => {
+  const isCompleted = task.status === "completed";
+  const isCritical = task.priority === "critical";
+
+  return (
+    <div
+      className={cn(
+        "border-l-4 p-4 transition-colors",
+        isCompleted && "bg-green-50",
+        !isCompleted && isCritical && "border-l-red-500 bg-red-50",
+        !isCompleted &&
+          task.priority === "high" &&
+          "border-l-orange-500 bg-orange-50",
+        !isCompleted &&
+          task.priority !== "high" &&
+          !isCritical &&
+          "border-l-blue-500 bg-blue-50"
+      )}
+    >
+      <div className="flex items-start gap-4">
+        {/* Checkbox */}
+        <div className="flex-shrink-0 pt-1">
+          <Checkbox
+            checked={isCompleted}
+            onCheckedChange={() => onComplete(task.id)}
+            className={cn(
+              "h-5 w-5 rounded-full border-2",
+              isCompleted ? "border-green-500 bg-green-500" : "border-gray-300",
+              "transition-colors hover:border-green-600"
+            )}
+          />
+        </div>
+
+        {/* Content */}
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-2">
+            <h3
+              className={cn(
+                "font-semibold text-gray-900",
+                isCompleted && "text-gray-500 line-through"
+              )}
+            >
+              {task.title}
+            </h3>
+            {isCritical && !isCompleted && (
+              <Badge variant="destructive" className="text-xs">
+                URGENT
+              </Badge>
+            )}
+          </div>
+          <p
+            className={cn(
+              "mt-1 text-sm text-gray-600",
+              isCompleted && "text-gray-400 line-through"
+            )}
+          >
+            {task.description}
+          </p>
+          <div className="mt-2 flex items-center gap-4 text-xs text-gray-500">
+            <span className="flex items-center gap-1">
+              <Clock className="h-3 w-3" />
+              {task.timeframe}
+            </span>
+            <span>💰 {task.estimatedCost}</span>
+          </div>
+        </div>
+
+        {/* View Guide Button */}
+        <div className="flex-shrink-0">
+          <Button
+            variant="outline"
+            size="sm"
+            className="border-blue-200 text-blue-600 hover:bg-blue-50"
+            onClick={() => onViewGuide(task)}
+          >
+            View Guide
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Task Section Component
+const TaskSection = ({
+  title,
+  tasks,
+  onComplete,
+  onViewGuide,
+  className = "",
+}: {
+  title: string;
+  tasks: BiosecurityTask[];
+  onComplete: (taskId: string) => void;
+  onViewGuide: (task: BiosecurityTask) => void;
+  className?: string;
+}) => {
+  if (tasks.length === 0) return null;
+
+  return (
+    <div className={className}>
+      <h3 className="mb-3 font-semibold text-gray-900">{title}</h3>
+      <div className="divide-y divide-gray-100 rounded-lg border bg-white">
+        {tasks.map(task => (
+          <TaskListItem
+            key={task.id}
+            task={task}
+            onComplete={onComplete}
+            onViewGuide={onViewGuide}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+// Today's Action Plan Component
+const TodaysActionPlan = ({
+  tasks,
+  onComplete,
+  onViewGuide,
+}: {
+  tasks: TaskCategories;
+  onComplete: (taskId: string) => void;
+  onViewGuide: (task: BiosecurityTask) => void;
+}) => {
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-gray-900">
+          Today's Action Plan
+        </h2>
+        <div className="flex items-center gap-2">
+          <Badge variant="outline" className="text-xs">
+            {tasks.overdue.length} overdue
+          </Badge>
+          <Badge variant="outline" className="text-xs">
+            {tasks.today.length} for today
+          </Badge>
+          <Badge variant="outline" className="text-xs">
+            {tasks.upcoming.length} upcoming
+          </Badge>
+        </div>
+      </div>
+
+      <div className="space-y-6">
+        <TaskSection
+          title="⚠️ Overdue Tasks"
+          tasks={tasks.overdue}
+          onComplete={onComplete}
+          onViewGuide={onViewGuide}
+          className="border-l-2 border-red-500 pl-4"
+        />
+        <TaskSection
+          title="📅 Today's Tasks"
+          tasks={tasks.today}
+          onComplete={onComplete}
+          onViewGuide={onViewGuide}
+          className="border-l-2 border-blue-500 pl-4"
+        />
+        <TaskSection
+          title="🔜 Upcoming Tasks"
+          tasks={tasks.upcoming}
+          onComplete={onComplete}
+          onViewGuide={onViewGuide}
+          className="border-l-2 border-gray-300 pl-4"
+        />
+      </div>
+    </div>
+  );
+};
+
 export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
   // Suppress unused parameter warning - farmProfile will be used for future enhancements
   void farmProfile;
@@ -190,6 +371,11 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
 
   // Filter menu state
   const [showFilterMenu, setShowFilterMenu] = useState(false);
+
+  // New state for task view
+  const [taskViewMode, setTaskViewMode] = useState<"active" | "history">(
+    "active"
+  );
 
   // Default tasks if no AI plan is generated
   const defaultTasks: BiosecurityTask[] = [
@@ -464,6 +650,89 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
 
   const currentStep = getCurrentStepInPhase(currentPhase.id);
 
+  // Helper function to determine if a task is overdue
+  const isTaskOverdue = (task: BiosecurityTask): boolean => {
+    if (task.status === "completed") return false;
+    // Add logic here to check if task is overdue based on timeframe
+    return (
+      task.timeframe.toLowerCase().includes("overdue") ||
+      task.timeframe.toLowerCase().includes("ago")
+    );
+  };
+
+  // Helper function to determine if a task is for today
+  const isTaskForToday = (task: BiosecurityTask): boolean => {
+    if (task.status === "completed") return false;
+    return (
+      task.timeframe.toLowerCase().includes("today") ||
+      task.timeframe.toLowerCase().includes("now") ||
+      task.timeframe.toLowerCase().includes("immediately")
+    );
+  };
+
+  // Categorize tasks by status and timing
+  const categorizeTasks = (tasks: BiosecurityTask[]): TaskCategories => {
+    const categories: TaskCategories = {
+      overdue: [],
+      today: [],
+      upcoming: [],
+      completed: [],
+    };
+
+    tasks.forEach(task => {
+      if (task.status === "completed") {
+        categories.completed.push(task);
+      } else if (isTaskOverdue(task)) {
+        categories.overdue.push(task);
+      } else if (isTaskForToday(task)) {
+        categories.today.push(task);
+      } else {
+        categories.upcoming.push(task);
+      }
+    });
+
+    // Sort each category by priority
+    const priorityOrder = { critical: 0, high: 1, medium: 2, low: 3 };
+    const sortByPriority = (a: BiosecurityTask, b: BiosecurityTask) =>
+      priorityOrder[a.priority] - priorityOrder[b.priority];
+
+    categories.overdue.sort(sortByPriority);
+    categories.today.sort(sortByPriority);
+    categories.upcoming.sort(sortByPriority);
+    categories.completed.sort(
+      (a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]
+    );
+
+    return categories;
+  };
+
+  // Get categorized tasks for current view
+  const getCategorizedTasks = () => {
+    const tasks =
+      currentModule?.id === "all"
+        ? currentTasks
+        : currentTasks.filter(task =>
+            currentModule?.categories.includes(task.category)
+          );
+    return categorizeTasks(tasks);
+  };
+
+  const categorizedTasks = getCategorizedTasks();
+
+  // Get active tasks count
+  const getActiveTasksCount = () => {
+    return (
+      categorizedTasks.overdue.length +
+      categorizedTasks.today.length +
+      categorizedTasks.upcoming.length
+    );
+  };
+
+  // Get completed tasks count
+  const getCompletedTasksCount = () => {
+    return categorizedTasks.completed.length;
+  };
+
   if (selectedTaskForGuide) {
     const taskWithIcon = {
       ...selectedTaskForGuide,
@@ -483,191 +752,145 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
   return (
     <div className="mx-auto max-w-6xl px-6 py-8">
       {/* Top Header Area */}
-      <div className="mb-8">
+      <div className="space-y-16">
         {/* Overall Progress Bar */}
-        <div className="mb-6">
-          <div className="mb-3 flex items-center justify-between">
-            <h1 className="text-2xl font-bold text-gray-900">
-              Your GAqP Journey
-            </h1>
-            {hasUrgentTasks && (
-              <Badge variant="destructive" className="px-3 py-1.5 text-sm">
-                <AlertTriangle className="mr-2 h-4 w-4" />
-                Urgent Actions Required
-              </Badge>
-            )}
+        <div className="mb-16 rounded-xl border border-green-100 bg-gradient-to-br from-green-50/80 to-emerald-50/80 p-6 shadow-sm">
+          <div className="mb-10">
+            <div className="flex items-center justify-between">
+              <div className="space-y-1">
+                <h1 className="text-2xl font-bold text-gray-900">
+                  Your GAqP Journey
+                </h1>
+                <p className="text-sm text-gray-600">
+                  Track your progress towards BFAR certification
+                </p>
+              </div>
+              <div className="flex items-center gap-2">
+                <Badge
+                  variant="outline"
+                  className="border-green-200 bg-green-50 text-green-700"
+                >
+                  {
+                    biosecurityPhases.filter(
+                      phase => getPhaseProgress(phase.id).percentage === 100
+                    ).length
+                  }{" "}
+                  of {biosecurityPhases.length} phases
+                </Badge>
+              </div>
+            </div>
           </div>
-          <div className="mb-3 flex items-center justify-between">
-            <span className="text-lg font-semibold text-gray-800">
+
+          <div className="mb-2 flex items-center justify-between">
+            <span className="text-sm font-medium text-gray-700">
               Overall Journey Progress
             </span>
-            <span className="text-sm text-gray-600">
-              {
-                biosecurityPhases.filter(
-                  phase => getPhaseProgress(phase.id).percentage === 100
-                ).length
-              }{" "}
-              of {biosecurityPhases.length} phases completed
-            </span>
-          </div>
-          <div className="relative">
-            <Progress
-              value={Math.round(
+            <span className="text-sm font-medium text-green-600">
+              {Math.round(
                 (biosecurityPhases.filter(
                   phase => getPhaseProgress(phase.id).percentage === 100
                 ).length /
                   biosecurityPhases.length) *
                   100
               )}
-              className="h-3 [&>div]:bg-gradient-to-r [&>div]:from-blue-500 [&>div]:via-cyan-500 [&>div]:to-green-500"
-            />
-            {/* Reduced height from h-6 to h-3 for a slimmer progress bar */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-sm font-bold text-white drop-shadow-sm">
-                {Math.round(
-                  (biosecurityPhases.filter(
-                    phase => getPhaseProgress(phase.id).percentage === 100
-                  ).length /
-                    biosecurityPhases.length) *
-                    100
-                )}
-                % Complete
-              </span>
+              %
+            </span>
+          </div>
+
+          <div className="relative">
+            <div className="h-2.5 w-full overflow-hidden rounded-full bg-green-100">
+              <div
+                className="h-full rounded-full bg-gradient-to-r from-green-500 to-emerald-400 transition-all duration-500"
+                style={{
+                  width: `${Math.round(
+                    (biosecurityPhases.filter(
+                      phase => getPhaseProgress(phase.id).percentage === 100
+                    ).length /
+                      biosecurityPhases.length) *
+                      100
+                  )}%`,
+                }}
+              />
             </div>
           </div>
         </div>
 
-        {/* Focus Your Plan - Vertical Module Navigator */}
-        <div className="mb-8">
-          <h2 className="mb-4 text-2xl font-bold text-gray-900">
-            🎯 Focus Your Plan
-          </h2>
-          <div className="mb-8 mt-2 text-sm text-gray-500">
-            💡 <strong>Tip:</strong> Select a module to focus on specific tasks,
-            or choose "All Modules" to see your complete journey.
+        {/* Focus Your Plan - Module Selection */}
+        <div>
+          <div className="flex items-center justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">
+                🎯 Focus Your Plan
+              </h2>
+              <p className="mt-2 text-sm text-gray-500">
+                💡 <strong>Tip:</strong> Select a module to focus on specific
+                tasks, or view all tasks across modules.
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button
+                variant={taskViewMode === "active" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setTaskViewMode("active")}
+                className="text-sm"
+              >
+                Active ({getActiveTasksCount()})
+              </Button>
+              <Button
+                variant={taskViewMode === "history" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setTaskViewMode("history")}
+                className="text-sm"
+              >
+                Completed ({getCompletedTasksCount()})
+              </Button>
+            </div>
           </div>
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+
+          {/* Module Selection Grid */}
+          <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {gaqpModules.map(module => {
               const isSelected = selectedModule === module.id;
               const moduleProgress = getModuleProgress(module.id);
-
               return (
                 <button
                   key={module.id}
                   onClick={() => setSelectedModule(module.id)}
-                  className={`group flex items-center gap-4 rounded-xl border-2 p-4 text-left transition-all duration-200 hover:scale-105 ${
+                  className={`flex items-center gap-4 rounded-xl border-2 p-4 text-left ${
                     isSelected
-                      ? module.color === "blue"
-                        ? "border-blue-400 bg-blue-50 shadow-lg ring-2 ring-blue-200"
-                        : module.color === "cyan"
-                          ? "border-cyan-400 bg-cyan-50 shadow-lg ring-2 ring-cyan-200"
-                          : module.color === "green"
-                            ? "border-green-400 bg-green-50 shadow-lg ring-2 ring-green-200"
-                            : module.color === "purple"
-                              ? "border-purple-400 bg-purple-50 shadow-lg ring-2 ring-purple-200"
-                              : module.color === "orange"
-                                ? "border-orange-400 bg-orange-50 shadow-lg ring-2 ring-orange-200"
-                                : "border-gray-400 bg-gray-50 shadow-lg ring-2 ring-gray-200"
-                      : "border-gray-200 bg-white hover:border-gray-300 hover:shadow-md"
+                      ? `border-${module.color}-400 bg-${module.color}-50`
+                      : "border-gray-200 bg-white"
                   }`}
                 >
                   {module.id !== "all" && (
                     <div
-                      className={`flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-full transition-all duration-200 ${
-                        isSelected
-                          ? module.color === "blue"
-                            ? "bg-blue-500 text-white shadow-lg"
-                            : module.color === "cyan"
-                              ? "bg-cyan-500 text-white shadow-lg"
-                              : module.color === "green"
-                                ? "bg-green-500 text-white shadow-lg"
-                                : module.color === "purple"
-                                  ? "bg-purple-500 text-white shadow-lg"
-                                  : module.color === "orange"
-                                    ? "bg-orange-500 text-white shadow-lg"
-                                    : "bg-gray-500 text-white shadow-lg"
-                          : "bg-gray-100 text-gray-600 group-hover:bg-gray-200"
-                      }`}
+                      className={`flex h-12 w-12 items-center justify-center rounded-full bg-${module.color}-500 text-white`}
                     >
-                      <module.icon className="h-7 w-7" />
+                      <module.icon className="h-6 w-6" />
                     </div>
                   )}
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-center gap-2">
-                      <h3
-                        className={`text-lg font-semibold ${
-                          isSelected ? "text-gray-900" : "text-gray-700"
-                        }`}
-                      >
-                        {module.name}
-                      </h3>
-                      {isSelected && (
-                        <CheckCircle className="h-5 w-5 text-green-500" />
-                      )}
-                    </div>
+                  <div className="flex-1">
+                    <h3 className="font-semibold text-gray-900">
+                      {module.name}
+                    </h3>
                     <p className="mt-1 text-sm text-gray-600">
                       {module.description}
                     </p>
                     {module.id !== "all" && (
-                      <div className="mt-3 space-y-2">
+                      <div className="mt-2">
                         <div className="flex items-center justify-between text-sm">
                           <span className="text-gray-600">
                             {moduleProgress.completed} of {moduleProgress.total}{" "}
                             steps
                           </span>
-                          <span className="font-semibold text-gray-700">
+                          <span className="font-medium text-gray-700">
                             {moduleProgress.percentage}%
                           </span>
                         </div>
-                        <div className="h-2 overflow-hidden rounded-full bg-gray-200">
+                        <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
                           <div
-                            className={`h-full transition-all duration-300 ${
-                              isSelected
-                                ? module.color === "blue"
-                                  ? "bg-blue-500"
-                                  : module.color === "cyan"
-                                    ? "bg-cyan-500"
-                                    : module.color === "green"
-                                      ? "bg-green-500"
-                                      : module.color === "purple"
-                                        ? "bg-purple-500"
-                                        : module.color === "orange"
-                                          ? "bg-orange-500"
-                                          : "bg-gray-500"
-                                : "bg-gray-400"
-                            }`}
+                            className={`h-full bg-${module.color}-500`}
                             style={{ width: `${moduleProgress.percentage}%` }}
-                          />
-                        </div>
-                      </div>
-                    )}
-                    {module.id === "all" && (
-                      <div className="mt-3 space-y-2">
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-gray-600">
-                            {
-                              currentTasks.filter(t => t.status === "completed")
-                                .length
-                            }{" "}
-                            of {currentTasks.length} steps
-                          </span>
-                          <span className="font-semibold text-gray-700">
-                            {Math.round(
-                              (currentTasks.filter(
-                                t => t.status === "completed"
-                              ).length /
-                                currentTasks.length) *
-                                100
-                            )}
-                            %
-                          </span>
-                        </div>
-                        <div className="h-2 overflow-hidden rounded-full bg-gray-200">
-                          <div
-                            className="h-full bg-gradient-to-r from-blue-500 via-cyan-500 to-green-500 transition-all duration-300"
-                            style={{
-                              width: `${Math.round((currentTasks.filter(t => t.status === "completed").length / currentTasks.length) * 100)}%`,
-                            }}
                           />
                         </div>
                       </div>
@@ -678,615 +901,54 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
             })}
           </div>
         </div>
-      </div>
 
-      {/* Your Next Action */}
-      {(currentStepForModule ||
-        (selectedModule === "all" && overallCurrentStep)) &&
-        (() => {
-          const task = currentStepForModule || overallCurrentStep;
-          const isUrgent = task?.priority === "critical";
-          return (
-            <div
-              className={`mb-8 flex flex-col gap-4 rounded-xl border-2 p-6 shadow-lg transition-all duration-200 ${
-                isUrgent
-                  ? "border-red-400 bg-red-50/80"
-                  : "border-blue-200 bg-gradient-to-r from-green-50 to-emerald-50"
-              }`}
-            >
-              <div className="mb-2 flex items-center gap-3">
-                <div
-                  className={`flex h-12 w-12 items-center justify-center rounded-full text-xl font-bold shadow-md ${
-                    isUrgent
-                      ? "bg-red-500 text-white"
-                      : "bg-green-500 text-white"
-                  }`}
-                >
-                  {isUrgent ? <AlertTriangle className="h-7 w-7" /> : "→"}
-                </div>
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h2 className="text-xl font-bold text-gray-900">
-                      {isUrgent ? "Urgent Action" : "Next Action"}
-                    </h2>
-                    {selectedModule !== "all" && (
-                      <span className="text-base font-normal text-gray-600">
-                        {" in "}
-                        {currentModule?.name}
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="mt-1 text-lg font-semibold text-gray-900">
-                    {task?.title}
-                  </h3>
-                </div>
-              </div>
-              <p className="mb-2 text-gray-700">{task?.description}</p>
-              {isUrgent && (
-                <div className="mb-2 flex items-center gap-2 rounded-lg bg-red-50 p-3">
-                  <AlertTriangle className="h-5 w-5 text-red-500" />
-                  <span className="font-medium text-red-700">
-                    Urgent: Immediate action needed to protect your farm.
-                  </span>
-                </div>
-              )}
-              <div className="mb-2 flex items-center gap-3 text-sm text-gray-600">
-                <span>💰 {task?.estimatedCost}</span>
-                <span>⏱️ {task?.timeframe}</span>
-              </div>
-              <Button
-                variant={isUrgent ? "destructive" : "default"}
-                size="lg"
-                className={
-                  isUrgent
-                    ? "border-red-400 bg-red-600 text-white hover:bg-red-700"
-                    : "bg-green-600 text-white hover:bg-green-700"
-                }
-                onClick={() => {
-                  if (task) setSelectedTaskForGuide(task);
-                }}
-              >
-                {isUrgent
-                  ? "⚠️ View Step-by-Step Guide"
-                  : "📖 Get Step-by-Step Guide"}
-              </Button>
-            </div>
-          );
-        })()}
+        {/* Task List Section with increased top margin */}
+        <div className="mt-24 space-y-8">
+          {/* Active Tasks View */}
+          {taskViewMode === "active" && (
+            <TodaysActionPlan
+              tasks={categorizedTasks}
+              onComplete={toggleTaskStatus}
+              onViewGuide={setSelectedTaskForGuide}
+            />
+          )}
 
-      {/* Steps in Selected Module */}
-      <div className="mb-8">
-        <div className="mb-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-bold text-gray-900">Task History</h2>
-            <div className="relative">
-              <Button
-                variant="outline"
-                size="sm"
-                className="flex items-center gap-1 border-gray-300 text-sm"
-                onClick={() => setShowFilterMenu(v => !v)}
-              >
-                <Filter className="h-4 w-4" />
-                Filter <span className="ml-1">▼</span>
-              </Button>
-              {showFilterMenu && (
-                <div className="absolute right-0 z-10 mt-2 w-48 rounded-md border border-gray-200 bg-white shadow-lg">
-                  <button
-                    className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-100 ${viewMode === "all" ? "font-bold text-blue-600" : "text-gray-800"}`}
-                    onClick={() => {
-                      setViewMode("all");
-                      setShowFilterMenu(false);
-                    }}
-                  >
-                    Show All Tasks
-                  </button>
-                  <button
-                    className={`w-full px-4 py-2 text-left text-sm hover:bg-gray-100 ${viewMode === "phases" ? "font-bold text-blue-600" : "text-gray-800"}`}
-                    onClick={() => {
-                      setViewMode("phases");
-                      setShowFilterMenu(false);
-                    }}
-                  >
-                    Group by Module
-                  </button>
-                </div>
-              )}
+          {/* Completed Tasks View */}
+          {taskViewMode === "history" && (
+            <div className="space-y-6">
+              <TaskSection
+                title="✅ Completed Tasks"
+                tasks={categorizedTasks.completed}
+                onComplete={toggleTaskStatus}
+                onViewGuide={setSelectedTaskForGuide}
+                className="border-l-2 border-green-500 pl-4"
+              />
             </div>
-          </div>
-          <div className="mt-1 text-sm text-gray-600">
-            <span className="font-semibold text-gray-900">
-              {filteredTasks.length}
-            </span>{" "}
-            tasks
-            {filteredTasks.filter(t => t.status === "completed").length > 0 && (
-              <>
-                {" • "}
-                <span className="font-semibold text-green-600">
-                  {filteredTasks.filter(t => t.status === "completed").length}
-                </span>{" "}
-                completed
-              </>
-            )}
-            {filteredTasks.filter(
-              t => t.priority === "critical" && t.status !== "completed"
-            ).length > 0 && (
-              <>
-                {" • "}
-                <span className="font-semibold text-red-600">
-                  {
-                    filteredTasks.filter(
-                      t => t.priority === "critical" && t.status !== "completed"
-                    ).length
-                  }
-                </span>{" "}
-                urgent
-              </>
-            )}
-          </div>
+          )}
+
+          {/* Empty State */}
+          {((taskViewMode === "active" && getActiveTasksCount() === 0) ||
+            (taskViewMode === "history" && getCompletedTasksCount() === 0)) && (
+            <div className="rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 p-8 text-center">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
+                <CheckCircle className="h-8 w-8 text-green-500" />
+              </div>
+              <h3 className="mb-2 text-lg font-semibold text-gray-900">
+                {taskViewMode === "active"
+                  ? "All Caught Up! 🎉"
+                  : "No History Yet"}
+              </h3>
+              <p className="text-gray-600">
+                {taskViewMode === "active"
+                  ? "You've completed all your tasks for now."
+                  : "Complete some tasks to see them here."}
+              </p>
+            </div>
+          )}
         </div>
-
-        {/* Show helpful message if no tasks available */}
-        {filteredTasks.length === 0 && (
-          <div className="rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 p-8 text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100">
-              <CheckCircle className="h-8 w-8 text-green-500" />
-            </div>
-            <h3 className="mb-2 text-lg font-semibold text-gray-900">
-              Great Work! 🎉
-            </h3>
-            <p className="text-gray-600">
-              {selectedModule === "all"
-                ? "You've completed all tasks in your GAqP journey!"
-                : `You've completed all tasks in ${currentModule?.name}!`}
-            </p>
-            <p className="mt-2 text-sm text-gray-500">
-              {selectedModule !== "all"
-                ? "Try selecting 'All Modules' to see your complete journey or choose another module."
-                : "Your farm is now fully GAqP compliant. Well done!"}
-            </p>
-            {selectedModule !== "all" && (
-              <Button
-                onClick={() => setSelectedModule("all")}
-                className="mt-4 bg-blue-600 text-white hover:bg-blue-700"
-              >
-                🔍 View All Modules
-              </Button>
-            )}
-          </div>
-        )}
-
-        {filteredTasks.length > 0 &&
-          (viewMode === "phases" ? (
-            selectedModule === "all" ? (
-              /* Module-grouped View for All Modules */
-              <div className="space-y-8">
-                {gaqpModules.slice(1).map(module => {
-                  // Skip "all" module
-                  const moduleTasks = currentTasks.filter(task =>
-                    module.categories.includes(task.category)
-                  );
-                  if (moduleTasks.length === 0) return null;
-
-                  const moduleProgress = getModuleProgress(module.id);
-                  const nextTaskInModule = moduleTasks.find(
-                    task => task.status !== "completed"
-                  );
-
-                  return (
-                    <div
-                      key={module.id}
-                      className="rounded-xl border-2 border-gray-200 bg-white shadow-lg"
-                    >
-                      {/* Module Header */}
-                      <div className="border-b border-gray-100 p-6">
-                        <div className="flex items-center gap-4">
-                          <div
-                            className={`flex h-12 w-12 items-center justify-center rounded-full ${
-                              module.color === "blue"
-                                ? "bg-blue-500"
-                                : module.color === "cyan"
-                                  ? "bg-cyan-500"
-                                  : module.color === "green"
-                                    ? "bg-green-500"
-                                    : module.color === "purple"
-                                      ? "bg-purple-500"
-                                      : "bg-orange-500"
-                            } text-white`}
-                          >
-                            <module.icon className="h-6 w-6" />
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="text-xl font-bold text-gray-900">
-                              {module.name}
-                            </h3>
-                            <p className="text-sm text-gray-600">
-                              {module.description}
-                            </p>
-                          </div>
-                          <div className="text-right">
-                            <div className="text-sm font-medium text-gray-600">
-                              {moduleProgress.completed} of{" "}
-                              {moduleProgress.total} completed
-                            </div>
-                            <div className="mt-1 flex items-center gap-2">
-                              <Progress
-                                value={moduleProgress.percentage}
-                                className="h-2 w-20"
-                              />
-                              <span className="text-xs text-gray-500">
-                                {moduleProgress.percentage}%
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Module Tasks */}
-                      <div className="p-6">
-                        <div className="space-y-3">
-                          {moduleTasks.map((task, index) => {
-                            const isCompleted = task.status === "completed";
-                            const isCritical = task.priority === "critical";
-                            const isNextAction =
-                              nextTaskInModule?.id === task.id;
-
-                            return (
-                              <div
-                                key={task.id}
-                                className={`flex items-center gap-4 rounded-lg p-4 transition-all duration-200 ${
-                                  isNextAction
-                                    ? "border-2 border-blue-300 bg-blue-50/50 shadow-sm"
-                                    : isCritical && !isCompleted
-                                      ? "border border-red-200 bg-red-50"
-                                      : "border bg-gray-50 hover:bg-gray-100"
-                                }`}
-                              >
-                                <div
-                                  className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold ${
-                                    isCompleted
-                                      ? "bg-green-500 text-white"
-                                      : isCritical
-                                        ? "bg-red-500 text-white"
-                                        : task.priority === "high"
-                                          ? "bg-orange-400 text-white"
-                                          : "bg-gray-300 text-gray-700"
-                                  }`}
-                                >
-                                  {isCompleted
-                                    ? "✓"
-                                    : isCritical
-                                      ? "!"
-                                      : index + 1}
-                                </div>
-                                <div className="min-w-0 flex-1">
-                                  <div className="mb-1 flex items-center gap-2">
-                                    <h5 className="font-semibold text-gray-900">
-                                      {task.title}
-                                    </h5>
-                                    <Badge
-                                      variant={
-                                        isCritical
-                                          ? "destructive"
-                                          : task.priority === "high"
-                                            ? "default"
-                                            : "secondary"
-                                      }
-                                      className="text-xs"
-                                    >
-                                      {task.priority === "critical"
-                                        ? "🚨 URGENT"
-                                        : task.priority.toUpperCase()}
-                                    </Badge>
-                                    {isNextAction && (
-                                      <Badge className="bg-blue-100 text-xs text-blue-800">
-                                        👆 NEXT UP
-                                      </Badge>
-                                    )}
-                                  </div>
-                                  <p className="mb-2 text-sm text-gray-600">
-                                    {task.description}
-                                  </p>
-                                  <div className="flex items-center gap-4 text-xs text-gray-500">
-                                    <span className="flex items-center gap-1">
-                                      <Clock className="h-3 w-3" />
-                                      {task.timeframe}
-                                    </span>
-                                    <span>💰 {task.estimatedCost}</span>
-                                  </div>
-                                </div>
-                                <div className="flex items-center gap-2">
-                                  {!isCompleted && (
-                                    <Button
-                                      size="sm"
-                                      className="flex items-center gap-2 rounded-lg bg-green-500 px-5 py-2 font-semibold text-white shadow hover:bg-green-600"
-                                      onClick={() => toggleTaskStatus(task.id)}
-                                    >
-                                      Done
-                                    </Button>
-                                  )}
-                                  <Button
-                                    variant="outline"
-                                    size="sm"
-                                    className="border-blue-200 text-blue-600 hover:text-blue-700"
-                                    onClick={() =>
-                                      setSelectedTaskForGuide(task)
-                                    }
-                                  >
-                                    📖 How-To
-                                  </Button>
-                                </div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              /* Simple task list for specific module */
-              <div className="space-y-6">
-                <div className="rounded-xl border-2 border-gray-200 bg-white shadow-lg">
-                  <div className="p-6">
-                    <div className="space-y-3">
-                      {filteredTasks.map((task, index) => {
-                        const isCompleted = task.status === "completed";
-                        const isCritical = task.priority === "critical";
-                        const isNextAction =
-                          currentStepForModule?.id === task.id;
-
-                        return (
-                          <div
-                            key={task.id}
-                            className={`flex items-center gap-4 rounded-lg p-4 transition-all duration-200 ${
-                              isNextAction
-                                ? "border-2 border-blue-300 bg-blue-50/50 shadow-sm"
-                                : isCritical && !isCompleted
-                                  ? "border border-red-200 bg-red-50"
-                                  : "border bg-gray-50 hover:bg-gray-100"
-                            }`}
-                          >
-                            <div
-                              className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold ${
-                                isCompleted
-                                  ? "bg-green-500 text-white"
-                                  : isCritical
-                                    ? "bg-red-500 text-white"
-                                    : task.priority === "high"
-                                      ? "bg-orange-400 text-white"
-                                      : "bg-gray-300 text-gray-700"
-                              }`}
-                            >
-                              {isCompleted ? "✓" : isCritical ? "!" : index + 1}
-                            </div>
-                            <div className="min-w-0 flex-1">
-                              <div className="mb-1 flex items-center gap-2">
-                                <h5 className="font-semibold text-gray-900">
-                                  {task.title}
-                                </h5>
-                                <Badge
-                                  variant={
-                                    isCritical
-                                      ? "destructive"
-                                      : task.priority === "high"
-                                        ? "default"
-                                        : "secondary"
-                                  }
-                                  className="text-xs"
-                                >
-                                  {task.priority === "critical"
-                                    ? "🚨 URGENT"
-                                    : task.priority.toUpperCase()}
-                                </Badge>
-                                {isNextAction && (
-                                  <Badge className="bg-blue-100 text-xs text-blue-800">
-                                    👆 NEXT UP
-                                  </Badge>
-                                )}
-                              </div>
-                              <p className="mb-2 text-sm text-gray-600">
-                                {task.description}
-                              </p>
-                              <div className="flex items-center gap-4 text-xs text-gray-500">
-                                <span className="flex items-center gap-1">
-                                  <Clock className="h-3 w-3" />
-                                  {task.timeframe}
-                                </span>
-                                <span>💰 {task.estimatedCost}</span>
-                              </div>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              {!isCompleted && (
-                                <Button
-                                  size="sm"
-                                  className="flex items-center gap-2 rounded-lg bg-green-500 px-5 py-2 font-semibold text-white shadow hover:bg-green-600"
-                                  onClick={() => toggleTaskStatus(task.id)}
-                                >
-                                  Done
-                                </Button>
-                              )}
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="border-blue-200 text-blue-600 hover:text-blue-700"
-                                onClick={() => setSelectedTaskForGuide(task)}
-                              >
-                                📖 How-To
-                              </Button>
-                            </div>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )
-          ) : (
-            /* Simple List View */
-            <div className="overflow-hidden rounded-lg border bg-white shadow-sm">
-              <div className="divide-y">
-                {currentPageTasks.map((task, index) => {
-                  const stepNumber = startIndex + index + 1;
-                  const isCompleted = task.status === "completed";
-                  const isCritical = task.priority === "critical";
-                  const isNextAction =
-                    (currentStepForModule || overallCurrentStep)?.id ===
-                    task.id;
-
-                  return (
-                    <div
-                      key={task.id}
-                      className={`flex items-center gap-4 p-4 transition-colors hover:bg-gray-50 ${
-                        isNextAction
-                          ? "border-l-4 border-l-blue-500 bg-blue-50/50"
-                          : isCritical && !isCompleted
-                            ? "bg-red-50/50"
-                            : ""
-                      }`}
-                    >
-                      <div
-                        className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-sm font-bold ${
-                          isCompleted
-                            ? "bg-green-500 text-white"
-                            : isCritical
-                              ? "bg-red-500 text-white"
-                              : task.priority === "high"
-                                ? "bg-orange-400 text-white"
-                                : "bg-gray-300 text-gray-700"
-                        }`}
-                      >
-                        {isCompleted ? "✓" : isCritical ? "!" : stepNumber}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div className="mb-1 flex items-center gap-2">
-                          <h3 className="truncate font-semibold text-gray-900">
-                            {task.title}
-                          </h3>
-                          <Badge
-                            variant={
-                              isCritical
-                                ? "destructive"
-                                : task.priority === "high"
-                                  ? "default"
-                                  : "secondary"
-                            }
-                            className="text-xs"
-                          >
-                            {task.priority === "critical"
-                              ? "🚨 URGENT"
-                              : task.priority.toUpperCase()}
-                          </Badge>
-                          {isNextAction && (
-                            <Badge className="bg-blue-100 text-xs text-blue-800">
-                              👆 DO THIS NEXT
-                            </Badge>
-                          )}
-                        </div>
-                        <p className="mb-2 line-clamp-1 text-sm text-gray-600">
-                          {task.description}
-                        </p>
-                        <div className="flex items-center gap-4 text-xs text-gray-500">
-                          <span className="flex items-center gap-1">
-                            <Clock className="h-3 w-3" />
-                            {task.timeframe}
-                          </span>
-                          <span>💰 {task.estimatedCost}</span>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        {!isCompleted && (
-                          <Button
-                            size="sm"
-                            className="flex items-center gap-2 rounded-lg bg-green-500 px-5 py-2 font-semibold text-white shadow hover:bg-green-600"
-                            onClick={() => toggleTaskStatus(task.id)}
-                          >
-                            Done
-                          </Button>
-                        )}
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          className="border-blue-200 text-blue-600 hover:text-blue-700"
-                          onClick={() => setSelectedTaskForGuide(task)}
-                        >
-                          📖 How-To
-                        </Button>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-
-              {/* Pagination */}
-              {totalPages > 1 && (
-                <div className="border-t bg-gray-50 p-4">
-                  <Pagination>
-                    <PaginationContent>
-                      <PaginationItem>
-                        <PaginationPrevious
-                          href="#"
-                          onClick={e => {
-                            e.preventDefault();
-                            if (currentPage > 1)
-                              setCurrentPage(currentPage - 1);
-                          }}
-                          className={
-                            currentPage === 1
-                              ? "pointer-events-none opacity-50"
-                              : ""
-                          }
-                        />
-                      </PaginationItem>
-
-                      {Array.from({ length: totalPages }, (_, i) => i + 1).map(
-                        pageNum => (
-                          <PaginationItem key={pageNum}>
-                            <PaginationLink
-                              href="#"
-                              onClick={e => {
-                                e.preventDefault();
-                                setCurrentPage(pageNum);
-                              }}
-                              isActive={currentPage === pageNum}
-                            >
-                              {pageNum}
-                            </PaginationLink>
-                          </PaginationItem>
-                        )
-                      )}
-
-                      <PaginationItem>
-                        <PaginationNext
-                          href="#"
-                          onClick={e => {
-                            e.preventDefault();
-                            if (currentPage < totalPages)
-                              setCurrentPage(currentPage + 1);
-                          }}
-                          className={
-                            currentPage === totalPages
-                              ? "pointer-events-none opacity-50"
-                              : ""
-                          }
-                        />
-                      </PaginationItem>
-                    </PaginationContent>
-                  </Pagination>
-
-                  <div className="mt-3 text-center text-sm text-gray-600">
-                    Showing {startIndex + 1}-
-                    {Math.min(endIndex, filteredTasks.length)} of{" "}
-                    {filteredTasks.length} tasks
-                  </div>
-                </div>
-              )}
-            </div>
-          ))}
       </div>
 
-      {/* Journey Complete Message - Show when all phases are complete */}
+      {/* Journey Complete Message */}
       {!currentStep && (
         <div className="mb-8">
           <div className="rounded-2xl border-2 border-green-200 bg-gradient-to-r from-green-50 to-blue-50 p-8 text-center shadow-lg">
