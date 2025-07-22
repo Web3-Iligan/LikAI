@@ -195,7 +195,7 @@ export default function LandingPage() {
                 </h2>
                 <p className="mb-6 text-sm leading-relaxed text-gray-600 sm:mb-8 sm:text-base lg:text-lg">
                   Safeguard your shrimp farm with AI-driven biosecurity, aligned
-                  with BFAR GAqP standards, to minimize disease risk and
+                  with Philippine BFAR GAqP standards, to minimize disease risk and
                   maximize your harvest potential.
                 </p>
                 <nav
