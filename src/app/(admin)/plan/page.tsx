@@ -1,4 +1,5 @@
 import { BiosecurityPlan } from "@/features/plan/biosecurity-plan";
+import { Suspense } from "react";
 
 // Dummy farm profile for demonstration
 const farmProfile = {
@@ -14,5 +15,9 @@ const farmProfile = {
 };
 
 export default function PlanPage() {
-  return <BiosecurityPlan farmProfile={farmProfile} />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <BiosecurityPlan farmProfile={farmProfile} />
+    </Suspense>
+  );
 }
