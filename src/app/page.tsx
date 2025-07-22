@@ -1222,7 +1222,7 @@ export default function LandingPage() {
                     </h3>
                     <div className="mb-6">
                       <div className="mb-2 text-4xl font-bold text-gray-900">
-                        {billingPeriod === "monthly" ? "₱1,200" : "₱12,000"}
+                        {billingPeriod === "monthly" ? "₱1,500" : "₱14,400"}
                       </div>
                       <p className="text-sm text-gray-600">
                         {billingPeriod === "monthly"
