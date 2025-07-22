@@ -364,9 +364,7 @@ export function DashboardOverview() {
           const IconComponent = stat.icon;
           return (
             <Link key={index} href={stat.href}>
-              <Card
-                className={`${stat.borderColor} cursor-pointer border-l-4 transition-all hover:scale-[1.02] hover:shadow-md`}
-              >
+              <Card className={`${stat.borderColor} border-l-4`}>
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div className="space-y-1">
@@ -389,7 +387,7 @@ export function DashboardOverview() {
         })}
       </div>
 
-      {/* GAqP Journey Modules - Consistent Color Rules & Next Task Link */}
+      {/* GAqP Journey Modules */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -403,125 +401,102 @@ export function DashboardOverview() {
         <CardContent>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {gaqpModules.map(module => {
-              // Consistent color logic
-              let bgColor = "from-blue-50/80 to-blue-100/40";
-              let borderColor = "border-blue-200";
-              let textColor = "text-blue-700";
-              let barColor = "bg-blue-500";
-              let showNextTask = false;
-              // Green: 100% complete
-              if (module.progress === 100) {
-                bgColor = "from-green-50/80 to-green-100/40";
-                borderColor = "border-green-200";
-                textColor = "text-green-700";
-                barColor = "bg-green-500";
-              } else if (module.progress < 20) {
-                // Red: very low progress
-                bgColor = "from-red-50/80 to-red-100/40";
-                borderColor = "border-red-200";
-                textColor = "text-red-700";
-                barColor = "bg-red-500";
-                showNextTask = true;
-              }
-              // Find the next action for this module
-              const nextAction = nextActions.find(
-                a => a.moduleId === module.id && !a.completed
-              );
               return (
-                <div key={module.id} className="group relative">
-                  <Link href={module.href} className="block">
-                    <div
-                      className={`relative rounded-xl border-2 ${borderColor} bg-gradient-to-br ${bgColor} p-6 transition-all duration-200 hover:scale-[1.02] hover:shadow-lg`}
-                    >
-                      {/* Status Badge */}
-                      <div className="absolute right-3 top-3 z-10 flex items-center">
-                        {module.progress === 100 ? (
-                          <div className="rounded-full bg-green-100 p-1">
-                            <CheckCircle className="h-4 w-4 text-green-600" />
-                          </div>
-                        ) : module.progress < 20 ? (
-                          <div className="rounded-full bg-red-100 px-2 py-1">
-                            <span className="whitespace-nowrap text-xs font-medium text-red-600">
-                              Needs Attention
-                            </span>
-                          </div>
-                        ) : (
-                          <div className="rounded-full bg-blue-100 px-2 py-1">
-                            <span className="whitespace-nowrap text-xs font-medium text-blue-600">
-                              In Progress
-                            </span>
-                          </div>
-                        )}
-                      </div>
+                <Link key={module.id} href={module.href}>
+                  <div
+                    className={`relative rounded-xl border-2 ${module.borderColor} bg-gradient-to-br ${module.bgColor} p-6`}
+                  >
+                    {/* Status Badge */}
+                    <div className="absolute right-3 top-3 z-10 flex items-center">
+                      {module.progress === 100 ? (
+                        <div className="rounded-full bg-green-100 p-1">
+                          <CheckCircle className="h-4 w-4 text-green-600" />
+                        </div>
+                      ) : module.progress < 20 ? (
+                        <div className="rounded-full bg-red-100 px-2 py-1">
+                          <span className="whitespace-nowrap text-xs font-medium text-red-600">
+                            Needs Attention
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="rounded-full bg-blue-100 px-2 py-1">
+                          <span className="whitespace-nowrap text-xs font-medium text-blue-600">
+                            In Progress
+                          </span>
+                        </div>
+                      )}
+                    </div>
 
-                      {/* Module Icon and Text, now with extra top padding to avoid badge overlap */}
-                      <div className="mb-4 flex items-center space-x-3 pt-6">
-                        <div className={`rounded-lg bg-white/80 p-3`}>
-                          <module.icon className={`h-6 w-6 ${textColor}`} />
-                        </div>
-                        <div>
-                          <h3 className="font-semibold text-gray-900 group-hover:text-gray-700">
-                            {module.name}
-                          </h3>
-                          <p className="text-sm text-gray-600 group-hover:text-gray-500">
-                            {module.description}
-                          </p>
-                        </div>
+                    {/* Module Content */}
+                    <div className="mb-4 flex items-center space-x-3 pt-6">
+                      <div className={`rounded-lg bg-white/80 p-3`}>
+                        <module.icon
+                          className={`h-6 w-6 ${module.textColor}`}
+                        />
                       </div>
+                      <div>
+                        <h3 className="font-semibold text-gray-900">
+                          {module.name}
+                        </h3>
+                        <p className="text-sm text-gray-600">
+                          {module.description}
+                        </p>
+                      </div>
+                    </div>
 
-                      {/* Progress Info */}
-                      <div className="mb-3 flex items-center justify-between">
-                        <div className="text-sm text-gray-600">
-                          {module.completedSteps} of {module.totalSteps} steps
-                        </div>
-                        <div className={`text-sm font-semibold ${textColor}`}>
-                          {module.progress}%
-                        </div>
+                    {/* Progress Info */}
+                    <div className="mb-3 flex items-center justify-between">
+                      <div className="text-sm text-gray-600">
+                        {module.completedSteps} of {module.totalSteps} steps
                       </div>
+                      <div
+                        className={`text-sm font-semibold ${module.textColor}`}
+                      >
+                        {module.progress}%
+                      </div>
+                    </div>
 
-                      {/* Progress Bar */}
-                      <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
-                        <div
-                          className={`h-full ${barColor} transition-all duration-500`}
-                          style={{ width: `${module.progress}%` }}
-                        ></div>
-                      </div>
-                      {/* Next Task Link for low progress */}
-                      {showNextTask && nextAction && (
+                    {/* Progress Bar */}
+                    <div className="h-2 w-full overflow-hidden rounded-full bg-gray-200">
+                      <div
+                        className={`h-full ${module.barColor}`}
+                        style={{ width: `${module.progress}%` }}
+                      ></div>
+                    </div>
+
+                    {/* Next Task Link */}
+                    {module.progress < 20 &&
+                      nextActions.find(
+                        a => a.moduleId === module.id && !a.completed
+                      ) && (
                         <button
                           type="button"
-                          className="mt-4 w-full rounded-md bg-red-600 py-2 text-sm font-semibold text-white shadow transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
+                          className="mt-4 w-full rounded-md bg-red-600 py-2 text-sm font-semibold text-white"
                           onClick={e => {
                             e.preventDefault();
                             const el = document.getElementById(
-                              `action-hub-task-${nextAction.id}`
+                              `action-hub-task-${nextActions.find(a => a.moduleId === module.id)?.id}`
                             );
                             if (el) {
                               el.scrollIntoView({
                                 behavior: "smooth",
                                 block: "center",
                               });
-                              el.classList.add("ring-4", "ring-red-400");
-                              setTimeout(() => {
-                                el.classList.remove("ring-4", "ring-red-400");
-                              }, 2000);
                             }
                           }}
                         >
                           Start Next Task
                         </button>
                       )}
-                      {/* End Next Task Link */}
-                    </div>
-                  </Link>
-                </div>
+                  </div>
+                </Link>
               );
             })}
           </div>
         </CardContent>
       </Card>
 
-      {/* Action Hub - Unified Next Actions & Progress */}
+      {/* Action Hub */}
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -540,29 +515,13 @@ export function DashboardOverview() {
               <div
                 key={action.id}
                 id={`action-hub-task-${action.id}`}
-                className={`group relative flex cursor-pointer items-start rounded-lg border-2 p-4 transition-all duration-150 ${
+                className={`relative flex items-start rounded-lg border-2 p-4 ${
                   action.priority === "critical"
                     ? "border-red-200 bg-red-50/50"
                     : action.priority === "high"
                       ? "border-orange-200 bg-orange-50/50"
                       : "border-blue-200 bg-blue-50/50"
-                } ${action.completed ? "opacity-60" : "hover:scale-[1.01] hover:shadow-lg"} `}
-                onClick={e => {
-                  // Only navigate if NOT clicking the checkbox
-                  if (
-                    (e.target as HTMLElement).closest('input[type="checkbox"]')
-                  )
-                    return;
-                  window.location.href = action.href;
-                }}
-                tabIndex={0}
-                role="button"
-                aria-label={`Open how-to guide for ${action.title}`}
-                onKeyDown={e => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    window.location.href = action.href;
-                  }
-                }}
+                } ${action.completed ? "opacity-60" : ""}`}
               >
                 {/* Large Checkbox */}
                 <div className="flex flex-col items-center justify-center pr-4 pt-1">
@@ -573,13 +532,7 @@ export function DashboardOverview() {
                       e.stopPropagation();
                       handleCompleteAction(action.id);
                     }}
-                    className="h-7 w-7 cursor-pointer rounded-lg border-2 border-green-400 accent-green-700 shadow-sm transition-all duration-150 focus:ring-2 focus:ring-green-500"
-                    aria-label={
-                      action.completed
-                        ? "Task completed"
-                        : "Mark task as complete"
-                    }
-                    tabIndex={0}
+                    className="h-7 w-7 rounded-lg border-2 border-green-400 accent-green-700"
                   />
                 </div>
                 {/* Card Content */}
@@ -604,10 +557,10 @@ export function DashboardOverview() {
                       {action.estimatedTime}
                     </span>
                   </div>
-                  <h4 className="mb-1 font-semibold text-gray-900 group-hover:text-blue-800">
+                  <h4 className="mb-1 font-semibold text-gray-900">
                     {action.title}
                   </h4>
-                  <p className="mb-2 text-sm text-gray-700 group-hover:text-blue-700">
+                  <p className="mb-2 text-sm text-gray-700">
                     {action.description}
                   </p>
                   {/* Module Context */}
@@ -616,16 +569,18 @@ export function DashboardOverview() {
                     <span className="font-medium">{action.moduleName}</span>{" "}
                     module
                   </p>
-                  {/* Subtle How-To Guide hint */}
-                  <span className="text-xs font-medium text-blue-600 underline underline-offset-2 group-hover:text-blue-800">
-                    Tap anywhere for How-To Guide
-                  </span>
+                  <Link
+                    href={action.href}
+                    className="text-xs font-medium text-blue-600"
+                  >
+                    View How-To Guide
+                  </Link>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Integrated Progress Metrics */}
+          {/* Progress Summary */}
           <div className="border-t pt-4">
             <h4 className="mb-3 text-sm font-semibold text-gray-700">
               Journey Progress Summary
@@ -686,7 +641,7 @@ export function DashboardOverview() {
               .map(alert => (
                 <div
                   key={alert.id}
-                  className="group relative mb-4 flex items-start gap-3 rounded-lg bg-red-50 p-4"
+                  className="relative mb-4 flex items-start gap-3 rounded-lg bg-gradient-to-r from-red-50 to-red-100/40 p-4"
                 >
                   <div className="flex-shrink-0">
                     <AlertTriangle className="h-5 w-5 text-red-600" />
@@ -716,7 +671,7 @@ export function DashboardOverview() {
               .map(alert => (
                 <div
                   key={alert.id}
-                  className="group relative mb-4 flex items-start gap-3 rounded-lg bg-green-50 p-4"
+                  className="relative mb-4 flex items-start gap-3 rounded-lg bg-gradient-to-r from-green-50 to-green-100/40 p-4"
                 >
                   <div className="flex-shrink-0">
                     <CheckCircle className="h-5 w-5 text-green-600" />
@@ -741,7 +696,7 @@ export function DashboardOverview() {
               .map(alert => (
                 <div
                   key={alert.id}
-                  className="group relative mb-4 flex items-start gap-3 rounded-lg bg-blue-50 p-4"
+                  className="relative mb-4 flex items-start gap-3 rounded-lg bg-gradient-to-r from-blue-50 to-blue-100/40 p-4"
                 >
                   <div className="flex-shrink-0">
                     <TrendingUp className="h-5 w-5 text-blue-600" />
@@ -774,7 +729,7 @@ export function DashboardOverview() {
               .map(alert => (
                 <div
                   key={alert.id}
-                  className="group relative mb-4 flex items-start gap-3 rounded-lg bg-indigo-50 p-4"
+                  className="relative mb-4 flex items-start gap-3 rounded-lg bg-gradient-to-r from-indigo-50 to-indigo-100/40 p-4"
                 >
                   <div className="flex-shrink-0">
                     <Stethoscope className="h-5 w-5 text-indigo-600" />
