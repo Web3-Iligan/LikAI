@@ -12,6 +12,7 @@ import {
   LifeBuoy,
   ListChecks,
   Menu,
+  MessageCircle,
   Settings,
 } from "lucide-react";
 import Image from "next/image";
@@ -51,8 +52,6 @@ const navigationItems: NavigationItem[] = [
     title: "My GAqP Plan",
     href: "/plan",
     icon: ListChecks,
-    // badge: "3",
-    // badgeVariant: "destructive",
   },
   {
     title: "Budget Guide",
@@ -68,6 +67,11 @@ const navigationItems: NavigationItem[] = [
     title: "My Reports",
     href: "/reports",
     icon: FileText,
+  },
+  {
+    title: "Coach Chatbot",
+    href: "/coach",
+    icon: MessageCircle,
   },
 ];
 
