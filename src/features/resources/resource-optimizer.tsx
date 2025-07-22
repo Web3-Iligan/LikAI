@@ -493,19 +493,32 @@ export default function ResourceOptimizer() {
           </div>
 
           {/* Generate Button */}
-          <Button
-            onClick={generateInvestmentPlan}
-            disabled={
-              !input.budget ||
+          <div className="space-y-2">
+            <Button
+              onClick={generateInvestmentPlan}
+              disabled={
+                !input.budget ||
+                !input.timeline ||
+                input.improvementAreas.length === 0
+              }
+              className="!h-12 !w-full !bg-[#f97316] !text-base !font-semibold !text-white hover:!bg-[#ea580c] disabled:!cursor-not-allowed disabled:!bg-orange-200 disabled:!text-orange-500"
+              style={{ backgroundColor: "#f97316" }}
+              size="lg"
+            >
+              <Calculator className="mr-2 h-5 w-5" />
+              Generate Investment Plan
+            </Button>
+            {(!input.budget ||
               !input.timeline ||
-              input.improvementAreas.length === 0
-            }
-            className="h-12 w-full bg-orange-600 text-base font-semibold text-white hover:bg-orange-700"
-            size="lg"
-          >
-            <Calculator className="mr-2 h-5 w-5" />
-            Generate Investment Plan
-          </Button>
+              input.improvementAreas.length === 0) && (
+              <p className="text-sm text-orange-600">
+                {!input.budget && "Please select a budget. "}
+                {!input.timeline && "Please select a timeline. "}
+                {input.improvementAreas.length === 0 &&
+                  "Please select at least one improvement area."}
+              </p>
+            )}
+          </div>
         </CardContent>
       </Card>
     );
@@ -1143,7 +1156,7 @@ export default function ResourceOptimizer() {
                   !input.timeline ||
                   input.improvementAreas.length === 0
                 }
-                className="h-12 w-full bg-orange-600 text-base font-semibold text-white hover:bg-orange-700"
+                className="h-12 w-full bg-orange-600 text-base font-semibold text-white hover:bg-orange-700 disabled:cursor-not-allowed disabled:bg-orange-300"
                 size="lg"
               >
                 <Calculator className="mr-2 h-5 w-5" />
@@ -1221,7 +1234,7 @@ export default function ResourceOptimizer() {
             )}
           </div>
 
-          {/* Header */}
+          {/* Results view header */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -1230,10 +1243,14 @@ export default function ResourceOptimizer() {
               </CardTitle>
               <CardDescription className="flex flex-wrap gap-4 text-sm">
                 <span>
-                  <strong>Budget:</strong> {selectedBudgetLabel}
+                  <strong>Budget:</strong>{" "}
+                  {budgetOptions.find(b => b.value === input.budget)?.label ||
+                    "Not specified"}
                 </span>
                 <span>
-                  <strong>Timeline:</strong> {selectedTimelineLabel}
+                  <strong>Timeline:</strong>{" "}
+                  {timelineOptions.find(t => t.value === input.timeline)
+                    ?.label || "Not specified"}
                 </span>
               </CardDescription>
             </CardHeader>
