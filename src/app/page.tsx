@@ -241,7 +241,7 @@ export default function LandingPage() {
                 Through GAqP
               </h2>
               <p className="mx-auto max-w-2xl px-2 text-base text-gray-600 sm:px-0 sm:text-lg">
-                Likai's AI guides your farm to adopt precise GAqP, preventing
+                Likai's AI guides your farm to adopt precise Good Aquaculture Practices (GAqP), preventing
                 costly losses and maximizing resource efficiency to boost your
                 yields and profits.
               </p>
