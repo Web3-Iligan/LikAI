@@ -54,7 +54,7 @@ impl fmt::Display for FarmSystemUnit {
 }
 
 #[derive(Clone, CandidType, Deserialize)]
-pub struct Farm {
+pub struct FarmSpec {
     spec_id: String, 
     farm_id: String, 
     shrimp_species: ShrimpSpecies,
