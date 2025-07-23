@@ -1896,7 +1896,7 @@ export default function OnboardingPage() {
                 </div>
 
                 {/* Enhanced CTA Section */}
-                <div className="space-y-6 pt-8 text-center md:pt-12">
+                <div className="space-y-6 text-center">
                   <div className="rounded-xl border border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50 p-6 md:p-8">
                     <h4 className="mb-4 text-xl font-bold text-gray-900 md:text-2xl">
                       🚀 Ready to transform your farm?
