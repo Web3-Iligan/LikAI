@@ -86,10 +86,21 @@ export default function OnboardingPage() {
     "Almost done, finalizing your plan...",
   ];
 
-  /**
-   * Effect: Cycle through analysis messages during Step 5.5
-   * Creates a dynamic loading experience with rotating status messages
-   */
+  useEffect(() => {
+    // Load form data from localStorage on component mount
+    if (typeof window !== "undefined") {
+      try {
+        const savedFormData = localStorage.getItem("onboarding-form-data");
+        if (savedFormData) {
+          const parsedData = JSON.parse(savedFormData);
+          setFormData(parsedData);
+        }
+      } catch (error) {
+        console.warn("Error loading form data from localStorage:", error);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     if (currentStep === 5.5) {
       let messageIndex = 0;
@@ -226,7 +237,7 @@ export default function OnboardingPage() {
       setTimeout(() => {
         setIsLoading(false);
         // Redirect to main dashboard
-        window.location.href = "/dashboard";
+        router.push("/dashboard");
       }, 3000);
     } else {
       // Standard step progression
@@ -247,8 +258,25 @@ export default function OnboardingPage() {
    * @param field - The field name to update
    * @param value - The new value (can be string or array for multi-select fields)
    */
+
   const updateFormData = (field: string, value: string | string[]) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData(prev => {
+      const newFormData = { ...prev, [field]: value };
+
+      // Save to localStorage whenever form data updates
+      if (typeof window !== "undefined") {
+        try {
+          localStorage.setItem(
+            "onboarding-form-data",
+            JSON.stringify(newFormData)
+          );
+        } catch (error) {
+          console.warn("Error saving form data to localStorage:", error);
+        }
+      }
+
+      return newFormData;
+    });
   };
 
   return (
@@ -450,12 +478,12 @@ export default function OnboardingPage() {
                       <span className="text-sm text-gray-400">
                         Already have an account?
                       </span>
-                      <Link
-                        href="/auth"
+                      <button
+                        onClick={() => router.push("/auth")}
                         className="ml-2 text-sm font-medium text-[#3498DB] hover:text-[#2980b9] hover:underline"
                       >
                         Log in here
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -1907,7 +1935,10 @@ export default function OnboardingPage() {
                       and watch your farm thrive.
                     </p>
                     <Button
-                      onClick={handleNext}
+                      onClick={() => {
+                        handleNext();
+                        localStorage.removeItem("onboarding-form-data");
+                      }}
                       className="h-12 w-full transform rounded-lg bg-gradient-to-r from-[#FF7F50] to-[#E6723C] px-8 text-base font-bold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-[#E6723C] hover:to-[#D35400] hover:shadow-xl sm:w-auto md:h-14 md:px-10 md:text-lg"
                     >
                       Download the Report{" "}
@@ -1993,13 +2024,13 @@ export default function OnboardingPage() {
                           Access your plan anytime, track progress, and unlock
                           more powerful AI tools!
                         </p>
-                        <Button
+                        <button
                           onClick={() => router.push("/auth")}
                           className="h-14 w-full transform rounded-lg bg-gradient-to-r from-[#FF7F50] to-[#E6723C] text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-[#E6723C] hover:to-[#D35400] hover:shadow-xl"
                         >
                           Get Free Access Now!{" "}
                           <ArrowRight className="ml-3 h-5 w-5" />
-                        </Button>
+                        </button>
                       </div>
                     </div>
 
