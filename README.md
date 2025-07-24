@@ -31,8 +31,7 @@ LikAI is an AI-driven biosecurity coach designed for small and medium-sized shri
 - **Progress Tracking:** Dashboard to monitor completion of biosecurity tasks and overall farm health.
 - **Compliance & Certification:** Automated compliance reports for BFAR accreditation and export standards.
 - **Offline Access:** Downloadable PDF reports for field reference.
-
-
+- **AI-Powered Assessment and Chatbot:** Personalized biosecurity plans and 24/7 AI coaching. See [docs/ai-features.md](docs/ai-features.md) for details.
 
 ## Getting Started
 
@@ -44,12 +43,14 @@ LikAI is an AI-driven biosecurity coach designed for small and medium-sized shri
 ### Installation
 
 1. **Clone the repository:**
+
    ```sh
    git clone https://github.com/your-org/likai.git
    cd likai
    ```
 
 2. **Install dependencies:**
+
    ```sh
    npm install
    # or
@@ -60,6 +61,7 @@ LikAI is an AI-driven biosecurity coach designed for small and medium-sized shri
    - Copy `.env.example` to `.env.local` and set your API keys (e.g., `OPENAI_API_KEY`).
 
 4. **Run the development server:**
+
    ```sh
    npm run dev
    # or
@@ -68,14 +70,12 @@ LikAI is an AI-driven biosecurity coach designed for small and medium-sized shri
 
 5. **Open [http://localhost:3000](http://localhost:3000) in your browser.**
 
-
 ## Usage
 
 - **Onboarding:** Start with the farm assessment to receive a personalized action plan.
 - **Dashboard:** Track your farm’s biosecurity progress and get priority actions.
 - **How-To Guides:** Access step-by-step instructions for farm tasks, with AI chat for troubleshooting.
 - **Reports:** Download compliance and progress reports for certification and record-keeping.
-
 
 ## Modules
 
@@ -85,13 +85,11 @@ LikAI is an AI-driven biosecurity coach designed for small and medium-sized shri
 - **Farm Access Control:** Visitor management, disinfection stations, and equipment hygiene.
 - **Disease Readiness:** Health monitoring, emergency response, and veterinary compliance.
 
-See [docs/modules.md](docs/modules.md) for full module details.
-
+See [docs/modules.md](docs/modules.md) and [docs/ai-features.md](docs/ai-features.md) for full module and AI details.
 
 ## Data Model
 
 The system uses a multi-entity data model for farm, assessment, planning, and reporting. See [docs/onboarding-erd.md](docs/onboarding-erd.md) for the ERD and entity descriptions.
-
 
 ## API Endpoints
 
@@ -100,7 +98,6 @@ The system uses a multi-entity data model for farm, assessment, planning, and re
 - `/api/generate-how-to` – Produces step-by-step guides for farm tasks.
 - `/api/chat-how-to` – AI chat support for how-to guides.
 
-
 ## Contributing
 
 1. Fork the repository.
@@ -108,7 +105,6 @@ The system uses a multi-entity data model for farm, assessment, planning, and re
 3. Commit your changes (`git commit -am 'Add new feature'`).
 4. Push to the branch (`git push origin feature/my-feature`).
 5. Open a pull request.
-
 
 ## License
 
