@@ -226,7 +226,7 @@ export default function OnboardingPage() {
       setTimeout(() => {
         setIsLoading(false);
         // Redirect to main dashboard
-        window.location.href = "/dashboard";
+        router.push("/dashboard");
       }, 3000);
     } else {
       // Standard step progression
@@ -450,12 +450,12 @@ export default function OnboardingPage() {
                       <span className="text-sm text-gray-400">
                         Already have an account?
                       </span>
-                      <Link
-                        href="/auth"
+                      <button
+                        onClick={() => router.push("/auth")}
                         className="ml-2 text-sm font-medium text-[#3498DB] hover:text-[#2980b9] hover:underline"
                       >
                         Log in here
-                      </Link>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -556,13 +556,11 @@ export default function OnboardingPage() {
                       {[
                         {
                           id: "vannamei",
-                          label:
-                            "Suati (Pacific White Shrimp)",
+                          label: "Suati (Pacific White Shrimp)",
                         },
                         {
                           id: "monodon",
-                          label:
-                            "Sugpo (Giant Black Tiger Shrimp)",
+                          label: "Sugpo (Giant Black Tiger Shrimp)",
                         },
                         {
                           id: "other",
@@ -2012,13 +2010,13 @@ export default function OnboardingPage() {
                           Access your plan anytime, track progress, and unlock
                           more powerful AI tools!
                         </p>
-                        <Button
+                        <button
                           onClick={() => router.push("/auth")}
                           className="h-14 w-full transform rounded-lg bg-gradient-to-r from-[#FF7F50] to-[#E6723C] text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-[#E6723C] hover:to-[#D35400] hover:shadow-xl"
                         >
                           Get Free Access Now!{" "}
                           <ArrowRight className="ml-3 h-5 w-5" />
-                        </Button>
+                        </button>
                       </div>
                     </div>
 
