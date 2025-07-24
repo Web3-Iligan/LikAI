@@ -62,7 +62,7 @@ JSON with embedded Markdown:
 graph TD
     A[User Prompt + Farmer's Farm Data] -->|API Route /api/chat-coach| B[API Handler]
 
-    subgraph Query Pipeline
+    subgraph  
         B -->|Sanitize Input| C[Embed Query BGE-M3]
         C --> D[Retrieve Top-K Chunks]
         D -->|Augment with System Prompt| F[Augmented Prompt]
