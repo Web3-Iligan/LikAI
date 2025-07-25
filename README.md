@@ -6,32 +6,79 @@ LikAI is an AI-driven biosecurity coach designed for small and medium-sized shri
 
 <br>
 
-## Table of Contents
+## Mainnet Deployment
 
-- [Features](#features)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-- [Modules](#modules)
-- [Data Model](#data-model)
-- [API Endpoints](#api-endpoints)
-- [Contributing](#contributing)
-- [License](#license)
-- [Support](#support)
-- [Acknowledgements](#acknowledgements)
+- Frontend Canister: https://hgn4e-xyaaa-aaaas-qbh6a-cai.icp0.io/
+- Backend Canister: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=htknj-wqaaa-aaaas-qbh5q-cai
+
+<br>
+
+## GitBooks Documentation
+
+We also created our full project documentation using GitBooks
+Link: [LikAI Project Documentation](https://sentient-solutions.gitbook.io/likai-ai-biosecurity-coach/)
+
+Contents
+- ✅ Project Overview
+- ✅ Features
+- ✅ High Level Architecture
+- ✅ Detailed Architecture
+- ✅ Retrieval Augmented Generation (RAG) Architecture
+- ✅ User Flow Diagram
+- ✅ ICP Features used
+- ✅ Deployment Guide
 
 <br>
 
 ## Features
 
-- **Personalized Farm Assessment:** Step-by-step onboarding flow collects farm data and generates a custom biosecurity report.
-- **Actionable Recommendations:** AI-powered suggestions for pond care, stock sourcing, farm access control, and disease readiness.
-- **Interactive How-To Guides:** Visual and checklist-based guides for key farm tasks, with integrated AI chat support.
-- **Progress Tracking:** Dashboard to monitor completion of biosecurity tasks and overall farm health.
-- **Compliance & Certification:** Automated compliance reports for BFAR accreditation and export standards.
-- **Offline Access:** Downloadable PDF reports for field reference.
-- **AI-Powered Assessment and Chatbot:** Personalized biosecurity plans and 24/7 AI coaching. See [docs/ai-features.md](docs/ai-features.md) for details.
+![features](public\core-features.png)
+
+- **Personalized Farm Assessment:** 
+   - Step-by-step onboarding flow collects farm data and generates a custom biosecurity report.
+- **Actionable Recommendations:** 
+   - AI-powered suggestions for pond care, stock sourcing, farm access control, and disease readiness.
+- **Interactive How-To Guides:** 
+   - Visual and checklist-based guides for key farm tasks, with integrated AI chat support.
+- **Progress Tracking:** 
+   - Dashboard to monitor completion of biosecurity tasks and overall farm health.
+- **Compliance & Certification:** 
+   - Automated compliance reports for BFAR accreditation and export standards.
+- **Offline Access:** 
+   - Downloadable PDF reports for field reference.
+- **AI-Powered Assessment and Chatbot:** 
+   - Personalized biosecurity plans and 24/7 AI coaching. See [docs/ai-features.md](docs/ai-features.md) for details.
+
+<br>
+
+## Demo Pictures
+
+![](public\initial-assessment.png)
+
+<br>
+
+## High Level Architecture
+
+![High Level Architecture](public\high-level-architecture.png)
+
+This diagram illustrates Likai's robust, hybrid architecture, combining the power of the Internet Computer Protocol (ICP) for secure, decentralized backend operations with client-side capabilities for enhanced user experience, including offline access, and external AI integration.
+
+<br>
+
+## How Likai's Features Leverage ICP
+
+![ICP](public\ICP.png)
+
+- Personalized Biosecurity & GAqP Action Plans: 
+   - The plan generation logic and the storage of the farmer's assessment data and the resulting dynamic plan would be in canisters. The plan's evolution is tamper-proof.
+- AI Coach & Knowledge Assistant: 
+   - The chat interface, chat history, and the logic for contextualizing prompts for external LLMs (via HTTPs outcalls) would be canister-based. The "Practical Biosecurity Library" content itself could be hosted in canisters for immutability.
+- Smart Investment Guidance: 
+   - The logic for calculating ROI, generating investment recommendations, and storing the farmer's investment plans would run in canisters.
+- Compliance & Market Access (Future/Enterprise): 
+   - The generation of compliance reports and the storage of certification data would leverage canisters for immutable record-keeping and verifiable outputs.
+
+<br>
 
 ## Getting Started
 
@@ -53,7 +100,6 @@ LikAI is an AI-driven biosecurity coach designed for small and medium-sized shri
    - Use the DevContainer to create a container with the preconfigured installation. There should be a prompt in the editor in which you can install a Dev Container and open the project in the Container
    - Wait for the installation to finish.
 
-
 3. **Configure environment variables:**
    - Copy `.env.example` to `.env.local` and set your API keys (e.g., `OPENAI_API_KEY`).
 
@@ -67,21 +113,19 @@ LikAI is an AI-driven biosecurity coach designed for small and medium-sized shri
 
 5. **Open [http://localhost:3000](http://localhost:3000) in your browser.**
 
+<br>
+
 ## Running on the Local DFX NETWORK
 
 **To run the project in a local dfx network, you can use the command below**
-   - The project repository uses Dev Containers. You can create a Github Codespace and all the installations/configurations will do it for you.
 
-   ```sh
-   npm run deploy:local
-   ```
+- The project repository uses Dev Containers. Please install the Windows Subsystem for Linux beforehand as well as the ubuntu distro. Make sure that is running at a version later than 22.04
 
-## Usage
+```sh
+npm run deploy:local
+```
 
-- **Onboarding:** Start with the farm assessment to receive a personalized action plan.
-- **Dashboard:** Track your farm’s biosecurity progress and get priority actions.
-- **How-To Guides:** Access step-by-step instructions for farm tasks, with AI chat for troubleshooting.
-- **Reports:** Download compliance and progress reports for certification and record-keeping.
+<br>
 
 ## Modules
 
@@ -93,9 +137,13 @@ LikAI is an AI-driven biosecurity coach designed for small and medium-sized shri
 
 See [docs/modules.md](docs/modules.md) and [docs/ai-features.md](docs/ai-features.md) for full module and AI details.
 
+<br>
+
 ## Data Model
 
 The system uses a multi-entity data model for farm, assessment, planning, and reporting. See [docs/onboarding-erd.md](docs/onboarding-erd.md) for the ERD and entity descriptions.
+
+<br>
 
 ## API Endpoints
 
@@ -103,6 +151,9 @@ The system uses a multi-entity data model for farm, assessment, planning, and re
 - `/api/generate-plan` – Creates detailed action plans for risk factors.
 - `/api/generate-how-to` – Produces step-by-step guides for farm tasks.
 - `/api/chat-how-to` – AI chat support for how-to guides.
+- `/api/submit` - Allows submission of onboarding form data to be sent towards the AI
+
+<br>
 
 ## Contributing
 
