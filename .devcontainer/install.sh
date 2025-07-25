@@ -57,7 +57,7 @@ echo "Wasm32 target added for Rust."
 echo "All specified packages and tools installed successfully!"
 
 dfx start --clean --background
-echo "IC CDK (dfx) started in the background.
+echo "IC CDK (dfx) started in the background."
 
 npm install 
 echo "npm install executed."
