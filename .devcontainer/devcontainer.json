@@ -5,6 +5,7 @@
   "features": {},
 
   "postCreateCommand": "bash .devcontainer/install.sh",
+  "postAttachCommand": "bash",
 
   "customizations": {
     "vscode": {
