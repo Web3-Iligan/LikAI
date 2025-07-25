@@ -54,21 +54,11 @@ cargo --version
 rustup target add wasm32-unknown-unknown
 echo "Wasm32 target added for Rust."
 
-echo "All specified packages and tools installed successfully!"
-
-echo "Starting IC CDK (dfx) in the background..."
-dfx start --clean --background
-echo "IC CDK (dfx) started in the background."
 
 # 5. Install npm packages
 echo "Installing npm packages..."
 npm install 
 echo "npm install executed."
 
-echo "stopping ongoing replicas that are running"
-dfx stop
 
-dfx start --clean --background
-
-deploy_output=$(dfx deploy --network local)
-echo "$deploy_output" | grep -E "http[s]?://[^\ ]+" > .devcontainer/DEPLOY_URLS.txt
+echo "All specified packages and tools installed successfully!"
