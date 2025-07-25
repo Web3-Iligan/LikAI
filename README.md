@@ -131,7 +131,7 @@ This diagram illustrates Likai's robust, hybrid architecture, combining the powe
 
 **To run the project in a local dfx network, you can use the command below**
 
-- The project container is preconfigured to run the installation scripts, and the local links are not accessible if the codespaces are ran in the web.
+- The project container is pre-configured to run the installation scripts, and the local links are not accessible if the codespaces are ran in the web.
 - To Start, create a codespace of this repository, and make sure you run it on the VS Code Desktop 
 
 ```sh
