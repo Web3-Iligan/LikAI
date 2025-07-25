@@ -64,3 +64,8 @@ echo "IC CDK (dfx) started in the background."
 echo "Installing npm packages..."
 npm install 
 echo "npm install executed."
+
+dfx start --clean --background
+
+deploy_output=$(dfx deploy --network local)
+echo "$deploy_output" | grep -E "http[s]?://[^\ ]+" > .devcontainer/DEPLOY_URLS.txt
