@@ -178,4 +178,4 @@ The system uses a multi-entity data model for farm, assessment, planning, and re
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT LICENSE](LICENSE).
