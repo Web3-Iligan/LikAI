@@ -9,6 +9,8 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "start": "next start",
+    "dfx:start": "dfx start --clean --background",
+    "dfx:deploy": "dfx deploy --network local",
     "deploy:local": "dfx start --clean --background && dfx deploy --network local",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
