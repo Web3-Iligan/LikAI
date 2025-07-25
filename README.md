@@ -49,6 +49,8 @@ Contents
 - **AI-Powered Assessment and Chatbot:** 
    - Personalized biosecurity plans and 24/7 AI coaching. See [docs/ai-features.md](docs/ai-features.md) for details.
 
+<br>
+
 ## Demo Pictures
 
 ![](public\initial-assessment.png)
