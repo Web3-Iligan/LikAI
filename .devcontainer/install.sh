@@ -31,7 +31,7 @@ npm -v
 
 # 3. Install IC CDK (Internet Computer Motoko Candid Development Kit) using the official script
 echo "Installing IC CDK (dfx) using the official install script..."
-sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)" -y
+yes sh -ci "$(curl -fsSL https://internetcomputer.org/install.sh)" -y
 # The official install script typically adds dfx to the PATH, but we'll add it explicitly for certainty.
 export PATH="$HOME/bin:$PATH" # dfx is often installed to ~/bin by the script
 echo "IC CDK (dfx) installed."
