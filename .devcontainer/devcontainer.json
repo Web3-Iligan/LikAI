@@ -1,24 +1,16 @@
 {
-  "name": "Ubuntu Latest with NVM",
+  "name": "LikAI Dev Container",
   "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
 
-  // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {},
 
-  // Use 'forwardPorts' to make a list of ports inside the container available locally.
-  // "forwardPorts": [],
+  "postCreateCommand": "bash .devcontainer/install.sh",
 
-  // Use 'postCreateCommand' to run commands after the container is created.
-  "postCreateCommand": "sudo apt-get update && sudo apt-get upgrade -y && sudo apt-get install -y curl libunwind-dev && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash",
-
-  // Configure tool-specific properties.
   "customizations": {
     "vscode": {
       "settings": {},
       "extensions": []
     }
-  },
+  }
 
-  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-  // "remoteUser": "root"
 }
