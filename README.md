@@ -32,13 +32,26 @@ Contents
 
 ## Features
 
-- **Personalized Farm Assessment:** Step-by-step onboarding flow collects farm data and generates a custom biosecurity report.
-- **Actionable Recommendations:** AI-powered suggestions for pond care, stock sourcing, farm access control, and disease readiness.
-- **Interactive How-To Guides:** Visual and checklist-based guides for key farm tasks, with integrated AI chat support.
-- **Progress Tracking:** Dashboard to monitor completion of biosecurity tasks and overall farm health.
-- **Compliance & Certification:** Automated compliance reports for BFAR accreditation and export standards.
-- **Offline Access:** Downloadable PDF reports for field reference.
-- **AI-Powered Assessment and Chatbot:** Personalized biosecurity plans and 24/7 AI coaching. See [docs/ai-features.md](docs/ai-features.md) for details.
+![features](public\core-features.png)
+
+- **Personalized Farm Assessment:** 
+   - Step-by-step onboarding flow collects farm data and generates a custom biosecurity report.
+- **Actionable Recommendations:** 
+   - AI-powered suggestions for pond care, stock sourcing, farm access control, and disease readiness.
+- **Interactive How-To Guides:** 
+   - Visual and checklist-based guides for key farm tasks, with integrated AI chat support.
+- **Progress Tracking:** 
+   - Dashboard to monitor completion of biosecurity tasks and overall farm health.
+- **Compliance & Certification:** 
+   - Automated compliance reports for BFAR accreditation and export standards.
+- **Offline Access:** 
+   - Downloadable PDF reports for field reference.
+- **AI-Powered Assessment and Chatbot:** 
+   - Personalized biosecurity plans and 24/7 AI coaching. See [docs/ai-features.md](docs/ai-features.md) for details.
+
+## Demo Pictures
+
+![](public\initial-assessment.png)
 
 <br>
 
@@ -105,15 +118,6 @@ This diagram illustrates Likai's robust, hybrid architecture, combining the powe
 ```sh
 npm run deploy:local
 ```
-
-<br>
-
-## Usage
-
-- **Onboarding:** Start with the farm assessment to receive a personalized action plan.
-- **Dashboard:** Track your farm’s biosecurity progress and get priority actions.
-- **How-To Guides:** Access step-by-step instructions for farm tasks, with AI chat for troubleshooting.
-- **Reports:** Download compliance and progress reports for certification and record-keeping.
 
 <br>
 
