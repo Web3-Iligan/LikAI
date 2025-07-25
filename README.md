@@ -104,8 +104,19 @@ This diagram illustrates Likai's robust, hybrid architecture, combining the powe
    - Copy `.env.example` to `.env.local` and set your API keys (e.g., `OPENAI_API_KEY`).
 
 4. **Run the development server:**
+   - the project is configured to rely on the local dfx network to enable the icp internet identity authorization. Please head over to the Running on the Local DFX NETWORK section.
 
    ```sh
+   # to be able to run the development server without errors, please use the commands below.
+
+   npm run dfx:start # to start a local replica of the dfx network
+   npm run dfx:deploy # to deploy the canisters on local
+   # or
+   yarn dfx:start
+   yarn dfx:deploy
+
+   # after the canisters are deployed, you can start the development server by using the commands below:
+   
    npm run dev
    # or
    yarn dev
@@ -119,7 +130,8 @@ This diagram illustrates Likai's robust, hybrid architecture, combining the powe
 
 **To run the project in a local dfx network, you can use the command below**
 
-- The project repository uses Dev Containers. Please install the Windows Subsystem for Linux beforehand as well as the ubuntu distro. Make sure that is running at a version later than 22.04
+- The project container is preconfigured to run the installation scripts, and the local links are not accessible if the codespaces are ran in the web.
+- To Start, create a codespace of this repository, and make sure you run it on the VS Code Desktop 
 
 ```sh
 npm run deploy:local
