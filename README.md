@@ -42,6 +42,25 @@ Contents
 
 <br>
 
+## High Level Architecture
+
+![High Level Architecture](public\high-level-architecture.png)
+
+This diagram illustrates Likai's robust, hybrid architecture, combining the power of the Internet Computer Protocol (ICP) for secure, decentralized backend operations with client-side capabilities for enhanced user experience, including offline access, and external AI integration.
+
+## How Likai's Features Leverage ICP
+
+- Personalized Biosecurity & GAqP Action Plans: 
+   - The plan generation logic and the storage of the farmer's assessment data and the resulting dynamic plan would be in canisters. The plan's evolution is tamper-proof.
+- AI Coach & Knowledge Assistant: 
+   - The chat interface, chat history, and the logic for contextualizing prompts for external LLMs (via HTTPs outcalls) would be canister-based. The "Practical Biosecurity Library" content itself could be hosted in canisters for immutability.
+- Smart Investment Guidance: 
+   - The logic for calculating ROI, generating investment recommendations, and storing the farmer's investment plans would run in canisters.
+- Compliance & Market Access (Future/Enterprise): 
+   - The generation of compliance reports and the storage of certification data would leverage canisters for immutable record-keeping and verifiable outputs.
+
+<br>
+
 ## Getting Started
 
 ### Prerequisites
