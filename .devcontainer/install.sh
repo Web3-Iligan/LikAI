@@ -65,6 +65,9 @@ echo "Installing npm packages..."
 npm install 
 echo "npm install executed."
 
+echo "stopping ongoing replicas that are running"
+dfx stop
+
 dfx start --clean --background
 
 deploy_output=$(dfx deploy --network local)
