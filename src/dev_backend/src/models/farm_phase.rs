@@ -1,5 +1,10 @@
-use candid::{CandidType, Deserialize};
+/* 
+    The farm_phase.rs contains the FarmPhase struct for later use
 
+    Note: this struct will be transferred to the Storage canister, but the models will still be used by the backend canister for type safety.
+*/
+
+use candid::{CandidType, Deserialize};
 
 #[derive(Clone, CandidType, Deserialize, PartialEq, Eq)]
 pub enum FarmPhaseStatus {

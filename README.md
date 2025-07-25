@@ -70,7 +70,7 @@ LikAI is an AI-driven biosecurity coach designed for small and medium-sized shri
 ## Running on the Local DFX NETWORK
 
 **To run the project in a local dfx network, you can use the command below**
-   - The project repository uses Dev Containers. Please install the Windows Subsystem for Linux beforehand as well as the ubuntu distro. Make sure that is running at a version later than 22.04
+   - The project repository uses Dev Containers. You can create a Github Codespace and all the installations/configurations will do it for you.
 
    ```sh
    npm run deploy:local

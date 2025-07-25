@@ -38,7 +38,8 @@ impl fmt::Display for Budget {
     }
 }
 
-
+// the HealthFinance struct
+// will be used by the dev_backend canister for later use. 
 #[derive(Clone, CandidType, Deserialize)]
 pub struct HealthFinance {
     health_finance_id: String, 

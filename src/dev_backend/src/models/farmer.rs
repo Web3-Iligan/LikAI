@@ -18,7 +18,8 @@ impl std::fmt::Display for FarmerStatus {
     }
 }
 
-
+// the farm struct
+// will be used by the dev_backend canister for later use. 
 #[derive(Clone, CandidType, Deserialize)]
 pub struct Farmer {
     farmer_id: String,

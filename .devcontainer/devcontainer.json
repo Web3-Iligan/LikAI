@@ -4,8 +4,8 @@
 
   "features": {},
 
-  "postCreateCommand": "bash .devcontainer/install.sh",
-  "postAttachCommand": "bash",
+  "postCreateCommand": "bash .devcontainer/install.sh # please wait for a moment until the configuration and installation is finished.",
+  "postAttachCommand": "bash .devcontainer/postInstall.sh",
 
   "customizations": {
     "vscode": {

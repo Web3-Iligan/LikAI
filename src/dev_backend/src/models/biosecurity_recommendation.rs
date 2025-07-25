@@ -1,3 +1,9 @@
+/* 
+    The biosecurity_recommendation.rs contains the BiosecurityRecommendation struct for later use
+
+    Note: this struct will be transferred to the Storage canister, but the models will still be used by the backend canister for type safety.
+*/
+
 use candid::CandidType;
 use serde::Deserialize;
 use std::fmt;

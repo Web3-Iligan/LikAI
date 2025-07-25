@@ -37,7 +37,8 @@ impl std::fmt::Display for PhaseTaskStatus {
     }
 }
 
-
+// the PhaseTask struct
+// will be used by the AI canister for later use. 
 #[derive(Clone, CandidType, Deserialize)]
 pub struct PhaseTask {
     task_id: String,
