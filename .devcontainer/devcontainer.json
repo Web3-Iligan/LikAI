@@ -6,6 +6,8 @@
 
   "postCreateCommand": "bash .devcontainer/install.sh",
 
+  "postStartCommand": "bash" ,
+
   "customizations": {
     "vscode": {
       "settings": {
