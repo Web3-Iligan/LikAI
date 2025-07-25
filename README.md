@@ -106,6 +106,7 @@ This diagram illustrates Likai's robust, hybrid architecture, combining the powe
 4. **Run the development server:**
    - the project is configured to rely on the local dfx network to enable the icp internet identity authorization. Please head over to the Running on the Local DFX NETWORK section.
 
+
    ```sh
    # to be able to run the development server without errors, please use the commands below.
 
