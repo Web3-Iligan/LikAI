@@ -63,6 +63,8 @@ Contents
 
 This diagram illustrates Likai's robust, hybrid architecture, combining the power of the Internet Computer Protocol (ICP) for secure, decentralized backend operations with client-side capabilities for enhanced user experience, including offline access, and external AI integration.
 
+<br>
+
 ## How Likai's Features Leverage ICP
 
 - Personalized Biosecurity & GAqP Action Plans: 
