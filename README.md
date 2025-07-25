@@ -7,9 +7,26 @@ LikAI is an AI-driven biosecurity coach designed for small and medium-sized shri
 <br>
 
 ## Mainnet Deployment
-Frontend Canister: https://hgn4e-xyaaa-aaaas-qbh6a-cai.icp0.io/
-Backend Canister: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=htknj-wqaaa-aaaas-qbh5q-cai
 
+- Frontend Canister: https://hgn4e-xyaaa-aaaas-qbh6a-cai.icp0.io/
+- Backend Canister: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=htknj-wqaaa-aaaas-qbh5q-cai
+
+<br>
+
+## GitBooks Documentation
+
+We also created our full project documentation using GitBooks
+Link: [LikAI Project Documentation](https://sentient-solutions.gitbook.io/likai-ai-biosecurity-coach/)
+
+Contents
+- ✅ Project Overview
+- ✅ Features
+- ✅ High Level Architecture
+- ✅ Detailed Architecture
+- ✅ Retrieval Augmented Generation (RAG) Architecture
+- ✅ User Flow Diagram
+- ✅ ICP Features used
+- ✅ Deployment Guide
 
 <br>
 
@@ -22,6 +39,8 @@ Backend Canister: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=htknj-wqaa
 - **Compliance & Certification:** Automated compliance reports for BFAR accreditation and export standards.
 - **Offline Access:** Downloadable PDF reports for field reference.
 - **AI-Powered Assessment and Chatbot:** Personalized biosecurity plans and 24/7 AI coaching. See [docs/ai-features.md](docs/ai-features.md) for details.
+
+<br>
 
 ## Getting Started
 
@@ -56,6 +75,8 @@ Backend Canister: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=htknj-wqaa
 
 5. **Open [http://localhost:3000](http://localhost:3000) in your browser.**
 
+<br>
+
 ## Running on the Local DFX NETWORK
 
 **To run the project in a local dfx network, you can use the command below**
@@ -66,12 +87,16 @@ Backend Canister: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=htknj-wqaa
 npm run deploy:local
 ```
 
+<br>
+
 ## Usage
 
 - **Onboarding:** Start with the farm assessment to receive a personalized action plan.
 - **Dashboard:** Track your farm’s biosecurity progress and get priority actions.
 - **How-To Guides:** Access step-by-step instructions for farm tasks, with AI chat for troubleshooting.
 - **Reports:** Download compliance and progress reports for certification and record-keeping.
+
+<br>
 
 ## Modules
 
@@ -83,9 +108,13 @@ npm run deploy:local
 
 See [docs/modules.md](docs/modules.md) and [docs/ai-features.md](docs/ai-features.md) for full module and AI details.
 
+<br>
+
 ## Data Model
 
 The system uses a multi-entity data model for farm, assessment, planning, and reporting. See [docs/onboarding-erd.md](docs/onboarding-erd.md) for the ERD and entity descriptions.
+
+<br>
 
 ## API Endpoints
 
@@ -94,6 +123,8 @@ The system uses a multi-entity data model for farm, assessment, planning, and re
 - `/api/generate-how-to` – Produces step-by-step guides for farm tasks.
 - `/api/chat-how-to` – AI chat support for how-to guides.
 - `/api/submit` - Allows submission of onboarding form data to be sent towards the AI
+
+<br>
 
 ## Contributing
 
