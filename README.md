@@ -69,7 +69,7 @@ LikAI is an AI-driven biosecurity coach designed for small and medium-sized shri
 
 ## Running on the Local DFX NETWORK
 
-** To run the project in a local dfx network, you can use the command below **
+**To run the project in a local dfx network, you can use the command below**
    ```sh
    npm run deploy:local
    ```
