@@ -32,7 +32,7 @@ Contents
 
 ## Features
 
-![features](public\core-features.png)
+![features](public/core-features.png)
 
 - **Personalized Farm Assessment:** 
    - Step-by-step onboarding flow collects farm data and generates a custom biosecurity report.
@@ -53,13 +53,13 @@ Contents
 
 ## Demo Pictures
 
-![](public\initial-assessment.png)
+![](public/initial-assessment.png)
 
 <br>
 
 ## High Level Architecture
 
-![High Level Architecture](public\high-level-architecture.png)
+![High Level Architecture](public/high-level-architecture.png)
 
 This diagram illustrates Likai's robust, hybrid architecture, combining the power of the Internet Computer Protocol (ICP) for secure, decentralized backend operations with client-side capabilities for enhanced user experience, including offline access, and external AI integration.
 
@@ -67,7 +67,7 @@ This diagram illustrates Likai's robust, hybrid architecture, combining the powe
 
 ## How Likai's Features Leverage ICP
 
-![ICP](public\ICP.png)
+![ICP](public/ICP.png)
 
 - Personalized Biosecurity & GAqP Action Plans: 
    - The plan generation logic and the storage of the farmer's assessment data and the resulting dynamic plan would be in canisters. The plan's evolution is tamper-proof.
