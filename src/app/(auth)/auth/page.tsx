@@ -16,8 +16,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { useRouter } from 'next/navigation';
 
 import { Button } from "@/components/ui/button";
+import { AuthClient } from "@dfinity/auth-client";
 
 export default function AuthPage() {
   // SEO and structured data for better search engine visibility
@@ -35,6 +37,20 @@ export default function AuthPage() {
       url: "https://likai.ai",
     },
   };
+  const router = useRouter()
+
+  const handleLogin = async () => {
+    const authClient = AuthClient.create()
+    
+    ;(await authClient).login({
+      identityProvider: "https://identity.ic0.app",
+      onSuccess: async () => {
+        // Redirect to dashboard after successful login
+        console.log("Login successful, redirecting to dashboard");
+        await router.push("/dashboard");
+      }
+    })
+  }
 
   return (
     <React.Fragment>
@@ -102,10 +118,11 @@ export default function AuthPage() {
               {/* Authentication Actions */}
               <div className="relative z-10 space-y-6">
                 {/* Primary CTA: Internet Identity Login */}
-                <Link href="/dashboard">
+                <Link href="#">
                   <Button
                     className="flex h-16 w-full items-center justify-center space-x-4 rounded-xl bg-gradient-to-r from-[#3498DB] to-[#2980B9] text-lg font-medium text-white shadow-xl transition-all duration-200 hover:scale-[1.02] hover:from-[#2980B9] hover:to-[#1F618D] hover:shadow-2xl"
                     aria-describedby="signup-benefits"
+                    onClick={() => handleLogin()}
                   >
                     {/* ICP Logo */}
                     <div className="flex h-8 w-8 items-center justify-center">

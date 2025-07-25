@@ -9,6 +9,7 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "start": "next start",
+    "deploy:local": "dfx start --clean --background && dfx deploy --network local",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "format:file": "prettier --write",
@@ -17,6 +18,9 @@
   },
   "dependencies": {
     "@ai-sdk/openai": "latest",
+    "@dfinity/agent": "^3.1.0",
+    "@dfinity/auth-client": "^3.1.0",
+    "@dfinity/candid": "^3.1.0",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-accordion": "latest",
     "@radix-ui/react-alert-dialog": "latest",
@@ -66,6 +70,7 @@
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "vaul": "latest",
+    "webpack": "^5.100.2",
     "zod": "^3.24.1"
   },
   "devDependencies": {

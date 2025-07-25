@@ -1,0 +1,26 @@
+{
+  "canisters": {
+    "dev_backend": {
+      "candid": "src/dev_backend/dev_backend.did",
+      "package": "dev_backend",
+      "type": "rust"
+    },
+    "frontend": {
+      "type": "assets",
+      "dependencies": ["dev_backend"],
+      "source": ["out"],
+      "frontend": {
+        "entrypoint": "out/index.html"
+      }
+
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env.local",
+  "version": 1
+}

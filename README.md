@@ -50,12 +50,9 @@ LikAI is an AI-driven biosecurity coach designed for small and medium-sized shri
    ```
 
 2. **Install dependencies:**
+   - Use the DevContainer to create a container with the preconfigured installation. There should be a prompt in the editor in which you can install a Dev Container and open the project in the Container
+   - Wait for the installation to finish.
 
-   ```sh
-   npm install
-   # or
-   yarn install
-   ```
 
 3. **Configure environment variables:**
    - Copy `.env.example` to `.env.local` and set your API keys (e.g., `OPENAI_API_KEY`).
@@ -69,6 +66,15 @@ LikAI is an AI-driven biosecurity coach designed for small and medium-sized shri
    ```
 
 5. **Open [http://localhost:3000](http://localhost:3000) in your browser.**
+
+## Running on the Local DFX NETWORK
+
+**To run the project in a local dfx network, you can use the command below**
+   - The project repository uses Dev Containers. Please install the Windows Subsystem for Linux beforehand as well as the ubuntu distro. Make sure that is running at a version later than 22.04
+
+   ```sh
+   npm run deploy:local
+   ```
 
 ## Usage
 
