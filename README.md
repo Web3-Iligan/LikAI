@@ -6,20 +6,10 @@ LikAI is an AI-driven biosecurity coach designed for small and medium-sized shri
 
 <br>
 
-## Table of Contents
+## Mainnet Deployment
+Frontend Canister: https://hgn4e-xyaaa-aaaas-qbh6a-cai.icp0.io/
+Backend Canister: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=htknj-wqaaa-aaaas-qbh5q-cai
 
-- [Features](#features)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-- [Modules](#modules)
-- [Data Model](#data-model)
-- [API Endpoints](#api-endpoints)
-- [Contributing](#contributing)
-- [License](#license)
-- [Support](#support)
-- [Acknowledgements](#acknowledgements)
 
 <br>
 
