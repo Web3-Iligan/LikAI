@@ -40,7 +40,8 @@ impl fmt::Display for PondDrying {
     }
 }
 
-
+// the WaterManagement struct
+// will be used by the AI canister for later use. 
 #[derive(Clone, CandidType, Deserialize)]
 pub struct WaterManagement {
     water_farm_id: String, 

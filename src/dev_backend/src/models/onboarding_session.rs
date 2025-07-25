@@ -18,7 +18,8 @@ impl std::fmt::Display for SessionStatus {
     }
 }
 
-
+// the Onboarding struct
+// will be used by the dev_backend canister for later use. 
 #[derive(Clone, CandidType, Deserialize)]
 pub struct OnboardingSession {
     session_id: String,

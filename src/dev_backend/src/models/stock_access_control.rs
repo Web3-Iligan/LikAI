@@ -40,7 +40,8 @@ impl fmt::Display for FarmAcess {
     }
 }
 
-
+// the health struct
+// will be used by the AI canister for later use. 
 #[derive(Clone, CandidType, Deserialize)]
 pub struct StockAccessControl {
     stock_access_id: String, 
