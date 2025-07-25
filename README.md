@@ -74,7 +74,7 @@ LikAI is an AI-driven biosecurity coach designed for small and medium-sized shri
 
    ```sh
    npm run deploy:local
-
+   ```
 
 ## Usage
 
