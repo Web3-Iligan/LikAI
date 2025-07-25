@@ -67,6 +67,8 @@ This diagram illustrates Likai's robust, hybrid architecture, combining the powe
 
 ## How Likai's Features Leverage ICP
 
+![ICP](public\ICP.png)
+
 - Personalized Biosecurity & GAqP Action Plans: 
    - The plan generation logic and the storage of the farmer's assessment data and the resulting dynamic plan would be in canisters. The plan's evolution is tamper-proof.
 - AI Coach & Knowledge Assistant: 
