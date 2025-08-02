@@ -1,29 +1,10 @@
 # LikAI: The Adaptive Biosecurity Coach
 
-![LikAI Cover](public/cover-photo.png)
+![LikAI Cover](frontend/public/cover-photo.png)
 
 LikAI is an AI-driven biosecurity coach designed for small and medium-sized shrimp farmers. It transforms complex GAqP (Good Aquaculture Practices) into personalized, adaptive, and affordable action plans, empowering farmers to build resilient operations and secure profitable harvests.
 
 <br>
-
-
-## GitBooks Documentation
-
-We also created our full project documentation using GitBooks
-Link: [LikAI Project Documentation](https://sentient-solutions.gitbook.io/likai-ai-biosecurity-coach/)
-
-Contents
-- ✅ Project Overview
-- ✅ Features
-- ✅ High Level Architecture
-- ✅ Detailed Architecture
-- ✅ Retrieval Augmented Generation (RAG) Architecture
-- ✅ User Flow Diagram
-- ✅ ICP Features used
-- ✅ Deployment Guide
-
-<br>
-
 ## Features
 
 - **Personalized Farm Assessment:** 
@@ -40,12 +21,6 @@ Contents
    - Downloadable PDF reports for field reference.
 - **AI-Powered Assessment and Chatbot:** 
    - Personalized biosecurity plans and 24/7 AI coaching. See [docs/ai-features.md](docs/ai-features.md) for details.
-
-<br>
-
-## High Level Architecture
-
-This diagram illustrates Likai's robust, hybrid architecture, combining the power of the Internet Computer Protocol (ICP) for secure, decentralized backend operations with client-side capabilities for enhanced user experience, including offline access, and external AI integration.
 
 <br>
 
