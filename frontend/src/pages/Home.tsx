@@ -2024,12 +2024,6 @@ export default function LandingPage() {
                 </ul>
               </nav>
             </div>
-            <div className="mt-6 border-t border-gray-800 pt-6 text-center">
-              <p className="text-sm text-gray-400">
-                © 2025 LikAI. All rights reserved. Made with ❤️ for Philippine
-                aquaculture
-              </p>
-            </div>
           </div>
         </footer>
       </div>
