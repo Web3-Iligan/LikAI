@@ -1,9 +1,7 @@
-"use client";
-
 import { useMemo, useState } from "react";
 
-import { CheckCircle, Circle, Loader2 } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { CheckCircle, Loader2 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -123,7 +121,7 @@ interface FormData {
 }
 
 export function FarmAssessmentForm() {
-  const router = useRouter();
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState<FormData>({
@@ -161,14 +159,14 @@ export function FarmAssessmentForm() {
 
   // Helper functions for progress groups
   const getCurrentProgressGroup = (stepIndex: number): number => {
-    return progressGroups.findIndex(group =>
+    return progressGroups.findIndex((group) =>
       group.stepIndexes.includes(stepIndex)
     );
   };
 
   const isProgressGroupCompleted = (groupIndex: number): boolean => {
     const group = progressGroups[groupIndex];
-    return group.stepIndexes.every(stepIndex => {
+    return group.stepIndexes.every((stepIndex) => {
       switch (stepIndex) {
         case 0: // Basic Profile
           return !!(
@@ -305,26 +303,26 @@ export function FarmAssessmentForm() {
       const checkboxValue = (e.target as HTMLInputElement).value;
 
       if (id === "waterSource" || id === "topConcerns") {
-        setFormData(prev => ({
+        setFormData((prev) => ({
           ...prev,
           [id]: checked
             ? [...(prev[id as keyof FormData] as string[]), checkboxValue]
             : (prev[id as keyof FormData] as string[]).filter(
-                item => item !== checkboxValue
+                (item) => item !== checkboxValue
               ),
         }));
       }
     } else {
-      setFormData(prev => ({ ...prev, [id]: value }));
+      setFormData((prev) => ({ ...prev, [id]: value }));
     }
   };
 
   const handleSelectChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleRadioChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const validateCurrentStep = (): boolean => {
@@ -462,7 +460,7 @@ export function FarmAssessmentForm() {
                 <Label htmlFor="primarySpecies">Primary Shrimp Species</Label>
                 <Select
                   value={formData.primarySpecies}
-                  onValueChange={val =>
+                  onValueChange={(val) =>
                     handleSelectChange("primarySpecies", val)
                   }
                   required
@@ -489,7 +487,7 @@ export function FarmAssessmentForm() {
                 <Label htmlFor="farmType">Farm Type</Label>
                 <Select
                   value={formData.farmType}
-                  onValueChange={val => handleSelectChange("farmType", val)}
+                  onValueChange={(val) => handleSelectChange("farmType", val)}
                   required
                 >
                   <SelectTrigger id="farmType">
@@ -537,7 +535,7 @@ export function FarmAssessmentForm() {
               </Label>
               <RadioGroup
                 value={formData.isNewFarmer}
-                onValueChange={val => handleRadioChange("isNewFarmer", val)}
+                onValueChange={(val) => handleRadioChange("isNewFarmer", val)}
                 required
               >
                 <div className="flex items-center space-x-2">
@@ -558,7 +556,7 @@ export function FarmAssessmentForm() {
                 </Label>
                 <Select
                   value={formData.existingPondYears}
-                  onValueChange={val =>
+                  onValueChange={(val) =>
                     handleSelectChange("existingPondYears", val)
                   }
                 >
@@ -584,23 +582,23 @@ export function FarmAssessmentForm() {
                   "Creek",
                   "Sea Water",
                   "Municipal Water Supply",
-                ].map(source => (
+                ].map((source) => (
                   <div key={source} className="flex items-center space-x-2">
                     <Checkbox
                       id="waterSource"
                       value={source}
                       checked={formData.waterSource.includes(source)}
-                      onCheckedChange={checked => {
+                      onCheckedChange={(checked) => {
                         if (checked) {
-                          setFormData(prev => ({
+                          setFormData((prev) => ({
                             ...prev,
                             waterSource: [...prev.waterSource, source],
                           }));
                         } else {
-                          setFormData(prev => ({
+                          setFormData((prev) => ({
                             ...prev,
                             waterSource: prev.waterSource.filter(
-                              item => item !== source
+                              (item) => item !== source
                             ),
                           }));
                         }
@@ -619,7 +617,7 @@ export function FarmAssessmentForm() {
                 </Label>
                 <Select
                   value={formData.initialBudget}
-                  onValueChange={val =>
+                  onValueChange={(val) =>
                     handleSelectChange("initialBudget", val)
                   }
                   required
@@ -642,7 +640,7 @@ export function FarmAssessmentForm() {
                 <Label>Do you have reliable electricity access?</Label>
                 <RadioGroup
                   value={formData.hasElectricity}
-                  onValueChange={val =>
+                  onValueChange={(val) =>
                     handleRadioChange("hasElectricity", val)
                   }
                   required
@@ -687,23 +685,23 @@ export function FarmAssessmentForm() {
                   "Environmental compliance",
                   "Weather/climate risks",
                   "Equipment failures",
-                ].map(concern => (
+                ].map((concern) => (
                   <div key={concern} className="flex items-center space-x-2">
                     <Checkbox
                       id="topConcerns"
                       value={concern}
                       checked={formData.topConcerns.includes(concern)}
-                      onCheckedChange={checked => {
+                      onCheckedChange={(checked) => {
                         if (checked) {
-                          setFormData(prev => ({
+                          setFormData((prev) => ({
                             ...prev,
                             topConcerns: [...prev.topConcerns, concern],
                           }));
                         } else {
-                          setFormData(prev => ({
+                          setFormData((prev) => ({
                             ...prev,
                             topConcerns: prev.topConcerns.filter(
-                              item => item !== concern
+                              (item) => item !== concern
                             ),
                           }));
                         }
@@ -738,7 +736,7 @@ export function FarmAssessmentForm() {
                   </Label>
                   <RadioGroup
                     value={formData.pondDrainSunDry}
-                    onValueChange={val =>
+                    onValueChange={(val) =>
                       handleRadioChange("pondDrainSunDry", val)
                     }
                     required
@@ -764,7 +762,7 @@ export function FarmAssessmentForm() {
                   </Label>
                   <RadioGroup
                     value={formData.removeMuckLayer}
-                    onValueChange={val =>
+                    onValueChange={(val) =>
                       handleRadioChange("removeMuckLayer", val)
                     }
                     required
@@ -788,7 +786,7 @@ export function FarmAssessmentForm() {
                   <Label>Do you disinfect ponds before stocking?</Label>
                   <RadioGroup
                     value={formData.disinfectPond}
-                    onValueChange={val =>
+                    onValueChange={(val) =>
                       handleRadioChange("disinfectPond", val)
                     }
                     required
@@ -822,7 +820,7 @@ export function FarmAssessmentForm() {
               <Label>Do you filter incoming water?</Label>
               <RadioGroup
                 value={formData.filterIncomingWater}
-                onValueChange={val =>
+                onValueChange={(val) =>
                   handleRadioChange("filterIncomingWater", val)
                 }
                 required
@@ -848,7 +846,7 @@ export function FarmAssessmentForm() {
               </Label>
               <RadioGroup
                 value={formData.separateReservoir}
-                onValueChange={val =>
+                onValueChange={(val) =>
                   handleRadioChange("separateReservoir", val)
                 }
                 required
@@ -875,7 +873,7 @@ export function FarmAssessmentForm() {
               <Label>How often do you monitor water quality?</Label>
               <RadioGroup
                 value={formData.waterMonitoringFrequency}
-                onValueChange={val =>
+                onValueChange={(val) =>
                   handleRadioChange("waterMonitoringFrequency", val)
                 }
                 required
@@ -908,7 +906,7 @@ export function FarmAssessmentForm() {
               <Label>Where do you source your post-larvae (PLs)?</Label>
               <RadioGroup
                 value={formData.plSource}
-                onValueChange={val => handleRadioChange("plSource", val)}
+                onValueChange={(val) => handleRadioChange("plSource", val)}
                 required
               >
                 <div className="flex items-center space-x-2">
@@ -937,7 +935,7 @@ export function FarmAssessmentForm() {
               <Label>Do you properly acclimate PLs before stocking?</Label>
               <RadioGroup
                 value={formData.acclimatePLs}
-                onValueChange={val => handleRadioChange("acclimatePLs", val)}
+                onValueChange={(val) => handleRadioChange("acclimatePLs", val)}
                 required
               >
                 <div className="flex items-center space-x-2">
@@ -959,7 +957,7 @@ export function FarmAssessmentForm() {
               <Label>Do you quarantine new PLs?</Label>
               <RadioGroup
                 value={formData.quarantinePLs}
-                onValueChange={val => handleRadioChange("quarantinePLs", val)}
+                onValueChange={(val) => handleRadioChange("quarantinePLs", val)}
                 required
               >
                 <div className="flex items-center space-x-2">
@@ -986,7 +984,7 @@ export function FarmAssessmentForm() {
               <Label>Do you have proper fencing around your farm?</Label>
               <RadioGroup
                 value={formData.hasFencing}
-                onValueChange={val => handleRadioChange("hasFencing", val)}
+                onValueChange={(val) => handleRadioChange("hasFencing", val)}
                 required
               >
                 <div className="flex items-center space-x-2">
@@ -1011,7 +1009,7 @@ export function FarmAssessmentForm() {
               <Label>Do you use disinfectant footbaths?</Label>
               <RadioGroup
                 value={formData.useFootbaths}
-                onValueChange={val => handleRadioChange("useFootbaths", val)}
+                onValueChange={(val) => handleRadioChange("useFootbaths", val)}
                 required
               >
                 <div className="flex items-center space-x-2">
@@ -1033,7 +1031,7 @@ export function FarmAssessmentForm() {
               <Label>How do you handle equipment sharing with neighbors?</Label>
               <RadioGroup
                 value={formData.equipmentSharing}
-                onValueChange={val =>
+                onValueChange={(val) =>
                   handleRadioChange("equipmentSharing", val)
                 }
                 required
@@ -1065,7 +1063,7 @@ export function FarmAssessmentForm() {
               <Label>How do you manage visitors to your farm?</Label>
               <RadioGroup
                 value={formData.visitorManagement}
-                onValueChange={val =>
+                onValueChange={(val) =>
                   handleRadioChange("visitorManagement", val)
                 }
                 required
@@ -1102,7 +1100,7 @@ export function FarmAssessmentForm() {
               <Label>How do you dispose of dead shrimp and farm waste?</Label>
               <RadioGroup
                 value={formData.wasteDisposal}
-                onValueChange={val => handleRadioChange("wasteDisposal", val)}
+                onValueChange={(val) => handleRadioChange("wasteDisposal", val)}
                 required
               >
                 <div className="flex items-center space-x-2">
@@ -1133,7 +1131,9 @@ export function FarmAssessmentForm() {
               <Label>How do you control feeding practices?</Label>
               <RadioGroup
                 value={formData.controlFeeding}
-                onValueChange={val => handleRadioChange("controlFeeding", val)}
+                onValueChange={(val) =>
+                  handleRadioChange("controlFeeding", val)
+                }
                 required
               >
                 <div className="flex items-center space-x-2">
@@ -1166,7 +1166,7 @@ export function FarmAssessmentForm() {
               <Label>How often do you monitor shrimp health?</Label>
               <RadioGroup
                 value={formData.healthMonitoring}
-                onValueChange={val =>
+                onValueChange={(val) =>
                   handleRadioChange("healthMonitoring", val)
                 }
                 required
@@ -1200,7 +1200,7 @@ export function FarmAssessmentForm() {
               </Label>
               <RadioGroup
                 value={formData.keepRecords}
-                onValueChange={val => handleRadioChange("keepRecords", val)}
+                onValueChange={(val) => handleRadioChange("keepRecords", val)}
                 required
               >
                 <div className="flex items-center space-x-2">
@@ -1248,7 +1248,9 @@ export function FarmAssessmentForm() {
             <div
               className="h-full rounded-full bg-blue-600 transition-all duration-500 ease-in-out"
               style={{
-                width: `${(currentProgressGroup / (progressGroups.length - 1)) * 100}%`,
+                width: `${
+                  (currentProgressGroup / (progressGroups.length - 1)) * 100
+                }%`,
               }}
             />
           </div>
@@ -1266,9 +1268,9 @@ export function FarmAssessmentForm() {
                     index === currentProgressGroup
                       ? "bg-blue-600 text-white shadow-lg ring-4 ring-blue-200"
                       : index < currentProgressGroup ||
-                          progressGroupCompletionStatus[index]
-                        ? "bg-green-600 text-white shadow-md"
-                        : "border-2 border-gray-300 bg-white text-gray-400 hover:border-gray-400"
+                        progressGroupCompletionStatus[index]
+                      ? "bg-green-600 text-white shadow-md"
+                      : "border-2 border-gray-300 bg-white text-gray-400 hover:border-gray-400"
                   }`}
                   onClick={() => {
                     // Navigate to first step of the clicked group
@@ -1291,9 +1293,9 @@ export function FarmAssessmentForm() {
                       index === currentProgressGroup
                         ? "text-blue-600"
                         : index < currentProgressGroup ||
-                            progressGroupCompletionStatus[index]
-                          ? "text-green-600"
-                          : "text-gray-400"
+                          progressGroupCompletionStatus[index]
+                        ? "text-green-600"
+                        : "text-gray-400"
                     }`}
                   >
                     {group.title}
@@ -1303,9 +1305,9 @@ export function FarmAssessmentForm() {
                       index === currentProgressGroup
                         ? "text-gray-600"
                         : index < currentProgressGroup ||
-                            progressGroupCompletionStatus[index]
-                          ? "text-gray-500"
-                          : "text-gray-300"
+                          progressGroupCompletionStatus[index]
+                        ? "text-gray-500"
+                        : "text-gray-300"
                     }`}
                   >
                     {group.description}

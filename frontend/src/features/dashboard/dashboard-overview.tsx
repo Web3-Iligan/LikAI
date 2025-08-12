@@ -16,8 +16,8 @@ import {
   Tractor,
   TrendingUp,
 } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -207,7 +207,7 @@ export function DashboardOverview() {
   useEffect(() => {
     const interval = setInterval(() => {
       // Simulate random updates to show dynamic nature
-      setFarmProfile(prev => ({
+      setFarmProfile((prev) => ({
         ...prev,
         cycleDay: prev.cycleDay + Math.random() > 0.95 ? 1 : 0, // Occasional day advancement
         overallBiosecurityScore: Math.max(
@@ -231,14 +231,15 @@ export function DashboardOverview() {
       return Math.round((this.completedSteps / this.totalSteps) * 100);
     },
     get criticalSteps() {
-      return nextActions.filter(action => action.priority === "critical")
+      return nextActions.filter((action) => action.priority === "critical")
         .length;
     },
     get pendingSteps() {
       return this.totalSteps - this.completedSteps;
     },
     get completedModules() {
-      return gaqpModules.filter(module => module.status === "complete").length;
+      return gaqpModules.filter((module) => module.status === "complete")
+        .length;
     },
   };
 
@@ -258,7 +259,9 @@ export function DashboardOverview() {
     {
       title: "Cycle Progress",
       value: `Day ${farmProfile.cycleDay}`,
-      change: `${farmProfile.maxCycleDays - farmProfile.cycleDay} days to harvest`,
+      change: `${
+        farmProfile.maxCycleDays - farmProfile.cycleDay
+      } days to harvest`,
       trend: "stable",
       color: "text-green-600",
       bgColor: "bg-green-50",
@@ -281,8 +284,8 @@ export function DashboardOverview() {
 
   // Handle action completion
   const handleCompleteAction = (actionId: number) => {
-    setNextActions(prev =>
-      prev.map(action =>
+    setNextActions((prev) =>
+      prev.map((action) =>
         action.id === actionId
           ? { ...action, status: "completed", completed: true }
           : action
@@ -290,7 +293,7 @@ export function DashboardOverview() {
     );
 
     // Update completed tasks count
-    setFarmProfile(prev => ({
+    setFarmProfile((prev) => ({
       ...prev,
       completedTasks: prev.completedTasks + 1,
     }));
@@ -316,13 +319,13 @@ export function DashboardOverview() {
           </div>
           <div className="flex items-center space-x-3">
             <Button variant="outline" size="sm" asChild>
-              <Link href="/coach">
+              <Link to="/coach">
                 <MessageCircle className="mr-2 h-4 w-4" />
                 Ask AI Coach
               </Link>
             </Button>
             <Button size="sm" asChild>
-              <Link href="">Update Farm Profile</Link>
+              <Link to="/settings">Update Farm Profile</Link>
             </Button>
           </div>
         </div>
@@ -400,7 +403,7 @@ export function DashboardOverview() {
         </CardHeader>
         <CardContent>
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {gaqpModules.map(module => {
+            {gaqpModules.map((module) => {
               return (
                 <Link key={module.id} href={module.href}>
                   <div
@@ -467,15 +470,19 @@ export function DashboardOverview() {
                     {/* Next Task Link */}
                     {module.progress < 20 &&
                       nextActions.find(
-                        a => a.moduleId === module.id && !a.completed
+                        (a) => a.moduleId === module.id && !a.completed
                       ) && (
                         <button
                           type="button"
                           className="mt-4 w-full rounded-md bg-red-600 py-2 text-sm font-semibold text-white"
-                          onClick={e => {
+                          onClick={(e) => {
                             e.preventDefault();
                             const el = document.getElementById(
-                              `action-hub-task-${nextActions.find(a => a.moduleId === module.id)?.id}`
+                              `action-hub-task-${
+                                nextActions.find(
+                                  (a) => a.moduleId === module.id
+                                )?.id
+                              }`
                             );
                             if (el) {
                               el.scrollIntoView({
@@ -511,7 +518,7 @@ export function DashboardOverview() {
         <CardContent className="space-y-6">
           {/* Priority Actions */}
           <div className="space-y-4">
-            {nextActions.slice(0, 2).map(action => (
+            {nextActions.slice(0, 2).map((action) => (
               <div
                 key={action.id}
                 id={`action-hub-task-${action.id}`}
@@ -519,8 +526,8 @@ export function DashboardOverview() {
                   action.priority === "critical"
                     ? "border-red-200 bg-red-50/50"
                     : action.priority === "high"
-                      ? "border-orange-200 bg-orange-50/50"
-                      : "border-blue-200 bg-blue-50/50"
+                    ? "border-orange-200 bg-orange-50/50"
+                    : "border-blue-200 bg-blue-50/50"
                 } ${action.completed ? "opacity-60" : ""}`}
               >
                 {/* Large Checkbox */}
@@ -528,7 +535,7 @@ export function DashboardOverview() {
                   <input
                     type="checkbox"
                     checked={!!action.completed}
-                    onChange={e => {
+                    onChange={(e) => {
                       e.stopPropagation();
                       handleCompleteAction(action.id);
                     }}
@@ -543,8 +550,8 @@ export function DashboardOverview() {
                         action.priority === "critical"
                           ? "bg-red-100 text-red-800"
                           : action.priority === "high"
-                            ? "bg-orange-100 text-orange-800"
-                            : "bg-blue-100 text-blue-800"
+                          ? "bg-orange-100 text-orange-800"
+                          : "bg-blue-100 text-blue-800"
                       }`}
                     >
                       {action.priority === "critical" && (
@@ -637,8 +644,8 @@ export function DashboardOverview() {
               Urgent Actions
             </h3>
             {alerts
-              .filter(a => a.type === "critical")
-              .map(alert => (
+              .filter((a) => a.type === "critical")
+              .map((alert) => (
                 <div
                   key={alert.id}
                   className="relative mb-4 flex items-start gap-3 rounded-lg bg-gradient-to-r from-red-50 to-red-100/40 p-4"
@@ -667,8 +674,8 @@ export function DashboardOverview() {
               Your Achievements
             </h3>
             {alerts
-              .filter(a => a.type === "positive")
-              .map(alert => (
+              .filter((a) => a.type === "positive")
+              .map((alert) => (
                 <div
                   key={alert.id}
                   className="relative mb-4 flex items-start gap-3 rounded-lg bg-gradient-to-r from-green-50 to-green-100/40 p-4"
@@ -692,8 +699,8 @@ export function DashboardOverview() {
 
             {/* Cost Savings Card */}
             {alerts
-              .filter(a => a.type === "opportunity")
-              .map(alert => (
+              .filter((a) => a.type === "opportunity")
+              .map((alert) => (
                 <div
                   key={alert.id}
                   className="relative mb-4 flex items-start gap-3 rounded-lg bg-gradient-to-r from-blue-50 to-blue-100/40 p-4"
@@ -725,8 +732,8 @@ export function DashboardOverview() {
               LikAI's Advice
             </h3>
             {alerts
-              .filter(a => a.type === "info")
-              .map(alert => (
+              .filter((a) => a.type === "info")
+              .map((alert) => (
                 <div
                   key={alert.id}
                   className="relative mb-4 flex items-start gap-3 rounded-lg bg-gradient-to-r from-indigo-50 to-indigo-100/40 p-4"
@@ -752,7 +759,7 @@ export function DashboardOverview() {
           {/* View All Button */}
           <div className="flex justify-center">
             <Button variant="outline" size="sm" asChild>
-              <Link href="/reports">View All Updates</Link>
+              <Link to="/reports">View All Updates</Link>
             </Button>
           </div>
         </CardContent>

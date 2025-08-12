@@ -1,7 +1,4 @@
-"use client";
-
-import { ArrowLeft, MessageCircle } from "lucide-react";
-import Link from "next/link";
+import { MessageCircle } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
@@ -83,14 +80,14 @@ export function InteractiveChatbot() {
       timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInputMessage("");
     setIsTyping(true);
 
     // Simulate bot response delay
     setTimeout(() => {
       const botResponse = generateBotResponse(inputMessage);
-      setMessages(prev => [...prev, botResponse]);
+      setMessages((prev) => [...prev, botResponse]);
       setIsTyping(false);
     }, 1500);
   };
@@ -449,7 +446,9 @@ I'm here to provide **practical, actionable guidance** for your farm! 🦐`;
                         <div className="mt-1 flex items-center justify-between">
                           {message.category && message.type === "bot" && (
                             <Badge
-                              className={`text-xs ${getCategoryColor(message.category)}`}
+                              className={`text-xs ${getCategoryColor(
+                                message.category
+                              )}`}
                             >
                               {message.category}
                             </Badge>
@@ -509,9 +508,9 @@ I'm here to provide **practical, actionable guidance** for your farm! 🦐`;
               <div className="flex items-end space-x-2">
                 <Input
                   value={inputMessage}
-                  onChange={e => setInputMessage(e.target.value)}
+                  onChange={(e) => setInputMessage(e.target.value)}
                   placeholder="Ask about biosecurity, water quality, feeding schedules..."
-                  onKeyPress={e => e.key === "Enter" && handleSendMessage()}
+                  onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
                   className="min-h-[48px] flex-1 resize-none rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-[#3498DB] focus:outline-none focus:ring-1 focus:ring-[#3498DB]"
                 />
                 <Button

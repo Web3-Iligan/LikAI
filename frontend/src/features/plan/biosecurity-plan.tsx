@@ -1,7 +1,5 @@
-"use client";
-
-import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import {
   AlertTriangle,
@@ -312,8 +310,8 @@ const TaskListItem = ({
               isCompleted
                 ? "border-green-200"
                 : isCritical
-                  ? "border-red-200"
-                  : "border-blue-200"
+                ? "border-red-200"
+                : "border-blue-200"
             )}
             onClick={() => onViewGuide(task)}
           >
@@ -345,7 +343,7 @@ const TaskSection = ({
     <div className={className}>
       <h3 className="mb-3 font-semibold text-gray-900">{title}</h3>
       <div className="divide-y divide-gray-100 rounded-lg border bg-white">
-        {tasks.map(task => (
+        {tasks.map((task) => (
           <TaskListItem
             key={task.id}
             task={task}
@@ -417,7 +415,7 @@ const TodaysActionPlan = ({
 export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
   // Suppress unused parameter warning - farmProfile will be used for future enhancements
   void farmProfile;
-  const searchParams = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const [selectedTaskForGuide, setSelectedTaskForGuide] =
     useState<BiosecurityTask | null>(null);
@@ -546,7 +544,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
   useEffect(() => {
     // Handle URL parameters for module filtering
     const moduleParam = searchParams.get("module");
-    if (moduleParam && gaqpModules.some(m => m.id === moduleParam)) {
+    if (moduleParam && gaqpModules.some((m) => m.id === moduleParam)) {
       setSelectedModule(moduleParam);
     }
 
@@ -590,24 +588,24 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
 
   // Helper function to get tasks for a specific phase
   const getTasksForPhase = (phaseId: number) => {
-    const phase = biosecurityPhases.find(p => p.id === phaseId);
+    const phase = biosecurityPhases.find((p) => p.id === phaseId);
     if (!phase) return [];
-    return currentTasks.filter(task =>
+    return currentTasks.filter((task) =>
       phase.categories.includes(task.category)
     );
   };
 
   // Helper function to get module progress
   const getModuleProgress = (moduleId: string) => {
-    const module = gaqpModules.find(m => m.id === moduleId);
+    const module = gaqpModules.find((m) => m.id === moduleId);
     if (!module || module.id === "all")
       return { completed: 0, total: 0, percentage: 0 };
 
-    const moduleTasks = currentTasks.filter(task =>
+    const moduleTasks = currentTasks.filter((task) =>
       module.categories.includes(task.category)
     );
     const completedTasks = moduleTasks.filter(
-      task => task.status === "completed"
+      (task) => task.status === "completed"
     );
 
     return {
@@ -624,7 +622,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
   const getPhaseProgress = (phaseId: number) => {
     const phaseTasks = getTasksForPhase(phaseId);
     const completedTasks = phaseTasks.filter(
-      task => task.status === "completed"
+      (task) => task.status === "completed"
     );
     return {
       completed: completedTasks.length,
@@ -641,7 +639,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
     for (const phase of biosecurityPhases) {
       const phaseTasks = getTasksForPhase(phase.id);
       const hasIncompleteTasks = phaseTasks.some(
-        task => task.status !== "completed"
+        (task) => task.status !== "completed"
       );
       if (hasIncompleteTasks) return phase;
     }
@@ -652,29 +650,29 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
 
   // Filter tasks based on selected module
   const currentModule = gaqpModules.find(
-    module => module.id === selectedModule
+    (module) => module.id === selectedModule
   );
   const filteredTasks = currentModule
     ? currentModule.id === "all"
       ? currentTasks
-      : currentTasks.filter(task =>
+      : currentTasks.filter((task) =>
           currentModule.categories.includes(task.category)
         )
     : currentTasks;
 
   // Get current step for the selected module
   const getCurrentStepForModule = (moduleId: string) => {
-    const module = gaqpModules.find(m => m.id === moduleId);
+    const module = gaqpModules.find((m) => m.id === moduleId);
     if (!module) return null;
 
     const moduleTasks =
       module.id === "all"
         ? currentTasks
-        : currentTasks.filter(task =>
+        : currentTasks.filter((task) =>
             module.categories.includes(task.category)
           );
 
-    return moduleTasks.find(task => task.status !== "completed");
+    return moduleTasks.find((task) => task.status !== "completed");
   };
 
   const currentStepForModule = getCurrentStepForModule(selectedModule);
@@ -687,7 +685,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
   const currentPageTasks = filteredTasks.slice(startIndex, endIndex);
 
   const toggleTaskStatus = (taskId: string) => {
-    const updatedTasks = currentTasks.map(task => {
+    const updatedTasks = currentTasks.map((task) => {
       if (task.id === taskId) {
         const newStatus: "completed" | "in-progress" | "pending" =
           task.status === "completed" ? "pending" : "completed";
@@ -705,13 +703,13 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
 
   // Determine if plan is urgent based on critical priority tasks
   const hasUrgentTasks = filteredTasks.some(
-    task => task.priority === "critical"
+    (task) => task.priority === "critical"
   );
 
   // Get current step (first non-completed task in current phase)
   const getCurrentStepInPhase = (phaseId: number) => {
     const phaseTasks = getTasksForPhase(phaseId);
-    return phaseTasks.find(task => task.status !== "completed");
+    return phaseTasks.find((task) => task.status !== "completed");
   };
 
   const currentStep = getCurrentStepInPhase(currentPhase.id);
@@ -745,7 +743,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
       completed: [],
     };
 
-    tasks.forEach(task => {
+    tasks.forEach((task) => {
       if (task.status === "completed") {
         categories.completed.push(task);
       } else if (isTaskOverdue(task)) {
@@ -777,7 +775,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
     const tasks =
       currentModule?.id === "all"
         ? currentTasks
-        : currentTasks.filter(task =>
+        : currentTasks.filter((task) =>
             currentModule?.categories.includes(task.category)
           );
     return categorizeTasks(tasks);
@@ -838,7 +836,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                 >
                   {
                     biosecurityPhases.filter(
-                      phase => getPhaseProgress(phase.id).percentage === 100
+                      (phase) => getPhaseProgress(phase.id).percentage === 100
                     ).length
                   }{" "}
                   of {biosecurityPhases.length} phases
@@ -854,7 +852,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
             <span className="text-sm font-medium text-green-600">
               {Math.round(
                 (biosecurityPhases.filter(
-                  phase => getPhaseProgress(phase.id).percentage === 100
+                  (phase) => getPhaseProgress(phase.id).percentage === 100
                 ).length /
                   biosecurityPhases.length) *
                   100
@@ -870,7 +868,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
                 style={{
                   width: `${Math.round(
                     (biosecurityPhases.filter(
-                      phase => getPhaseProgress(phase.id).percentage === 100
+                      (phase) => getPhaseProgress(phase.id).percentage === 100
                     ).length /
                       biosecurityPhases.length) *
                       100
@@ -915,7 +913,7 @@ export function BiosecurityPlan({ farmProfile }: BiosecurityPlanProps) {
 
           {/* Module Selection Grid */}
           <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {gaqpModules.map(module => {
+            {gaqpModules.map((module) => {
               const isSelected = selectedModule === module.id;
               const moduleProgress = getModuleProgress(module.id);
               return (
