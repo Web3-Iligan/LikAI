@@ -1,6 +1,5 @@
-"use client";
-
 import React from "react";
+import { Link } from "react-router-dom";
 
 // Import Badge component
 import {
@@ -15,8 +14,6 @@ import {
   MessageCircle,
   Settings,
 } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 
 // Import cn for conditional class names
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -97,13 +94,7 @@ export function DashboardLayout({ children, pathname }: DashboardLayoutProps) {
       <div className="border-b border-gray-200 p-6">
         <div className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200/50 bg-white">
-            <Image
-              src="/Likai-logo.svg"
-              alt="LikAI Logo"
-              width={24}
-              height={24}
-              className="h-6 w-6"
-            />
+            <img src="/Likai-logo.svg" alt="LikAI Logo" className="h-6 w-6" />
           </div>
           <div>
             <h1 className="text-lg font-semibold text-gray-900">LikAI</h1>
@@ -115,14 +106,14 @@ export function DashboardLayout({ children, pathname }: DashboardLayoutProps) {
       {/* Navigation Items */}
       <ScrollArea className="flex-1 px-3 py-4">
         <nav className="space-y-1">
-          {navigationItems.map(item => {
+          {navigationItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href;
 
             return (
               <Link
                 key={item.href}
-                href={item.href}
+                to={item.href}
                 className={cn(
                   "flex h-10 w-full items-center justify-start gap-3 rounded-md px-3 text-sm font-medium transition-colors hover:bg-gray-100",
                   isActive
@@ -150,14 +141,14 @@ export function DashboardLayout({ children, pathname }: DashboardLayoutProps) {
       {/* Bottom Navigation */}
       <div className="border-t border-gray-200 p-3">
         <nav className="space-y-1">
-          {bottomNavigationItems.map(item => {
+          {bottomNavigationItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname === item.href;
 
             return (
               <Link
                 key={item.href}
-                href={item.href}
+                to={item.href}
                 className={cn(
                   "flex h-10 w-full items-center justify-start gap-3 rounded-md px-3 text-sm font-medium transition-colors hover:bg-gray-100",
                   isActive
@@ -177,8 +168,8 @@ export function DashboardLayout({ children, pathname }: DashboardLayoutProps) {
   );
 
   const currentPageTitle =
-    navigationItems.find(item => item.href === pathname)?.title ||
-    bottomNavigationItems.find(item => item.href === pathname)?.title ||
+    navigationItems.find((item) => item.href === pathname)?.title ||
+    bottomNavigationItems.find((item) => item.href === pathname)?.title ||
     "Dashboard";
 
   return (

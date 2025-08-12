@@ -1,6 +1,7 @@
 // Simple toast hook for now
 export function useToast() {
   return {
+    toasts: [], // Empty array to prevent map error
     toast: ({
       title,
       description,
