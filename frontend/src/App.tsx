@@ -1,11 +1,15 @@
-import { Outlet } from "react-router-dom"; // Outlet renders child routes
+import { LayoutWrapper } from "@/components/layout-wrapper";
+import { Toaster } from "@/components/ui/toaster";
+import { Outlet } from "react-router-dom";
 
-// This is the root layout component. You can add shared UI like navbars here.
+// Root layout component with shared UI
 function App() {
   return (
-    <div className="min-h-screen">
-      {/* Add any global header, footer, or layout here */}
-      <Outlet /> {/* This will render the matched child route */}
+    <div className="min-h-screen font-sans antialiased">
+      <LayoutWrapper>
+        <Outlet /> {/* This will render the matched child route */}
+      </LayoutWrapper>
+      <Toaster />
     </div>
   );
 }

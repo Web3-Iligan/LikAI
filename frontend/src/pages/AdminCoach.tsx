@@ -1,8 +1,5 @@
-export default function AdminCoach() {
-  return (
-    <div style={{ padding: "20px" }}>
-      <h1>Admin Coach</h1>
-      <p>This is the admin coach page.</p>
-    </div>
-  );
+import { InteractiveChatbot } from "@/features/coach/interactive-chatbot";
+
+export default function CoachPage() {
+  return <InteractiveChatbot />;
 }

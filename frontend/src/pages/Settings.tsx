@@ -1,5 +1,6 @@
 import type React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -17,6 +18,7 @@ import { useToast } from "@/hooks/use-toast";
 
 export default function SettingsPage() {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [name, setName] = useState("Juan Dela Cruz");
   const [email, setEmail] = useState("juan.delacruz@example.com");
   const [bio, setBio] = useState("Aquaculture enthusiast and farm owner.");
@@ -38,8 +40,8 @@ export default function SettingsPage() {
       title: "Logged Out",
       description: "You have been successfully logged out.",
     });
-    // Redirect to login page (example)
-    window.location.href = "/auth";
+    // Redirect to login page using React Router
+    navigate("/auth");
   };
 
   return (
