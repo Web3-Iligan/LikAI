@@ -1,4 +1,4 @@
-import "mo:base/Text";
+import Text "mo:base/Text";
 
 persistent actor {
     public query func greet(name: Text): async Text {
