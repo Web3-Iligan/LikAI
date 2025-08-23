@@ -35,12 +35,14 @@ source "$HOME/.local/share/dfx/env"
 echo "IC CDK (dfx) installed."
 dfx --version
 
-# 5. Install npm packages
-echo "Installing npm packages..."
-npm install --workspaces --if-present
-echo "npm install executed."
-
 # Install the Motoko Package Manager
 npm i -g ic-mops
+mops install
+
+# 5. Install npm packages
+echo "Installing npm packages..."
+npm run setup
+echo "npm install executed."
+
 
 echo "All specified packages and tools installed successfully!"
