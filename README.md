@@ -1,8 +1,10 @@
-# LikAI: The Adaptive Biosecurity Coach
+# LikAI
 
-![LikAI Cover](frontend/public/cover-photo.png)
+**LikAI** is a practical Aquaculture Intelligence platform designed for the realities of smallholder shrimp farming. It provides farmers with a simple, AI-powered coaching app that turns complex Good Aquaculture Practices (GAqP) into a manageable, daily action plan. The platform's core mission is to help farmers build resilient, disease-resistant operations and generate the auditable compliance reports needed to become trusted, high-value suppliers to processors and exporters.
 
-LikAI has the potential to revolutionize shrimp farm management, de-risk the aquaculture supply chain, and establish a new standard for industry data intelligence. By making expert-level biosecurity simple and accessible, it can drive the widespread adoption of the sustainable and resilient farming practices called for in the National Shrimp Industry Roadmap. Future developments include launching the processor-facing analytics dashboard, expanding the platform to support other high-value species like crabs and fish, and offering data-driven insights to financial institutions and government agencies.
+## Impact and Future potentials
+
+**LikAI** has the potential to revolutionize shrimp farm management, de-risk the aquaculture supply chain, and establish a new standard for industry data intelligence. By making expert-level biosecurity simple and accessible, it can drive the widespread adoption of the sustainable and resilient farming practices called for in the National Shrimp Industry Roadmap. Future developments include launching the processor-facing analytics dashboard, expanding the platform to support other high-value species like crabs and fish, and offering data-driven insights to financial institutions and government agencies.
 
 <br>
 ## Features
