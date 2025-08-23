@@ -1,18 +1,21 @@
 {
   "canisters": {
-    "test_backend": {
-      "main": "src/test_backend/main.mo",
+    "api": {
+      "main": "frontend/main.mo",
       "type": "motoko"
     },
     "test_frontend": {
       "dependencies": [
-        "test_backend"
+        "api"
       ],
       "source": [
-        "src/test_frontend/dist"
+        "frontend/dist"
+      ],
+      "build": [
+        "npm run build --workspaces --if-present"
       ],
       "type": "assets",
-      "workspace": "test_frontend"
+      "workspace": "frontend"
     }
   },
   "defaults": {
