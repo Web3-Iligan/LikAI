@@ -1,7 +1,7 @@
 {
   "canisters": {
     "api": {
-      "main": "frontend/main.mo",
+      "main": "canisters/api/main.mo",
       "type": "motoko"
     },
     "test_frontend": {
@@ -21,7 +21,7 @@
   "defaults": {
     "build": {
       "args": "",
-      "packtool": "./node_modules/.bin/mops sources"
+      "packtool": ""
     }
   },
   "output_env_file": ".env",
