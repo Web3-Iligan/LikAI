@@ -1,0 +1,29 @@
+{
+  "canisters": {
+    "api": {
+      "main": "frontend/main.mo",
+      "type": "motoko"
+    },
+    "test_frontend": {
+      "dependencies": [
+        "api"
+      ],
+      "source": [
+        "frontend/dist"
+      ],
+      "build": [
+        "npm run build --workspaces --if-present"
+      ],
+      "type": "assets",
+      "workspace": "frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": "./node_modules/.bin/mops sources"
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
