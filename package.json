@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/zxaylex/LikAI/issues"
   },
-  "homepage": "https://github.com/zxaylex/LikAI#readme"
+  "homepage": "https://github.com/zxaylex/LikAI#readme",
+  "devDependencies": {
+    "ic-mops": "^1.11.1"
+  }
 }
