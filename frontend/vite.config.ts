@@ -19,7 +19,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://127.0.0.1:4943",
+        target: "http://127.0.0.1:8000",
         changeOrigin: true
       }
     }
@@ -36,10 +36,10 @@ export default defineConfig({
       {
         find: "declarations",
         replacement: fileURLToPath(
-          new URL("../src/declarations", import.meta.url)
+          new URL("./src/declarations", import.meta.url)
         )
       }
     ],
-    dedupe: ["@dfinity/agent"],
+    dedupe: ["@dfinity/agent", "@dfinity/auth-client"],
   }
 });

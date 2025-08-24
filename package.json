@@ -4,7 +4,7 @@
   "description": "![LikAI Cover](frontend/public/cover-photo.png)",
   "main": "index.js",
   "scripts": {
-    "setup": "npm install --workspaces --if-present",
+    "deploy": "bash setup/install.sh",
     "start": "npm run dev --workspaces --if-present",
     "build": "npm run build --workspaces --if-present"
   },
