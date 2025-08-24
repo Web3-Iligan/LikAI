@@ -4,7 +4,7 @@
       "main": "canisters/api/main.mo",
       "type": "motoko"
     },
-    "test_frontend": {
+    "frontend": {
       "dependencies": [
         "api"
       ],
