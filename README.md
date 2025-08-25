@@ -16,6 +16,14 @@ An AI-powered platform that generates the critical data and drives the farmer co
 
 - **Practical Biosecurity Library:** We provide a robust, always-on support system for your suppliers, reducing the burden on your field technicians and ensuring consistent practices even in remote areas.
 
+## ICP Features used
+
+- Canisters: Decentralized App & Data Hosting
+- Internet Identity: Secure Farmer & Processor Login
+- HTTP Outcalls: External AI & Real-World Data Integration
+- Timers: Automated Farmer Reminders & Reports
+- Asset Canister: Verifiable On-Chain Certifications
+
 ## Getting Started
 
 ### Prerequisites
