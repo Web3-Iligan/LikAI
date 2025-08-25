@@ -6,13 +6,13 @@ We're using AI to help Filipino shrimp farmers build resilient farms and secure 
 
 ## Overview
 
-LikAI is a B2B platform that gives processors the tools to turn their small farm suppliers into a compliant, resilient, and fully traceable network. We do this through three core components:
+LikAI is a B2B platform that gives processors the tools to turn their small shrimp aquafarm suppliers into a compliant, resilient, and fully traceable network. We do this through three core components:
 
-- **AI-Powered Farmer Coaching**: At the heart of our platform is an AI coach that delivers value directly to the farmer. It provides personalized, daily action plans, 24/7 expert guidance, and smart investment advice to make achieving GAqP compliance simple and affordable.
+- **AI-Powered Farmer Coaching**: At the heart of our platform is an AI coach that delivers value directly to the shrimp aquafarmer. It provides personalized, daily action plans, 24/7 expert guidance, and smart investment advice to make achieving GAqP compliance simple and affordable.
 
-- **Supply Chain Monitoring for Processors**: We provide processors with real-time visibility into the biosecurity and compliance scores of their entire supplier network. This allows them to proactively manage risk and identify high-performing partners.
+- **Supply Chain Monitoring for Processors**: We provide processors with real-time visibility into the biosecurity and compliance scores of their entire shrimp supplier network. This allows them to proactively manage risk and identify high-performing partners.
 
-- **Automated Reporting & On-Chain Certification**: The platform automatically generates the auditable compliance reports needed for export and BFAR accreditation. Upon completion, a verifiable "Accreditation-Ready" certificate can be issued as an on-chain NFT, guaranteeing a new level of trust and traceability.
+- **Automated Reporting & On-Chain Certification**: The platform automatically generates the auditable compliance reports needed for export and BFAR accreditation. Upon completion, a verifiable **"Accreditation-Ready"** certificate can be issued as an on-chain NFT, guaranteeing a new level of trust and traceability.
 
 ## ICP Features used
 
