@@ -6,15 +6,13 @@ We're using AI to help Filipino shrimp farmers build resilient farms and secure 
 
 ## Overview
 
-An AI-powered platform that generates the critical data and drives the farmer compliance needed for processors to manage and de-risk their entire supply chain.
+LikAI is a B2B platform that gives processors the tools to turn their small farm suppliers into a compliant, resilient, and fully traceable network. We do this through three core components:
 
-- **Personalized Biosecurity & GAqP Action Plans:** This is the engine that standardizes best practices across your entire, fragmented supply chain, ensuring every farmer is working towards your quality and compliance goals.
+- **AI-Powered Farmer Coaching**: At the heart of our platform is an AI coach that delivers value directly to the farmer. It provides personalized, daily action plans, 24/7 expert guidance, and smart investment advice to make achieving GAqP compliance simple and affordable.
 
-- **AI Coach & Knowledge Assistant:** Our AI Coach reduces costly farmer errors and provides 24/7 oversight, which leads to higher survival rates and a more reliable supply of shrimp for your business.
+- **Supply Chain Monitoring for Processors**: We provide processors with real-time visibility into the biosecurity and compliance scores of their entire supplier network. This allows them to proactively manage risk and identify high-performing partners.
 
-- **Smart Investment Guidance:** This feature removes the biggest barrier to compliance—cost. By guiding farmers to make affordable upgrades, we accelerate your network's journey to becoming 100% accreditation-ready.
-
-- **Practical Biosecurity Library:** We provide a robust, always-on support system for your suppliers, reducing the burden on your field technicians and ensuring consistent practices even in remote areas.
+- **Automated Reporting & On-Chain Certification**: The platform automatically generates the auditable compliance reports needed for export and BFAR accreditation. Upon completion, a verifiable "Accreditation-Ready" certificate can be issued as an on-chain NFT, guaranteeing a new level of trust and traceability.
 
 ## ICP Features used
 
