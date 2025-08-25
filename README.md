@@ -77,11 +77,19 @@
 
 **To run the project in a local dfx network, you can use the command below**
 
-- The project container is pre-configured to run the installation scripts, and the local links are not accessible if the codespaces are ran in the web.
-- To Start, create a codespace of this repository, and make sure you run it on the VS Code Desktop 
+- To install all the dependencies, simply run the following:
 
 ```sh
-npm run deploy:local
+bash setup/install.sh
+# or 
+zsh setup/install.sh # if you are using zsh
+```
+- To run the project locally, simply run the following:
+
+```sh
+bash setup/deploy_local.sh
+# or 
+zsh setup/deploy_local.sh # if you are using zsh
 ```
 
 <br>

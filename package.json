@@ -4,7 +4,7 @@
   "description": "![LikAI Cover](frontend/public/cover-photo.png)",
   "main": "index.js",
   "scripts": {
-    "setup": "npm install --workspaces --if-present",
+    "deploy": "bash setup/install.sh",
     "start": "npm run dev --workspaces --if-present",
     "build": "npm run build --workspaces --if-present"
   },
@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/zxaylex/LikAI/issues"
   },
-  "homepage": "https://github.com/zxaylex/LikAI#readme"
+  "homepage": "https://github.com/zxaylex/LikAI#readme",
+  "devDependencies": {
+    "ic-mops": "^1.11.1"
+  }
 }
