@@ -24,6 +24,22 @@ An AI-powered platform that generates the critical data and drives the farmer co
 - **Timers**: Automated Farmer Reminders & Reports
 - **Asset Canister**: Verifiable On-Chain Certifications
 
+## Project Progress
+
+### Feature 1: Onboarding Processes for Shrimp Farmer
+
+- ✅ The initial set of questions from the Good Aquaculture Practices (GAqP) handbook has been added.
+- ✅ Improved the user navigation to provide a more seamless and intuitive experience
+- ✅ Added a button that requires users to log in before generating AI reports. This will prevent the abuse of tokens. 
+- ✅ We have added more visual icons to provide a more intuitive and user-friendly experience for shrimp farmers.
+- ✅ Implemented ICP authentication, which now redirects users to the main dashboard upon a successful login.
+- ✅ The data handling process for saving initial assessment questions has been improved to ensure data integrity before they are submitted to the AI model.
+- ❌ Still in the process of making LikAI AI model.
+
+### Feature 2: Main Dashboard
+
+- ✅ We have added more visual icons to provide a more intuitive and user-friendly experience for shrimp farmers.
+
 ## Getting Started
 
 ### Prerequisites
