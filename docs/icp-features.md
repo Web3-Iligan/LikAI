@@ -1,32 +1,30 @@
-## ICP Features 
+## How LikAI's Features Leverage ICP:
 
 ![ICP Features](./assets/icp-features.png)
 
-### How LikAI's Features Leverage ICP:
-
 Personalized Biosecurity & GAqP Action Plans: The plan generation logic and the storage of the farmer's assessment data and the resulting dynamic plan would be in canisters. The plan's evolution is tamper-proof.
 
-#### 1. Personalized Biosecurity & GAqP Action Plans:
+### 1. Personalized Biosecurity & GAqP Action Plans:
 
 - The plan generation logic and the storage of the farmer's assessment data and the resulting dynamic plan would be in canisters. The plan's evolution is tamper-proof.
 
-#### 2. AI Coach & Knowledge Assistant:
+### 2. AI Coach & Knowledge Assistant:
 
 - The chat interface, chat history, and the logic for contextualizing prompts for external LLMs (via HTTPs outcalls) would be canister-based. The "Practical Biosecurity Library" content itself could be hosted in canisters for immutability.
 
-#### 3. Smart Investment Guidance:
+### 3. Smart Investment Guidance:
 
 - The logic for calculating ROI, generating investment recommendations, and storing the farmer's investment plans would run in canisters.
 
-#### 4. Compliance & Market Access (Future/Enterprise):
+### 4. Compliance & Market Access (Future/Enterprise):
 
 - The generation of compliance reports and the storage of certification data would leverage canisters for immutable record-keeping and verifiable outputs.
 
-<br>
+---
 
-### Core Features
+## Core Features
 
-#### **Canisters (Smart Contracts as Web Services):**
+### **Canisters (Smart Contracts as Web Services):**
 
 Whitepaper Reference: "Canisters can store data, perform very general computations on that data, and provide a complete technology stack, serving web pages directly to end users."
 
@@ -40,7 +38,7 @@ Benefit for LikAI:
 
 - Unstoppable, tamper-proof, and censorship-resistant application operation. Farmers' sensitive data is secured on a decentralized public network, not a private corporate server.
 
-#### **Reverse-Gas Model (Cycles):**
+### **Reverse-Gas Model (Cycles):**
 
 Whitepaper Reference: "Computational and storage costs are covered by a 'reverse-gas model', where canister developers pre-pay costs in cycles that are obtained from ICP, the native token of the IC."
 
@@ -52,7 +50,7 @@ Benefit for LikAI:
 
 - Provides predictable and stable operational costs, making the business model more viable. Crucially, it creates a seamless, traditional web2-like user experience for farmers who don't need to understand crypto wallets or gas fees. This is vital for farmer adoption.
 
-#### **Chain-Key Cryptography (Threshold Signatures & Output Authentication):**
+### **Chain-Key Cryptography (Threshold Signatures & Output Authentication):**
 
 Whitepaper Reference: "an individual output of one subnet may be verified by another subnet or external user by simply validating a digital signature with respect to the public signature-verification key of the (first) subnet." Also used to "certify the replicated state."
 
@@ -65,7 +63,7 @@ Benefit for LikAI:
 
 - Provides unmatched data integrity and trust. Farmers can be absolutely certain that the information they see in the app is genuinely from LikAI and has not been tampered with. This builds immense confidence in the advice provided.
 
-#### **HTTPs Outcalls:**
+### **HTTPs Outcalls:**
 
 Whitepaper Reference: "This feature allows canisters to send HTTPs requests arbitrary web pages (external to the IC) and process the response after it has been agreed upon by consensus."
 
