@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
-import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { ArrowLeft, ArrowRight, Loader2 } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
 /**
  * OnboardingPage Component
@@ -37,36 +37,36 @@ export default function OnboardingPage() {
 
   // Dynamic message displayed during analysis phase (Step 5.5)
   const [analysisMessage, setAnalysisMessage] = useState(
-    "Analyzing your farm data..."
+    'Analyzing your farm data...',
   );
 
   // Complete form state object containing all collected farmer data
   const [formData, setFormData] = useState({
     // Step 1: Basic farm information
-    farmName: "",
-    farmLocation: "",
+    farmName: '',
+    farmLocation: '',
 
     // Step 2: Farm specifications
-    shrimpSpecies: "",
-    shrimpSpeciesOther: "", // For "Other" species not in predefined list
-    farmingSystem: "",
-    farmSize: "",
-    farmSizeUnit: "hectares", // Default unit, user can change to acres
+    shrimpSpecies: '',
+    shrimpSpeciesOther: '', // For "Other" species not in predefined list
+    farmingSystem: '',
+    farmSize: '',
+    farmSizeUnit: 'hectares', // Default unit, user can change to acres
 
     // Step 3: Water and pond management
     waterSources: [] as string[], // Array to support multiple water sources
-    waterSourceOther: "", // For "Other" water source specification
-    pondDrying: "",
+    waterSourceOther: '', // For "Other" water source specification
+    pondDrying: '',
 
     // Step 4: Stock sourcing and access control
-    shrimpSource: "",
-    shrimpSourceOther: "", // For "Other" shrimp source specification
-    farmAccess: "",
+    shrimpSource: '',
+    shrimpSourceOther: '', // For "Other" shrimp source specification
+    farmAccess: '',
 
     // Step 5: Health and financial information
-    diseaseHistory: "",
-    diseaseDescription: "", // Additional details if farmer has disease history
-    budget: "",
+    diseaseHistory: '',
+    diseaseDescription: '', // Additional details if farmer has disease history
+    budget: '',
   });
 
   // Total number of main steps (excluding intermediate screens like 5.5, 5.7)
@@ -77,23 +77,23 @@ export default function OnboardingPage() {
    * These cycle through to give farmers feedback on what's happening
    */
   const analysisMessages = [
-    "Analyzing your farm data...",
-    "Evaluating biosecurity gaps...",
-    "Creating custom recommendations...",
-    "Almost done, finalizing your plan...",
+    'Analyzing your farm data...',
+    'Evaluating biosecurity gaps...',
+    'Creating custom recommendations...',
+    'Almost done, finalizing your plan...',
   ];
 
   useEffect(() => {
     // Load form data from localStorage on component mount
-    if (typeof window !== "undefined") {
+    if (typeof window !== 'undefined') {
       try {
-        const savedFormData = localStorage.getItem("onboarding-form-data");
+        const savedFormData = localStorage.getItem('onboarding-form-data');
         if (savedFormData) {
           const parsedData = JSON.parse(savedFormData);
           setFormData(parsedData);
         }
       } catch (error) {
-        console.warn("Error loading form data from localStorage:", error);
+        console.warn('Error loading form data from localStorage:', error);
       }
     }
   }, []);
@@ -136,15 +136,15 @@ export default function OnboardingPage() {
     // Farm Setup Basics: Species selection and farming system intensity
     // Premium species (vannamei, monodon) get higher scores
     if (
-      formData.shrimpSpecies === "vannamei" ||
-      formData.shrimpSpecies === "monodon"
+      formData.shrimpSpecies === 'vannamei' ||
+      formData.shrimpSpecies === 'monodon'
     ) {
       scores.farmSetup += 50;
     }
     // More intensive systems typically have better biosecurity controls
     if (
-      formData.farmingSystem === "intensive" ||
-      formData.farmingSystem === "semi-intensive"
+      formData.farmingSystem === 'intensive' ||
+      formData.farmingSystem === 'semi-intensive'
     ) {
       scores.farmSetup += 50;
     }
@@ -152,25 +152,25 @@ export default function OnboardingPage() {
     // Pond & Water Care: Water source quality and pond drying practices
     // Well water and seawater are generally safer than surface water
     if (
-      formData.waterSources.includes("well") ||
-      formData.waterSources.includes("sea")
+      formData.waterSources.includes('well') ||
+      formData.waterSources.includes('sea')
     ) {
       scores.pondWaterCare += 40;
     }
     // Pond drying is critical for disease prevention
-    if (formData.pondDrying === "always") {
+    if (formData.pondDrying === 'always') {
       scores.pondWaterCare += 60;
-    } else if (formData.pondDrying === "sometimes") {
+    } else if (formData.pondDrying === 'sometimes') {
       scores.pondWaterCare += 30;
     }
 
     // Healthy Stock Sourcing: Quality and reliability of shrimp sources
     // BFAR-certified hatcheries are the gold standard for disease-free stock
-    if (formData.shrimpSource === "bfar-hatchery") {
+    if (formData.shrimpSource === 'bfar-hatchery') {
       scores.stockSourcing = 100;
-    } else if (formData.shrimpSource === "own-hatchery") {
+    } else if (formData.shrimpSource === 'own-hatchery') {
       scores.stockSourcing = 80; // Good control but depends on management
-    } else if (formData.shrimpSource === "local-hatchery") {
+    } else if (formData.shrimpSource === 'local-hatchery') {
       scores.stockSourcing = 60; // Variable quality, moderate risk
     } else {
       scores.stockSourcing = 30; // Higher risk sources
@@ -178,9 +178,9 @@ export default function OnboardingPage() {
 
     // Farm Access Control: Protocols to prevent pathogen introduction
     // Strict access control is crucial for biosecurity
-    if (formData.farmAccess === "yes") {
+    if (formData.farmAccess === 'yes') {
       scores.farmAccess = 100; // Excellent - proper protocols in place
-    } else if (formData.farmAccess === "partial") {
+    } else if (formData.farmAccess === 'partial') {
       scores.farmAccess = 60; // Moderate - some controls but gaps exist
     } else {
       scores.farmAccess = 20; // Poor - minimal access control
@@ -188,17 +188,17 @@ export default function OnboardingPage() {
 
     // Disease Readiness: Historical experience and financial preparedness
     // Disease history indicates past challenges but also experience
-    if (formData.diseaseHistory === "no") {
+    if (formData.diseaseHistory === 'no') {
       scores.diseaseReadiness += 40; // No history = lower risk
-    } else if (formData.diseaseHistory === "once-twice") {
+    } else if (formData.diseaseHistory === 'once-twice') {
       scores.diseaseReadiness += 20; // Some experience, moderate preparation
     }
     // Financial capacity affects ability to implement biosecurity measures
-    if (formData.budget === "sufficient") {
+    if (formData.budget === 'sufficient') {
       scores.diseaseReadiness += 60; // Can afford best practices
-    } else if (formData.budget === "moderate") {
+    } else if (formData.budget === 'moderate') {
       scores.diseaseReadiness += 40; // Some budget constraints
-    } else if (formData.budget === "limited") {
+    } else if (formData.budget === 'limited') {
       scores.diseaseReadiness += 20; // Significant budget limitations
     } else {
       scores.diseaseReadiness += 10; // Very constrained budget
@@ -218,6 +218,8 @@ export default function OnboardingPage() {
    */
   const handleNext = () => {
     if (currentStep === 5) {
+      setCurrentStep(5.4);
+    } else if (currentStep === 5.4) {
       // After Step 5, go to analysis screen
       setCurrentStep(5.5);
       // Simulate analysis time, then automatically go to "ready" screen
@@ -234,7 +236,7 @@ export default function OnboardingPage() {
       setTimeout(() => {
         setIsLoading(false);
         // Redirect to main dashboard
-        navigate("/dashboard");
+        navigate('/dashboard');
       }, 3000);
     } else {
       // Standard step progression
@@ -261,14 +263,14 @@ export default function OnboardingPage() {
       const newFormData = { ...prev, [field]: value };
 
       // Save to localStorage whenever form data updates
-      if (typeof window !== "undefined") {
+      if (typeof window !== 'undefined') {
         try {
           localStorage.setItem(
-            "onboarding-form-data",
-            JSON.stringify(newFormData)
+            'onboarding-form-data',
+            JSON.stringify(newFormData),
           );
         } catch (error) {
-          console.warn("Error saving form data to localStorage:", error);
+          console.warn('Error saving form data to localStorage:', error);
         }
       }
 
@@ -290,19 +292,19 @@ export default function OnboardingPage() {
             {/* Left side: Step indicator with special handling for analysis screens */}
             <span className="text-sm font-medium text-gray-600">
               {currentStep === 5.5
-                ? "Analyzing..."
+                ? 'Analyzing...'
                 : currentStep === 5.7
-                ? "Step 6 of 7: Plan Ready!"
+                ? 'Step 6 of 7: Plan Ready!'
                 : `Step ${Math.floor(currentStep)} of ${totalSteps}`}
             </span>
             {/* Right side: Percentage completion */}
             <span className="text-sm font-medium text-gray-600">
               {currentStep === 5.5
-                ? "Processing..."
+                ? 'Processing...'
                 : currentStep === 5.7
-                ? "100% Complete"
+                ? '100% Complete'
                 : `${Math.round(
-                    (Math.floor(currentStep) / totalSteps) * 100
+                    (Math.floor(currentStep) / totalSteps) * 100,
                   )}% Complete`}
             </span>
           </div>
@@ -313,9 +315,9 @@ export default function OnboardingPage() {
               style={{
                 width:
                   currentStep === 5.5
-                    ? "85%" // Show near-complete during analysis
+                    ? '85%' // Show near-complete during analysis
                     : currentStep === 5.7
-                    ? "100%" // Full completion for ready screen
+                    ? '100%' // Full completion for ready screen
                     : `${(Math.floor(currentStep) / totalSteps) * 100}%`,
               }}
             ></div>
@@ -344,6 +346,7 @@ export default function OnboardingPage() {
           */}
           {currentStep > 0 &&
             currentStep < totalSteps &&
+            currentStep !== 5.4 &&
             currentStep !== 5.5 &&
             currentStep !== 5.7 && (
               <Button
@@ -368,8 +371,8 @@ export default function OnboardingPage() {
         <div
           className={`relative w-full overflow-hidden rounded-2xl border border-blue-200/30 bg-white shadow-2xl ${
             currentStep === 6
-              ? "max-w-4xl space-y-6 p-4 md:space-y-8 md:p-8" // Wider layout for report
-              : "max-w-xl space-y-6 p-6 md:p-10" // Standard layout for forms
+              ? 'max-w-4xl space-y-6 p-4 md:space-y-8 md:p-8' // Wider layout for report
+              : 'max-w-xl space-y-6 p-6 md:p-10' // Standard layout for forms
           }`}
         >
           {/* Decorative background accent elements */}
@@ -464,7 +467,7 @@ export default function OnboardingPage() {
                     onClick={handleNext}
                     className="mb-4 h-14 w-full rounded-lg bg-[#FF7F50] text-base font-medium text-white hover:bg-[#E6723C]"
                   >
-                    Start My Farm Assessment{" "}
+                    Start My Farm Assessment{' '}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
 
@@ -478,7 +481,7 @@ export default function OnboardingPage() {
                         Already have an account?
                       </span>
                       <button
-                        onClick={() => navigate("/auth")}
+                        onClick={() => navigate('/auth')}
                         className="ml-2 text-sm font-medium text-[#3498DB] hover:text-[#2980b9] hover:underline"
                       >
                         Log in here
@@ -519,7 +522,7 @@ export default function OnboardingPage() {
                       type="text"
                       value={formData.farmName}
                       onChange={(e) =>
-                        updateFormData("farmName", e.target.value)
+                        updateFormData('farmName', e.target.value)
                       }
                       className="h-14 w-full rounded-lg border-2 border-gray-200 bg-gray-50/50 px-4 text-lg font-medium text-gray-900 placeholder:text-gray-500 focus:border-[#3498DB] focus:bg-white focus:ring-0"
                       placeholder="e.g., Sunrise Aqua Farm"
@@ -538,7 +541,7 @@ export default function OnboardingPage() {
                       type="text"
                       value={formData.farmLocation}
                       onChange={(e) =>
-                        updateFormData("farmLocation", e.target.value)
+                        updateFormData('farmLocation', e.target.value)
                       }
                       className="h-14 w-full rounded-lg border-2 border-gray-200 bg-gray-50/50 px-4 text-lg font-medium text-gray-900 placeholder:text-gray-500 focus:border-[#3498DB] focus:bg-white focus:ring-0"
                       placeholder="e.g., Tagum City, Davao del Norte"
@@ -584,30 +587,30 @@ export default function OnboardingPage() {
                     <div className="space-y-3">
                       {[
                         {
-                          id: "vannamei",
-                          label: "Suati (Pacific White Shrimp)",
+                          id: 'vannamei',
+                          label: 'Suati (Pacific White Shrimp)',
                         },
                         {
-                          id: "monodon",
-                          label: "Sugpo (Giant Black Tiger Shrimp)",
+                          id: 'monodon',
+                          label: 'Sugpo (Giant Black Tiger Shrimp)',
                         },
                         {
-                          id: "other",
-                          label: "Other (Please specify briefly)",
+                          id: 'other',
+                          label: 'Other (Please specify briefly)',
                         },
                       ].map((option) => (
                         <div key={option.id}>
                           <button
                             onClick={() => {
-                              updateFormData("shrimpSpecies", option.id);
-                              if (option.id !== "other") {
-                                updateFormData("shrimpSpeciesOther", "");
+                              updateFormData('shrimpSpecies', option.id);
+                              if (option.id !== 'other') {
+                                updateFormData('shrimpSpeciesOther', '');
                               }
                             }}
                             className={`w-full rounded-lg border-2 p-4 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
                               formData.shrimpSpecies === option.id
-                                ? "border-[#3498DB] bg-blue-50"
-                                : "border-gray-200"
+                                ? 'border-[#3498DB] bg-blue-50'
+                                : 'border-gray-200'
                             }`}
                           >
                             <div className="flex items-center space-x-3">
@@ -621,16 +624,16 @@ export default function OnboardingPage() {
                               </div>
                             </div>
                           </button>
-                          {option.id === "other" &&
-                            formData.shrimpSpecies === "other" && (
+                          {option.id === 'other' &&
+                            formData.shrimpSpecies === 'other' && (
                               <div className="ml-8 mt-3">
                                 <Input
                                   type="text"
                                   value={formData.shrimpSpeciesOther}
                                   onChange={(e) =>
                                     updateFormData(
-                                      "shrimpSpeciesOther",
-                                      e.target.value
+                                      'shrimpSpeciesOther',
+                                      e.target.value,
                                     )
                                   }
                                   className="h-12 w-full rounded-lg border-2 border-gray-200 bg-gray-50/50 px-4 text-base font-medium text-gray-900 placeholder:text-gray-500 focus:border-[#3498DB] focus:bg-white focus:ring-0"
@@ -650,35 +653,35 @@ export default function OnboardingPage() {
                     <div className="space-y-3">
                       {[
                         {
-                          id: "intensive",
+                          id: 'intensive',
                           label:
-                            "Intensive (High density, relies on commercial feed)",
+                            'Intensive (High density, relies on commercial feed)',
                         },
                         {
-                          id: "semi-intensive",
+                          id: 'semi-intensive',
                           label:
-                            "Semi-intensive (Medium density, uses natural food & commercial feed)",
+                            'Semi-intensive (Medium density, uses natural food & commercial feed)',
                         },
                         {
-                          id: "extensive",
+                          id: 'extensive',
                           label:
-                            "Extensive (Low density, relies mostly on natural food)",
+                            'Extensive (Low density, relies mostly on natural food)',
                         },
                         {
-                          id: "polyculture",
+                          id: 'polyculture',
                           label:
-                            "Polyculture (Raising shrimp with other species)",
+                            'Polyculture (Raising shrimp with other species)',
                         },
                       ].map((option) => (
                         <button
                           key={option.id}
                           onClick={() =>
-                            updateFormData("farmingSystem", option.id)
+                            updateFormData('farmingSystem', option.id)
                           }
                           className={`w-full rounded-lg border-2 p-4 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
                             formData.farmingSystem === option.id
-                              ? "border-[#3498DB] bg-blue-50"
-                              : "border-gray-200"
+                              ? 'border-[#3498DB] bg-blue-50'
+                              : 'border-gray-200'
                           }`}
                         >
                           <div className="flex items-center space-x-3">
@@ -701,7 +704,7 @@ export default function OnboardingPage() {
                     disabled={
                       !formData.shrimpSpecies ||
                       !formData.farmingSystem ||
-                      (formData.shrimpSpecies === "other" &&
+                      (formData.shrimpSpecies === 'other' &&
                         !formData.shrimpSpeciesOther.trim())
                     }
                     className="mt-6 h-14 w-full rounded-lg bg-[#FF7F50] text-base font-medium text-white hover:bg-[#E6723C] disabled:cursor-not-allowed disabled:opacity-50"
@@ -729,40 +732,40 @@ export default function OnboardingPage() {
                     <label className="mb-3 block text-base font-medium text-gray-700">
                       What is your main water source for the ponds? (Select all
                       that apply)
-                    </label>{" "}
+                    </label>{' '}
                     <div className="space-y-3">
                       {[
-                        { id: "river", label: "River" },
-                        { id: "sea", label: "Sea/Ocean" },
-                        { id: "well", label: "Deep Well" },
-                        { id: "rain", label: "Rainwater" },
-                        { id: "other", label: "Other" },
+                        { id: 'river', label: 'River' },
+                        { id: 'sea', label: 'Sea/Ocean' },
+                        { id: 'well', label: 'Deep Well' },
+                        { id: 'rain', label: 'Rainwater' },
+                        { id: 'other', label: 'Other' },
                       ].map((option) => (
                         <div key={option.id}>
                           <button
                             onClick={() => {
                               const currentSources = formData.waterSources;
                               const newSources = currentSources.includes(
-                                option.id
+                                option.id,
                               )
                                 ? currentSources.filter(
-                                    (source) => source !== option.id
+                                    (source) => source !== option.id,
                                   )
                                 : [...currentSources, option.id];
-                              updateFormData("waterSources", newSources);
+                              updateFormData('waterSources', newSources);
 
                               // Clear the "Other" field if "Other" is unchecked
                               if (
-                                option.id === "other" &&
-                                currentSources.includes("other")
+                                option.id === 'other' &&
+                                currentSources.includes('other')
                               ) {
-                                updateFormData("waterSourceOther", "");
+                                updateFormData('waterSourceOther', '');
                               }
                             }}
                             className={`w-full rounded-lg border-2 p-4 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
                               formData.waterSources.includes(option.id)
-                                ? "border-[#3498DB] bg-blue-50"
-                                : "border-gray-200"
+                                ? 'border-[#3498DB] bg-blue-50'
+                                : 'border-gray-200'
                             }`}
                           >
                             <div className="flex items-center space-x-3">
@@ -792,16 +795,16 @@ export default function OnboardingPage() {
                             - Allows farmers to specify custom water sources
                             - Integrated into form validation logic
                           */}
-                          {option.id === "other" &&
-                            formData.waterSources.includes("other") && (
+                          {option.id === 'other' &&
+                            formData.waterSources.includes('other') && (
                               <div className="ml-8 mt-3">
                                 <Input
                                   type="text"
                                   value={formData.waterSourceOther}
                                   onChange={(e) =>
                                     updateFormData(
-                                      "waterSourceOther",
-                                      e.target.value
+                                      'waterSourceOther',
+                                      e.target.value,
                                     )
                                   }
                                   className="h-12 w-full rounded-lg border-2 border-gray-200 bg-gray-50/50 px-4 text-base font-medium text-gray-900 placeholder:text-gray-500 focus:border-[#3498DB] focus:bg-white focus:ring-0"
@@ -821,19 +824,19 @@ export default function OnboardingPage() {
                     </label>
                     <div className="space-y-3">
                       {[
-                        { id: "always", label: "Yes, always" },
-                        { id: "sometimes", label: "Partially or sometimes" },
-                        { id: "rarely", label: "No, rarely or never" },
+                        { id: 'always', label: 'Yes, always' },
+                        { id: 'sometimes', label: 'Partially or sometimes' },
+                        { id: 'rarely', label: 'No, rarely or never' },
                       ].map((option) => (
                         <button
                           key={option.id}
                           onClick={() =>
-                            updateFormData("pondDrying", option.id)
+                            updateFormData('pondDrying', option.id)
                           }
                           className={`w-full rounded-lg border-2 p-4 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
                             formData.pondDrying === option.id
-                              ? "border-[#3498DB] bg-blue-50"
-                              : "border-gray-200"
+                              ? 'border-[#3498DB] bg-blue-50'
+                              : 'border-gray-200'
                           }`}
                         >
                           <div className="flex items-center space-x-3">
@@ -863,7 +866,7 @@ export default function OnboardingPage() {
                     disabled={
                       formData.waterSources.length === 0 ||
                       !formData.pondDrying ||
-                      (formData.waterSources.includes("other") &&
+                      (formData.waterSources.includes('other') &&
                         !formData.waterSourceOther.trim())
                     }
                     className="mt-6 h-14 w-full rounded-lg bg-[#FF7F50] text-base font-medium text-white hover:bg-[#E6723C] disabled:cursor-not-allowed disabled:opacity-50"
@@ -895,29 +898,29 @@ export default function OnboardingPage() {
                     <div className="space-y-3">
                       {[
                         {
-                          id: "bfar-hatchery",
-                          label: "BFAR-accredited hatchery",
+                          id: 'bfar-hatchery',
+                          label: 'BFAR-accredited hatchery',
                         },
                         {
-                          id: "local-hatchery",
-                          label: "Non-accredited local hatchery",
+                          id: 'local-hatchery',
+                          label: 'Non-accredited local hatchery',
                         },
-                        { id: "wild-caught", label: "Wild-caught" },
-                        { id: "own-hatchery", label: "Own hatchery" },
-                        { id: "other", label: "Other" },
+                        { id: 'wild-caught', label: 'Wild-caught' },
+                        { id: 'own-hatchery', label: 'Own hatchery' },
+                        { id: 'other', label: 'Other' },
                       ].map((option) => (
                         <div key={option.id}>
                           <button
                             onClick={() => {
-                              updateFormData("shrimpSource", option.id);
-                              if (option.id !== "other") {
-                                updateFormData("shrimpSourceOther", "");
+                              updateFormData('shrimpSource', option.id);
+                              if (option.id !== 'other') {
+                                updateFormData('shrimpSourceOther', '');
                               }
                             }}
                             className={`w-full rounded-lg border-2 p-4 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
                               formData.shrimpSource === option.id
-                                ? "border-[#3498DB] bg-blue-50"
-                                : "border-gray-200"
+                                ? 'border-[#3498DB] bg-blue-50'
+                                : 'border-gray-200'
                             }`}
                           >
                             <div className="flex items-center space-x-3">
@@ -931,16 +934,16 @@ export default function OnboardingPage() {
                               </div>
                             </div>
                           </button>
-                          {option.id === "other" &&
-                            formData.shrimpSource === "other" && (
+                          {option.id === 'other' &&
+                            formData.shrimpSource === 'other' && (
                               <div className="ml-8 mt-3">
                                 <Input
                                   type="text"
                                   value={formData.shrimpSourceOther}
                                   onChange={(e) =>
                                     updateFormData(
-                                      "shrimpSourceOther",
-                                      e.target.value
+                                      'shrimpSourceOther',
+                                      e.target.value,
                                     )
                                   }
                                   className="h-12 w-full rounded-lg border-2 border-gray-200 bg-gray-50/50 px-4 text-base font-medium text-gray-900 placeholder:text-gray-500 focus:border-[#3498DB] focus:bg-white focus:ring-0"
@@ -960,22 +963,22 @@ export default function OnboardingPage() {
                     </label>
                     <div className="space-y-3">
                       {[
-                        { id: "yes", label: "Yes, we have some control" },
+                        { id: 'yes', label: 'Yes, we have some control' },
                         {
-                          id: "partial",
-                          label: "Partially, some areas are controlled",
+                          id: 'partial',
+                          label: 'Partially, some areas are controlled',
                         },
-                        { id: "no", label: "No, access is generally open" },
+                        { id: 'no', label: 'No, access is generally open' },
                       ].map((option) => (
                         <button
                           key={option.id}
                           onClick={() =>
-                            updateFormData("farmAccess", option.id)
+                            updateFormData('farmAccess', option.id)
                           }
                           className={`w-full rounded-lg border-2 p-4 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
                             formData.farmAccess === option.id
-                              ? "border-[#3498DB] bg-blue-50"
-                              : "border-gray-200"
+                              ? 'border-[#3498DB] bg-blue-50'
+                              : 'border-gray-200'
                           }`}
                         >
                           <div className="flex items-center space-x-3">
@@ -998,7 +1001,7 @@ export default function OnboardingPage() {
                     disabled={
                       !formData.shrimpSource ||
                       !formData.farmAccess ||
-                      (formData.shrimpSource === "other" &&
+                      (formData.shrimpSource === 'other' &&
                         !formData.shrimpSourceOther.trim())
                     }
                     className="mt-6 h-14 w-full rounded-lg bg-[#FF7F50] text-base font-medium text-white hover:bg-[#E6723C] disabled:cursor-not-allowed disabled:opacity-50"
@@ -1029,19 +1032,19 @@ export default function OnboardingPage() {
                     </label>
                     <div className="space-y-3">
                       {[
-                        { id: "several", label: "Yes, several times" },
-                        { id: "once-twice", label: "Yes, once or twice" },
-                        { id: "no", label: "No, not really" },
+                        { id: 'several', label: 'Yes, several times' },
+                        { id: 'once-twice', label: 'Yes, once or twice' },
+                        { id: 'no', label: 'No, not really' },
                       ].map((option) => (
                         <button
                           key={option.id}
                           onClick={() =>
-                            updateFormData("diseaseHistory", option.id)
+                            updateFormData('diseaseHistory', option.id)
                           }
                           className={`w-full rounded-lg border-2 p-4 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
                             formData.diseaseHistory === option.id
-                              ? "border-[#3498DB] bg-blue-50"
-                              : "border-gray-200"
+                              ? 'border-[#3498DB] bg-blue-50'
+                              : 'border-gray-200'
                           }`}
                         >
                           <div className="flex items-center space-x-3">
@@ -1059,8 +1062,8 @@ export default function OnboardingPage() {
                     </div>
                   </div>
 
-                  {(formData.diseaseHistory === "several" ||
-                    formData.diseaseHistory === "once-twice") && (
+                  {(formData.diseaseHistory === 'several' ||
+                    formData.diseaseHistory === 'once-twice') && (
                     <div>
                       <label
                         htmlFor="diseaseDescription"
@@ -1073,7 +1076,7 @@ export default function OnboardingPage() {
                         id="diseaseDescription"
                         value={formData.diseaseDescription}
                         onChange={(e) =>
-                          updateFormData("diseaseDescription", e.target.value)
+                          updateFormData('diseaseDescription', e.target.value)
                         }
                         rows={3}
                         className="w-full resize-none rounded-lg border-2 border-gray-200 bg-gray-50/50 px-4 py-3 text-lg font-medium text-gray-900 placeholder:text-gray-500 focus:border-[#3498DB] focus:bg-white focus:ring-0"
@@ -1090,29 +1093,29 @@ export default function OnboardingPage() {
                     <div className="space-y-3">
                       {[
                         {
-                          id: "very-limited",
-                          label: "Very Limited (< Php 50,000)",
+                          id: 'very-limited',
+                          label: 'Very Limited (< Php 50,000)',
                         },
                         {
-                          id: "limited",
-                          label: "Limited (Php 50,000 - Php 200,000)",
+                          id: 'limited',
+                          label: 'Limited (Php 50,000 - Php 200,000)',
                         },
                         {
-                          id: "moderate",
-                          label: "Moderate (Php 200,000 - Php 500,000)",
+                          id: 'moderate',
+                          label: 'Moderate (Php 200,000 - Php 500,000)',
                         },
                         {
-                          id: "sufficient",
-                          label: "Sufficient (> Php 500,000)",
+                          id: 'sufficient',
+                          label: 'Sufficient (> Php 500,000)',
                         },
                       ].map((option) => (
                         <button
                           key={option.id}
-                          onClick={() => updateFormData("budget", option.id)}
+                          onClick={() => updateFormData('budget', option.id)}
                           className={`w-full rounded-lg border-2 p-4 text-left transition-all hover:border-[#3498DB] hover:bg-blue-50 ${
                             formData.budget === option.id
-                              ? "border-[#3498DB] bg-blue-50"
-                              : "border-gray-200"
+                              ? 'border-[#3498DB] bg-blue-50'
+                              : 'border-gray-200'
                           }`}
                         >
                           <div className="flex items-center space-x-3">
@@ -1135,8 +1138,57 @@ export default function OnboardingPage() {
                     disabled={!formData.diseaseHistory || !formData.budget}
                     className="mt-6 h-14 w-full rounded-lg bg-[#FF7F50] text-base font-medium text-white hover:bg-[#E6723C] disabled:cursor-not-allowed disabled:opacity-50"
                   >
-                    Complete Assessment <ArrowRight className="ml-2 h-4 w-4" />
+                    Generate your Personalized Report
+                    <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
+                </div>
+              </div>
+            )}
+
+            {/* 
+              Step 5.4: Authentication Required Screen
+              - Gate before report generation to ensure user registration
+              - Features Internet Identity authentication button
+              - Visual design consistent with ICP login patterns
+              - Clear value proposition for why login is required
+              - Seamless transition to analysis screen after auth
+            */}
+            {currentStep === 5.4 && (
+              <div className="space-y-8">
+                <div className="text-center">
+                  <h1 className="mb-3 text-2xl font-bold text-gray-900">
+                    Sign In Required
+                  </h1>
+                  <p className="text-base text-gray-600">
+                    Before we generate your personalized plan, please log in
+                    with your Internet Identity to continue.
+                  </p>
+                </div>
+                <div className="flex flex-col items-center">
+                  <div className="w-full">
+                    <Button
+                      className="flex h-14 w-full items-center justify-center space-x-4 rounded-xl bg-gradient-to-r from-[#3498DB] to-[#2980B9] text-lg font-medium text-white shadow-xl transition-all duration-200 hover:scale-[1.02] hover:from-[#2980B9] hover:to-[#1F618D] hover:shadow-2xl"
+                      aria-describedby="signup-benefits"
+                      onClick={handleNext}
+                    >
+                      <div className="flex h-8 w-8 items-center justify-center">
+                        <img
+                          src="/internet-computer-icp-logo.svg"
+                          alt="Internet Computer logo"
+                          width={32}
+                          height={32}
+                          className="h-8 w-8"
+                        />
+                      </div>
+                      <span>Continue with Internet Identity</span>
+                    </Button>
+                  </div>
+                  <div className="p-4 text-center">
+                    <p className="text-sm font-medium text-gray-700">
+                      Logging in helps us keep your plan secure and lets you
+                      access it anytime!
+                    </p>
+                  </div>
                 </div>
               </div>
             )}
@@ -1199,11 +1251,11 @@ export default function OnboardingPage() {
                             <div className="h-1 w-1 animate-pulse rounded-full bg-[#3498DB]"></div>
                             <div
                               className="h-1 w-1 animate-pulse rounded-full bg-[#3498DB]"
-                              style={{ animationDelay: "0.2s" }}
+                              style={{ animationDelay: '0.2s' }}
                             ></div>
                             <div
                               className="h-1 w-1 animate-pulse rounded-full bg-[#3498DB]"
-                              style={{ animationDelay: "0.4s" }}
+                              style={{ animationDelay: '0.4s' }}
                             ></div>
                           </div>
                         </div>
@@ -1280,7 +1332,7 @@ export default function OnboardingPage() {
                   {/* Success Message */}
                   <div className="text-center">
                     <h2 className="mb-2 text-lg font-bold text-green-800">
-                      Great News,{" "}
+                      Great News,{' '}
                       {/* 
                         Smart Farmer Name Extraction Logic
                         - Attempts to extract a personal name from the farm name
@@ -1293,20 +1345,22 @@ export default function OnboardingPage() {
                           // Extract first word from farm name as potential farmer's name
                           const farmNameWords = formData.farmName
                             .trim()
-                            .split(" ");
+                            .split(' ');
                           const firstName = farmNameWords[0];
 
                           // Filter out business-related terms that shouldn't be used as personal names
                           const farmWords = [
-                            "farm",
-                            "aqua",
-                            "shrimp",
-                            "pond",
-                            "fishing",
-                            "fishery",
+                            'farm',
+                            'aqua',
+                            'shrimp',
+                            'pond',
+                            'fishing',
+                            'fishery',
                           ];
                           const isPersonName = !farmWords.some((word) =>
-                            firstName.toLowerCase().includes(word.toLowerCase())
+                            firstName
+                              .toLowerCase()
+                              .includes(word.toLowerCase()),
                           );
 
                           // Use extracted name if it appears to be a person's name
@@ -1315,7 +1369,7 @@ export default function OnboardingPage() {
                           }
                         }
                         // Default fallback greeting
-                        return "Farmer";
+                        return 'Farmer';
                       })()}
                       !
                     </h2>
@@ -1369,12 +1423,12 @@ export default function OnboardingPage() {
                     🦐 Your Personalized Biosecurity Starter Plan!
                   </h1>
                   <p className="mx-auto max-w-3xl text-base font-medium leading-7 text-gray-700 md:text-lg md:leading-8">
-                    Great job,{" "}
+                    Great job,{' '}
                     {formData.farmName
                       ? `Farmer ${
-                          formData.farmName.split(" ")[0] || formData.farmName
+                          formData.farmName.split(' ')[0] || formData.farmName
                         }`
-                      : "Mang/Aling Farmer"}
+                      : 'Mang/Aling Farmer'}
                     ! LikAI's AI has created your custom plan to help you grow
                     healthier shrimp and protect your profits. Here's your
                     farm's quick health report:
@@ -1384,11 +1438,11 @@ export default function OnboardingPage() {
                     <div className="h-1.5 w-1.5 animate-pulse rounded-full bg-blue-400"></div>
                     <div
                       className="h-2 w-2 animate-pulse rounded-full bg-blue-300"
-                      style={{ animationDelay: "0.2s" }}
+                      style={{ animationDelay: '0.2s' }}
                     ></div>
                     <div
                       className="h-1.5 w-1.5 animate-pulse rounded-full bg-blue-400"
-                      style={{ animationDelay: "0.4s" }}
+                      style={{ animationDelay: '0.4s' }}
                     ></div>
                   </div>
                 </div>
@@ -1422,72 +1476,72 @@ export default function OnboardingPage() {
 
                     const farmAreas = [
                       {
-                        name: "Pond & Water Care",
+                        name: 'Pond & Water Care',
                         score: scores.pondWaterCare,
-                        icon: "💧",
-                        description: "How well you prepare your ponds",
+                        icon: '💧',
+                        description: 'How well you prepare your ponds',
                       },
                       {
-                        name: "Farm Access Control",
+                        name: 'Farm Access Control',
                         score: scores.farmAccess,
-                        icon: "🚪",
-                        description: "Who can enter your farm",
+                        icon: '🚪',
+                        description: 'Who can enter your farm',
                       },
                       {
-                        name: "Healthy Stock Sourcing",
+                        name: 'Healthy Stock Sourcing',
                         score: scores.stockSourcing,
-                        icon: "🦐",
-                        description: "Where you get your baby shrimp",
+                        icon: '🦐',
+                        description: 'Where you get your baby shrimp',
                       },
                       {
-                        name: "Farm Setup Basics",
+                        name: 'Farm Setup Basics',
                         score: scores.farmSetup,
-                        icon: "🏗️",
-                        description: "Your farm design and species choice",
+                        icon: '🏗️',
+                        description: 'Your farm design and species choice',
                       },
                       {
-                        name: "Disease Readiness",
+                        name: 'Disease Readiness',
                         score: scores.diseaseReadiness,
-                        icon: "🛡️",
-                        description: "How ready you are for health problems",
+                        icon: '🛡️',
+                        description: 'How ready you are for health problems',
                       },
                     ];
 
                     const getStatusInfo = (score: number) => {
                       if (score > 80)
                         return {
-                          status: "Excellent",
-                          numericScore: "5/5",
-                          color: "bg-green-500",
-                          bgColor: "bg-green-50 border-green-300",
-                          textColor: "text-green-800",
-                          shadowColor: "shadow-green-100",
+                          status: 'Excellent',
+                          numericScore: '5/5',
+                          color: 'bg-green-500',
+                          bgColor: 'bg-green-50 border-green-300',
+                          textColor: 'text-green-800',
+                          shadowColor: 'shadow-green-100',
                         };
                       if (score > 60)
                         return {
-                          status: "Good",
-                          numericScore: "4/5",
-                          color: "bg-blue-500",
-                          bgColor: "bg-blue-50 border-blue-300",
-                          textColor: "text-blue-800",
-                          shadowColor: "shadow-blue-100",
+                          status: 'Good',
+                          numericScore: '4/5',
+                          color: 'bg-blue-500',
+                          bgColor: 'bg-blue-50 border-blue-300',
+                          textColor: 'text-blue-800',
+                          shadowColor: 'shadow-blue-100',
                         };
                       if (score > 40)
                         return {
-                          status: "Needs Work",
-                          numericScore: "3/5",
-                          color: "bg-yellow-500",
-                          bgColor: "bg-yellow-50 border-yellow-300",
-                          textColor: "text-yellow-800",
-                          shadowColor: "shadow-yellow-100",
+                          status: 'Needs Work',
+                          numericScore: '3/5',
+                          color: 'bg-yellow-500',
+                          bgColor: 'bg-yellow-50 border-yellow-300',
+                          textColor: 'text-yellow-800',
+                          shadowColor: 'shadow-yellow-100',
                         };
                       return {
-                        status: "Urgent Focus",
-                        numericScore: "2/5",
-                        color: "bg-red-500",
-                        bgColor: "bg-red-50 border-red-300",
-                        textColor: "text-red-800",
-                        shadowColor: "shadow-red-100",
+                        status: 'Urgent Focus',
+                        numericScore: '2/5',
+                        color: 'bg-red-500',
+                        bgColor: 'bg-red-50 border-red-300',
+                        textColor: 'text-red-800',
+                        shadowColor: 'shadow-red-100',
                       };
                     };
 
@@ -1525,7 +1579,7 @@ export default function OnboardingPage() {
                                 {area.score}% score
                               </p>
                             </div>
-                          </div>{" "}
+                          </div>{' '}
                           {/* Enhanced Visual Progress Bar */}
                           <div className="relative h-5 w-full overflow-hidden rounded-full bg-gray-200 shadow-inner">
                             <div
@@ -1555,67 +1609,67 @@ export default function OnboardingPage() {
 
                     if (scores.farmSetup >= 60)
                       strengths.push({
-                        name: "Farm Setup",
-                        icon: "⭐",
-                        detail: "Good species choice and design.",
+                        name: 'Farm Setup',
+                        icon: '⭐',
+                        detail: 'Good species choice and design.',
                       });
                     else
                       improvements.push({
-                        name: "Farm Setup",
-                        icon: "🔧",
-                        detail: "Better setup = healthier shrimp.",
+                        name: 'Farm Setup',
+                        icon: '🔧',
+                        detail: 'Better setup = healthier shrimp.',
                       });
 
                     if (scores.stockSourcing >= 60)
                       strengths.push({
-                        name: "Stock Sourcing",
-                        icon: "⭐",
-                        detail: "You pick quality baby shrimp.",
+                        name: 'Stock Sourcing',
+                        icon: '⭐',
+                        detail: 'You pick quality baby shrimp.',
                       });
                     else
                       improvements.push({
-                        name: "Stock Sourcing",
-                        icon: "🔧",
-                        detail: "Better babies = more harvest.",
+                        name: 'Stock Sourcing',
+                        icon: '🔧',
+                        detail: 'Better babies = more harvest.',
                       });
 
                     if (scores.pondWaterCare >= 60)
                       strengths.push({
-                        name: "Pond Care",
-                        icon: "⭐",
-                        detail: "Your pond prep protects shrimp.",
+                        name: 'Pond Care',
+                        icon: '⭐',
+                        detail: 'Your pond prep protects shrimp.',
                       });
                     else
                       improvements.push({
-                        name: "Pond Care",
-                        icon: "🔧",
-                        detail: "Clean ponds prevent diseases.",
+                        name: 'Pond Care',
+                        icon: '🔧',
+                        detail: 'Clean ponds prevent diseases.',
                       });
 
                     if (scores.farmAccess >= 60)
                       strengths.push({
-                        name: "Farm Security",
-                        icon: "⭐",
-                        detail: "You control farm access well.",
+                        name: 'Farm Security',
+                        icon: '⭐',
+                        detail: 'You control farm access well.',
                       });
                     else
                       improvements.push({
-                        name: "Farm Security",
-                        icon: "🔧",
-                        detail: "Control access = stop diseases.",
+                        name: 'Farm Security',
+                        icon: '🔧',
+                        detail: 'Control access = stop diseases.',
                       });
 
                     if (scores.diseaseReadiness >= 60)
                       strengths.push({
-                        name: "Disease Prep",
-                        icon: "⭐",
+                        name: 'Disease Prep',
+                        icon: '⭐',
                         detail: "You're ready for health issues.",
                       });
                     else
                       improvements.push({
-                        name: "Disease Prep",
-                        icon: "🔧",
-                        detail: "Being prepared saves crops.",
+                        name: 'Disease Prep',
+                        icon: '🔧',
+                        detail: 'Being prepared saves crops.',
                       });
 
                     return (
@@ -1704,100 +1758,100 @@ export default function OnboardingPage() {
 
                     if (scores.pondWaterCare < 60) {
                       actionItems.push({
-                        title: "Clean & Dry Your Ponds",
-                        priority: "Urgent Focus",
-                        priorityColor: "bg-red-500 text-white",
-                        why: "Prevents diseases, boosts growth.",
+                        title: 'Clean & Dry Your Ponds',
+                        priority: 'Urgent Focus',
+                        priorityColor: 'bg-red-500 text-white',
+                        why: 'Prevents diseases, boosts growth.',
                         what: [
-                          "Drain all water",
-                          "Remove mud/feed",
-                          "Sun-dry until cracks",
-                          "Check fresh smell",
+                          'Drain all water',
+                          'Remove mud/feed',
+                          'Sun-dry until cracks',
+                          'Check fresh smell',
                         ],
-                        tip: "💰 Use sunshine instead of chemicals. Simple and saves money!",
-                        visualTip: "📸 See How",
-                        icon: "☀️",
-                        timeframe: "1-2 weeks",
-                        cost: "Almost Free!",
+                        tip: '💰 Use sunshine instead of chemicals. Simple and saves money!',
+                        visualTip: '📸 See How',
+                        icon: '☀️',
+                        timeframe: '1-2 weeks',
+                        cost: 'Almost Free!',
                       });
                     }
 
                     if (scores.farmAccess < 60) {
                       actionItems.push({
-                        title: "Secure Your Farm Entrance",
-                        priority: "Needs Work",
-                        priorityColor: "bg-yellow-500 text-white",
-                        why: "Stops diseases from entering.",
+                        title: 'Secure Your Farm Entrance',
+                        priority: 'Needs Work',
+                        priorityColor: 'bg-yellow-500 text-white',
+                        why: 'Stops diseases from entering.',
                         what: [
-                          "Put up simple fence",
-                          "Make one entrance",
-                          "Set up lime footbath",
+                          'Put up simple fence',
+                          'Make one entrance',
+                          'Set up lime footbath',
                           "Add 'Private Farm' sign",
                         ],
-                        tip: "💰 Bamboo and fishing net work great. Old basin = perfect footbath!",
-                        visualTip: "� See How",
-                        icon: "🚪",
-                        timeframe: "1 week",
-                        cost: "Low Cost",
+                        tip: '💰 Bamboo and fishing net work great. Old basin = perfect footbath!',
+                        visualTip: '� See How',
+                        icon: '🚪',
+                        timeframe: '1 week',
+                        cost: 'Low Cost',
                       });
                     }
 
                     if (scores.stockSourcing < 60) {
                       actionItems.push({
-                        title: "Get Better Baby Shrimp",
-                        priority: "Important",
-                        priorityColor: "bg-blue-500 text-white",
-                        why: "Healthy babies = healthy adults.",
+                        title: 'Get Better Baby Shrimp',
+                        priority: 'Important',
+                        priorityColor: 'bg-blue-500 text-white',
+                        why: 'Healthy babies = healthy adults.',
                         what: [
-                          "Buy from BFAR hatchery",
-                          "Check active, same size",
-                          "Ask for health certificate",
-                          "Test small batch first",
+                          'Buy from BFAR hatchery',
+                          'Check active, same size',
+                          'Ask for health certificate',
+                          'Test small batch first',
                         ],
-                        tip: "💰 Good babies cost more but give 2x harvest. Worth it!",
-                        visualTip: "📸 See How",
-                        icon: "🦐",
-                        timeframe: "Next stocking",
-                        cost: "Worth It!",
+                        tip: '💰 Good babies cost more but give 2x harvest. Worth it!',
+                        visualTip: '📸 See How',
+                        icon: '🦐',
+                        timeframe: 'Next stocking',
+                        cost: 'Worth It!',
                       });
                     }
 
                     if (scores.diseaseReadiness < 60) {
                       actionItems.push({
-                        title: "Prepare for Health Problems",
-                        priority: "Good to Have",
-                        priorityColor: "bg-green-500 text-white",
-                        why: "Ready before problems hit.",
+                        title: 'Prepare for Health Problems',
+                        priority: 'Good to Have',
+                        priorityColor: 'bg-green-500 text-white',
+                        why: 'Ready before problems hit.',
                         what: [
-                          "Make emergency contact list",
-                          "Stock basic supplies",
-                          "Learn disease symptoms",
-                          "Find trusted aqua vet",
+                          'Make emergency contact list',
+                          'Stock basic supplies',
+                          'Learn disease symptoms',
+                          'Find trusted aqua vet',
                         ],
-                        tip: "Start with basics: water test kit, lime, salt, and emergency aeration. Knowledge is your best tool - learn the early warning signs.",
-                        icon: "🛡️",
-                        difficulty: "Medium",
-                        timeframe: "2-3 weeks",
-                        cost: "Medium Cost",
+                        tip: 'Start with basics: water test kit, lime, salt, and emergency aeration. Knowledge is your best tool - learn the early warning signs.',
+                        icon: '🛡️',
+                        difficulty: 'Medium',
+                        timeframe: '2-3 weeks',
+                        cost: 'Medium Cost',
                       });
                     }
 
                     if (actionItems.length === 0) {
                       actionItems.push({
-                        title: "Maintain Your Excellent Practices",
-                        priority: "Ongoing",
-                        why: "Your farm shows strong biosecurity practices across all areas - keep up the great work!",
+                        title: 'Maintain Your Excellent Practices',
+                        priority: 'Ongoing',
+                        why: 'Your farm shows strong biosecurity practices across all areas - keep up the great work!',
                         what: [
-                          "Continue current excellent practices",
-                          "Monitor for any changes in conditions",
-                          "Stay updated on best practices",
-                          "Consider sharing knowledge with other farmers",
+                          'Continue current excellent practices',
+                          'Monitor for any changes in conditions',
+                          'Stay updated on best practices',
+                          'Consider sharing knowledge with other farmers',
                         ],
                         tip: "You're doing great! Consider documenting your successful practices to help other farmers in your area.",
-                        icon: "⭐",
-                        difficulty: "Easy",
-                        timeframe: "Ongoing",
-                        cost: "No Cost",
+                        icon: '⭐',
+                        difficulty: 'Easy',
+                        timeframe: 'Ongoing',
+                        cost: 'No Cost',
                       });
                     }
 
@@ -1821,13 +1875,13 @@ export default function OnboardingPage() {
                                   <div className="flex flex-wrap items-center gap-1.5 text-xs">
                                     <span
                                       className={`rounded-full px-2 py-0.5 font-medium ${
-                                        item.priority === "Urgent Focus"
-                                          ? "bg-red-100 text-red-800"
-                                          : item.priority === "Needs Work"
-                                          ? "bg-yellow-100 text-yellow-800"
-                                          : item.priority === "Good"
-                                          ? "bg-blue-100 text-blue-800"
-                                          : "bg-green-100 text-green-800"
+                                        item.priority === 'Urgent Focus'
+                                          ? 'bg-red-100 text-red-800'
+                                          : item.priority === 'Needs Work'
+                                          ? 'bg-yellow-100 text-yellow-800'
+                                          : item.priority === 'Good'
+                                          ? 'bg-blue-100 text-blue-800'
+                                          : 'bg-green-100 text-green-800'
                                       }`}
                                     >
                                       {item.priority}
@@ -1940,11 +1994,11 @@ export default function OnboardingPage() {
                     <Button
                       onClick={() => {
                         handleNext();
-                        localStorage.removeItem("onboarding-form-data");
+                        localStorage.removeItem('onboarding-form-data');
                       }}
                       className="h-12 w-full transform rounded-lg bg-gradient-to-r from-[#FF7F50] to-[#E6723C] px-8 text-base font-bold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-[#E6723C] hover:to-[#D35400] hover:shadow-xl sm:w-auto md:h-14 md:px-10 md:text-lg"
                     >
-                      Download the Report{" "}
+                      Download the Report{' '}
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
                   </div>
@@ -1968,12 +2022,12 @@ export default function OnboardingPage() {
                   </h1>
 
                   <p className="mx-auto mb-10 max-w-2xl text-lg font-medium leading-7 text-gray-700">
-                    Great job,{" "}
+                    Great job,{' '}
                     {formData.farmName
                       ? `Farmer ${
-                          formData.farmName.split(" ")[0] || formData.farmName
+                          formData.farmName.split(' ')[0] || formData.farmName
                         }`
-                      : "Farmer"}
+                      : 'Farmer'}
                     ! By following these steps, you're already making your farm
                     much safer and more profitable. Now, take your next step
                     towards a thriving farm!
@@ -1999,7 +2053,7 @@ export default function OnboardingPage() {
                           className="h-12 w-full border-2 border-blue-500 text-base font-semibold text-blue-600 hover:border-blue-600 hover:bg-blue-50"
                           onClick={() => {
                             // This would trigger the PDF download
-                            console.log("Downloading PDF report...");
+                            console.log('Downloading PDF report...');
                           }}
                         >
                           <svg
@@ -2021,21 +2075,20 @@ export default function OnboardingPage() {
 
                       {/* Option 2: Continue Journey */}
                       <div className="rounded-2xl border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-yellow-50 p-6">
-                        <h3 className="mb-3 flex items-center justify-center text-xl font-bold text-gray-900">
-                          <span className="mr-2 text-xl">🚀</span>
-                          Continue Your Journey with LikAI
+                        <h3 className="mb-3 flex items-center justify-center text-xl font-bold text-gray-900 whitespace-pre-line">
+                          You're All Set!
                         </h3>
                         <p className="mb-4 text-sm leading-6 text-gray-600">
-                          Access your plan anytime, track progress, and unlock
-                          more powerful AI tools!
+                          Access your personalized plan, track your progress,
+                          and unlock more smart tools to help your farm thrive.
                         </p>
-                        <button
-                          onClick={() => navigate("/auth")}
+                        <Button
+                          onClick={() => navigate('/dashboard')}
                           className="h-14 w-full transform rounded-lg bg-gradient-to-r from-[#FF7F50] to-[#E6723C] text-lg font-bold text-white shadow-lg transition-all duration-200 hover:scale-105 hover:from-[#E6723C] hover:to-[#D35400] hover:shadow-xl"
                         >
-                          Get Free Access Now!{" "}
+                          Explore Your LikAI Dashboard{' '}
                           <ArrowRight className="ml-3 h-5 w-5" />
-                        </button>
+                        </Button>
                       </div>
                     </div>
 
