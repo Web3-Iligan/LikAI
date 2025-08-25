@@ -1,30 +1,17 @@
-# LikAI
+# LikAI: The Shrimp Farmer's Biosecurity Coach
 
-**LikAI** is a practical Aquaculture Intelligence platform designed for the realities of smallholder shrimp farming. It provides farmers with a simple, AI-powered coaching app that turns complex Good Aquaculture Practices (GAqP) into a manageable, daily action plan. The platform's core mission is to help farmers build resilient, disease-resistant operations and generate the auditable compliance reports needed to become trusted, high-value suppliers to processors and exporters.
+## LikAI Web Application Overview
 
-## Impact and Future potentials
+An AI-powered platform that translates the Philippine National Shrimp Industry Roadmap into simple, daily biosecurity action plans for shrimp farmers.
 
-**LikAI** has the potential to revolutionize shrimp farm management, de-risk the aquaculture supply chain, and establish a new standard for industry data intelligence. By making expert-level biosecurity simple and accessible, it can drive the widespread adoption of the sustainable and resilient farming practices called for in the National Shrimp Industry Roadmap. Future developments include launching the processor-facing analytics dashboard, expanding the platform to support other high-value species like crabs and fish, and offering data-driven insights to financial institutions and government agencies.
+- **Personalized Biosecurity & GAqP Action Plans:** AI-generated, visual, step-by-step plans tailored to your farm's unique profile for clear GAqP compliance.
+- **AI Coach & Knowledge Assistant:** Your 24/7 AI chatbot providing instant, expert, and contextual advice via text, voice, or photo input.
+- **Smart Investment Guidance:** AI-driven recommendations for cost-effective farm upgrades, showing clear ROI to boost your profitability.
+- **Practical Biosecurity Library:** A comprehensive, visual hub of GAqP-aligned guides and tutorials for continuous learning and problem-solving.
 
-<br>
-## Features
+- **Offline Support:** Access your personalized plans and critical guides anytime, anywhere, even without an internet connection.
+- **Mobile-Friendly UI:** An intuitive, visually clear interface designed for easy use on any smartphone, ensuring seamless navigation for all farmers.
 
-- **Personalized Farm Assessment:** 
-   - Step-by-step onboarding flow collects farm data and generates a custom biosecurity report.
-- **Actionable Recommendations:** 
-   - AI-powered suggestions for pond care, stock sourcing, farm access control, and disease readiness.
-- **Interactive How-To Guides:** 
-   - Visual and checklist-based guides for key farm tasks, with integrated AI chat support.
-- **Progress Tracking:** 
-   - Dashboard to monitor completion of biosecurity tasks and overall farm health.
-- **Compliance & Certification:** 
-   - Automated compliance reports for BFAR accreditation and export standards.
-- **Offline Access:** 
-   - Downloadable PDF reports for field reference.
-- **AI-Powered Assessment and Chatbot:** 
-   - Personalized biosecurity plans and 24/7 AI coaching. See [docs/ai-features.md](docs/ai-features.md) for details.
-
-<br>
 
 ## Getting Started
 
@@ -71,11 +58,9 @@
 
 5. **Open [http://localhost:3000](http://localhost:3000) in your browser.**
 
-<br>
+### Running on the Local DFX NETWORK
 
-## Running on the Local DFX NETWORK
-
-**To run the project in a local dfx network, you can use the command below**
+To run the project in a local dfx network, you can use the command below
 
 - To install all the dependencies, simply run the following:
 
@@ -84,7 +69,8 @@ bash setup/install.sh
 # or 
 zsh setup/install.sh # if you are using zsh
 ```
-- To run the project locally, simply run the following:
+
+To run the project locally, simply run the following:
 
 ```sh
 bash setup/deploy_local.sh
@@ -92,27 +78,7 @@ bash setup/deploy_local.sh
 zsh setup/deploy_local.sh # if you are using zsh
 ```
 
-<br>
-
-## Modules
-
-- **Farm Setup Basics:** Legal, environmental, and infrastructure requirements.
-- **Pond & Water Care:** Water quality management, pond preparation, aeration, and effluent handling.
-- **Healthy Stock Sourcing:** Accredited hatchery sourcing, quarantine, and stocking protocols.
-- **Farm Access Control:** Visitor management, disinfection stations, and equipment hygiene.
-- **Disease Readiness:** Health monitoring, emergency response, and veterinary compliance.
-
-See [docs/modules.md](docs/modules.md) and [docs/ai-features.md](docs/ai-features.md) for full module and AI details.
-
-<br>
-
-## Data Model
-
-The system uses a multi-entity data model for farm, assessment, planning, and reporting. See [docs/onboarding-erd.md](docs/onboarding-erd.md) for the ERD and entity descriptions.
-
-<br>
-
-## API Endpoints
+### API Endpoints
 
 - `/api/generate-assessment-plan` – Generates biosecurity tasks based on farm data.
 - `/api/generate-plan` – Creates detailed action plans for risk factors.
@@ -120,9 +86,7 @@ The system uses a multi-entity data model for farm, assessment, planning, and re
 - `/api/chat-how-to` – AI chat support for how-to guides.
 - `/api/submit` - Allows submission of onboarding form data to be sent towards the AI
 
-<br>
-
-## Contributing
+### Contributing
 
 1. Fork the repository.
 2. Create your feature branch (`git checkout -b feature/my-feature`).
@@ -130,6 +94,6 @@ The system uses a multi-entity data model for farm, assessment, planning, and re
 4. Push to the branch (`git push origin feature/my-feature`).
 5. Open a pull request.
 
-## License
+### License
 
 This project is licensed under the [MIT LICENSE](LICENSE).
