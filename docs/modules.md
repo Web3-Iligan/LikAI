@@ -1,4 +1,9 @@
-1. Farm Setup Basics  
+## LikAI GAqP Modules
+
+The following modules are used for our initial assessment in the onboarding process. These modules are based on the official BFAR GAqP.
+
+### 1. Farm Setup Basics  
+
 - Essential foundation for your aquaculture operation  
 - Secure proof of legal rights or ownership of the farm area (e.g., license to operate, LGU business permit).  
 - Obtain an Environmental Compliance Certificate (ECC) or Certificate of Non-Coverage (CNC) from the DENR-EMB.  
@@ -11,7 +16,8 @@
 - Ensure the design of culture facilities (ponds/tanks) meets the biological needs of the shrimp or crabs you plan to culture.  
 - Develop a risk assessment report identifying potential chemical, biological, and physical hazards from the surrounding environment.  
 
-2. Pond & Water Care  
+### 2. Pond & Water Care  
+
 - Optimal water quality and pond management  
 - Completely drain and dry ponds after each harvest until the soil cracks to eliminate unwanted species and pathogens.  
 - Perform pond bottom tilling or cultivation to enhance soil quality and release toxic gases.  
@@ -24,7 +30,8 @@
 - Use only permitted chemicals (e.g., piscicides, fertilizers) for farm preparation strictly according to the manufacturer's label or competent authority's advice.  
 - Maintain all dikes, gates, and pond liners to prevent leakages and ensure structural integrity.  
 
-3. Healthy Stock Sourcing  
+### 3. Healthy Stock Sourcing  
+
 - Quality fingerlings and stocking practices  
 - Source shrimp post-larvae (PLs) and crab crablets only from BFAR-accredited and registered hatcheries.  
 - Require and keep a copy of the Health Certificate for all batches of PLs or crablets to be stocked, confirming they are clinically healthy.  
@@ -37,7 +44,8 @@
 - Visually inspect stocks upon arrival for any signs of disease, weakness, or abnormalities before stocking.  
 - Do not stock shrimp or crabs that are visibly diseased or show signs of pathological changes.  
 
-4. Farm Access Control  
+### 4. Farm Access Control  
+
 - Biosecurity protocols and visitor management  
 - Install and maintain a secure perimeter fence around the entire farm to prevent the entry of stray animals and unauthorized persons.  
 - Establish a single, controlled entry and exit point for all personnel and vehicles.  
@@ -50,7 +58,8 @@
 - Install physical barriers like crab fences and bird scaring devices to prevent the entry of pathogen carriers.  
 - Maintain a logbook of all personnel and vehicle traffic entering and exiting the farm for traceability.  
 
-5. Disease Readiness  
+### 5. Disease Readiness  
+
 - Prevention, monitoring, and response protocols  
 - Develop and maintain a written Aquatic Animal Health Plan for your farm.  
 - Conduct regular health monitoring of your stock to recognize early signs of disease or abnormalities.  
