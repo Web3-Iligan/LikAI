@@ -1,5 +1,9 @@
 # LikAI: The Shrimp Farmer's Biosecurity Coach
 
+![LikAI Cover Photo](./public/likai-cover-page.png)
+
+We're using AI to help Filipino shrimp farmers build resilient farms and secure future harvests. Our mission is to strengthen the entire Philippine aquaculture industry, one healthy farm at a time.
+
 ## Overview
 
 An AI-powered platform that translates the Philippine National Shrimp Industry Roadmap into simple, daily biosecurity action plans for shrimp farmers.
