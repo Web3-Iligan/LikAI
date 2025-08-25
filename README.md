@@ -64,6 +64,14 @@ An AI-powered platform that generates the critical data and drives the farmer co
 
 ## Getting Started
 
+### Technology Stack
+
+- Frontend: React 19 + React Router v7 + Radix UI + Tailwind CSS
+- Blockchain: Internet Computer Protocol (ICP)
+- Smart Contracts: Motoko
+- Build Tool: Vite
+- Styling: Radix UI + Tailwind CSS
+
 ### Prerequisites
 
 - Node.js (v18+ recommended)
@@ -145,3 +153,10 @@ zsh setup/deploy_local.sh # if you are using zsh
 ### License
 
 This project is licensed under the [MIT LICENSE](LICENSE).
+
+### Acknowledgments
+
+- Internet Computer Protocol team
+- ICP Hub Philippines Mentors
+- DEVCON Philippines
+- Open source contributors
