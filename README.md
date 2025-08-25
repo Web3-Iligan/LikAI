@@ -24,6 +24,28 @@ An AI-powered platform that generates the critical data and drives the farmer co
 - **Timers**: Automated Farmer Reminders & Reports
 - **Asset Canister**: Verifiable On-Chain Certifications
 
+## How LikAI Works
+
+### Step 1: Processor-Led Onboarding
+
+- Processors invite their entire network of small farm suppliers, solving farmer acquisition and ensuring immediate scale.
+
+### Step 2: Personalized Plan Generation
+
+- Each invited farmer completes a simple assessment and instantly receives a personalized, AI-generated action plan for GAqP compliance.
+
+### Step 3: Guided Daily Management
+
+- Farmers follow their daily plans with 24/7 support from our AI Coach, ensuring consistent and correct implementation of biosecurity best practices.
+
+### Step 4: Automated Compliance Reporting
+
+- The platform tracks all farmer activity and generates automated compliance reports for processors, providing the auditable proof needed for export accreditation.
+
+### Step 5: Verifiable On-Chain Certification
+
+- Upon completion, a tamper-proof "Accreditation-Ready" certificate is issued as an on-chain NFT, guaranteeing trust and traceability in the supply chain.
+
 ## Project Progress
 
 ### Feature 1: Onboarding Processes for Shrimp Farmer
