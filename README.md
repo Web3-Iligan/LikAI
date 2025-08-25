@@ -6,15 +6,15 @@ We're using AI to help Filipino shrimp farmers build resilient farms and secure 
 
 ## Overview
 
-An AI-powered platform that translates the Philippine National Shrimp Industry Roadmap into simple, daily biosecurity action plans for shrimp farmers.
+An AI-powered platform that generates the critical data and drives the farmer compliance needed for processors to manage and de-risk their entire supply chain.
 
-- **Personalized Biosecurity & GAqP Action Plans:** AI-generated, visual, step-by-step plans tailored to your farm's unique profile for clear GAqP compliance.
-- **AI Coach & Knowledge Assistant:** Your 24/7 AI chatbot providing instant, expert, and contextual advice via text, voice, or photo input.
-- **Smart Investment Guidance:** AI-driven recommendations for cost-effective farm upgrades, showing clear ROI to boost your profitability.
-- **Practical Biosecurity Library:** A comprehensive, visual hub of GAqP-aligned guides and tutorials for continuous learning and problem-solving.
+- **Personalized Biosecurity & GAqP Action Plans:** This is the engine that standardizes best practices across your entire, fragmented supply chain, ensuring every farmer is working towards your quality and compliance goals.
 
-- **Offline Support:** Access your personalized plans and critical guides anytime, anywhere, even without an internet connection.
-- **Mobile-Friendly UI:** An intuitive, visually clear interface designed for easy use on any smartphone, ensuring seamless navigation for all farmers.
+- **AI Coach & Knowledge Assistant:** Our AI Coach reduces costly farmer errors and provides 24/7 oversight, which leads to higher survival rates and a more reliable supply of shrimp for your business.
+
+- **Smart Investment Guidance:** This feature removes the biggest barrier to compliance—cost. By guiding farmers to make affordable upgrades, we accelerate your network's journey to becoming 100% accreditation-ready.
+
+- **Practical Biosecurity Library:** We provide a robust, always-on support system for your suppliers, reducing the burden on your field technicians and ensuring consistent practices even in remote areas.
 
 ## Getting Started
 
