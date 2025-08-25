@@ -6,7 +6,8 @@
   "scripts": {
     "deploy": "bash setup/install.sh",
     "start": "npm run dev --workspaces --if-present",
-    "build": "npm run build --workspaces --if-present"
+    "build": "npm run build --workspaces --if-present",
+    "setup": "npm install --workspaces --if-present"
   },
   "repository": {
     "type": "git",
