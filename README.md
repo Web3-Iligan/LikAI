@@ -12,7 +12,6 @@ An AI-powered platform that translates the Philippine National Shrimp Industry R
 - **Offline Support:** Access your personalized plans and critical guides anytime, anywhere, even without an internet connection.
 - **Mobile-Friendly UI:** An intuitive, visually clear interface designed for easy use on any smartphone, ensuring seamless navigation for all farmers.
 
-
 ## Getting Started
 
 ### Prerequisites
@@ -38,7 +37,6 @@ An AI-powered platform that translates the Philippine National Shrimp Industry R
 
 4. **Run the development server:**
    - the project is configured to rely on the local dfx network to enable the icp internet identity authorization. Please head over to the Running on the Local DFX NETWORK section.
-
 
    ```sh
    # to be able to run the development server without errors, please use the commands below.
