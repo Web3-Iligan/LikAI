@@ -20,6 +20,6 @@
 - [LikAI Web Application Features](./features.md)
 - [ICP Features used](./icp-features.md)
 
-### Training Materials 
+### Training Materials
 
 - [Biosecurity Assessment Modules](./modules.md)
