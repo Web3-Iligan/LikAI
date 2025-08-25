@@ -18,11 +18,11 @@ An AI-powered platform that generates the critical data and drives the farmer co
 
 ## ICP Features used
 
-- Canisters: Decentralized App & Data Hosting
-- Internet Identity: Secure Farmer & Processor Login
-- HTTP Outcalls: External AI & Real-World Data Integration
-- Timers: Automated Farmer Reminders & Reports
-- Asset Canister: Verifiable On-Chain Certifications
+- **Canisters**: Decentralized App & Data Hosting
+- **Internet Identity**: Secure Farmer & Processor Login
+- **HTTP Outcalls**: External AI & Real-World Data Integration
+- **Timers**: Automated Farmer Reminders & Reports
+- **Asset Canister**: Verifiable On-Chain Certifications
 
 ## Getting Started
 
