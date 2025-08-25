@@ -1,6 +1,6 @@
 # LikAI: The Shrimp Farmer's Biosecurity Coach
 
-## LikAI Web Application Overview
+## Overview
 
 An AI-powered platform that translates the Philippine National Shrimp Industry Roadmap into simple, daily biosecurity action plans for shrimp farmers.
 
