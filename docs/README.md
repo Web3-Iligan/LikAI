@@ -7,6 +7,10 @@
 - [User Flow Diagram](./user-flow-diagram.md)
 - [LikAI Architecture Diagram](./high-level-architecture.md)
 
+### Schema Diagram
+
+- [Onboarding Schema](./erd/onboarding-erd.md)
+
 ### AI Model
 
 - [AI Features](./ai-features.md)
