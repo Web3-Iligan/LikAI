@@ -81,6 +81,17 @@ LikAI is a B2B platform that gives processors the tools to turn their small shri
 
 ## Getting Started
 
+## Project Structure
+
+```
+LikAI/
+├── docs/                    # Documentations
+├── frontend/                # React.js 19 with React Router v7 application
+├── backend/                 # Motoko smart contracts
+├── devcontainer/            # Scripts for running in a docker container
+├── public/                  # Images
+```
+
 ### Technology Stack
 
 - Frontend: React 19 + React Router v7 + Radix UI + Tailwind CSS
