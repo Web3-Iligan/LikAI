@@ -9,3 +9,5 @@ declarations/
 
 .env
 .env.*
+
+**/dist/

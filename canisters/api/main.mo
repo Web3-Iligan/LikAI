@@ -1,7 +1,6 @@
 import Text "mo:base/Text";
+import Storage "canister:storage";
 
-persistent actor {
-    public query func greet(name: Text): async Text {
-        return "Hello " # name # "!";
-    }
+shared ({ caller }) persistent actor class Api() {
+
 }

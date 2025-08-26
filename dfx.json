@@ -4,6 +4,13 @@
       "main": "canisters/api/main.mo",
       "type": "motoko"
     },
+    "storage": {
+      "main": "canisters/storage/main.mo",
+      "type": "motoko",
+      "dependencies": [
+        "api"
+      ]
+    },
     "frontend": {
       "dependencies": [
         "api"
@@ -21,7 +28,7 @@
   "defaults": {
     "build": {
       "args": "",
-      "packtool": ""
+      "packtool": "cat mops.sources"
     }
   },
   "output_env_file": ".env",
