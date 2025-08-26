@@ -1,4 +1,4 @@
-# LikAI: The Shrimp Farmer's Biosecurity Coach
+# LikAI: Predictable Supply from Compliant Farms
 
 ![LikAI Cover Photo](./public/likai-cover-page.png)
 
@@ -48,19 +48,50 @@ LikAI is a B2B platform that gives processors the tools to turn their small shri
 
 ### Feature 1: Onboarding Processes for Shrimp Farmer
 
+**Frontend**
+
 - ✅ The initial set of questions from the Good Aquaculture Practices (GAqP) handbook has been added.
 - ✅ Improved the user navigation to provide a more seamless and intuitive experience
 - ✅ Added a button that requires users to log in before generating AI reports. This will prevent the abuse of tokens. 
 - ✅ We have added more visual icons to provide a more intuitive and user-friendly experience for shrimp farmers.
 - ✅ Implemented ICP authentication, which now redirects users to the main dashboard upon a successful login.
 - ✅ The data handling process for saving initial assessment questions has been improved to ensure data integrity before they are submitted to the AI model.
+- ✅ Fixed visual bugs related to the buttons.
+
+**Backend**
+
+- ✅ Added Motoko database integration to the backend
+- ✅ Added
+
+**AI Model**
+
 - ❌ Still in the process of making LikAI AI model.
 
 ### Feature 2: Main Dashboard
 
+**Frontend**
+
 - ✅ We have added more visual icons to provide a more intuitive and user-friendly experience for shrimp farmers.
 
+### Feature 3: Dynamic GAqP Action Plan
+
+**Frontend**
+
+- ✅ We have added more visual icons to provide a more intuitive and user-friendly experience for shrimp farmers.
+- ✅ New modules and supporting resources have been added to enhance the overall credibility of the application.
+
 ## Getting Started
+
+## Project Structure
+
+```
+LikAI/
+├── docs/                    # Documentations
+├── frontend/                # React.js 19 with React Router v7 application
+├── backend/                 # Motoko smart contracts
+├── setup/                   # Scripts for running in a docker container
+├── public/                  # Images
+```
 
 ### Technology Stack
 
