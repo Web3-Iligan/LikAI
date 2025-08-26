@@ -90,7 +90,7 @@ LikAI/
 ├── docs/                    # Documentations
 ├── frontend/                # React.js 19 with React Router v7 application
 ├── backend/                 # Motoko smart contracts
-├── setup/                   # Scripts for running in a docker container
+├── setup/                   # Scripts for installing dependencies and local deployment
 ├── public/                  # Images
 ```
 
