@@ -61,7 +61,8 @@ LikAI is a B2B platform that gives processors the tools to turn their small shri
 **Backend**
 
 - ✅ Added Motoko database integration to the backend
-- ✅ Added
+- ✅ Added the KYC Canister.
+- ❌ The functionality of the whole motoko backend is still in progress.
 
 **AI Model**
 
