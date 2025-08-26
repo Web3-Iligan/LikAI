@@ -7,9 +7,22 @@
     "storage": {
       "main": "canisters/storage/main.mo",
       "type": "motoko",
-      "dependencies": [
-        "api"
-      ]
+      "dependencies": ["api"]
+    },
+    "kyc": {
+      "main": "canisters/kyc/main.mo",
+      "type": "motoko",
+      "dependencies": ["transaction"]
+    },
+    "transaction": {
+      "main": "canisters/transaction/main.mo",
+      "type": "motoko",
+      "dependencies": ["api", "storage"]
+    },
+    "ai": {
+      "main": "canisters/transaction/main.mo",
+      "type": "motoko",
+      "dependencies": ["api", "transactions", "storage"]
     },
     "frontend": {
       "dependencies": [
