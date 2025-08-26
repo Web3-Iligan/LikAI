@@ -35,6 +35,10 @@ source "$HOME/.local/share/dfx/env"
 echo "IC CDK (dfx) installed."
 dfx --version
 
+
+# install the motoko package manager
+npm i -g ic-mops
+
 # 5. Install npm packages
 echo "Installing npm packages..."
 npm run setup
