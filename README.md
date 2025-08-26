@@ -56,6 +56,7 @@ LikAI is a B2B platform that gives processors the tools to turn their small shri
 - ✅ We have added more visual icons to provide a more intuitive and user-friendly experience for shrimp farmers.
 - ✅ Implemented ICP authentication, which now redirects users to the main dashboard upon a successful login.
 - ✅ The data handling process for saving initial assessment questions has been improved to ensure data integrity before they are submitted to the AI model.
+- ✅ Fixed visual bugs related to the buttons.
 
 **Backend**
 
