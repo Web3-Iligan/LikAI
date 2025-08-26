@@ -1,28 +1,28 @@
 {
   "canisters": {
     "api": {
-      "main": "canisters/api/main.mo",
+      "main": "backend/api/main.mo",
       "type": "motoko"
     },
     "storage": {
-      "main": "canisters/storage/main.mo",
+      "main": "backend/storage/main.mo",
       "type": "motoko",
       "dependencies": ["api"]
     },
     "kyc": {
-      "main": "canisters/kyc/main.mo",
+      "main": "backend/kyc/main.mo",
       "type": "motoko",
-      "dependencies": ["transaction"]
+      "dependencies": ["transaction", "api"]
     },
     "transaction": {
-      "main": "canisters/transaction/main.mo",
+      "main": "backend/transaction/main.mo",
       "type": "motoko",
       "dependencies": ["api", "storage"]
     },
     "ai": {
-      "main": "canisters/transaction/main.mo",
+      "main": "backend/transaction/main.mo",
       "type": "motoko",
-      "dependencies": ["api", "transactions", "storage"]
+      "dependencies": ["api", "transaction", "storage"]
     },
     "frontend": {
       "dependencies": [
