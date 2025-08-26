@@ -1,5 +1,4 @@
 import _Text "mo:base/Text";
-import _Storage "canister:storage";
 
 shared ({ caller }) persistent actor class Api() {
     // Todo: 
