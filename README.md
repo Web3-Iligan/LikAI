@@ -117,27 +117,17 @@ LikAI/
    ```
 
 2. **Install dependencies:**
-   - Use the DevContainer to create a container with the preconfigured installation. There should be a prompt in the editor in which you can install a Dev Container and open the project in the Container
-   - Wait for the installation to finish.
+   - To install the dependencies, simply run the following command:
+   ```sh
+   npm run setup
+   ```
 
 3. **Configure environment variables:**
    - Copy `.env.example` to `.env.local` and set your API keys (e.g., `OPENAI_API_KEY`).
 
 4. **Run the development server:**
-   - the project is configured to rely on the local dfx network to enable the icp internet identity authorization. Please head over to the Running on the Local DFX NETWORK section.
-
    ```sh
-   # to be able to run the development server without errors, please use the commands below.
-
-   npm run dfx:start # to start a local replica of the dfx network
-   npm run dfx:deploy # to deploy the canisters on local
-   # or
-   yarn dfx:start
-   yarn dfx:deploy
-
-   # after the canisters are deployed, you can start the development server by using the commands below:
-   
-   npm run dev
+   npm run start
    # or
    yarn dev
    ```
