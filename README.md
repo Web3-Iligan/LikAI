@@ -162,6 +162,12 @@ zsh setup/deploy_local.sh # if you are using zsh
 - `/api/chat-how-to` – AI chat support for how-to guides.
 - `/api/submit` - Allows submission of onboarding form data to be sent towards the AI
 
+### Main Network
+- LikAI's current features can be accessed through the main network.
+- However, the backend remains out of function. The Main Network's data are static as of the moment.
+
+   **LikAI Main Network**:  https://s7zgf-2iaaa-aaaad-qhoyq-cai.icp0.io/
+
 ### Contributing
 
 1. Fork the repository.
