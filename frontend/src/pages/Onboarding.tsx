@@ -2039,7 +2039,8 @@ export default function OnboardingPage() {
                     {/* Primary Options */}
                     <div className="space-y-7">
                       {/* Option 1: Download Report */}
-                      <div className="rounded-2xl border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50 p-6">
+                      {/* WIP: PDF Report Generation */}
+                      {/* <div className="rounded-2xl border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50 p-6">
                         <h3 className="mb-3 flex items-center justify-center text-xl font-bold text-gray-900">
                           <span className="mr-2 text-xl">📄</span>
                           Download Your Personalized Report
@@ -2071,7 +2072,7 @@ export default function OnboardingPage() {
                           </svg>
                           Download My Report (PDF)
                         </Button>
-                      </div>
+                      </div> */}
 
                       {/* Option 2: Continue Journey */}
                       <div className="rounded-2xl border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-yellow-50 p-6">
