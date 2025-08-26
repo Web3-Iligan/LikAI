@@ -10,6 +10,10 @@ body {
   }
 }
 
+.bg-popover {
+  background-color: hsl(var(--popover));
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
