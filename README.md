@@ -73,6 +73,7 @@ LikAI is a B2B platform that gives processors the tools to turn their small shri
 **Frontend**
 
 - ✅ We have added more visual icons to provide a more intuitive and user-friendly experience for shrimp farmers.
+- ✅ added some UI bug fixes and enhancements.
 
 ### Feature 3: Dynamic GAqP Action Plan
 
@@ -80,6 +81,7 @@ LikAI is a B2B platform that gives processors the tools to turn their small shri
 
 - ✅ We have added more visual icons to provide a more intuitive and user-friendly experience for shrimp farmers.
 - ✅ New modules and supporting resources have been added to enhance the overall credibility of the application.
+- ✅ added GAqP modules UI enhancements.
 
 ## Getting Started
 
