@@ -4,3 +4,8 @@ node_modules/
 declarations/
 
 .vscode/
+.mops/
+.dfx/
+
+.env
+.env.*
