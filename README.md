@@ -1,4 +1,4 @@
-# LikAI: The Shrimp Farmer's Biosecurity Coach
+# LikAI: Predictable Supply from Compliant Farms
 
 ![LikAI Cover Photo](./public/likai-cover-page.png)
 
