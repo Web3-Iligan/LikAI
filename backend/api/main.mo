@@ -1,9 +1,7 @@
-import _Text "mo:base/Text";
+import Principal "mo:base/Principal";
 
-shared ({ caller }) persistent actor class Api() {
-    // Todo: 
-    // all of the verifications and middleware will be handled by the api canister, it will inter-call 
-    // functions on the other canister (storage, transaction, ai)
-    // For the farmer data, kyc will be implemented
-    
+shared (msg) persistent actor class Api() {
+    public func whoami(): async Principal {
+        return msg.caller;
+    }
 }

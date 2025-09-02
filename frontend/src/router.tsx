@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "./App";
+import App, { ProtectedOutlet } from "./App";
 
 // Import all your existing pages
 import Auth from "./pages/Auth";
@@ -23,6 +23,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
+      // Public routes
       {
         index: true,
         element: <Home />,
@@ -31,51 +32,59 @@ const router = createBrowserRouter([
         path: "/auth",
         element: <Auth />,
       },
+      // Onboarding route - accessible to both authenticated and anonymous users
       {
         path: "/onboarding",
         element: <Onboarding />,
       },
+      
+      // Protected routes - all routes below need authentication
       {
-        path: "/help",
-        element: <Help />,
-      },
-      {
-        path: "/settings",
-        element: <Settings />,
-      },
-      // Admin routes
-      {
-        path: "/dashboard",
-        element: <AdminDashboard />,
-      },
-      {
-        path: "/assessment",
-        element: <AdminAssessment />,
-      },
-      {
-        path: "/coach",
-        element: <AdminCoach />,
-      },
-      {
-        path: "/plan",
-        element: <AdminPlan />,
-      },
-      {
-        path: "/progress",
-        element: <AdminProgress />,
-      },
-      {
-        path: "/reports",
-        element: <AdminReports />,
-      },
-      {
-        path: "/resources",
-        element: <AdminResources />,
-      },
-      {
-        path: "/knowledge",
-        element: <AdminKnowledge />,
-      },
+        element: <ProtectedOutlet />,
+        children: [
+          {
+            path: "/help",
+            element: <Help />,
+          },
+          {
+            path: "/settings",
+            element: <Settings />,
+          },
+          // Admin routes
+          {
+            path: "/dashboard",
+            element: <AdminDashboard />,
+          },
+          {
+            path: "/assessment",
+            element: <AdminAssessment />,
+          },
+          {
+            path: "/coach",
+            element: <AdminCoach />,
+          },
+          {
+            path: "/plan",
+            element: <AdminPlan />,
+          },
+          {
+            path: "/progress",
+            element: <AdminProgress />,
+          },
+          {
+            path: "/reports",
+            element: <AdminReports />,
+          },
+          {
+            path: "/resources",
+            element: <AdminResources />,
+          },
+          {
+            path: "/knowledge",
+            element: <AdminKnowledge />,
+          },
+        ]
+      }
     ],
   },
 ]);
