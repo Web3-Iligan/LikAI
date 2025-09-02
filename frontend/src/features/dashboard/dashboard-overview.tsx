@@ -27,6 +27,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useApi } from "@/hooks/use-api";
 
 export function DashboardOverview() {
   // Dynamic farm profile data - this would come from your backend/API
