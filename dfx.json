@@ -23,7 +23,7 @@
         "frontend/dist"
       ],
       "build": [
-        "npm run build --workspaces --if-present"
+        "cp ./.env ./frontend/.env && npm run build --workspaces --if-present"
       ],
       "type": "assets",
       "workspace": "frontend"

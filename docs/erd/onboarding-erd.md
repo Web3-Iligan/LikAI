@@ -6,6 +6,7 @@ This ERD represents the data model for the farm onboarding and assessment system
 
 ```mermaid
 erDiagram
+
     FARMER {
         string farmer_id PK
         string name
