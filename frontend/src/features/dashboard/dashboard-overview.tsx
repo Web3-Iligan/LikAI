@@ -131,6 +131,22 @@ export function DashboardOverview() {
     },
   ]);
 
+  const { getWhoAmI, principal, loading, error } = useApi();
+  const [fetched, setFetched] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (!fetched) {
+      getWhoAmI();
+      setFetched(true);
+      console.log(principal);
+    }
+  }, [getWhoAmI, fetched])
+
+  const handleRefresh = () => {
+    getWhoAmI();
+  }
+  
+
   // Dynamic next actions with module context
   const [nextActions, setNextActions] = useState([
     {
@@ -308,7 +324,8 @@ export function DashboardOverview() {
         <div className="flex flex-col space-y-2 md:flex-row md:items-center md:justify-between md:space-y-0">
           <div className="space-y-1">
             <h1 className="text-3xl font-bold text-gray-900">
-              Your GAqP Certification Journey
+              Your principal: {principal}
+              <Button onClick={(e) => {handleRefresh()}}>refresh</Button>
             </h1>
             <p className="text-lg text-gray-600">
               Welcome back to {farmProfile.name}
