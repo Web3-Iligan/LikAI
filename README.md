@@ -1,30 +1,108 @@
-# LikAI: The Adaptive Biosecurity Coach
+# LikAI: Predictable Supply from Compliant Farms
 
-![LikAI Cover](frontend/public/cover-photo.png)
+![LikAI Cover Photo](./public/likai-cover-page.png)
 
-LikAI is an AI-driven biosecurity coach designed for small and medium-sized shrimp farmers. It transforms complex GAqP (Good Aquaculture Practices) into personalized, adaptive, and affordable action plans, empowering farmers to build resilient operations and secure profitable harvests.
+We're using AI to help Filipino shrimp farmers build resilient farms and secure future harvests. Our mission is to strengthen the entire Philippine aquaculture industry, one healthy farm at a time.
 
-<br>
-## Features
+## Overview
 
-- **Personalized Farm Assessment:** 
-   - Step-by-step onboarding flow collects farm data and generates a custom biosecurity report.
-- **Actionable Recommendations:** 
-   - AI-powered suggestions for pond care, stock sourcing, farm access control, and disease readiness.
-- **Interactive How-To Guides:** 
-   - Visual and checklist-based guides for key farm tasks, with integrated AI chat support.
-- **Progress Tracking:** 
-   - Dashboard to monitor completion of biosecurity tasks and overall farm health.
-- **Compliance & Certification:** 
-   - Automated compliance reports for BFAR accreditation and export standards.
-- **Offline Access:** 
-   - Downloadable PDF reports for field reference.
-- **AI-Powered Assessment and Chatbot:** 
-   - Personalized biosecurity plans and 24/7 AI coaching. See [docs/ai-features.md](docs/ai-features.md) for details.
+LikAI is a B2B platform that gives processors the tools to turn their small shrimp aquafarm suppliers into a compliant, resilient, and fully traceable network. We do this through three core components:
 
-<br>
+- **AI-Powered Farmer Coaching**: At the heart of our platform is an AI coach that delivers value directly to the shrimp aquafarmer. It provides personalized, daily action plans, 24/7 expert guidance, and smart investment advice to make achieving GAqP compliance simple and affordable.
+
+- **Supply Chain Monitoring for Processors**: We provide processors with real-time visibility into the biosecurity and compliance scores of their entire shrimp supplier network. This allows them to proactively manage risk and identify high-performing partners.
+
+- **Automated Reporting & On-Chain Certification**: The platform automatically generates the auditable compliance reports needed for export and BFAR accreditation. Upon completion, a verifiable **"Accreditation-Ready"** certificate can be issued as an on-chain NFT, guaranteeing a new level of trust and traceability.
+
+## ICP Features used
+
+- **Canisters**: Decentralized App & Data Hosting
+- **Internet Identity**: Secure Farmer & Processor Login
+- **HTTP Outcalls**: External AI & Real-World Data Integration
+- **Timers**: Automated Farmer Reminders & Reports
+- **Asset Canister**: Verifiable On-Chain Certifications
+
+## How LikAI Works
+
+### Step 1: Processor-Led Onboarding
+
+- Processors invite their entire network of small farm suppliers, solving farmer acquisition and ensuring immediate scale.
+
+### Step 2: Personalized Plan Generation
+
+- Each invited farmer completes a simple assessment and instantly receives a personalized, AI-generated action plan for GAqP compliance.
+
+### Step 3: Guided Daily Management
+
+- Farmers follow their daily plans with 24/7 support from our AI Coach, ensuring consistent and correct implementation of biosecurity best practices.
+
+### Step 4: Automated Compliance Reporting
+
+- The platform tracks all farmer activity and generates automated compliance reports for processors, providing the auditable proof needed for export accreditation.
+
+### Step 5: Verifiable On-Chain Certification
+
+- Upon completion, a tamper-proof "Accreditation-Ready" certificate is issued as an on-chain NFT, guaranteeing trust and traceability in the supply chain.
+
+## Project Progress
+
+### Feature 1: Onboarding Processes for Shrimp Farmer
+
+**Frontend**
+
+- ✅ The initial set of questions from the Good Aquaculture Practices (GAqP) handbook has been added.
+- ✅ Improved the user navigation to provide a more seamless and intuitive experience
+- ✅ Added a button that requires users to log in before generating AI reports. This will prevent the abuse of tokens. 
+- ✅ We have added more visual icons to provide a more intuitive and user-friendly experience for shrimp farmers.
+- ✅ Implemented ICP authentication, which now redirects users to the main dashboard upon a successful login.
+- ✅ The data handling process for saving initial assessment questions has been improved to ensure data integrity before they are submitted to the AI model.
+- ✅ Fixed visual bugs related to the buttons.
+
+**Backend**
+
+- ✅ Added Motoko database integration to the backend
+- ✅ Added the KYC Canister.
+- ❌ The functionality of the whole motoko backend is still in progress.
+
+**AI Model**
+
+- ❌ Still in the process of making LikAI AI model.
+
+### Feature 2: Main Dashboard
+
+**Frontend**
+
+- ✅ We have added more visual icons to provide a more intuitive and user-friendly experience for shrimp farmers.
+- ✅ added some UI bug fixes and enhancements.
+
+### Feature 3: Dynamic GAqP Action Plan
+
+**Frontend**
+
+- ✅ We have added more visual icons to provide a more intuitive and user-friendly experience for shrimp farmers.
+- ✅ New modules and supporting resources have been added to enhance the overall credibility of the application.
+- ✅ added GAqP modules UI enhancements.
 
 ## Getting Started
+
+## Project Structure
+
+```
+LikAI/
+├── docs/                    # Documentations
+├── frontend/                # React.js 19 with React Router v7 application
+├── backend/                 # Motoko smart contracts
+├── setup/                   # Scripts for installing dependencies and local deployment
+├── public/                  # Images
+```
+
+### Technology Stack
+
+- Frontend: React 19 + React Router v7 + Radix UI + Tailwind CSS
+- Blockchain: Internet Computer Protocol (ICP)
+- Smart Contracts: Motoko
+- Build Tool: Vite
+- Styling: Radix UI + Tailwind CSS
 
 ### Prerequisites
 
@@ -41,68 +119,44 @@ LikAI is an AI-driven biosecurity coach designed for small and medium-sized shri
    ```
 
 2. **Install dependencies:**
-   - Use the DevContainer to create a container with the preconfigured installation. There should be a prompt in the editor in which you can install a Dev Container and open the project in the Container
-   - Wait for the installation to finish.
+   - To install the dependencies, simply run the following command:
+   ```sh
+   npm run setup
+   ```
 
 3. **Configure environment variables:**
    - Copy `.env.example` to `.env.local` and set your API keys (e.g., `OPENAI_API_KEY`).
 
 4. **Run the development server:**
-   - the project is configured to rely on the local dfx network to enable the icp internet identity authorization. Please head over to the Running on the Local DFX NETWORK section.
-
-
    ```sh
-   # to be able to run the development server without errors, please use the commands below.
-
-   npm run dfx:start # to start a local replica of the dfx network
-   npm run dfx:deploy # to deploy the canisters on local
-   # or
-   yarn dfx:start
-   yarn dfx:deploy
-
-   # after the canisters are deployed, you can start the development server by using the commands below:
-   
-   npm run dev
+   npm run start
    # or
    yarn dev
    ```
 
 5. **Open [http://localhost:3000](http://localhost:3000) in your browser.**
 
-<br>
+### Running on the Local DFX NETWORK
 
-## Running on the Local DFX NETWORK
+To run the project in a local dfx network, you can use the command below
 
-**To run the project in a local dfx network, you can use the command below**
-
-- The project container is pre-configured to run the installation scripts, and the local links are not accessible if the codespaces are ran in the web.
-- To Start, create a codespace of this repository, and make sure you run it on the VS Code Desktop 
+- To install all the dependencies, simply run the following:
 
 ```sh
-npm run deploy:local
+bash setup/install.sh
+# or 
+zsh setup/install.sh # if you are using zsh
 ```
 
-<br>
+To run the project locally, simply run the following:
 
-## Modules
+```sh
+bash setup/deploy_local.sh
+# or 
+zsh setup/deploy_local.sh # if you are using zsh
+```
 
-- **Farm Setup Basics:** Legal, environmental, and infrastructure requirements.
-- **Pond & Water Care:** Water quality management, pond preparation, aeration, and effluent handling.
-- **Healthy Stock Sourcing:** Accredited hatchery sourcing, quarantine, and stocking protocols.
-- **Farm Access Control:** Visitor management, disinfection stations, and equipment hygiene.
-- **Disease Readiness:** Health monitoring, emergency response, and veterinary compliance.
-
-See [docs/modules.md](docs/modules.md) and [docs/ai-features.md](docs/ai-features.md) for full module and AI details.
-
-<br>
-
-## Data Model
-
-The system uses a multi-entity data model for farm, assessment, planning, and reporting. See [docs/onboarding-erd.md](docs/onboarding-erd.md) for the ERD and entity descriptions.
-
-<br>
-
-## API Endpoints
+### API Endpoints
 
 - `/api/generate-assessment-plan` – Generates biosecurity tasks based on farm data.
 - `/api/generate-plan` – Creates detailed action plans for risk factors.
@@ -110,9 +164,16 @@ The system uses a multi-entity data model for farm, assessment, planning, and re
 - `/api/chat-how-to` – AI chat support for how-to guides.
 - `/api/submit` - Allows submission of onboarding form data to be sent towards the AI
 
-<br>
+### Deployment
 
-## Contributing
+**Main Network**
+
+- ✅ LikAI's current features can be accessed through the main network.
+- ❌ However, the backend remains out of function. The Main Network's data are static as of the moment.
+
+**LikAI Main Network**:  https://s7zgf-2iaaa-aaaad-qhoyq-cai.icp0.io/
+
+### Contributing
 
 1. Fork the repository.
 2. Create your feature branch (`git checkout -b feature/my-feature`).
@@ -120,6 +181,13 @@ The system uses a multi-entity data model for farm, assessment, planning, and re
 4. Push to the branch (`git push origin feature/my-feature`).
 5. Open a pull request.
 
-## License
+### License
 
 This project is licensed under the [MIT LICENSE](LICENSE).
+
+### Acknowledgments
+
+- Internet Computer Protocol team
+- ICP Hub Philippines Mentors
+- DEVCON Philippines
+- Open source contributors

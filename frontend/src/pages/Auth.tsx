@@ -12,11 +12,14 @@
  */
 
 import { Button } from "@/components/ui/button";
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/hooks/use-auth";
+import React, { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function Auth() {
   const navigate = useNavigate();
+  const { login, isAuthenticated, isAuthReady } = useAuth();
+  const location = useLocation();
 
   // SEO and structured data for better search engine visibility
   const structuredData = {
@@ -34,11 +37,30 @@ export default function Auth() {
     },
   };
 
-  const handleLogin = () => {
+  const from = location.state?.from?.pathname || '/dashboard';
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(from);
+    }
+  }, [isAuthenticated, navigate, from])
+
+  const handleLogin = async () => {
     // Simple navigation to dashboard without authentication
-    console.log("Navigating to dashboard");
-    navigate("/dashboard");
+    try {
+      await login();
+    } catch (err) {
+      console.error('Login failed:', err);
+    }
   };
+
+  if (!isAuthReady) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      </div>
+    )
+  }
 
   return (
     <React.Fragment>

@@ -1,0 +1,3 @@
+--package base .mops/base@0.16.0/src
+--package core .mops/core@1.0.0/src
+--package map .mops/map@9.0.1/src

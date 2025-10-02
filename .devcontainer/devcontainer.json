@@ -4,15 +4,6 @@
 
   "features": {},
 
-  "postCreateCommand": "chmod +x .devcontainer/*.sh && bash .devcontainer/install.sh # please wait for a moment until the configuration and installation is finished.",
-  "postAttachCommand": "bash .devcontainer/postInstall.sh",
-  "portsAttributes": {
-    "4943": {
-      "label": "DFX Local Replica",
-      "onAutoForward": "notify"
-    }
-  },
-
   "customizations": {
     "vscode": {
       "settings": {

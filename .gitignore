@@ -1,4 +1,16 @@
-# Python
+.mops
+
+node_modules/
+declarations/
+
+.vscode/
+.mops/
+.dfx/
+
+.env
+.env.*
+
+**/dist/# Python
 __pycache__/
 *.py[cod]
 *$py.class

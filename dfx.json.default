@@ -1,0 +1,49 @@
+{
+  "canisters": {
+    "api": {
+      "main": "backend/api/main.mo",
+      "type": "motoko"
+    },
+    "storage": {
+      "main": "backend/storage/main.mo",
+      "type": "motoko",
+      "dependencies": ["api"]
+    },
+    "kyc": {
+      "main": "backend/kyc/main.mo",
+      "type": "motoko",
+      "dependencies": ["transaction", "api"]
+    },
+    "transaction": {
+      "main": "backend/transaction/main.mo",
+      "type": "motoko",
+      "dependencies": ["api", "storage"]
+    },
+    "ai": {
+      "main": "backend/transaction/main.mo",
+      "type": "motoko",
+      "dependencies": ["api", "transaction", "storage"]
+    },
+    "frontend": {
+      "dependencies": [
+        "api"
+      ],
+      "source": [
+        "frontend/dist"
+      ],
+      "build": [
+        "npm run build --workspaces --if-present"
+      ],
+      "type": "assets",
+      "workspace": "frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": "cat mops.sources"
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
