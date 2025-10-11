@@ -6,8 +6,11 @@ import React from "react";
 import { useAuth } from "./hooks/use-auth";
 
 console.log("Environment variables check:");
-console.log("DFX_NETWORK:", process.env.DFX_NETWORK);
-console.log("CANISTER_ID_INTERNET_IDENTITY:", process.env.CANISTER_ID_INTERNET_IDENTITY);
+console.log("DFX_NETWORK:", import.meta.env.DFX_NETWORK);
+console.log(
+  "CANISTER_ID_INTERNET_IDENTITY:",
+  import.meta.env.CANISTER_ID_INTERNET_IDENTITY
+);
 
 // Root layout component with shared UI
 function App() {
@@ -23,7 +26,7 @@ function App() {
   );
 }
 
-function ProtectedRoute({children}: { children: React.ReactNode }) {
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isAuthReady } = useAuth();
   const location = useLocation;
 
@@ -36,18 +39,18 @@ function ProtectedRoute({children}: { children: React.ReactNode }) {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to='/auth' state={{ from: location }}/>
+    return <Navigate to="/auth" state={{ from: location }} />;
   }
 
-  return <>{children}</>
-};
+  return <>{children}</>;
+}
 
 export function ProtectedOutlet() {
   return (
     <ProtectedRoute>
-      <Outlet/>
+      <Outlet />
     </ProtectedRoute>
-  )
+  );
 }
 
 export default App;
