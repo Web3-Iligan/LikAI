@@ -1,6 +1,6 @@
 # LikAI: Predictable Supply from Compliant Farms
 
-![LikAI Cover Photo](./public/likai-cover-page.png)
+![LikAI Cover Photo](./public/likai-cover.png)
 
 We're using AI to help Filipino shrimp farmers build resilient farms and secure future harvests. Our mission is to strengthen the entire Philippine aquaculture industry, one healthy farm at a time.
 
@@ -62,7 +62,7 @@ LikAI is a B2B platform that gives processors the tools to turn their small shri
 
 - ✅ Added Motoko database integration to the backend
 - ✅ Added the KYC Canister.
-- ❌ The functionality of the whole motoko backend is still in progress.
+- ✅ Added ICP Authentication.
 
 **AI Model**
 
@@ -127,28 +127,34 @@ LikAI/
 3. **Configure environment variables:**
    - Copy `.env.example` to `.env.local` and set your API keys (e.g., `OPENAI_API_KEY`).
 
-
-4. **Open [http://localhost:8000](http://localhost:8000) in your browser.**
-
-   To run the project in a local dfx network, you can use the command below
-
-   - To install all the dependencies, simply run the following:
-
-   ```sh
-   npm run dev:install
-
-   # running the development server
-   npm run dev:deploy
-   ```
-
-5. **Run the development server:**
+4. **Run the development server:**
    ```sh
    npm run start
    # or
    yarn dev
    ```
 
+5. **Open [http://localhost:3000](http://localhost:3000) in your browser.**
 
+### Running on the Local DFX NETWORK
+
+To run the project in a local dfx network, you can use the command below
+
+- To install all the dependencies, simply run the following:
+
+```sh
+bash setup/install.sh
+# or 
+zsh setup/install.sh # if you are using zsh
+```
+
+To run the project locally, simply run the following:
+
+```sh
+bash setup/deploy_local.sh
+# or 
+zsh setup/deploy_local.sh # if you are using zsh
+```
 
 ### API Endpoints
 
@@ -160,12 +166,7 @@ LikAI/
 
 ### Deployment
 
-**Main Network**
-
-- ✅ LikAI's current features can be accessed through the main network.
-- ❌ However, the backend remains out of function. The Main Network's data are static as of the moment.
-
-**LikAI Main Network**:  https://5btcw-oyaaa-aaaah-ark7a-cai.icp0.io/
+**LikAI Main Network**: https://5btcw-oyaaa-aaaah-ark7a-cai.icp0.io/
 
 ### Contributing
 
