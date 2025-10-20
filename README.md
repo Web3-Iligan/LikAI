@@ -127,34 +127,28 @@ LikAI/
 3. **Configure environment variables:**
    - Copy `.env.example` to `.env.local` and set your API keys (e.g., `OPENAI_API_KEY`).
 
-4. **Run the development server:**
+
+4. **Open [http://localhost:8000](http://localhost:8000) in your browser.**
+
+   To run the project in a local dfx network, you can use the command below
+
+   - To install all the dependencies, simply run the following:
+
+   ```sh
+   npm run dev:install
+
+   # running the development server
+   npm run dev:deploy
+   ```
+
+5. **Run the development server:**
    ```sh
    npm run start
    # or
    yarn dev
    ```
 
-5. **Open [http://localhost:3000](http://localhost:3000) in your browser.**
 
-### Running on the Local DFX NETWORK
-
-To run the project in a local dfx network, you can use the command below
-
-- To install all the dependencies, simply run the following:
-
-```sh
-bash setup/install.sh
-# or 
-zsh setup/install.sh # if you are using zsh
-```
-
-To run the project locally, simply run the following:
-
-```sh
-bash setup/deploy_local.sh
-# or 
-zsh setup/deploy_local.sh # if you are using zsh
-```
 
 ### API Endpoints
 
@@ -171,7 +165,7 @@ zsh setup/deploy_local.sh # if you are using zsh
 - ✅ LikAI's current features can be accessed through the main network.
 - ❌ However, the backend remains out of function. The Main Network's data are static as of the moment.
 
-**LikAI Main Network**:  https://s7zgf-2iaaa-aaaad-qhoyq-cai.icp0.io/
+**LikAI Main Network**:  https://5btcw-oyaaa-aaaah-ark7a-cai.icp0.io/
 
 ### Contributing
 
