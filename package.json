@@ -4,14 +4,15 @@
   "description": "![LikAI Cover](frontend/public/cover-photo.png)",
   "main": "index.js",
   "scripts": {
-    "deploy": "bash setup/install.sh",
+    "dev:install": "bash setup/install.sh",
+    "dev:deploy": "bash setup/deploy_local.sh",
     "start": "npm run dev --workspaces --if-present",
     "build": "npm run build --workspaces --if-present",
     "setup": "npm install --workspaces --if-present"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zxaylex/LikAI.git"
+    "url": "git+https://github.com/Web3-Iligan/LikAI.git"
   },
   "workspaces": [
     "frontend"
@@ -21,9 +22,9 @@
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/zxaylex/LikAI/issues"
+    "url": "https://github.com/Web3-Iligan/LikAI/issues"
   },
-  "homepage": "https://github.com/zxaylex/LikAI#readme",
+  "homepage": "https://github.com/Web3-Iligan/LikAI#readme",
   "devDependencies": {
     "ic-mops": "^1.11.1"
   }
