@@ -101,7 +101,7 @@ export default function OnboardingPage() {
       handleNext();
 
     } catch (err) {
-      console.error('Login failed cuz I was right...', err);
+      console.error('Login failed: ', err);
     }
   }
 
