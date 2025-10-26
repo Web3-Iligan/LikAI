@@ -1,13 +1,18 @@
 from typing import List, Dict, Any
 import os
 import re
-from langchain_community.vectorstores import Chroma
+
+try:
+    from langchain_chroma import Chroma
+except ImportError:
+    from langchain_community.vectorstores import Chroma
+
 from langchain.retrievers import ContextualCompressionRetriever
 from langchain.retrievers.document_compressors import LLMChainExtractor
 
 from .document_loader import process_pdfs
 from .embedding import get_embeddings_model
-from .schemas import AssessmentData, AIRecommendation
+from .schemas import AssessmentData, AIRecommendation, CategoryAssessment, FarmStatusAssessment
 from .ai_models import get_llm, create_assessment_prompt
 
 # Vector DB path
@@ -33,7 +38,6 @@ def initialize_or_load_vectordb():
             embedding=embeddings,
             persist_directory=VECTOR_DB_PATH
         )
-        vector_db.persist()
         
     return vector_db
 
@@ -62,7 +66,7 @@ def get_relevant_context(assessment_data: AssessmentData) -> str:
     
     return "\n\n".join(context_parts)
 
-def process_farm_assessment(assessment_data: AssessmentData) -> List[AIRecommendation]:
+def process_farm_assessment(assessment_data: AssessmentData) -> FarmStatusAssessment:
     """Process farm assessment using RAG pipeline"""
     # Get relevant context from vector DB
     context = get_relevant_context(assessment_data)
@@ -70,64 +74,133 @@ def process_farm_assessment(assessment_data: AssessmentData) -> List[AIRecommend
     # Create prompt with assessment data and context
     prompt = create_assessment_prompt(assessment_data, context)
     
-    # Get LLM from Hugging Face
+    # Get LLM from Groq
     llm = get_llm()
     
     # Generate completion with prompt
     response = llm.invoke(prompt)
     
-    # Parse response into structured recommendations
-    recommendations = parse_ai_response(response)
+    # Extract content from AIMessage object (ChatGroq returns AIMessage)
+    response_text = response.content if hasattr(response, 'content') else str(response)
     
-    return recommendations
+    # Parse response into structured assessment with scores
+    assessment = parse_ai_response(response_text)
+    
+    return assessment
 
-def parse_ai_response(response: str) -> List[AIRecommendation]:
-    """Parse the AI response into structured recommendations"""
-    # Start with a simple implementation - this can be enhanced later
-    # In production, you'd use more robust parsing
+def parse_ai_response(response: str) -> FarmStatusAssessment:
+    """Parse the AI response into structured assessment with scores"""
     
+    # Initialize defaults
+    overall_score = 50
+    overall_status = "Moderate Risk"
+    summary = "Assessment completed. Please review the recommendations below."
+    categories = {}
     recommendations = []
     
-    # Simple regex-based parsing
-    task_blocks = re.split(r'\d+\.\s+', response)
-    task_blocks = [block for block in task_blocks if block.strip()]
+    try:
+        # Extract overall assessment
+        overall_match = re.search(r'Overall Score:\s*(\d+)', response, re.IGNORECASE)
+        if overall_match:
+            overall_score = int(overall_match.group(1))
+        
+        status_match = re.search(r'Overall Status:\s*([^\n]+)', response, re.IGNORECASE)
+        if status_match:
+            overall_status = status_match.group(1).strip()
+        
+        summary_match = re.search(r'Summary:\s*([^\n]+(?:\n(?!===)[^\n]+)*)', response, re.IGNORECASE)
+        if summary_match:
+            summary = summary_match.group(1).strip()
+        
+        # Extract category assessments
+        category_names = ['BIOSECURITY', 'WATER MANAGEMENT', 'POND PREPARATION', 'STOCK QUALITY', 'HEALTH MONITORING']
+        
+        for category_name in category_names:
+            # Find the category block
+            category_pattern = rf'{category_name}:\s*\n\s*Score:\s*(\d+)\s*\n\s*Status:\s*([^\n]+)\s*\n\s*Issues:\s*([^\n]+)\s*\n\s*Strengths:\s*([^\n]+)'
+            category_match = re.search(category_pattern, response, re.IGNORECASE | re.DOTALL)
+            
+            if category_match:
+                score = int(category_match.group(1))
+                status = category_match.group(2).strip()
+                issues_str = category_match.group(3).strip()
+                strengths_str = category_match.group(4).strip()
+                
+                # Split by semicolons and clean up
+                issues = [i.strip() for i in issues_str.split(';') if i.strip()]
+                strengths = [s.strip() for s in strengths_str.split(';') if s.strip()]
+                
+                # Use a clean category key (lowercase with underscores)
+                category_key = category_name.lower().replace(' ', '_')
+                
+                categories[category_key] = CategoryAssessment(
+                    score=score,
+                    status=status,
+                    issues=issues if issues else ["No specific issues identified"],
+                    strengths=strengths if strengths else ["Practices under review"]
+                )
+        
+        # Extract recommendations
+        # Find the recommendations section
+        rec_section = re.search(r'===PRIORITY RECOMMENDATIONS===(.*)', response, re.IGNORECASE | re.DOTALL)
+        if rec_section:
+            rec_text = rec_section.group(1)
+            
+            # Split by numbered tasks
+            task_blocks = re.split(r'\n\s*\d+\.\s+', rec_text)
+            task_blocks = [block for block in task_blocks if block.strip()]
+            
+            for block in task_blocks:
+                try:
+                    title_match = re.search(r'^([^:]+):', block)
+                    title = title_match.group(1).strip() if title_match else 'Task'
+                    
+                    desc_match = re.search(r'Description:\s*([^P][^\n]*(?:\n(?!Priority:)[^\n]+)*)', block, re.IGNORECASE)
+                    description = desc_match.group(1).strip() if desc_match else block[:200].strip()
+                    
+                    priority_match = re.search(r'Priority:\s*(critical|high|medium|low)', block, re.IGNORECASE)
+                    priority = priority_match.group(1).lower() if priority_match else 'medium'
+                    
+                    category_match = re.search(r'Category:\s*([^\n]+)', block, re.IGNORECASE)
+                    category = category_match.group(1).strip() if category_match else 'General'
+                    
+                    cost_match = re.search(r'Estimated Cost:\s*([^\n]+)', block, re.IGNORECASE)
+                    estimated_cost = cost_match.group(1).strip() if cost_match else '₱0-1,000'
+                    
+                    timeframe_match = re.search(r'Timeframe:\s*([^\n]+)', block, re.IGNORECASE)
+                    timeframe = timeframe_match.group(1).strip() if timeframe_match else 'Within 7 days'
+                    
+                    reason_match = re.search(r'Adaptation Reason:\s*([^\n]+(?:\n(?!\d+\.)[^\n]+)*)', block, re.IGNORECASE)
+                    adaptation_reason = reason_match.group(1).strip() if reason_match else None
+                    
+                    recommendations.append(AIRecommendation(
+                        title=title,
+                        description=description,
+                        priority=priority,
+                        category=category,
+                        estimatedCost=estimated_cost,
+                        timeframe=timeframe,
+                        adaptationReason=adaptation_reason
+                    ))
+                except Exception as e:
+                    print(f"Error parsing recommendation: {e}")
+                    continue
     
-    for block in task_blocks:
-        try:
-            title_match = re.search(r'^([^:]+):', block)
-            title = title_match.group(1).strip() if title_match else 'Task'
-            
-            desc_match = re.search(r'Description:\s*([^Priority]+)', block, re.IGNORECASE)
-            description = desc_match.group(1).strip() if desc_match else block[:200].strip()
-            
-            priority_match = re.search(r'Priority:\s*(critical|high|medium|low)', block, re.IGNORECASE)
-            priority = priority_match.group(1).lower() if priority_match else 'medium'
-            
-            category_match = re.search(r'Category:\s*([^Estimated]+)', block, re.IGNORECASE)
-            category = category_match.group(1).strip() if category_match else 'General'
-            
-            cost_match = re.search(r'Estimated Cost:\s*([^Timeframe]+)', block, re.IGNORECASE)
-            estimated_cost = cost_match.group(1).strip() if cost_match else '₱0-1,000'
-            
-            timeframe_match = re.search(r'Timeframe:\s*([^Adaptation]+)', block, re.IGNORECASE)
-            timeframe = timeframe_match.group(1).strip() if timeframe_match else 'Within 7 days'
-            
-            reason_match = re.search(r'Adaptation Reason:\s*(.+)', block, re.IGNORECASE)
-            adaptation_reason = reason_match.group(1).strip() if reason_match else None
-            
-            recommendations.append(AIRecommendation(
-                title=title,
-                description=description,
-                priority=priority,
-                category=category,
-                estimatedCost=estimated_cost,
-                timeframe=timeframe,
-                adaptationReason=adaptation_reason
-            ))
-        except Exception as e:
-            print(f"Error parsing task block: {e}")
+    except Exception as e:
+        print(f"Error parsing AI response: {e}")
     
-    # If parsing failed completely, return a fallback recommendation
+    # If no categories were parsed, create defaults
+    if not categories:
+        default_categories = ['biosecurity', 'water_management', 'pond_preparation', 'stock_quality', 'health_monitoring']
+        for cat in default_categories:
+            categories[cat] = CategoryAssessment(
+                score=50,
+                status="Needs Assessment",
+                issues=["Data collection in progress"],
+                strengths=["Assessment pending"]
+            )
+    
+    # If no recommendations were parsed, create a fallback
     if not recommendations:
         recommendations = [AIRecommendation(
             title="Implement Basic Biosecurity Measures",
@@ -135,7 +208,14 @@ def parse_ai_response(response: str) -> List[AIRecommendation]:
             priority="high",
             category="Biosecurity",
             estimatedCost="₱1,000-3,000",
-            timeframe="Within 7 days"
+            timeframe="Within 7 days",
+            adaptationReason="Essential foundation for farm health"
         )]
     
-    return recommendations
+    return FarmStatusAssessment(
+        overallScore=overall_score,
+        overallStatus=overall_status,
+        summary=summary,
+        categories=categories,
+        recommendations=recommendations
+    )

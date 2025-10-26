@@ -194,17 +194,29 @@ def check_rag_pipeline():
         print("[TEST] Processing test farm assessment...")
         print(f"[INPUT] Farm: {test_assessment.farmName} | Location: {test_assessment.location}")
         
-        recommendations = process_farm_assessment(test_assessment)
+        assessment = process_farm_assessment(test_assessment)
         
-        if not recommendations:
-            print("[ERROR] No recommendations generated")
+        if not assessment:
+            print("[ERROR] No assessment generated")
             return False
         
-        print(f"[OK] Generated {len(recommendations)} recommendations")
+        # Display overall assessment scores
+        print(f"\n[OK] Farm Assessment Completed:")
+        print(f"  Overall Score: {assessment.overallScore}/100")
+        print(f"  Overall Status: {assessment.overallStatus}")
+        print(f"  Summary: {assessment.summary[:100]}...")
+        
+        # Display category scores
+        print(f"\n[CATEGORIES] Assessed {len(assessment.categories)} areas:")
+        for category_name, category_data in assessment.categories.items():
+            print(f"  - {category_name.replace('_', ' ').title()}: {category_data.score}/100 ({category_data.status})")
+        
+        # Display recommendations
+        print(f"\n[RECOMMENDATIONS] Generated {len(assessment.recommendations)} tasks")
         
         # Show first recommendation as sample
-        if recommendations:
-            rec = recommendations[0]
+        if assessment.recommendations:
+            rec = assessment.recommendations[0]
             print(f"\n[SAMPLE] First Recommendation:")
             print(f"  Title: {rec.title[:80]}...")  # Truncate long titles
             print(f"  Priority: {rec.priority}")
@@ -214,7 +226,7 @@ def check_rag_pipeline():
             print(f"  Cost: {cost_display}")
             print(f"  Timeframe: {rec.timeframe}")
         
-        print("\n[OK] RAG pipeline is fully operational")
+        print("\n[OK] RAG pipeline is fully operational with status assessments")
         return True
         
     except Exception as e:

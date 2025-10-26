@@ -1,30 +1,32 @@
 import os
 from typing import Dict, Any, List
 from dotenv import load_dotenv
-from langchain_community.llms import HuggingFaceEndpoint
+from langchain_groq import ChatGroq
 
 from .schemas import AssessmentData
 
 load_dotenv()
 
-# Get API token
-HF_API_TOKEN = os.getenv("HUGGING_FACE_API_KEY")
+# Get Groq API token
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 def get_llm():
-    """Get the language model from Hugging Face"""
-    return HuggingFaceEndpoint(
-        endpoint_url="https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.2",
-        huggingfacehub_api_token=HF_API_TOKEN,
-        max_length=2048,
+    """Get the language model from Groq API"""
+    if not GROQ_API_KEY:
+        raise ValueError("GROQ_API_KEY not found in .env file. Get one at https://console.groq.com/keys")
+    
+    return ChatGroq(
+        model="llama-3.1-8b-instant",
+        groq_api_key=GROQ_API_KEY,
         temperature=0.7,
-        top_p=0.95,
+        max_tokens=2048,
     )
 
 def create_assessment_prompt(assessment: AssessmentData, context: str) -> str:
     """Create a prompt for the assessment"""
     prompt_template = """<s>[INST] You are an expert aquaculture consultant specializing in biosecurity for shrimp farming.
-    
-Based on the following farm profile and current biosecurity practices, generate a dynamic, prioritized biosecurity action plan.
+
+Analyze this shrimp farm and provide a comprehensive status assessment with percentage scores and actionable recommendations.
 
 Farm Profile:
 Farm Name: {farm_name}
@@ -44,24 +46,58 @@ Top Concerns: {top_concerns}
 RELEVANT CONTEXT FROM KNOWLEDGE BASE:
 {context}
 
-Generate a list of 5-8 actionable biosecurity tasks. For each task, provide:
-1. A concise title
-2. Description: A detailed explanation of the task
-3. Priority: critical, high, medium, or low
-4. Category: The area this task belongs to (e.g., Infrastructure, Access Control, Water Management)
-5. Estimated Cost: Cost range in Philippine Pesos (e.g., '₱500-1,000', '₱0 (existing equipment)')
-6. Timeframe: When this should be implemented (e.g., 'Today', 'Next 7 days', 'Daily')
-7. Adaptation Reason: Why this task is specifically relevant for this farm
+Provide your assessment in this EXACT format:
 
-Format each task as follows:
+===OVERALL ASSESSMENT===
+Overall Score: [0-100]
+Overall Status: [Excellent/Good/Moderate Risk/High Risk/Critical]
+Summary: [2-3 sentence comprehensive overview of the farm's current state and main challenges]
+
+===CATEGORY ASSESSMENTS===
+
+BIOSECURITY:
+Score: [0-100]
+Status: [Excellent/Good/Needs Improvement/Poor/Critical]
+Issues: [List 2-3 specific biosecurity gaps or weaknesses, separated by semicolons]
+Strengths: [List 1-2 biosecurity practices they're doing well, separated by semicolons]
+
+WATER MANAGEMENT:
+Score: [0-100]
+Status: [Excellent/Good/Needs Improvement/Poor/Critical]
+Issues: [List 2-3 specific water management concerns, separated by semicolons]
+Strengths: [List 1-2 water management practices they're doing well, separated by semicolons]
+
+POND PREPARATION:
+Score: [0-100]
+Status: [Excellent/Good/Needs Improvement/Poor/Critical]
+Issues: [List 2-3 specific pond preparation issues, separated by semicolons]
+Strengths: [List 1-2 pond preparation practices they're doing well, separated by semicolons]
+
+STOCK QUALITY:
+Score: [0-100]
+Status: [Excellent/Good/Needs Improvement/Poor/Critical]
+Issues: [List 2-3 specific stock sourcing/handling concerns, separated by semicolons]
+Strengths: [List 1-2 stock quality practices they're doing well, separated by semicolons]
+
+HEALTH MONITORING:
+Score: [0-100]
+Status: [Excellent/Good/Needs Improvement/Poor/Critical]
+Issues: [List 2-3 specific health monitoring gaps, separated by semicolons]
+Strengths: [List 1-2 health monitoring practices they're doing well, separated by semicolons]
+
+===PRIORITY RECOMMENDATIONS===
+
+Generate 5-8 actionable biosecurity tasks. For each task, provide:
 
 1. [TASK TITLE]:
-Description: [DETAILED DESCRIPTION]
-Priority: [PRIORITY LEVEL]
-Category: [CATEGORY]
-Estimated Cost: [COST ESTIMATE]
-Timeframe: [TIMEFRAME]
-Adaptation Reason: [SPECIFIC REASON FOR THIS FARM]
+Description: [DETAILED EXPLANATION]
+Priority: [critical/high/medium/low]
+Category: [Biosecurity/Water Management/Pond Preparation/Stock Quality/Health Monitoring/Infrastructure]
+Estimated Cost: [Cost range in Philippine Pesos, e.g., '₱500-1,000', '₱0 (existing equipment)']
+Timeframe: [When to implement, e.g., 'Today', 'Next 7 days', 'Within 30 days']
+Adaptation Reason: [Why this is specifically important for THIS farm based on their scores and practices]
+
+[Continue for all 5-8 recommendations]
 
 [/INST]
 """

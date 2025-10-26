@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 class AssessmentData(BaseModel):
     farmName: str
@@ -41,3 +41,16 @@ class AIRecommendation(BaseModel):
     estimatedCost: str
     timeframe: str
     adaptationReason: Optional[str] = None
+
+class CategoryAssessment(BaseModel):
+    score: int  # 0-100
+    status: str  # Excellent/Good/Needs Improvement/Poor/Critical
+    issues: List[str]
+    strengths: List[str]
+
+class FarmStatusAssessment(BaseModel):
+    overallScore: int  # 0-100
+    overallStatus: str  # Excellent/Good/Moderate Risk/High Risk/Critical
+    summary: str
+    categories: Dict[str, CategoryAssessment]
+    recommendations: List[AIRecommendation]
