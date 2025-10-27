@@ -1,22 +1,22 @@
-import { MessageCircle } from "lucide-react";
+import { AlertCircle, MessageCircle, Send, Sparkles } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-
 import { Input } from "@/components/ui/input";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface ChatMessage {
   id: string;
   type: "user" | "bot";
   content: string;
   timestamp: Date;
-  category?: "how-to" | "troubleshooting" | "cost-benefit" | "general";
+  isError?: boolean;
 }
 
 interface QuickAction {
   label: string;
-  category: "how-to" | "troubleshooting" | "cost-benefit";
+  question: string;
 }
 
 export function InteractiveChatbot() {
@@ -25,53 +25,97 @@ export function InteractiveChatbot() {
       id: "1",
       type: "bot",
       content:
-        "Hello! I'm your LikAI Coach. 🦐 I can help you with step-by-step guidance, troubleshooting, and cost-benefit analysis for your GAqP biosecurity plan. What would you like to know?",
+        "Hello! I'm your LikAI Coach, powered by AI and trained on GAqP (Good Aquaculture Practices) manuals. 🦐\n\nI can help you with:\n• Water quality management\n• Feeding schedules and practices\n• Disease prevention protocols\n• Pond preparation techniques\n• Biosecurity best practices\n• GAqP certification guidance\n\nWhat would you like to know about your shrimp farm?",
       timestamp: new Date(),
-      category: "general",
     },
   ]);
 
   const [inputMessage, setInputMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
-  const [currentAlert, setCurrentAlert] = useState<string | null>(
-    "🚨 pH Alert: Pond 3 trending high (8.2)"
-  );
+  const [questionCount, setQuestionCount] = useState(0);
+  const [rateLimitWarning, setRateLimitWarning] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const sessionId = useRef<string>(Date.now().toString());
 
-  // Quick action suggestions with enhanced mobile-friendly design
+  // Rate limiting settings
+  const MAX_QUESTIONS_PER_SESSION = 20;
+  const MAX_QUESTIONS_PER_MINUTE = 3;
+  const [recentQuestions, setRecentQuestions] = useState<number[]>([]);
+
+  // Quick action suggestions - farm-related only
   const quickActions: QuickAction[] = [
-    { label: "💧 Water quality tips", category: "troubleshooting" },
-    { label: "🍽️ Feeding schedule", category: "how-to" },
-    { label: "🛡️ Disease prevention", category: "troubleshooting" },
-    { label: "💰 Cost analysis", category: "cost-benefit" },
-    { label: "🚨 Emergency help", category: "troubleshooting" },
-    { label: "📋 Best practices", category: "how-to" },
+    {
+      label: "💧 Water Quality Tips",
+      question:
+        "What are the optimal water quality parameters for shrimp farming?",
+    },
+    {
+      label: "🍽️ Feeding Best Practices",
+      question: "What is the recommended feeding schedule for shrimp?",
+    },
+    {
+      label: "🛡️ Disease Prevention",
+      question: "How can I prevent disease outbreaks in my shrimp farm?",
+    },
+    {
+      label: "🏗️ Pond Preparation",
+      question:
+        "What are the steps for proper pond preparation before stocking?",
+    },
+    {
+      label: "📋 GAqP Certification",
+      question: "What are the requirements for GAqP certification?",
+    },
+    {
+      label: "🦐 Stock Management",
+      question: "What is the recommended stocking density for shrimp?",
+    },
   ];
-
-  // Simulate real-time alerts
-  useEffect(() => {
-    const alerts = [
-      "🚨 pH Alert: Pond 3 trending high (8.2)",
-      "⚠️ Temperature variance detected in Pond 2",
-      "🌡️ Optimal feeding window approaching",
-      null, // No alert
-    ];
-
-    const interval = setInterval(() => {
-      const randomAlert = alerts[Math.floor(Math.random() * alerts.length)];
-      setCurrentAlert(randomAlert);
-    }, 45000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   // Scroll to bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // Check rate limiting
+  const checkRateLimit = (): { allowed: boolean; message?: string } => {
+    // Check session limit
+    if (questionCount >= MAX_QUESTIONS_PER_SESSION) {
+      return {
+        allowed: false,
+        message: `You've reached the limit of ${MAX_QUESTIONS_PER_SESSION} questions per session. Please refresh the page to start a new session or contact support for extended access.`,
+      };
+    }
+
+    // Check per-minute limit
+    const now = Date.now();
+    const oneMinuteAgo = now - 60000;
+    const recentQuestionCount = recentQuestions.filter(
+      (time) => time > oneMinuteAgo
+    ).length;
+
+    if (recentQuestionCount >= MAX_QUESTIONS_PER_MINUTE) {
+      return {
+        allowed: false,
+        message: `Please wait a moment. You can ask up to ${MAX_QUESTIONS_PER_MINUTE} questions per minute to ensure fair usage for all farmers.`,
+      };
+    }
+
+    return { allowed: true };
+  };
+
   const handleSendMessage = async () => {
     if (!inputMessage.trim()) return;
+
+    // Check rate limit
+    const rateLimitCheck = checkRateLimit();
+    if (!rateLimitCheck.allowed) {
+      setRateLimitWarning(rateLimitCheck.message || "Rate limit exceeded");
+      return;
+    }
+
+    // Clear any previous warnings
+    setRateLimitWarning(null);
 
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
@@ -84,263 +128,65 @@ export function InteractiveChatbot() {
     setInputMessage("");
     setIsTyping(true);
 
-    // Simulate bot response delay
-    setTimeout(() => {
-      const botResponse = generateBotResponse(inputMessage);
+    // Update rate limiting counters
+    setQuestionCount((prev) => prev + 1);
+    setRecentQuestions((prev) => [...prev, Date.now()]);
+
+    try {
+      // Call backend AI API
+      const AI_API_URL =
+        (window as any).ENV?.AI_API_URL || "http://localhost:8000";
+
+      const response = await fetch(`${AI_API_URL}/query`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          question: inputMessage,
+          session_id: sessionId.current,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      const botResponse: ChatMessage = {
+        id: Date.now().toString(),
+        type: "bot",
+        content: data.answer,
+        timestamp: new Date(),
+      };
+
       setMessages((prev) => [...prev, botResponse]);
+    } catch (error) {
+      console.error("Error querying AI:", error);
+
+      const errorMessage: ChatMessage = {
+        id: Date.now().toString(),
+        type: "bot",
+        content:
+          "I'm sorry, I'm having trouble connecting to my knowledge base right now. Please try again in a moment. If the problem persists, please contact support.",
+        timestamp: new Date(),
+        isError: true,
+      };
+
+      setMessages((prev) => [...prev, errorMessage]);
+    } finally {
       setIsTyping(false);
-    }, 1500);
-  };
-
-  const generateBotResponse = (userMessage: string): ChatMessage => {
-    const lowerMessage = userMessage.toLowerCase();
-    let response = "";
-    let category: ChatMessage["category"] = "general";
-
-    if (
-      lowerMessage.includes("water quality") ||
-      lowerMessage.includes("murky") ||
-      lowerMessage.includes("💧")
-    ) {
-      category = "troubleshooting";
-      response = `**🚨 Troubleshooting Water Quality Issues:**
-
-**Immediate Actions:**
-1. Test dissolved oxygen levels (should be >5mg/L)
-2. Check pH levels (optimal 7.5-8.5)  
-3. Reduce feeding by 50% for 24-48 hours
-4. Increase aeration immediately
-
-**Common Causes & Solutions:**
-🌱 **Algae bloom:** Reduce feeding, add beneficial bacteria
-🌊 **Suspended particles:** Install simple sand filter
-🍽️ **Overfeeding:** Adjust feeding schedule
-💨 **Poor circulation:** Check aerators/pumps
-
-**When to be concerned:**
-• Shrimp show stress signs (erratic swimming)
-• Dissolved oxygen drops below 4ppm
-• Ammonia levels rise above 0.5ppm
-
-I'll monitor and alert you of changes.`;
-    } else if (
-      lowerMessage.includes("feeding") ||
-      lowerMessage.includes("schedule") ||
-      lowerMessage.includes("🍽️")
-    ) {
-      category = "how-to";
-      response = `**🍽️ Optimal Feeding Schedule:**
-
-**Daily Feeding Times:**
-• **Morning feed (6-7 AM):** 40% of daily ration
-• **Afternoon feed (2-3 PM):** 35% of daily ration
-• **Evening feed (6-7 PM):** 25% of daily ration
-
-**Feed Amount Guidelines:**
-• Week 1-4: 3-5% of estimated biomass
-• Week 5-8: 2-4% of estimated biomass
-• Week 9-12: 1.5-3% of estimated biomass
-
-**Quality Control:**
-• Check feed expiry dates weekly
-• Store in cool, dry place (<25°C)
-• Use sealed containers to prevent contamination
-• First in, first out rotation
-
-**Monitoring Tips:**
-• Check feeding response within 30 minutes
-• Remove uneaten feed after 2 hours
-• Adjust portions based on consumption`;
-    } else if (
-      lowerMessage.includes("disease") ||
-      lowerMessage.includes("prevention") ||
-      lowerMessage.includes("🛡️")
-    ) {
-      category = "how-to";
-      response = `**🛡️ Disease Prevention Protocols:**
-
-**Daily Prevention Measures:**
-• Maintain water quality parameters
-• Regular pond cleaning and disinfection
-• Proper feed storage and handling
-• Monitor shrimp behavior daily
-
-**Biosecurity Essentials:**
-• Footbath disinfection at entry points
-• Visitor registration and screening
-• Equipment cleaning between ponds
-• Staff hygiene protocols
-
-**Early Warning Signs:**
-• Reduced feeding activity
-• Abnormal swimming patterns
-• Color changes in shrimp
-• Mortality increases
-
-**Emergency Response:**
-• Isolate affected areas immediately
-• Contact aquaculture veterinarian
-• Document all observations
-• Implement treatment protocols
-
-Regular monitoring prevents 80% of disease outbreaks.`;
-    } else if (
-      lowerMessage.includes("cost") ||
-      lowerMessage.includes("analysis") ||
-      lowerMessage.includes("💰") ||
-      lowerMessage.includes("investment")
-    ) {
-      category = "cost-benefit";
-      response = `**💰 Cost-Benefit Analysis for Aquaculture:**
-
-**Common Investment Areas:**
-• **UV Water Treatment:** ₱15,000-25,000 initial, 8-12 month ROI
-• **Aeration Systems:** ₱10,000-20,000, saves 15-25% mortality
-• **Water Testing Kits:** ₱2,000-5,000, prevents major losses
-• **Feed Storage Systems:** ₱3,000-8,000, reduces waste by 20%
-
-**ROI Calculation Factors:**
-• Current survival rates vs. potential improvement
-• Feed conversion efficiency gains
-• Labor cost savings
-• Premium pricing opportunities
-
-**Quick ROI Calculator:**
-• Investment cost ÷ Annual savings = Payback period
-• Factor in risk reduction value
-
-**Budget-Friendly Priorities:**
-1. Water testing equipment (highest impact/cost ratio)
-2. Basic aeration improvements
-3. Simple biosecurity measures
-
-Want specific ROI calculations for your farm size?`;
-    } else if (
-      lowerMessage.includes("emergency") ||
-      lowerMessage.includes("help") ||
-      lowerMessage.includes("🚨") ||
-      lowerMessage.includes("urgent")
-    ) {
-      category = "troubleshooting";
-      response = `**🚨 Emergency Response Protocol:**
-
-**Immediate Assessment (First 15 minutes):**
-• Check dissolved oxygen levels
-• Count visible shrimp mortality
-• Test water temperature and pH
-• Look for signs of stress behavior
-
-**Critical Actions:**
-• **Mass mortality (>10%):** Stop feeding, increase aeration, call vet
-• **Water quality crash:** 25% water exchange, test parameters
-• **Disease outbreak:** Isolate affected ponds, document symptoms
-• **Equipment failure:** Switch to backup systems, manual aeration
-
-**Emergency Contacts:**
-• Local aquaculture veterinarian
-• Nearest laboratory for water testing
-• Equipment supplier for urgent repairs
-
-**Documentation:**
-• Record time, symptoms, actions taken
-• Take photos/videos for expert consultation
-• Log water parameter readings
-
-**24-Hour Monitoring:**
-Check every 2 hours until situation stabilizes.
-
-Need specific emergency guidance for your current situation?`;
-    } else if (
-      lowerMessage.includes("best practices") ||
-      lowerMessage.includes("practices") ||
-      lowerMessage.includes("📋") ||
-      lowerMessage.includes("guide")
-    ) {
-      category = "how-to";
-      response = `**📋 GAqP Best Practices Summary:**
-
-**Daily Operations:**
-• Monitor water quality parameters (pH, DO, temperature)
-• Check shrimp behavior and appetite
-• Record feeding amounts and response
-• Maintain clean pond environments
-
-**Weekly Tasks:**
-• Water quality testing (ammonia, nitrite, alkalinity)
-• Equipment maintenance and cleaning
-• Feed inventory and storage check
-• Biosecurity protocol review
-
-**Monthly Reviews:**
-• Growth rate assessment
-• Feed conversion ratio calculation
-• Disease prevention protocol update
-• Cost tracking and analysis
-
-**Record Keeping:**
-• Daily feeding logs
-• Water quality data
-• Mortality records
-• Treatment applications
-
-**Key Success Factors:**
-• Consistent monitoring
-• Preventive approach
-• Proper documentation
-• Continuous learning
-
-**Certification Benefits:**
-• Premium market access
-• Better loan terms
-• Reduced insurance costs
-• Enhanced reputation
-
-Need detailed guidance on any specific practice?`;
-    } else {
-      response = `I understand you're asking about "${userMessage}".
-
-**🦐 I can help you with:**
-• **Step-by-step how-to guides** for biosecurity practices
-• **Troubleshooting support** for immediate issues
-• **Cost-benefit analysis** for investments
-• **Best practices** for specific situations
-• **Emergency response** protocols
-
-**💡 Try asking me about:**
-• "Water quality management"
-• "Feeding schedule optimization"
-• "Disease prevention protocols"
-• "Equipment cost analysis"
-• "Emergency procedures"
-
-I'm here to provide **practical, actionable guidance** for your farm! 🦐`;
     }
-
-    return {
-      id: Date.now().toString(),
-      type: "bot",
-      content: response,
-      timestamp: new Date(),
-      category,
-    };
   };
 
   const handleQuickAction = (action: QuickAction) => {
-    setInputMessage(action.label);
-    handleSendMessage();
-  };
-
-  const getCategoryColor = (category?: string) => {
-    switch (category) {
-      case "how-to":
-        return "bg-green-100 text-green-800";
-      case "troubleshooting":
-        return "bg-red-100 text-red-800";
-      case "cost-benefit":
-        return "bg-blue-100 text-blue-800";
-      default:
-        return "bg-gray-100 text-gray-800";
-    }
+    setInputMessage(action.question);
+    // Auto-send the question
+    setTimeout(() => {
+      const sendBtn = document.querySelector(
+        "[data-send-button]"
+      ) as HTMLButtonElement;
+      if (sendBtn) sendBtn.click();
+    }, 100);
   };
 
   return (
@@ -348,13 +194,27 @@ I'm here to provide **practical, actionable guidance** for your farm! 🦐`;
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          <MessageCircle className="h-5 w-5 text-blue-600" />
+          <MessageCircle className="h-5 w-5 text-[#3498DB]" />
           <h1 className="text-2xl font-bold text-gray-900">LikAI Coach</h1>
-          <Badge className="bg-green-100 text-green-800">Live</Badge>
+          <Badge className="bg-green-100 text-green-800">
+            <Sparkles className="mr-1 h-3 w-3" />
+            AI-Powered
+          </Badge>
+        </div>
+        <div className="text-sm text-gray-600">
+          {questionCount}/{MAX_QUESTIONS_PER_SESSION} questions used
         </div>
       </div>
 
-      {/* Enhanced Chat Interface */}
+      {/* Rate Limit Warning */}
+      {rateLimitWarning && (
+        <Alert variant="destructive">
+          <AlertCircle className="h-4 w-4" />
+          <AlertDescription>{rateLimitWarning}</AlertDescription>
+        </Alert>
+      )}
+
+      {/* Chat Interface */}
       <div className="relative">
         <div className="rounded-xl bg-gradient-to-br from-[#3498DB]/10 to-blue-50 p-6 shadow-lg">
           <div className="overflow-hidden rounded-lg bg-white shadow-md">
@@ -362,35 +222,30 @@ I'm here to provide **practical, actionable guidance** for your farm! 🦐`;
             <div className="flex items-center justify-between bg-gradient-to-r from-[#3498DB] to-[#2980B9] px-4 py-3 text-white">
               <div className="flex items-center space-x-3">
                 <div className="relative flex h-10 w-10 items-center justify-center rounded-full border-2 border-white/30 bg-white/20">
-                  <div className="text-lg">�</div>
+                  <div className="text-lg">🦐</div>
                   <div className="absolute -bottom-1 -right-1 h-3 w-3 rounded-full border-2 border-white bg-green-400"></div>
                 </div>
                 <div>
                   <div className="text-sm font-semibold">LikAI Coach</div>
                   <div className="flex items-center text-xs text-blue-100">
                     <div className="mr-1 h-2 w-2 rounded-full bg-green-400"></div>
-                    Online • Aquaculture Expert
+                    Online • GAqP Expert
                   </div>
                 </div>
               </div>
-              <div className="flex space-x-1">
-                <div className="h-2 w-2 rounded-full bg-red-400"></div>
-                <div className="h-2 w-2 rounded-full bg-orange-400"></div>
-                <div className="h-2 w-2 rounded-full bg-green-400"></div>
-              </div>
             </div>
 
-            {/* Smart Alert Banner */}
-            {currentAlert && (
-              <div className="border-b bg-orange-50 px-4 py-2">
-                <div className="flex items-center space-x-2">
-                  <div className="h-2 w-2 rounded-full bg-orange-500"></div>
-                  <span className="text-xs font-medium text-orange-700">
-                    {currentAlert}
-                  </span>
-                </div>
+            {/* Info Banner */}
+            <div className="border-b bg-blue-50 px-4 py-2">
+              <div className="flex items-center space-x-2 text-xs text-blue-700">
+                <AlertCircle className="h-3 w-3" />
+                <span>
+                  Responses are generated using AI trained on official GAqP
+                  manuals. Always verify critical decisions with aquaculture
+                  experts.
+                </span>
               </div>
-            )}
+            </div>
 
             {/* Chat Messages */}
             <div className="h-[32rem] space-y-4 overflow-y-auto p-4">
@@ -421,38 +276,31 @@ I'm here to provide **practical, actionable guidance** for your farm! 🦐`;
                       }`}
                     >
                       <div
-                        className={`flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full ${
+                        className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full ${
                           message.type === "user"
-                            ? "bg-[#3498DB]"
+                            ? "bg-[#FF7F50]"
+                            : message.isError
+                            ? "bg-red-500"
                             : "bg-[#3498DB]"
                         }`}
                       >
-                        <span className="text-xs font-bold text-white">
+                        <span className="text-sm font-bold text-white">
                           {message.type === "user" ? "👤" : "🦐"}
                         </span>
                       </div>
                       <div className="flex-1">
                         <div
-                          className={`max-w-xs rounded-lg px-4 py-3 ${
+                          className={`max-w-xl rounded-lg px-4 py-3 ${
                             message.type === "user"
-                              ? "ml-auto bg-[#3498DB] text-white"
+                              ? "ml-auto bg-[#FF7F50] text-white"
+                              : message.isError
+                              ? "bg-red-50 text-red-900"
                               : "bg-gray-100 text-gray-800"
                           }`}
                         >
                           <p className="whitespace-pre-wrap text-sm leading-relaxed">
                             {message.content}
                           </p>
-                        </div>
-                        <div className="mt-1 flex items-center justify-between">
-                          {message.category && message.type === "bot" && (
-                            <Badge
-                              className={`text-xs ${getCategoryColor(
-                                message.category
-                              )}`}
-                            >
-                              {message.category}
-                            </Badge>
-                          )}
                         </div>
                       </div>
                     </div>
@@ -462,8 +310,8 @@ I'm here to provide **practical, actionable guidance** for your farm! 🦐`;
 
               {isTyping && (
                 <div className="flex items-start space-x-3">
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#3498DB]">
-                    <span className="text-xs font-bold text-white">🦐</span>
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#3498DB]">
+                    <span className="text-sm font-bold text-white">🦐</span>
                   </div>
                   <div className="flex-1">
                     <div className="max-w-xs rounded-lg bg-gray-100 px-4 py-3">
@@ -494,8 +342,11 @@ I'm here to provide **practical, actionable guidance** for your farm! 🦐`;
                 {quickActions.map((action, index) => (
                   <button
                     key={index}
-                    className="flex min-h-[48px] items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-3 text-center text-sm text-gray-700 shadow-sm transition-all duration-200 hover:border-blue-200 hover:bg-blue-50 hover:shadow-md active:scale-95"
+                    className="flex min-h-[48px] items-center justify-center rounded-lg border border-gray-200 bg-white px-3 py-3 text-center text-sm text-gray-700 shadow-sm transition-all duration-200 hover:border-[#3498DB] hover:bg-blue-50 hover:shadow-md active:scale-95"
                     onClick={() => handleQuickAction(action)}
+                    disabled={
+                      isTyping || questionCount >= MAX_QUESTIONS_PER_SESSION
+                    }
                   >
                     {action.label}
                   </button>
@@ -509,26 +360,36 @@ I'm here to provide **practical, actionable guidance** for your farm! 🦐`;
                 <Input
                   value={inputMessage}
                   onChange={(e) => setInputMessage(e.target.value)}
-                  placeholder="Ask about biosecurity, water quality, feeding schedules..."
-                  onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-                  className="min-h-[48px] flex-1 resize-none rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-[#3498DB] focus:outline-none focus:ring-1 focus:ring-[#3498DB]"
+                  placeholder="Ask about water quality, feeding, biosecurity, GAqP practices..."
+                  onKeyPress={(e) =>
+                    e.key === "Enter" && !isTyping && handleSendMessage()
+                  }
+                  disabled={
+                    isTyping || questionCount >= MAX_QUESTIONS_PER_SESSION
+                  }
+                  className="min-h-[48px] flex-1 resize-none rounded-lg border border-gray-300 px-4 py-3 text-sm focus:border-[#3498DB] focus:outline-none focus:ring-1 focus:ring-[#3498DB] disabled:bg-gray-100"
                 />
                 <Button
                   onClick={handleSendMessage}
-                  disabled={!inputMessage.trim() || isTyping}
-                  className="flex min-h-[48px] items-center bg-[#3498DB] px-4 py-3 text-sm hover:bg-[#2980B9]"
+                  disabled={
+                    !inputMessage.trim() ||
+                    isTyping ||
+                    questionCount >= MAX_QUESTIONS_PER_SESSION
+                  }
+                  data-send-button
+                  className="flex min-h-[48px] items-center bg-[#FF7F50] px-4 py-3 text-sm hover:bg-[#E6723C] disabled:bg-gray-300"
                 >
-                  <span className="mr-1">📤</span>
+                  <Send className="mr-1 h-4 w-4" />
                   Send
                 </Button>
               </div>
-              {(isTyping || inputMessage.trim()) && (
-                <div className="mt-2 text-xs text-gray-500">
-                  {isTyping
-                    ? "LikAI Coach is thinking..."
-                    : "Press Enter or click Send to ask your question"}
-                </div>
-              )}
+              <div className="mt-2 text-xs text-gray-500">
+                {isTyping
+                  ? "LikAI Coach is thinking..."
+                  : inputMessage.trim()
+                  ? "Press Enter or click Send to ask your question"
+                  : "Only questions related to shrimp farming will be answered"}
+              </div>
             </div>
           </div>
         </div>

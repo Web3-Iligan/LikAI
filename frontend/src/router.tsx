@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import App, { ProtectedOutlet } from "./App";
+import App from "./App";
 
 // Import all your existing pages
 import Auth from "./pages/Auth";
@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         path: "/onboarding",
         element: <Onboarding />,
       },
-      
+
       // Protected routes - all routes below need authentication
       {
         element: <ProtectedOutlet />,
@@ -83,8 +83,8 @@ const router = createBrowserRouter([
             path: "/knowledge",
             element: <AdminKnowledge />,
           },
-        ]
-      }
+        ],
+      },
     ],
   },
 ]);

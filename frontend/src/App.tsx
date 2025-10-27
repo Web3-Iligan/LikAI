@@ -28,7 +28,7 @@ function App() {
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isAuthReady } = useAuth();
-  const location = useLocation;
+  const location = useLocation();
 
   if (!isAuthReady) {
     return (
