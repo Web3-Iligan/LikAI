@@ -72,7 +72,7 @@ except requests.exceptions.ConnectionError:
     print("\n❌ ERROR: Cannot connect to backend!")
     print("Make sure the backend is running:")
     print("  1. Open a terminal")
-    print("  2. cd backend/python_ai")
+    print("  2. cd backend/ai_service")
     print("  3. source venv/Scripts/activate")
     print("  4. python app.py")
     

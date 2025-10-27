@@ -116,7 +116,7 @@ LikAI/
 ├── frontend/                # React.js 19 with React Router v7 application
 ├── backend/                 
 │   ├── api/                 # Motoko smart contracts
-│   ├── python_ai/           # Python AI backend with RAG pipeline
+│   ├── ai_service/           # Python AI backend with RAG pipeline
 │   │   ├── app.py           # FastAPI server
 │   │   ├── modules/         # RAG pipeline components
 │   │   ├── data/            # GAqP PDFs and vector database
@@ -169,7 +169,7 @@ npm run setup
 #### 3. Setup AI Backend
 
 ```sh
-cd backend/python_ai
+cd backend/ai_service
 
 # Create virtual environment
 python -m venv venv
@@ -192,7 +192,7 @@ python initialize_vectordb.py
 
 **Terminal 1 - AI Backend:**
 ```sh
-cd backend/python_ai
+cd backend/ai_service
 python app.py
 # Server runs on http://localhost:8000
 ```

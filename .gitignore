@@ -77,10 +77,10 @@ yarn-error.log*
 *.temp
 
 # Python AI Backend specific
-backend/python_ai/venv/
-backend/python_ai/data/vectordb/
-backend/python_ai/data/embeddings/
-backend/python_ai/models/
-backend/python_ai/*.log
-backend/python_ai/.pytest_cache/
-backend/python_ai/modules/__pycache__/
+backend/ai_service/venv/
+backend/ai_service/data/vectordb/
+backend/ai_service/data/embeddings/
+backend/ai_service/models/
+backend/ai_service/*.log
+backend/ai_service/.pytest_cache/
+backend/ai_service/modules/__pycache__/

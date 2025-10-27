@@ -14,7 +14,7 @@ AI-powered biosecurity recommendations for Filipino shrimp farmers using Retriev
 
 ```bash
 # Navigate to directory
-cd backend/python_ai
+cd backend/ai_service
 
 # Create virtual environment
 python -m venv venv
@@ -32,7 +32,7 @@ python initialize_vectordb.py
 
 ### Configuration
 
-**Create `.env` file in `backend/python_ai/`:**
+**Create `.env` file in `backend/ai_service/`:**
 
 ```env
 # Groq API Configuration
@@ -197,7 +197,7 @@ model="llama-3.3-70b-versatile"  # More powerful
 
 ### Project Structure
 ```
-backend/python_ai/
+backend/ai_service/
 ├── app.py                      # FastAPI server
 ├── initialize_vectordb.py      # Vector DB setup
 ├── test_rag_pipeline.py        # Test suite
@@ -231,7 +231,7 @@ pip install langchain-groq
 ```
 
 ### GROQ_API_KEY not found
-1. Create `.env` file in `backend/python_ai/`
+1. Create `.env` file in `backend/ai_service/`
 2. Add: `GROQ_API_KEY=your_key`
 3. Get key: https://console.groq.com/keys
 
