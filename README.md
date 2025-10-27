@@ -1,6 +1,6 @@
 # LikAI: Predictable Supply from Compliant Farms
 
-![LikAI Cover Photo](./public/likai-cover-page.png)
+![LikAI Cover Photo](./public/likai-cover.png)
 
 We're using AI to help Filipino shrimp farmers build resilient farms and secure future harvests. Our mission is to strengthen the entire Philippine aquaculture industry, one healthy farm at a time.
 
@@ -62,11 +62,15 @@ LikAI is a B2B platform that gives processors the tools to turn their small shri
 
 - ✅ Added Motoko database integration to the backend
 - ✅ Added the KYC Canister.
-- ❌ The functionality of the whole motoko backend is still in progress.
+- ✅ Added ICP Authentication.
 
 **AI Model**
 
-- ❌ Still in the process of making LikAI AI model.
+- ✅ Implemented RAG (Retrieval-Augmented Generation) pipeline using Groq LLM
+- ✅ Integrated 3 official GAqP PDFs (635 pages) into vector database
+- ✅ Created farm assessment endpoint with AI-generated recommendations
+- ✅ Built AI chatbot for real-time farmer guidance with guardrails
+- ✅ Added rate limiting and content filtering for responsible AI use
 
 ### Feature 2: Main Dashboard
 
@@ -83,6 +87,25 @@ LikAI is a B2B platform that gives processors the tools to turn their small shri
 - ✅ New modules and supporting resources have been added to enhance the overall credibility of the application.
 - ✅ added GAqP modules UI enhancements.
 
+### Feature 4: AI Coach (Chatbot)
+
+**Frontend**
+
+- ✅ Interactive chatbot interface with LikAI Coach branding
+- ✅ Real-time AI responses powered by RAG pipeline
+- ✅ Quick action buttons for common farm questions
+- ✅ Usage tracking with visual indicators (questions used/remaining)
+- ✅ Mobile-responsive design matching application theme
+
+**Backend**
+
+- ✅ RAG pipeline integration with 3 GAqP PDF manuals (635 pages)
+- ✅ Semantic search using ChromaDB vector database
+- ✅ Groq LLM (Llama 3.1-8B-Instant) for answer generation
+- ✅ Content filtering with 30+ aquaculture keywords
+- ✅ Rate limiting: 20 questions/session, 3/minute
+- ✅ Session tracking and logging for analytics
+
 ## Getting Started
 
 ## Project Structure
@@ -91,50 +114,99 @@ LikAI is a B2B platform that gives processors the tools to turn their small shri
 LikAI/
 ├── docs/                    # Documentations
 ├── frontend/                # React.js 19 with React Router v7 application
-├── backend/                 # Motoko smart contracts
+├── backend/                 
+│   ├── api/                 # Motoko smart contracts
+│   ├── python_ai/           # Python AI backend with RAG pipeline
+│   │   ├── app.py           # FastAPI server
+│   │   ├── modules/         # RAG pipeline components
+│   │   ├── data/            # GAqP PDFs and vector database
+│   │   └── requirements.txt # Python dependencies
+│   └── storage/             # Data storage canisters
 ├── setup/                   # Scripts for installing dependencies and local deployment
 ├── public/                  # Images
 ```
 
 ### Technology Stack
 
-- Frontend: React 19 + React Router v7 + Radix UI + Tailwind CSS
+**Frontend:**
+- React 19 + React Router v7 + Radix UI + Tailwind CSS
+- Build Tool: Vite
+
+**Backend:**
 - Blockchain: Internet Computer Protocol (ICP)
 - Smart Contracts: Motoko
-- Build Tool: Vite
-- Styling: Radix UI + Tailwind CSS
+- AI Backend: Python + FastAPI
+- LLM: Groq (Llama 3.1-8B-Instant)
+- Vector DB: ChromaDB
+- Embeddings: SentenceTransformers (all-MiniLM-L6-v2)
 
 ### Prerequisites
 
+**Frontend & ICP:**
 - Node.js (v18+ recommended)
 - npm or yarn
+- DFX (Internet Computer SDK)
+
+**AI Backend:**
+- Python 3.11+
+- Groq API Key (free at https://console.groq.com/keys)
 
 ### Installation
 
-1. **Clone the repository:**
+#### 1. Clone the repository
 
-   ```sh
-   git clone https://github.com/your-org/likai.git
-   cd likai
-   ```
+```sh
+git clone https://github.com/your-org/likai.git
+cd likai
+```
 
-2. **Install dependencies:**
-   - To install the dependencies, simply run the following command:
-   ```sh
-   npm run setup
-   ```
+#### 2. Install Frontend Dependencies
 
-3. **Configure environment variables:**
-   - Copy `.env.example` to `.env.local` and set your API keys (e.g., `OPENAI_API_KEY`).
+```sh
+npm run setup
+```
 
-4. **Run the development server:**
-   ```sh
-   npm run start
-   # or
-   yarn dev
-   ```
+#### 3. Setup AI Backend
 
-5. **Open [http://localhost:3000](http://localhost:3000) in your browser.**
+```sh
+cd backend/python_ai
+
+# Create virtual environment
+python -m venv venv
+
+# Activate (Git Bash/Mac/Linux)
+source venv/Scripts/activate
+# Or PowerShell: venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Create .env file
+echo "GROQ_API_KEY=your_groq_api_key_here" > .env
+
+# Initialize vector database (first time only)
+python initialize_vectordb.py
+```
+
+#### 4. Run Development Servers
+
+**Terminal 1 - AI Backend:**
+```sh
+cd backend/python_ai
+python app.py
+# Server runs on http://localhost:8000
+```
+
+**Terminal 2 - Frontend:**
+```sh
+npm run dev
+# Server runs on http://localhost:5173
+```
+
+#### 5. Open the application
+
+- Frontend: [http://localhost:5173](http://localhost:5173)
+- AI API Docs: [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ### Running on the Local DFX NETWORK
 
@@ -156,22 +228,33 @@ bash setup/deploy_local.sh
 zsh setup/deploy_local.sh # if you are using zsh
 ```
 
-### API Endpoints
+### AI API Endpoints
 
-- `/api/generate-assessment-plan` – Generates biosecurity tasks based on farm data.
-- `/api/generate-plan` – Creates detailed action plans for risk factors.
-- `/api/generate-how-to` – Produces step-by-step guides for farm tasks.
-- `/api/chat-how-to` – AI chat support for how-to guides.
-- `/api/submit` - Allows submission of onboarding form data to be sent towards the AI
+**Farm Assessment** (http://localhost:8000)
+
+- `POST /process-assessment` – Analyzes farm data and generates AI-powered biosecurity recommendations
+  - Input: Farm details (species, type, water source, concerns, etc.)
+  - Output: Overall score, category scores, personalized action plan
+  - Features: RAG-powered recommendations based on 3 GAqP manuals
+
+- `POST /query` – AI chatbot for farm-related questions (LikAI Coach)
+  - Input: Natural language question
+  - Output: AI-generated answer from GAqP manuals
+  - Guardrails: 
+    - Only answers aquaculture-related questions
+    - Rate limit: 20 questions/session, 3 questions/minute
+    - Content validation using 30+ farm keywords
+
+- `GET /health` – Health check endpoint
+- `GET /docs` – Interactive API documentation (Swagger UI)
+
+**ICP Canisters**
+
+- Coming soon: Motoko canister endpoints for on-chain data storage
 
 ### Deployment
 
-**Main Network**
-
-- ✅ LikAI's current features can be accessed through the main network.
-- ❌ However, the backend remains out of function. The Main Network's data are static as of the moment.
-
-**LikAI Main Network**:  https://s7zgf-2iaaa-aaaad-qhoyq-cai.icp0.io/
+**LikAI Main Network**: https://5btcw-oyaaa-aaaah-ark7a-cai.icp0.io/
 
 ### Contributing
 

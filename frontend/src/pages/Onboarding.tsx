@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 
 import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useAuth } from "@/hooks/use-auth";
 
 /**
  * OnboardingPage Component
@@ -28,6 +29,8 @@ import { Textarea } from "@/components/ui/textarea";
 export default function OnboardingPage() {
   // Navigation and routing
   const navigate = useNavigate();
+  const { login, isAuthenticated, isAuthReady } = useAuth();
+  const location = useLocation();
 
   // Step management - supports fractional steps for intermediate screens (5.5, 5.7)
   const [currentStep, setCurrentStep] = useState(0);
@@ -83,9 +86,13 @@ export default function OnboardingPage() {
     "Almost done, finalizing your plan...",
   ];
 
+  const from = location.state?.from?.pathname || "/dashboard";
+
   useEffect(() => {
     // Load form data from localStorage on component mount
-    if (typeof window !== "undefined") {
+    if (isAuthenticated) {
+      navigate(from);
+    } else if (typeof window !== "undefined") {
       try {
         const savedFormData = localStorage.getItem("onboarding-form-data");
         if (savedFormData) {
@@ -97,6 +104,23 @@ export default function OnboardingPage() {
       }
     }
   }, []);
+
+  const handleLogin = async () => {
+    try {
+      await login();
+      handleNext();
+    } catch (err) {
+      console.error("Login failed: ", err);
+    }
+  };
+
+  if (!isAuthReady) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
 
   useEffect(() => {
     if (currentStep === 5.5) {
@@ -1314,7 +1338,7 @@ export default function OnboardingPage() {
                     <Button
                       className="flex h-14 w-full items-center justify-center space-x-4 rounded-xl bg-gradient-to-r from-[#3498DB] to-[#2980B9] text-lg font-medium text-white shadow-xl transition-all duration-200 hover:scale-[1.02] hover:from-[#2980B9] hover:to-[#1F618D] hover:shadow-2xl"
                       aria-describedby="signup-benefits"
-                      onClick={handleNext}
+                      onClick={handleLogin}
                     >
                       <div className="flex h-8 w-8 items-center justify-center">
                         <img

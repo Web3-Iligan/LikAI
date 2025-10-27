@@ -6,8 +6,8 @@ echo "Starting post-create installation script..."
 
 # 1. Install libunwind-dev
 echo "Installing libunwind-dev..."
-sudo apt-get update -y
-sudo apt-get install -y libunwind-dev
+sudo apt update -y
+sudo apt install -y libunwind-dev
 echo "libunwind-dev installed."
 
 # 2. Install nvm (Node Version Manager) and the latest Node.js

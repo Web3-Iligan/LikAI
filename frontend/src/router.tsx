@@ -1,5 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
-import App from "./App";
+import App, { ProtectedOutlet } from "./App";
 
 // Import all your existing pages
 import Auth from "./pages/Auth";
