@@ -9,7 +9,7 @@ import logging
 from datetime import datetime
 from dotenv import load_dotenv
 
-from modules.rag_pipeline import process_farm_assessment
+from modules.rag_pipeline import process_farm_assessment, query_farm_knowledge
 from modules.schemas import AssessmentData, AIRecommendation, CategoryAssessment, FarmStatusAssessment
 
 # Load environment variables
@@ -217,6 +217,43 @@ async def analyze_assessment(request: AssessmentRequest):
         logger.error("=" * 80)
         raise HTTPException(status_code=500, detail=f"Error processing assessment: {str(e)}")
 
+class QueryRequest(BaseModel):
+    question: str
+    session_id: Optional[str] = None
+
+class QueryResponse(BaseModel):
+    answer: str
+    question: str
+    timestamp: str
+
+@app.post("/query", response_model=QueryResponse)
+async def query_knowledge(request: QueryRequest):
+    """
+    Query the RAG system for farm-related knowledge.
+    Includes guardrails to only answer aquaculture-related questions.
+    """
+    try:
+        logger.info("=" * 80)
+        logger.info("🤖 CHATBOT QUERY REQUEST")
+        logger.info("=" * 80)
+        logger.info(f"Question: {request.question}")
+        logger.info(f"Session ID: {request.session_id or 'N/A'}")
+        
+        # Get answer from RAG system
+        answer = query_farm_knowledge(request.question)
+        
+        logger.info(f"✅ Generated answer ({len(answer)} characters)")
+        logger.info("=" * 80)
+        
+        return QueryResponse(
+            answer=answer,
+            question=request.question,
+            timestamp=datetime.now().isoformat()
+        )
+    except Exception as e:
+        logger.error(f"❌ Error processing query: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error processing query: {str(e)}")
+
 @app.get("/")
 async def root():
     """Root endpoint - API information"""
@@ -227,6 +264,7 @@ async def root():
         "endpoints": {
             "health": "/health",
             "assessment": "/process-assessment (POST)",
+            "query": "/query (POST)",
             "docs": "/docs"
         }
     }

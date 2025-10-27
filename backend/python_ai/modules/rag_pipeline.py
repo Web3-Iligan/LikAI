@@ -88,6 +88,73 @@ def process_farm_assessment(assessment_data: AssessmentData) -> FarmStatusAssess
     
     return assessment
 
+def query_farm_knowledge(question: str) -> str:
+    """
+    Query the RAG system for farm-related knowledge.
+    Returns an AI-generated answer based on the vector database context.
+    """
+    # Check if question is farm-related
+    farm_keywords = [
+        'shrimp', 'prawn', 'aquaculture', 'pond', 'water', 'feed', 'disease', 
+        'biosecurity', 'gaqp', 'farm', 'harvest', 'culture', 'post-larvae', 'pl',
+        'stocking', 'mortality', 'growth', 'vannamei', 'monodon', 'oxygen',
+        'ph', 'salinity', 'temperature', 'ammonia', 'nitrite', 'treatment',
+        'hatchery', 'nursery', 'grow-out', 'fry', 'nauplii'
+    ]
+    
+    question_lower = question.lower()
+    is_farm_related = any(keyword in question_lower for keyword in farm_keywords)
+    
+    if not is_farm_related:
+        return ("I'm LikAI Coach, specialized in aquaculture and shrimp farming practices. "
+                "I can only answer questions related to shrimp farming, pond management, "
+                "biosecurity, water quality, feeding, disease prevention, and GAqP best practices. "
+                "Please ask me something about your shrimp farm! 🦐")
+    
+    # Initialize vector DB
+    vector_db = initialize_or_load_vectordb()
+    
+    # Retrieve relevant context
+    docs = vector_db.similarity_search(question, k=4)
+    
+    # Format context
+    context_parts = []
+    for doc in docs:
+        source = doc.metadata.get("source", "unknown")
+        context_parts.append(f"[From {source}]\n{doc.page_content}")
+    
+    context = "\n\n".join(context_parts)
+    
+    # Create prompt for question answering
+    prompt = f"""You are LikAI Coach, an expert in shrimp aquaculture and GAqP (Good Aquaculture Practices) certification. 
+Answer the farmer's question using the provided context from official GAqP manuals.
+
+CONTEXT FROM GAqP MANUALS:
+{context}
+
+FARMER'S QUESTION:
+{question}
+
+INSTRUCTIONS:
+- Provide a clear, practical answer that farmers can immediately apply
+- Use simple language and avoid jargon when possible
+- Include specific steps or actions when relevant
+- Reference GAqP standards when applicable
+- Keep the response concise but comprehensive (3-5 paragraphs max)
+- Use emojis sparingly for emphasis (🦐 for shrimp, 💧 for water, etc.)
+- If the context doesn't fully answer the question, provide general best practices
+
+ANSWER:"""
+    
+    # Get LLM response
+    llm = get_llm()
+    response = llm.invoke(prompt)
+    
+    # Extract content
+    answer = response.content if hasattr(response, 'content') else str(response)
+    
+    return answer.strip()
+
 def parse_ai_response(response: str) -> FarmStatusAssessment:
     """Parse the AI response into structured assessment with scores"""
     
