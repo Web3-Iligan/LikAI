@@ -3,6 +3,7 @@ interface WindowWithEnv extends Window {
   ENV?: {
     DFX_NETWORK?: string;
     CANISTER_ID_INTERNET_IDENTITY?: string;
+    AI_API_URL?: string;
   };
 }
 
@@ -19,5 +20,10 @@ window.ENV.DFX_NETWORK = import.meta.env.DFX_NETWORK ||
 window.ENV.CANISTER_ID_INTERNET_IDENTITY = import.meta.env.CANISTER_ID_INTERNET_IDENTITY || 
                                           window.ENV.CANISTER_ID_INTERNET_IDENTITY || 
                                           'rdmx6-jaaaa-aaaaa-aaadq-cai'; // Default local II canister
+
+// AI Backend API URL
+window.ENV.AI_API_URL = import.meta.env.VITE_AI_API_URL || 
+                        window.ENV.AI_API_URL || 
+                        'http://localhost:8000';
 
 export {}; // This file is a module

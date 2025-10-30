@@ -409,17 +409,142 @@ export function FarmAssessmentForm() {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch("/api/generate-assessment-plan", {
+      // Get AI API URL from environment
+      const AI_API_URL =
+        (window as any).ENV?.AI_API_URL || "http://localhost:8000";
+
+      console.log(
+        "================================================================================"
+      );
+      console.log("📤 SENDING ASSESSMENT TO BACKEND");
+      console.log(
+        "================================================================================"
+      );
+      console.log("API URL:", AI_API_URL);
+      console.log("Farm Name:", formData.farmName);
+      console.log("Location:", formData.location);
+      console.log("Species:", formData.primarySpecies);
+      console.log("Farm Type:", formData.farmType);
+      console.log("Top Concerns:", formData.topConcerns);
+      console.log("\n📋 FULL REQUEST DATA:");
+      console.log(JSON.stringify(formData, null, 2));
+      console.log(
+        "--------------------------------------------------------------------------------"
+      );
+
+      const startTime = Date.now();
+
+      const response = await fetch(`${AI_API_URL}/process-assessment`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
-      if (!response.ok) throw new Error("Failed to submit assessment");
+      const elapsedTime = ((Date.now() - startTime) / 1000).toFixed(2);
 
-      router.push("/plan");
+      if (!response.ok) {
+        console.error(
+          "================================================================================"
+        );
+        console.error("❌ ERROR RESPONSE FROM BACKEND");
+        console.error(
+          "================================================================================"
+        );
+        console.error("Status:", response.status, response.statusText);
+        const errorData = await response
+          .json()
+          .catch(() => ({ detail: "Unknown error" }));
+        console.error("Error Details:", errorData);
+        console.error(
+          "================================================================================"
+        );
+        throw new Error(errorData.detail || "Failed to submit assessment");
+      }
+
+      const result = await response.json();
+
+      console.log(
+        "================================================================================"
+      );
+      console.log("📥 RECEIVED RESPONSE FROM BACKEND");
+      console.log(
+        "================================================================================"
+      );
+      console.log(`⏱️  Response Time: ${elapsedTime}s`);
+      console.log(`Overall Score: ${result.overallScore}/100`);
+      console.log(`Overall Status: ${result.overallStatus}`);
+      console.log(`Summary: ${result.summary?.substring(0, 100)}...`);
+
+      if (result.categories) {
+        console.log("\n📊 CATEGORY SCORES:");
+        Object.entries(result.categories).forEach(
+          ([name, data]: [string, any]) => {
+            console.log(
+              `  • ${name
+                .replace(/_/g, " ")
+                .replace(/\b\w/g, (l) => l.toUpperCase())}: ${
+                data.score
+              }/100 (${data.status})`
+            );
+          }
+        );
+      }
+
+      console.log(`\n✅ Received ${result.tasks?.length || 0} recommendations`);
+
+      if (result.tasks && result.tasks.length > 0) {
+        console.log("\n📝 Sample Recommendation:");
+        console.log(`  Title: ${result.tasks[0].title}`);
+        console.log(`  Priority: ${result.tasks[0].priority}`);
+        console.log(`  Category: ${result.tasks[0].category}`);
+      }
+
+      console.log("\n📋 FULL RESPONSE DATA:");
+      console.log(JSON.stringify(result, null, 2));
+      console.log(
+        "================================================================================"
+      );
+      console.log("✅ ASSESSMENT COMPLETED SUCCESSFULLY");
+      console.log(
+        "================================================================================"
+      );
+
+      // Store the AI recommendations in localStorage for the plan page
+      if (result.tasks) {
+        localStorage.setItem(
+          "ai_recommendations",
+          JSON.stringify(result.tasks)
+        );
+        localStorage.setItem("farm_assessment", JSON.stringify(formData));
+
+        // Also store the new assessment data
+        if (result.overallScore !== undefined) {
+          localStorage.setItem(
+            "farm_assessment_result",
+            JSON.stringify(result)
+          );
+          console.log("💾 Stored complete assessment result in localStorage");
+        }
+      }
+
+      navigate("/plan");
     } catch (error) {
+      console.error(
+        "================================================================================"
+      );
+      console.error("❌ FRONTEND ERROR");
+      console.error(
+        "================================================================================"
+      );
       console.error("Error submitting assessment:", error);
+      console.error(
+        "================================================================================"
+      );
+      alert(
+        `Failed to process assessment: ${
+          error instanceof Error ? error.message : "Unknown error"
+        }`
+      );
     } finally {
       setIsSubmitting(false);
     }

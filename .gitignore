@@ -75,3 +75,12 @@ yarn-error.log*
 # Temporary files
 *.tmp
 *.temp
+
+# Python AI Backend specific
+backend/ai_service/venv/
+backend/ai_service/data/vectordb/
+backend/ai_service/data/embeddings/
+backend/ai_service/models/
+backend/ai_service/*.log
+backend/ai_service/.pytest_cache/
+backend/ai_service/modules/__pycache__/
