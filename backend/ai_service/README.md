@@ -4,13 +4,13 @@ AI-powered biosecurity recommendations for Filipino shrimp farmers using Retriev
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 - Python 3.11+
 - Groq API key (free at https://console.groq.com/keys)
 
-### Installation
+### One-Command Setup
 
 ```bash
 # Navigate to directory
@@ -26,9 +26,16 @@ source venv/Scripts/activate
 # Install dependencies
 pip install -r requirements.txt
 
-# Initialize vector database (first time only)
-python initialize_vectordb.py
+# Run the complete initializer (downloads models, sets up database)
+python initialize.py
 ```
+
+The initializer will:
+1. ✅ Check environment configuration
+2. ✅ Verify Python dependencies
+3. ✅ Download embedding model (~80MB, one-time)
+4. ✅ Initialize vector database from PDFs
+5. ✅ Test complete RAG pipeline
 
 ### Configuration
 
@@ -42,9 +49,21 @@ EMBEDDING_MODEL=all-MiniLM-L6-v2
 
 **Get your Groq API key:** https://console.groq.com/keys (free tier available)
 
+### Alternative: Manual Initialization
+
+If you prefer step-by-step setup:
+
+```bash
+# Initialize vector database only
+python initialize_vectordb.py
+
+# Run tests
+python test_rag_pipeline.py
+```
+
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ### RAG Pipeline Flow
 ```
@@ -64,7 +83,7 @@ LLM (Groq) → Structured Recommendations
 
 ---
 
-## 📊 Data
+## Data
 
 ### Knowledge Base (3 PDFs)
 - `EM-Code-of-GAqP-Shrimp-and-Crab.pdf` (135 pages)
@@ -83,23 +102,25 @@ data/
 
 ---
 
-## 🧪 Testing
+## Testing
 
 ### Run Complete Test Suite
 ```bash
 python test_rag_pipeline.py
 ```
 
-**Tests:**
-1. ✅ PDF Loading & Chunking
-2. ✅ Embedding Generation
-3. ✅ Vector Database
-4. ✅ LLM Connection (Groq)
-5. ✅ End-to-End RAG Pipeline
+**Automated Tests:**
+- ✅ Embedding Model (generation, batching, similarity)
+- ✅ Vector Database (initialization, search, relevance)
+- ✅ LLM Connection (Groq API, responses)
+- ✅ RAG Pipeline (farm queries, assessments, non-farm rejection)
+- ✅ Document Processing (PDF loading, chunking)
+
+The test suite uses Python's unittest framework and provides detailed output for each test case.
 
 ---
 
-## 🌐 API Server
+## API Server
 
 ### Start Server
 ```bash
@@ -160,7 +181,7 @@ Content-Type: application/json
 
 ---
 
-## 🔧 Configuration
+## Configuration
 
 ### Groq API
 
@@ -193,7 +214,7 @@ model="llama-3.3-70b-versatile"  # More powerful
 
 ---
 
-## 🛠️ Development
+## Development
 
 ### Project Structure
 ```
@@ -223,7 +244,7 @@ backend/ai_service/
 
 ---
 
-## 🚨 Troubleshooting
+## Troubleshooting
 
 ### ImportError: No module named 'langchain_groq'
 ```bash
@@ -267,7 +288,7 @@ python initialize_vectordb.py
 
 ---
 
-## 📦 Dependencies
+## Dependencies
 
 **Core:**
 - `langchain>=0.3.0` - LLM framework

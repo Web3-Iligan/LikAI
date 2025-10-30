@@ -7,9 +7,6 @@ try:
 except ImportError:
     from langchain_community.vectorstores import Chroma
 
-from langchain.retrievers import ContextualCompressionRetriever
-from langchain.retrievers.document_compressors import LLMChainExtractor
-
 from .document_loader import process_pdfs
 from .embedding import get_embeddings_model
 from .schemas import AssessmentData, AIRecommendation, CategoryAssessment, FarmStatusAssessment
